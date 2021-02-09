@@ -42,7 +42,13 @@ public class WebviewActivity extends AppCompatActivity {
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.addJavascriptInterface(new AndroidJavascriptInterface(this), "Android");
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl(url);
+            }
+        });
     }
 
     public WebView getWebView() {
