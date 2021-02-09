@@ -49,7 +49,7 @@ public class JsonCallback<T> extends AbsCallback {
             if (base != null) {
                 if (base.code == 0) {
                     return t;
-                } else {
+                } else{
 
                 }
             }

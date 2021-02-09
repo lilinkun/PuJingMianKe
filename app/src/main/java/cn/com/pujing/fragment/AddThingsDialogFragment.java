@@ -1,5 +1,6 @@
 package cn.com.pujing.fragment;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -72,21 +73,21 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
             }
             dismiss();
         } else if (id == R.id.iv_start_time) {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
 
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String startTime = String.format("%d:%d", hourOfDay, minute);
+                    String startTime = String.format("%02d:%02d", hourOfDay, minute);
                     startTimeTextView.setText(startTime);
                 }
             }, 0, 0, true);
             timePickerDialog.show();
         } else if (id == R.id.iv_end_time) {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
 
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String startTime = String.format("%d:%d", hourOfDay, minute);
+                    String startTime = String.format("%02d:%02d", hourOfDay, minute);
                     endTimeTextView.setText(startTime);
                 }
             }, 0, 0, true);

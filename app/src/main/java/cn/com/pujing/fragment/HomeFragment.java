@@ -1,15 +1,11 @@
 package cn.com.pujing.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,18 +21,20 @@ import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 
-import cn.com.pujing.Constants;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.MoreActivity;
-import cn.com.pujing.activity.MyMsgActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.callback.RequestCallback;
 import cn.com.pujing.datastructure.BannerInfo;
@@ -45,25 +43,35 @@ import cn.com.pujing.datastructure.GridItem;
 import cn.com.pujing.datastructure.NotifyInfo;
 
 public class HomeFragment extends BaseFragment implements RequestCallback, View.OnClickListener {
-    private View view;
+
     private ImageNetAdapter imageNetAdapter;
     private TopLineAdapter topLineAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.sl)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.banner)
+    Banner banner;
+    @BindView(R.id.banner_another)
+    Banner anotherBanner;
+    @BindView(R.id.rv)
+    RecyclerView recyclerView;
+    @BindView(R.id.iv_photo_wall_1)
+    ImageView ivPhotoWall1;
+    @BindView(R.id.iv_photo_wall_2)
+    ImageView ivPhotoWall2;
+    @BindView(R.id.iv_photo_wall_3)
+    ImageView ivPhotoWall3;
+
+
     private String[] strings;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_home, null);
-            init(view);
-        }
-        return view;
+    public int getlayoutId() {
+        return R.layout.fragment_home;
     }
 
-    private void init(View view) {
-        swipeRefreshLayout = view.findViewById(R.id.sl);
+    @Override
+    public void initEventAndData() {
+
         swipeRefreshLayout.setColorSchemeResources(R.color.purple_500, R.color.colorAccent, R.color.teal_200);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -82,10 +90,6 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
             }
         });
 
-        view.findViewById(R.id.iv_search).setOnClickListener(this);
-        view.findViewById(R.id.iv_msg).setOnClickListener(this);
-
-        Banner banner = view.findViewById(R.id.banner);
         imageNetAdapter = new ImageNetAdapter(null);
         banner.setAdapter(imageNetAdapter);
         banner.setIndicator(new CircleIndicator(getContext()));
@@ -99,7 +103,6 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         GridAdapter gridAdapter = new GridAdapter(R.layout.item_grid, GridItem.getTestData());
@@ -130,7 +133,6 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
         });
         recyclerView.setAdapter(gridAdapter);
 
-        Banner anotherBanner = view.findViewById(R.id.banner_another);
         topLineAdapter = new TopLineAdapter(null);
         anotherBanner.setAdapter(topLineAdapter);
         anotherBanner.setOrientation(Banner.VERTICAL);
@@ -143,11 +145,6 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
                 startActivity(intent);
             }
         });
-
-        view.findViewById(R.id.tv_more).setOnClickListener(this);
-        view.findViewById(R.id.iv_photo_wall_1).setOnClickListener(this);
-        view.findViewById(R.id.iv_photo_wall_2).setOnClickListener(this);
-        view.findViewById(R.id.iv_photo_wall_3).setOnClickListener(this);
 
         requesData();
     }
@@ -193,22 +190,19 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
                     for (int i = 0; i < strings.length; i++) {
                         switch (i) {
                             case 0:
-                                ImageView imageView1 = view.findViewById(R.id.iv_photo_wall_1);
                                 Glide.with(getContext())
                                         .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(imageView1);
+                                        .into(ivPhotoWall1);
                                 break;
                             case 1:
-                                ImageView imageView2 = view.findViewById(R.id.iv_photo_wall_2);
                                 Glide.with(getContext())
                                         .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(imageView2);
+                                        .into(ivPhotoWall2);
                                 break;
                             case 2:
-                                ImageView imageView3 = view.findViewById(R.id.iv_photo_wall_3);
                                 Glide.with(getContext())
                                         .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(imageView3);
+                                        .into(ivPhotoWall3);
                                 break;
                         }
                     }
@@ -228,6 +222,7 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
     }
 
     @Override
+    @OnClick({R.id.iv_search,R.id.iv_msg,R.id.tv_more,R.id.iv_photo_wall_1,R.id.iv_photo_wall_2,R.id.iv_photo_wall_3})
     public void onClick(View v) {
         int id = v.getId();
 

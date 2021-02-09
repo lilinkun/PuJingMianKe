@@ -17,11 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.ActivityDate;
 import cn.com.pujing.datastructure.QuerySelectDay;
@@ -34,8 +35,12 @@ public class CommunityCalendarActivity extends BaseActivity implements View.OnCl
     private TextView exerciseTextView;
 
     @Override
+    public int getLayoutId() {
+        return R.layout.activity_community_calendar;
+    }
+
+    @Override
     public void init() {
-        setContentView(R.layout.activity_community_calendar);
 
         ImmersionBar.with(this)
                 .statusBarColor("#ED6D0F")

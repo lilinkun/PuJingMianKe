@@ -1,4 +1,4 @@
-package cn.com.pujing;
+package cn.com.pujing.util;
 
 public class Constants {
     public static final String SHAREDPREFERENCES = "SharedPreferences";

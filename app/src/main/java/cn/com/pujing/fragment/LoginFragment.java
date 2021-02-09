@@ -2,59 +2,56 @@ package cn.com.pujing.fragment;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
 import java.net.URLEncoder;
 
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.GetPublicKey;
 import cn.com.pujing.datastructure.Token;
 import cn.com.pujing.util.Base64Utils;
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
-    private View view;
 
-    @Nullable
+    @BindView(R.id.tv_register)
+    TextView registerTV;
+    @BindView(R.id.tv_login)
+    TextView loginTV;
+    @BindView(R.id.et_account)
+    EditText etUsername;
+    @BindView(R.id.et_pwd)
+    EditText etPwd;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_login, null);
-            init(view);
-        }
-        return view;
+    public int getlayoutId() {
+        return R.layout.fragment_login;
     }
 
-    private void init(View view) {
-        TextView registerTV = view.findViewById(R.id.tv_register);
-        registerTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        registerTV.setOnClickListener(this);
+    @Override
+    public void initEventAndData() {
 
-        TextView loginTV = view.findViewById(R.id.tv_login);
+        registerTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
         loginTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
-        view.findViewById(R.id.tv_forget_pwd).setOnClickListener(this);
-        view.findViewById(R.id.btn_login).setOnClickListener(this);
     }
 
     @Override
+    @OnClick({R.id.tv_register,R.id.tv_forget_pwd,R.id.btn_login})
     public void onClick(View v) {
         int id = v.getId();
 
@@ -91,8 +88,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 publicKey = publicKey.replaceAll("-----END PUBLIC KEY-----", "").trim();
 
                 String rsaKey = data.rsaKey;
-                String userName = ((EditText) view.findViewById(R.id.et_account)).getText().toString().trim();
-                String pwd = ((EditText) view.findViewById(R.id.et_pwd)).getText().toString().trim();
+                String userName = etUsername.getText().toString().trim();
+                String pwd = etPwd.getText().toString().trim();
 
                 try {
                     String password = Base64Utils.encode(Methods.encryptByPublicKey(pwd.getBytes(), Methods.getPublicKey(publicKey)));
@@ -123,8 +120,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     public void setUserName(String userName) {
-        EditText editText = view.findViewById(R.id.et_account);
-        editText.setText(userName);
+        etUsername.setText(userName);
     }
 
 }

@@ -10,10 +10,10 @@ import android.webkit.WebViewClient;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import cn.com.pujing.AndroidJavascriptInterface;
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
 import cn.com.pujing.R;
+import cn.com.pujing.util.AndroidJavascriptInterface;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 
 public class WebviewActivity extends AppCompatActivity {
     private WebView webView;

@@ -1,4 +1,4 @@
-package cn.com.pujing;
+package cn.com.pujing.util;
 
 import android.content.Intent;
 import android.webkit.JavascriptInterface;

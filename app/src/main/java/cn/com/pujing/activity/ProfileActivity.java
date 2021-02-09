@@ -38,11 +38,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.EditMyInfo;
 import cn.com.pujing.datastructure.GetFilePathKey;
@@ -51,17 +54,22 @@ import cn.com.pujing.util.FileUtils;
 import okhttp3.ResponseBody;
 
 public class ProfileActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView headImageView;
+
     private String avatar;
     private MyInfo.Data data;
 
+    @BindView(R.id.iv_head)
+    ImageView headImageView;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_profile;
+    }
+
     @Override
     public void init() {
-        setContentView(R.layout.activity_profile);
         ImmersionBar.with(this).statusBarColor("#ED6D0F").fitsSystemWindows(true).init();
 
-        findViewById(R.id.iv_back).setOnClickListener(this);
-        headImageView = findViewById(R.id.iv_head);
         String avatar = Methods.getValueByKey(Constants.AVATAR, this);
         if (!TextUtils.isEmpty(avatar)) {
             Glide.with(this)
@@ -69,7 +77,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
                     .into(headImageView);
         }
-        headImageView.setOnClickListener(this);
 
         data = (MyInfo.Data) getIntent().getSerializableExtra(Constants.KEY);
         if (data != null) {
@@ -89,6 +96,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
+    @OnClick({R.id.iv_back,R.id.iv_head})
     public void onClick(View v) {
         int id = v.getId();
 

@@ -53,6 +53,10 @@ dependencies {
 
     implementation 'com.haibin:calendarview:3.7.0'
 
+    /*ButterKnife*/
+    implementation'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor'com.jakewharton:butterknife-compiler:10.1.0'
+
     implementation ('com.tencent.qcloud:cosxml:5.6.1'){
         exclude module: 'beacon-android-release'
         exclude group:'com.tencent.qcloud', module: 'mtaUtils'

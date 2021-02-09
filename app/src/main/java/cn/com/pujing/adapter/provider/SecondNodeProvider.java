@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.datastructure.section.ItemNode;
 
 public class SecondNodeProvider extends BaseNodeProvider {

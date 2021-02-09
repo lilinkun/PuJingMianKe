@@ -7,24 +7,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.lzy.okgo.model.Response;
+
 import cn.com.pujing.R;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.fragment.PaidBillFragment;
 import cn.com.pujing.fragment.PayBillFragment;
 
-public class MyBillActivity extends AppCompatActivity {
+public class MyBillActivity extends BaseActivity {
     public static final int PAID = 0;
     public static final int PAY = 1;
     private PaidBillFragment paidBillFragment;
     private PayBillFragment payBillFragment;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_my_bill;
     }
 
-    private void init() {
-        setContentView(R.layout.activity_my_bill);
+    public void init() {
         showFragment(PAID);
     }
 
@@ -59,5 +60,10 @@ public class MyBillActivity extends AppCompatActivity {
                 break;
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }

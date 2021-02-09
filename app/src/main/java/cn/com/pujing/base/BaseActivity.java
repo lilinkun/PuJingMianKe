@@ -1,4 +1,4 @@
-package cn.com.pujing.activity;
+package cn.com.pujing.base;
 
 import android.Manifest;
 import android.content.pm.ActivityInfo;
@@ -18,18 +18,25 @@ import com.zyao89.view.zloading.Z_TYPE;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.com.pujing.callback.RequestCallback;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements RequestCallback {
     public ZLoadingDialog zLoadingDialog;
+    Unbinder unbinder = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        unbinder = ButterKnife.bind(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         init();
     }
+
+    public abstract int getLayoutId();
 
     public abstract void init();
 

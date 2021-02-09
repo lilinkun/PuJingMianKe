@@ -1,4 +1,4 @@
-package cn.com.pujing;
+package cn.com.pujing.util;
 
 public class Urls {
     public static String IMG = "/basic-service/attachment/cos/down/";

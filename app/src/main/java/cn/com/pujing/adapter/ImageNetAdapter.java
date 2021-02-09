@@ -10,7 +10,7 @@ import com.youth.banner.util.BannerUtils;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.datastructure.BannerInfo;
 import cn.com.pujing.viewholder.ImageHolder;
 

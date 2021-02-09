@@ -1,4 +1,4 @@
-package cn.com.pujing;
+package cn.com.pujing.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import java.util.Calendar;
 import javax.crypto.Cipher;
 
 import cn.com.pujing.util.Base64Utils;
+import cn.com.pujing.util.Constants;
 
 public class Methods {
 

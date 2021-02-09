@@ -17,9 +17,11 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.NodeSectionAdapter;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.PhotoWall;
 import cn.com.pujing.datastructure.section.ItemNode;
@@ -29,15 +31,21 @@ import cn.com.pujing.fragment.ImgViewDialogFragment;
 public class PhotoWallActivity extends BaseActivity implements View.OnClickListener {
     private NodeSectionAdapter nodeSectionAdapter;
 
+    @BindView(R.id.rv)
+    RecyclerView recyclerView;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_photo_wall;
+    }
+
     @Override
     public void init() {
-        setContentView(R.layout.activity_photo_wall);
 
         ImmersionBar.with(this).statusBarColor("#ED6D0F").fitsSystemWindows(true).init();
 
         findViewById(R.id.iv_back).setOnClickListener(this);
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         nodeSectionAdapter = new NodeSectionAdapter();
         recyclerView.setAdapter(nodeSectionAdapter);

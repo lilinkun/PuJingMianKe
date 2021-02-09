@@ -11,22 +11,32 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.VpAdapter;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.fragment.ExerciseFragment;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MineFragment;
 import cn.com.pujing.fragment.RestaurantFragment;
 
 public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.vp)
+    ViewPager viewPager;
+    @BindView(R.id.bnv)
+    BottomNavigationViewEx bottomNavigationViewEx;
+
     private List<Fragment> fragmentList;
-    private BottomNavigationViewEx bottomNavigationViewEx;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     public void init() {
-        setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = findViewById(R.id.vp);
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();
         ExerciseFragment exerciseFragment = new ExerciseFragment();
@@ -39,7 +49,6 @@ public class MainActivity extends BaseActivity {
         VpAdapter vpAdapter = new VpAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(vpAdapter);
 
-        bottomNavigationViewEx = findViewById(R.id.bnv);
         bottomNavigationViewEx.enableShiftingMode(false);
 
         bottomNavigationViewEx.setupWithViewPager(viewPager, false);

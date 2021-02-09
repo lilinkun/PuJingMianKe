@@ -5,42 +5,50 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.base.BaseFragment;
 
-public class ForgetPwdFragment extends Fragment implements View.OnClickListener {
-    private View view;
+public class ForgetPwdFragment extends BaseFragment implements View.OnClickListener {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_forget_pwd, null);
-        }
-        init(view);
-        return view;
-    }
-
-    private void init(View view) {
-        view.findViewById(R.id.tv_get_captcha).setOnClickListener(this);
-        view.findViewById(R.id.tv_submit).setOnClickListener(this);
-    }
+    @BindView(R.id.tv_get_captcha)
+    TextView tvGetCaptcha;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.et_cell_phone_number)
+    EditText etCellPhoneNumber;
+    @BindView(R.id.et_captcha)
+    EditText etCaptcha;
+    @BindView(R.id.et_new_pwd)
+    EditText etNewPwd;
 
     @Override
+    public int getlayoutId() {
+        return R.layout.fragment_forget_pwd;
+    }
+
+    @Override
+    public void initEventAndData() {
+    }
+
+    @Override
+    @OnClick({R.id.tv_get_captcha,R.id.tv_submit})
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.tv_get_captcha) {
 
         } else if (id == R.id.tv_submit) {
-            String cellPhoneNumber = ((EditText) view.findViewById(R.id.et_cell_phone_number)).getText().toString().trim();
-            String captcha = ((EditText) view.findViewById(R.id.et_captcha)).getText().toString().trim();
-            String newPwd = ((EditText) view.findViewById(R.id.et_new_pwd)).getText().toString().trim();
+            String cellPhoneNumber = etCellPhoneNumber.getText().toString().trim();
+            String captcha = etCaptcha.getText().toString().trim();
+            String newPwd = etNewPwd.getText().toString().trim();
         }
     }
 }

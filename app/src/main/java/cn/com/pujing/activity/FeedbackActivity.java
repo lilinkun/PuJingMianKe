@@ -1,6 +1,5 @@
 package cn.com.pujing.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -38,10 +37,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 
-import cn.com.pujing.Constants;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.Attachment;
 import cn.com.pujing.datastructure.FeedbackSave;
@@ -59,8 +59,12 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     private int id;
 
     @Override
+    public int getLayoutId() {
+        return R.layout.activity_feedback;
+    }
+
+    @Override
     public void init() {
-        setContentView(R.layout.activity_feedback);
 
         ImmersionBar.with(this).statusBarColor("#ED6D0F").fitsSystemWindows(true).init();
 

@@ -8,7 +8,7 @@ import com.tencent.qcloud.core.auth.QCloudLifecycleCredentials;
 import com.tencent.qcloud.core.auth.SessionQCloudCredentials;
 import com.tencent.qcloud.core.common.QCloudClientException;
 
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.datastructure.GetTencentKey;
 import okhttp3.Response;
 import okhttp3.ResponseBody;

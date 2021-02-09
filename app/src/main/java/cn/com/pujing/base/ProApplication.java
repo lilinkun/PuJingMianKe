@@ -1,4 +1,4 @@
-package cn.com.pujing;
+package cn.com.pujing.base;
 
 import android.app.Application;
 
@@ -9,9 +9,11 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import okhttp3.OkHttpClient;
 
-public class App extends Application {
+public class ProApplication extends Application {
 
     @Override
     public void onCreate() {

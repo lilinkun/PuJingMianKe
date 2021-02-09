@@ -19,11 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.ActivityDate;
 import cn.com.pujing.datastructure.ActivityDateAdd;
@@ -31,27 +34,35 @@ import cn.com.pujing.datastructure.QuerySelectDay;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
 
 public class MyCalendarActivity extends BaseActivity implements View.OnClickListener, AddThingsDialogFragment.OnDialogListener {
-    private CalendarView calendarView;
+    @BindView(R.id.calendarView)
+    CalendarView calendarView;
+    @BindView(R.id.tv_month)
+    TextView monthTextView;
+    @BindView(R.id.tv_exercise)
+    TextView exerciseTextView;
+    @BindView(R.id.rv)
+    RecyclerView recyclerView;
+
     private int curYear;
     private int curMonth;
     private int selectedYear;
     private int selectedMonth;
     private int selectedDay;
     private AnotherExerciseAdapter anotherExerciseAdapter;
-    private TextView exerciseTextView;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_my_calendar;
+    }
 
     @Override
     public void init() {
-        setContentView(R.layout.activity_my_calendar);
 
         ImmersionBar.with(this)
                 .statusBarColor("#ED6D0F")
                 .fitsSystemWindows(true)
                 .init();
 
-        findViewById(R.id.iv_back).setOnClickListener(this);
-
-        TextView monthTextView = findViewById(R.id.tv_month);
         java.util.Calendar cal = java.util.Calendar.getInstance();
         curYear = cal.get(java.util.Calendar.YEAR);
         curMonth = cal.get(java.util.Calendar.MONTH);
@@ -59,12 +70,6 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
         selectedMonth = cal.get(java.util.Calendar.MONTH);
         selectedDay = cal.get(java.util.Calendar.DAY_OF_MONTH);
         monthTextView.setText(curYear + "年" + (curMonth + 1) + "月");
-
-        findViewById(R.id.iv_pre).setOnClickListener(this);
-        findViewById(R.id.iv_next).setOnClickListener(this);
-
-
-        calendarView = findViewById(R.id.calendarView);
 
         calendarView.setOnMonthChangeListener(new CalendarView.OnMonthChangeListener() {
             @Override
@@ -105,10 +110,8 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        exerciseTextView = findViewById(R.id.tv_exercise);
         exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), Methods.getDate(curYear, curMonth, calendarView.getCurDay())));
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 //        AnotherExerciseAdapter anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, AnotherExerciseItem.getTestData());
@@ -120,8 +123,6 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
 
         recyclerView.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
-
-        findViewById(R.id.tv_add).setOnClickListener(this);
 
         OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
                 .tag(this)
@@ -189,6 +190,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    @OnClick({R.id.iv_back,R.id.iv_pre,R.id.iv_next,R.id.tv_add})
     public void onClick(View v) {
         int id = v.getId();
 

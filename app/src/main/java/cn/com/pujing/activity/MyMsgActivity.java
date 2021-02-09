@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.MsgAdapter;
+import cn.com.pujing.base.BaseActivity;
 
-public class MyMsgActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyMsgActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_my_msg;
     }
 
-    private void init() {
-        setContentView(R.layout.activity_my_msg);
+    public void init() {
 
         ImmersionBar.with(this)
                 .statusBarColor("#ED6D0F")
@@ -47,5 +47,10 @@ public class MyMsgActivity extends AppCompatActivity implements View.OnClickList
         if (id == R.id.iv_back) {
             finish();
         }
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }

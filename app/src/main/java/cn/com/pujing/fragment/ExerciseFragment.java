@@ -29,38 +29,41 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.com.pujing.Constants;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
-import cn.com.pujing.activity.MyEnrollActivity;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.ExerciseAdapter;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.ActivityCalendar;
 import cn.com.pujing.datastructure.GetAllCategory;
 
 public class ExerciseFragment extends BaseFragment implements View.OnClickListener, DatePickerDialogFragment.OnDialogListener {
-    private View view;
-    private NiceSpinner niceSpinner;
+
     private ExerciseAdapter exerciseAdapter;
-    private TextView dateTextView;
     private int selectedId;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    @BindView(R.id.tv_my_enroll)
+    TextView tvMyEnroll;
+    @BindView(R.id.ns)
+    NiceSpinner niceSpinner;
+    @BindView(R.id.tv_date)
+    TextView dateTextView;
+    @BindView(R.id.rv_exercise)
+    RecyclerView rvExercise;
 
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_exerciset, null);
-            init(view);
-        }
-        return view;
+    @Override
+    public int getlayoutId() {
+        return R.layout.fragment_exerciset;
     }
 
-    private void init(View view) {
-        view.findViewById(R.id.tv_my_enroll).setOnClickListener(this);
+    @Override
+    public void initEventAndData() {
 
-        niceSpinner = view.findViewById(R.id.ns);
+
         SpinnerTextFormatter textFormatter = new SpinnerTextFormatter<GetAllCategory.Data>() {
 
             @Override
@@ -88,21 +91,18 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
         });
         niceSpinner.setClickable(false);
 
-        dateTextView = view.findViewById(R.id.tv_date);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String string = simpleDateFormat.format(Calendar.getInstance().getTime());
         dateTextView.setText(string);
-        dateTextView.setOnClickListener(this);
 
-        RecyclerView recyclerView = view.findViewById(R.id.tv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        rvExercise.setLayoutManager(linearLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        rvExercise.addItemDecoration(dividerItemDecoration);
 
         exerciseAdapter = new ExerciseAdapter(null);
-        recyclerView.setAdapter(exerciseAdapter);
+        rvExercise.setAdapter(exerciseAdapter);
         exerciseAdapter.setEmptyView(R.layout.empty_view);
         exerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -120,6 +120,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
+    @OnClick({R.id.tv_my_enroll,R.id.tv_date})
     public void onClick(View v) {
         if (v.getId() == R.id.tv_my_enroll) {
 //            startActivity(new Intent(getContext(), MyEnrollActivity.class));

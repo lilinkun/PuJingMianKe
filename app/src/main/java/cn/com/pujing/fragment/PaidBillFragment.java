@@ -16,26 +16,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
+import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.BillInfoActivity;
 import cn.com.pujing.adapter.PaidBillAdapter;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.datastructure.PaidBillItem;
 
-public class PaidBillFragment extends Fragment {
-    private View view;
+public class PaidBillFragment extends BaseFragment {
+    @BindView(R.id.rv)
+    RecyclerView recyclerView;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_paied_bill, null);
-            init(view);
-        }
-        return view;
+    public int getlayoutId() {
+        return R.layout.fragment_paied_bill;
     }
 
-    private void init(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.rv);
+    @Override
+    public void initEventAndData() {
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         PaidBillAdapter paidBillAdapter = new PaidBillAdapter(R.layout.item_paid_bill, PaidBillItem.getTestData());

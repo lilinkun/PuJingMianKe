@@ -3,15 +3,10 @@ package cn.com.pujing.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -20,34 +15,36 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
-import cn.com.pujing.Constants;
-import cn.com.pujing.Methods;
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.Urls;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.ProfileActivity;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.datastructure.MyInfo;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
-    private View view;
     private String avatar;
-    private ImageView headImageView;
     private MyInfo.Data data;
+    @BindView(R.id.iv_head)
+    ImageView headImageView;
+    @BindView(R.id.tv_name)
+    TextView tvName;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_mine, null);
-            init(view);
-        }
-        return view;
+    public int getlayoutId() {
+        return R.layout.fragment_mine;
     }
 
-    private void init(View view) {
-        headImageView = view.findViewById(R.id.iv_head);
+    @Override
+    public void initEventAndData() {
+
         avatar = Methods.getValueByKey(Constants.AVATAR, getContext());
         if (!TextUtils.isEmpty(avatar)) {
             Glide.with(getContext())
@@ -55,14 +52,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                     .into(headImageView);
         }
-
-        headImageView.setOnClickListener(this);
-        view.findViewById(R.id.tv_name).setOnClickListener(this);
-        view.findViewById(R.id.iv_next).setOnClickListener(this);
-        view.findViewById(R.id.tv_my_calendar).setOnClickListener(this);
-        view.findViewById(R.id.my_order).setOnClickListener(this);
-        view.findViewById(R.id.my_msg).setOnClickListener(this);
-        view.findViewById(R.id.my_bill).setOnClickListener(this);
 
         OkGo.get(Urls.MYINFO)
                 .tag(this)
@@ -85,6 +74,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
+    @OnClick({R.id.tv_name,R.id.iv_next,R.id.tv_my_calendar,R.id.my_order,R.id.my_msg,R.id.my_bill,R.id.iv_head})
     public void onClick(View v) {
 
         if (v.getId() == R.id.iv_head || v.getId() == R.id.tv_name || v.getId() == R.id.iv_next) {
@@ -115,7 +105,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             if (response.body() instanceof MyInfo) {
                 MyInfo myInfo = (MyInfo) response.body();
                 MyInfo.Data data = myInfo.data;
-                ((TextView) view.findViewById(R.id.tv_name)).setText(data.username);
+                tvName.setText(data.username);
 
                 if (!TextUtils.isEmpty(data.avatar)) {
                     Glide.with(getContext())

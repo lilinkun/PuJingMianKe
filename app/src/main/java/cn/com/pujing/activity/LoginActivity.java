@@ -8,13 +8,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.fragment.ForgetPwdFragment;
 import cn.com.pujing.fragment.LoginFragment;
 import cn.com.pujing.fragment.RegisterFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     public static final int LOGIN = 0;
     public static final int REGISTER = 1;
     public static final int FORGET_PWD = 2;
@@ -24,13 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     private int current;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_login;
     }
 
-    private void init() {
-        setContentView(R.layout.activity_login);
+    public void init() {
         ImmersionBar.with(this)
                 .statusBarDarkFont(true)
                 .init();
@@ -91,5 +91,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }

@@ -5,17 +5,25 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import cn.com.pujing.R;
+import com.lzy.okgo.model.Response;
 
-public class BillInfoActivity extends AppCompatActivity {
+import cn.com.pujing.R;
+import cn.com.pujing.base.BaseActivity;
+
+public class BillInfoActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_bill_info;
     }
 
-    private void init() {
-        setContentView(R.layout.activity_bill_info);
+    public void init() {
+
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }

@@ -7,23 +7,23 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 
-import cn.com.pujing.Methods;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
+import cn.com.pujing.base.BaseActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private static final long DURATION = 3000;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_splash;
     }
 
-    private void init() {
+    public void init() {
         setContentView(R.layout.activity_splash);
 
         ImmersionBar.with(this)
@@ -63,5 +63,10 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }
