@@ -24,11 +24,21 @@ public class AndroidJavascriptInterface {
 
     @JavascriptInterface
     public void goBack() {
+
         if (webviewActivity != null) {
-            WebView webView = webviewActivity.getWebView();
-            if (webView != null && !webView.canGoBack()) {
-                webviewActivity.finish();
-            }
+
+            webviewActivity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    WebView webView = webviewActivity.getWebView();
+
+                    if (webView != null) {
+                        webviewActivity.finish();
+                    }
+                }
+            });
         }
     }
 }
