@@ -17,7 +17,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         init();
-        OkGo.getInstance().init(this);
     }
 
     private void init() {
