@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/v_title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="#ED6D0F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/community_calendar"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
+        app:layout_constraintEnd_toEndOf="@id/v_title_bar"
+        app:layout_constraintStart_toStartOf="@id/v_title_bar"
+        app:layout_constraintTop_toTopOf="@id/v_title_bar" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:src="@mipmap/ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
+        app:layout_constraintStart_toStartOf="@id/v_title_bar"
+        app:layout_constraintTop_toTopOf="@id/v_title_bar" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/date"
+        android:textColor="#474747"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
+
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@mipmap/ic_arrow_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
+
+    <ImageView
+        android:id="@+id/iv_pre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@mipmap/ic_arrow_pre"
+        app:layout_constraintEnd_toStartOf="@id/iv_next"
+        app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
+
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020年 8月"
+        android:textColor="#474747"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_date" />
+
+    <com.haibin.calendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:calendar_height="46dp"
+        app:current_month_text_color="#333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:min_year="2020"
+        app:month_view="cn.com.pujing.view.SimpleMonthView"
+        app:other_month_text_color="#e1e1e1"
+        app:scheme_text="事"
+        app:scheme_text_color="#333"
+        app:scheme_theme_color="#333"
+        app:select_mode="single_mode"
+        app:selected_text_color="#fff"
+        app:selected_theme_color="#333"
+        app:week_background="#fff"
+        app:week_bar_view="cn.com.pujing.view.CustomWeekBar"
+        app:week_text_color="#111" />
+
+    <View
+        android:id="@+id/v_calendar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_calendar"
+        app:layout_constraintBottom_toBottomOf="@id/calendarView"
+        app:layout_constraintEnd_toEndOf="@id/calendarView"
+        app:layout_constraintStart_toStartOf="@id/calendarView"
+        app:layout_constraintTop_toTopOf="@id/calendarView" />
+
+    <TextView
+        android:id="@+id/tv_exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="今日活动"
+        android:textColor="#474747"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_calendar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shape_calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_exercise" />
+</androidx.constraintlayout.widget.ConstraintLayout>

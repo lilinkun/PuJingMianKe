@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="chinese_week_string_array">
+        <item>@string/sun</item>
+        <item>@string/mon</item>
+        <item>@string/tue</item>
+        <item>@string/wed</item>
+        <item>@string/tur</item>
+        <item>@string/fri</item>
+        <item>@string/sta</item>
+    </string-array>
+</resources>

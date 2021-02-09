@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">璞境面客</string>
+
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="plz_input_account">请输入您的账号</string>
+    <string name="plz_input_pwd">请输入您的密码</string>
+    <string name="forget_pwd">忘记密码?</string>
+
+    <string name="user_name">用户名：</string>
+    <string name="cell_phone_number">手机号：</string>
+    <string name="pwd">密码：</string>
+    <string name="captcha">验证码：</string>
+    <string name="get_captcha">获取验证码</string>
+    <string name="agreement">阅读并接受《用户协议》及《隐私权保护声明》</string>
+    <string name="register_success">注册成功</string>
+
+    <string name="modify_pwd">更改密码</string>
+    <string name="new_pwd">新密码</string>
+    <string name="submit">提交</string>
+
+    <string name="home">首页</string>
+    <string name="restaurant">餐饮</string>
+    <string name="exercise">活动</string>
+    <string name="mine">我的</string>
+    <string name="save">保存</string>
+
+    <string name="app_description">璞境面客原型APP</string>
+    <string name="life_service">生活服务</string>
+    <string name="community_calendar">社区日历</string>
+    <string name="photo_wall">照片墙</string>
+    <string name="more_services">更多服务</string>
+    <string name="see_more">查看更多</string>
+
+    <!-- 活动 -->
+    <string name="my_registration">我的报名</string>
+    <string name="exercise_sort">活动分类</string>
+    <string name="date">日期</string>
+
+    <string name="my_calendar">我的日历</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_bill">我的账单</string>
+    <string name="my_msg">我的消息</string>
+    <string name="my_album">我的相册</string>
+
+    <string name="more">更多</string>
+
+    <string name="my_enroll">我的报名</string>
+    <string name="exercise_name">活动名称：</string>
+    <string name="exercise_time">活动时间：</string>
+    <string name="exercise_addr">活动地址：</string>
+    <string name="cancel_enroll">取消报名</string>
+    <string name="enroll_success">报名成功</string>
+    <string name="format_fee">费用：%s元/人</string>
+    <string name="format_remaining">剩余报名人数：%d</string>
+
+    <string name="feedback">意见反馈</string>
+    <string name="opinion">意见</string>
+    <string name="proposal">建议</string>
+    <string name="praise">表扬</string>
+    <string name="complaint">投诉</string>
+    <string name="feedback_content">反馈内容...</string>
+    <string name="length_limit">0/500字</string>
+    <string name="upload_prompt">上传图片</string>
+
+    <string name="profile">个人资料</string>
+    <string name="modify_head">点击更换头像</string>
+    <string name="nick_name">昵称</string>
+    <string name="personal_signature">个性签名</string>
+    <string name="identity_authentication">身份认证</string>
+    <string name="address">原居住地址</string>
+    <string name="room_number">单元及房号</string>
+    <string name="cellphone_number">手机号</string>
+    <string name="birthday">出生日期</string>
+    <string name="emergency_contact">紧急联系人</string>
+    <string name="my_housekeeper">我的管家</string>
+    <string name="my_doctor">我的医生</string>
+
+    <string name="cancel">取消</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="matter">事项</string>
+    <string name="new_matter">新建事项</string>
+    <string name="add">添加</string>
+    <string name="add_matter">+添加事项</string>
+
+    <string name="paied_bill">已支付账单</string>
+    <string name="to_pay">待支付</string>
+    <string name="pay">支付</string>
+    <string name="pay_all">全部支付</string>
+
+    <string name="trade_info">交易信息</string>
+    <string name="bill_info">账单详情</string>
+
+    <string name="sun">日</string>
+    <string name="mon">一</string>
+    <string name="tue">二</string>
+    <string name="wed">三</string>
+    <string name="tur">四</string>
+    <string name="fri">五</string>
+    <string name="sta">六</string>
+
+    <string name="no_data">暂无数据</string>
+    <string name="comming_soon">敬请期待</string>
+    <string name="format_date_exercise">%s活动</string>
+    <string name="exit_prompt">再按一次返回退出程序</string>
+</resources>
