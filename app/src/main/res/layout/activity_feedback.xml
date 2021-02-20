@@ -8,7 +8,7 @@
         android:id="@+id/v_title_bar"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="#ED6D0F"
+        android:background="@color/main_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,17 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
 
-    <TextView
-        android:id="@+id/tv_prompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:text="尊敬的客户您好！我们很乐意分享你的感受，欢迎提出意见和建议，我们会认真对待您的反馈，感谢您的关注和支持，将参考您的建议来改善我们的服务。"
-        android:textColor="#4a4a4a"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_feedback" />
 
     <RadioGroup
         android:id="@+id/rg"
@@ -65,7 +54,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_prompt">
+        app:layout_constraintTop_toBottomOf="@id/tv_feedback">
 
         <RadioButton
             android:id="@+id/rb_opinion"
@@ -96,16 +85,66 @@
             android:text="@string/complaint" />
     </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/rl_feedback_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_feedback"
+        android:background="@drawable/bg_input_text"
+        android:elevation="3dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feedback_type"
+            android:textColor="@color/text_gray"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:layout_margin="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_feedback_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opinion"
+            android:textColor="@color/text_gray"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:layout_toLeftOf="@+id/iv_feedback_next"
+            />
+
+        <ImageView
+            android:id="@+id/iv_feedback_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_next_another"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            />
+
+
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/et_content"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/shape_spinner"
+        android:background="@drawable/bg_input_text"
         android:gravity="left"
-        android:hint="@string/feedback_content"
+        android:hint="尊敬的客户您好！我们很乐意分享你的感受，欢迎提出意见和建议，我们会认真对待您的反馈，感谢您的关注和支持，将参考您的建议来改善我们的服务。"
         android:padding="10dp"
+        android:textSize="14sp"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rg" />
@@ -151,7 +190,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/selector_login"
+        android:background="@drawable/shape_feedback_btn_bg"
         android:gravity="center"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"

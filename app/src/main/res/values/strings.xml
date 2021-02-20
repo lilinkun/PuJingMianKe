@@ -42,6 +42,7 @@
     <string name="my_bill">我的账单</string>
     <string name="my_msg">我的消息</string>
     <string name="my_album">我的相册</string>
+    <string name="my_activity">我的活动</string>
 
     <string name="more">更多</string>
 
@@ -61,7 +62,7 @@
     <string name="complaint">投诉</string>
     <string name="feedback_content">反馈内容...</string>
     <string name="length_limit">0/500字</string>
-    <string name="upload_prompt">上传图片</string>
+    <string name="upload_prompt">上传图片/视频：</string>
 
     <string name="profile">个人资料</string>
     <string name="modify_head">点击更换头像</string>
@@ -104,4 +105,10 @@
     <string name="comming_soon">敬请期待</string>
     <string name="format_date_exercise">%s活动</string>
     <string name="exit_prompt">再按一次返回退出程序</string>
+
+    <string name="change_tip">长按移动替换</string>
+
+    <string name="know_tip">知道了</string>
+
+    <string name="feedback_type">反馈类型</string>
 </resources>

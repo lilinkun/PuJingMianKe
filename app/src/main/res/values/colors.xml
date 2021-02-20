@@ -7,5 +7,14 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="main_color">#F75A47</color>
+
+    <color name="banner_normal">#F2F2F2</color>
+
+    <color name="text_gray">#4A4A4A</color>
+
+    <color name="text_black">#474747</color>
+
 </resources>

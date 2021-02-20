@@ -1,5 +1,6 @@
 package cn.com.pujing.adapter;
 
+import android.os.Build;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.datastructure.BannerInfo;
+import cn.com.pujing.entity.BannerInfo;
 import cn.com.pujing.viewholder.ImageHolder;
 
 /**
@@ -27,9 +28,9 @@ public class ImageNetAdapter extends BannerAdapter<BannerInfo.Data, ImageHolder>
     public ImageHolder onCreateHolder(ViewGroup parent, int viewType) {
         ImageView imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image);
         //通过裁剪实现圆角
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            BannerUtils.setBannerRound(imageView, 20);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            BannerUtils.setBannerRound(imageView, 15);
+        }
         return new ImageHolder(imageView);
     }
 

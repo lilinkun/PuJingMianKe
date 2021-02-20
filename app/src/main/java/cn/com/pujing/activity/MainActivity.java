@@ -5,16 +5,20 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.immersionbar.ImmersionBar;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.VpAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.TabEntity;
 import cn.com.pujing.fragment.ExerciseFragment;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MineFragment;
@@ -26,8 +30,17 @@ public class MainActivity extends BaseActivity {
     ViewPager viewPager;
     @BindView(R.id.bnv)
     BottomNavigationViewEx bottomNavigationViewEx;
+    @BindView(R.id.ctl_main)
+    CommonTabLayout commonTablayout;
 
-    private List<Fragment> fragmentList;
+    private ArrayList<Fragment> fragmentList;
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private int[] mIconUnselectIds = {
+            R.mipmap.ic_unselect_home, R.mipmap.ic_unselect_restaurant,
+            R.mipmap.ic_unselect_exercise, R.mipmap.ic_unselect_mine};
+    private int[] mIconSelectIds = {
+            R.mipmap.ic_select_home, R.mipmap.ic_unselect_restaurant,
+            R.mipmap.ic_select_exercise, R.mipmap.ic_select_mine};
 
     @Override
     public int getLayoutId() {
@@ -36,6 +49,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();
@@ -49,10 +64,50 @@ public class MainActivity extends BaseActivity {
         VpAdapter vpAdapter = new VpAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(vpAdapter);
 
-        bottomNavigationViewEx.enableShiftingMode(false);
+        for (int i = 0; i < fragmentList.size(); i++) {
+            mTabEntities.add(new TabEntity(getResources().getStringArray(R.array.main_activity)[i], mIconSelectIds[i], mIconUnselectIds[i]));
+        }
 
-        bottomNavigationViewEx.setupWithViewPager(viewPager, false);
+        bindTab();
     }
+
+    private void bindTab() {
+        commonTablayout.setTabData(mTabEntities);
+        commonTablayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+                if (position == 0) {
+                }
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                commonTablayout.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        viewPager.setCurrentItem(0);
+    }
+
+
+
 
     @Override
     public void onSuccess(Response response) {

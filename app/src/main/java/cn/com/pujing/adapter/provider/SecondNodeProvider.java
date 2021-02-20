@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import cn.com.pujing.R;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.datastructure.section.ItemNode;
+import cn.com.pujing.entity.section.ItemNode;
 
 public class SecondNodeProvider extends BaseNodeProvider {
 
@@ -30,6 +30,7 @@ public class SecondNodeProvider extends BaseNodeProvider {
     @Override
     public void convert(@NotNull BaseViewHolder baseViewHolder, @Nullable BaseNode data) {
         ItemNode itemNode = (ItemNode) data;
+
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         Glide.with(getContext())
                 .load(Urls.PREFIX + Urls.IMG + ((ItemNode) data).imgUrl)

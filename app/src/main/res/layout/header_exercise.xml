@@ -29,6 +29,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_header_exercise" />
 
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="1小时前"
+        android:textColor="#666666"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="0dp"
@@ -36,11 +49,11 @@
         android:layout_marginTop="10dp"
         android:lineSpacingExtra="2dp"
         android:text="随着元旦佳节的到来,举国上下充满了节日的欢庆氛围。铭诚绿谷企业服务站为了全民联欢元旦佳节,组织开展了许多形式..."
-        android:textColor="#474747"
+        android:textColor="@color/text_black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
     <TextView
         android:id="@+id/tv_cost"
@@ -62,18 +75,7 @@
         android:text="剩余报名人数：4"
         android:textColor="#FF2D1D"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@id/tv_cost"
-        app:layout_constraintTop_toBottomOf="@id/tv_content" />
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="1小时前"
-        android:textColor="#666666"
-        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

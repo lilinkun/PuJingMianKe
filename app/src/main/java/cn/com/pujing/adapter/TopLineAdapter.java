@@ -13,7 +13,7 @@ import com.youth.banner.util.BannerUtils;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.NotifyInfo;
+import cn.com.pujing.entity.NotifyInfo;
 
 /**
  * 自定义布局，实现类似1号店、淘宝头条的滚动效果

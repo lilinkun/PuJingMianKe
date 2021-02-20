@@ -20,8 +20,8 @@ import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.Register;
-import cn.com.pujing.datastructure.SendSms;
+import cn.com.pujing.entity.Register;
+import cn.com.pujing.entity.SendSms;
 
 public class RegisterFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.et_cell_phone_number)

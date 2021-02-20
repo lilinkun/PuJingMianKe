@@ -1,14 +1,9 @@
 package cn.com.pujing.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +16,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.activity.BillInfoActivity;
 import cn.com.pujing.adapter.PaidBillAdapter;
 import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.datastructure.PaidBillItem;
+import cn.com.pujing.entity.PaidBillItem;
 
 public class PaidBillFragment extends BaseFragment {
     @BindView(R.id.rv)

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.MsgItem;
+import cn.com.pujing.entity.MsgItem;
 
 public class MsgAdapter extends BaseQuickAdapter<MsgItem, BaseViewHolder> {
 

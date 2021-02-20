@@ -10,10 +10,31 @@
         android:id="@+id/vp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bnv"
+        app:layout_constraintBottom_toTopOf="@id/ctl_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/ctl_main"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="#feffff"
+        app:itemIconTint="@color/selector_bottom_navigation_item"
+        app:itemTextColor="@color/selector_bottom_navigation_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vp"
+        app:tl_iconHeight="23dp"
+        app:tl_iconWidth="23dp"
+        app:tl_textSelectColor="@color/main_color"
+        app:tl_textUnselectColor="#707070"
+        app:tl_textsize="13sp"
+        />
+
+
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/bnv"
@@ -22,6 +43,7 @@
         android:background="#feffff"
         app:itemIconTint="@color/selector_bottom_navigation_item"
         app:itemTextColor="@color/selector_bottom_navigation_item"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

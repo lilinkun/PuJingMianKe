@@ -11,9 +11,9 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.provider.RootFooterNodeProvider;
 import cn.com.pujing.adapter.provider.RootNodeProvider;
 import cn.com.pujing.adapter.provider.SecondNodeProvider;
-import cn.com.pujing.datastructure.section.ItemNode;
-import cn.com.pujing.datastructure.section.RootFooterNode;
-import cn.com.pujing.datastructure.section.RootNode;
+import cn.com.pujing.entity.section.ItemNode;
+import cn.com.pujing.entity.section.RootFooterNode;
+import cn.com.pujing.entity.section.RootNode;
 
 public class NodeSectionAdapter extends BaseNodeAdapter {
 
@@ -23,6 +23,9 @@ public class NodeSectionAdapter extends BaseNodeAdapter {
         addNodeProvider(new SecondNodeProvider());
         addFooterNodeProvider(new RootFooterNodeProvider());
         addChildClickViewIds(R.id.iv);
+        addChildClickViewIds(R.id.iv_download);
+        addChildClickViewIds(R.id.iv_collect);
+        addChildClickViewIds(R.id.iv_share);
     }
 
     @Override

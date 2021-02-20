@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.QuerySelectDay;
+import cn.com.pujing.entity.QuerySelectDay;
 
 public class AnotherExerciseAdapter extends BaseQuickAdapter<QuerySelectDay.Data, BaseViewHolder> {
 

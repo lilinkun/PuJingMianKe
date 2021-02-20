@@ -8,7 +8,6 @@
         android:id="@+id/v_up"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:background="#fdb560"
         app:layout_constraintBottom_toTopOf="@id/v_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +26,13 @@
         app:layout_constraintVertical_weight="2" />
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@mipmap/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_login_top"
         app:layout_constraintBottom_toBottomOf="@id/v_up"
-        app:layout_constraintEnd_toEndOf="@id/v_up"
-        app:layout_constraintStart_toStartOf="@id/v_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/v_up" />
 
     <androidx.constraintlayout.widget.Placeholder
@@ -78,7 +78,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_head"
+        android:src="@mipmap/ic_login_head"
         app:layout_constraintBottom_toBottomOf="@id/gl"
         app:layout_constraintEnd_toEndOf="@id/fl"
         app:layout_constraintStart_toStartOf="@id/fl"

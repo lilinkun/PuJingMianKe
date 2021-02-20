@@ -27,7 +27,7 @@ public class Urls {
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
 
     public static String PHOTOWALL = PREFIX + "/content-service/photoWall/page";
-    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/3";
+    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
 
     public static String GETALLCATEGORY = PREFIX + "/life-service/activityCategory/getAllCategory";
     public static String ACTIVITYCALENDAR = PREFIX + "/life-service/activityCalendar/page";

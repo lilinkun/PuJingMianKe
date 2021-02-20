@@ -10,4 +10,34 @@
         <item>@string/fri</item>
         <item>@string/sta</item>
     </string-array>
+
+    <string-array name="main_activity">
+        <item>@string/home</item>
+        <item>@string/restaurant</item>
+        <item>@string/exercise</item>
+        <item>@string/mine</item>
+    </string-array>
+
+    <integer-array name="main_select_icon">
+        <item>@mipmap/ic_select_home</item>
+        <item>@mipmap/ic_unselect_restaurant</item>
+        <item>@mipmap/ic_select_exercise</item>
+        <item>@mipmap/ic_select_mine</item>
+    </integer-array>
+
+    <integer-array name="main_unselect_icon">
+        <item>@mipmap/ic_unselect_home</item>
+        <item>@mipmap/ic_unselect_restaurant</item>
+        <item>@mipmap/ic_unselect_exercise</item>
+        <item>@mipmap/ic_unselect_mine</item>
+    </integer-array>
+
+
+    <string-array name="feedback_type">
+        <item>@string/opinion</item>
+        <item>@string/proposal</item>
+        <item>@string/praise</item>
+        <item>@string/complaint</item>
+    </string-array>
+
 </resources>

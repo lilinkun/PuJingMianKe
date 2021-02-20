@@ -47,9 +47,9 @@ import cn.com.pujing.TCloud.MySessionCredentialProvider;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.EditMyInfo;
-import cn.com.pujing.datastructure.GetFilePathKey;
-import cn.com.pujing.datastructure.MyInfo;
+import cn.com.pujing.entity.EditMyInfo;
+import cn.com.pujing.entity.GetFilePathKey;
+import cn.com.pujing.entity.MyInfo;
 import cn.com.pujing.util.FileUtils;
 import okhttp3.ResponseBody;
 

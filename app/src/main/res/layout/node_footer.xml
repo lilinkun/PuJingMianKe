@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:src="@mipmap/ic_download"
+        android:src="@mipmap/ic_undownload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:src="@mipmap/ic_collect"
+        android:src="@mipmap/ic_uncollect"
         app:layout_constraintEnd_toStartOf="@id/iv_download"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:src="@mipmap/ic_share"
+        android:src="@mipmap/ic_ungive_likes"
         app:layout_constraintEnd_toStartOf="@id/iv_collect"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

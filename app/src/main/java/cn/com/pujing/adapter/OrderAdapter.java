@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.OrderItem;
+import cn.com.pujing.entity.OrderItem;
 
 public class OrderAdapter extends BaseQuickAdapter<OrderItem, BaseViewHolder> {
 

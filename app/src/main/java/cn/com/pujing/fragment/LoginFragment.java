@@ -21,8 +21,8 @@ import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.GetPublicKey;
-import cn.com.pujing.datastructure.Token;
+import cn.com.pujing.entity.GetPublicKey;
+import cn.com.pujing.entity.Token;
 import cn.com.pujing.util.Base64Utils;
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {

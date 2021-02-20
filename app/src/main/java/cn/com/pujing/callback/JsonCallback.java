@@ -7,7 +7,7 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
-import cn.com.pujing.datastructure.Base;
+import cn.com.pujing.entity.Base;
 import okhttp3.ResponseBody;
 
 public class JsonCallback<T> extends AbsCallback {

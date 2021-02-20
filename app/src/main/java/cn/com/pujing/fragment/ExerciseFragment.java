@@ -1,16 +1,12 @@
 package cn.com.pujing.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,8 +34,8 @@ import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.ExerciseAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.ActivityCalendar;
-import cn.com.pujing.datastructure.GetAllCategory;
+import cn.com.pujing.entity.ActivityCalendar;
+import cn.com.pujing.entity.GetAllCategory;
 
 public class ExerciseFragment extends BaseFragment implements View.OnClickListener, DatePickerDialogFragment.OnDialogListener {
 
@@ -156,8 +152,8 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
                     selectedId = list.get(0).id;
                     OkGo.get(Urls.ACTIVITYCALENDAR)
                             .tag(this)
-                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
-                            .params(Constants.CATEGORYID, selectedId)
+//                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
+//                            .params(Constants.CATEGORYID, selectedId)
                             .execute(new JsonCallback<>(ActivityCalendar.class, this));
                 }
             } else if (response.body() instanceof ActivityCalendar) {

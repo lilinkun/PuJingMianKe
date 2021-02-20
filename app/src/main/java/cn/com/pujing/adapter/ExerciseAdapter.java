@@ -13,7 +13,7 @@ import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.datastructure.ActivityCalendar;
+import cn.com.pujing.entity.ActivityCalendar;
 
 public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.Data.Record, BaseViewHolder> {
 

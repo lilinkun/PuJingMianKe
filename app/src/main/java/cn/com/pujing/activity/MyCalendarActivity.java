@@ -28,9 +28,9 @@ import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.ActivityDate;
-import cn.com.pujing.datastructure.ActivityDateAdd;
-import cn.com.pujing.datastructure.QuerySelectDay;
+import cn.com.pujing.entity.ActivityDate;
+import cn.com.pujing.entity.ActivityDateAdd;
+import cn.com.pujing.entity.QuerySelectDay;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
 
 public class MyCalendarActivity extends BaseActivity implements View.OnClickListener, AddThingsDialogFragment.OnDialogListener {
@@ -59,7 +59,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     public void init() {
 
         ImmersionBar.with(this)
-                .statusBarColor("#ED6D0F")
+                .statusBarColor(R.color.main_color)
                 .fitsSystemWindows(true)
                 .init();
 

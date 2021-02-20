@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -30,7 +29,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    greendao{
+        schemaVersion 1 //数据库版本号
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
@@ -53,9 +57,18 @@ dependencies {
 
     implementation 'com.haibin:calendarview:3.7.0'
 
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
     /*ButterKnife*/
     implementation'com.jakewharton:butterknife:10.1.0'
     annotationProcessor'com.jakewharton:butterknife-compiler:10.1.0'
+
+    /**
+     * 数据库
+     */
+    api 'de.greenrobot:eventbus:2.4.0'
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
 
     implementation ('com.tencent.qcloud:cosxml:5.6.1'){
         exclude module: 'beacon-android-release'

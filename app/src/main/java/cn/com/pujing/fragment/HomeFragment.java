@@ -3,6 +3,7 @@ package cn.com.pujing.fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,12 +22,14 @@ import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.CommunityCalendarActivity;
+import cn.com.pujing.activity.FeedbackActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.MoreActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
@@ -37,10 +40,14 @@ import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.callback.RequestCallback;
-import cn.com.pujing.datastructure.BannerInfo;
-import cn.com.pujing.datastructure.GetPhoto;
-import cn.com.pujing.datastructure.GridItem;
-import cn.com.pujing.datastructure.NotifyInfo;
+import cn.com.pujing.db.DBManager;
+import cn.com.pujing.entity.BannerInfo;
+import cn.com.pujing.entity.GetPhoto;
+import cn.com.pujing.entity.GridItem;
+import cn.com.pujing.entity.NotifyInfo;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Urls;
+import cn.com.pujing.view.HomePopupWindow;
 
 public class HomeFragment extends BaseFragment implements RequestCallback, View.OnClickListener {
 
@@ -52,17 +59,22 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
     Banner banner;
     @BindView(R.id.banner_another)
     Banner anotherBanner;
-    @BindView(R.id.rv)
-    RecyclerView recyclerView;
+    @BindView(R.id.rv_home)
+    RecyclerView rvHome;
     @BindView(R.id.iv_photo_wall_1)
     ImageView ivPhotoWall1;
     @BindView(R.id.iv_photo_wall_2)
     ImageView ivPhotoWall2;
     @BindView(R.id.iv_photo_wall_3)
     ImageView ivPhotoWall3;
+    @BindView(R.id.iv_photo_wall_4)
+    ImageView ivPhotoWall4;
+    @BindView(R.id.iv_photo_wall_5)
+    ImageView ivPhotoWall5;
 
 
     private String[] strings;
+    private GridAdapter gridAdapter;
 
     @Override
     public int getlayoutId() {
@@ -93,6 +105,8 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
         imageNetAdapter = new ImageNetAdapter(null);
         banner.setAdapter(imageNetAdapter);
         banner.setIndicator(new CircleIndicator(getContext()));
+        banner.setIndicatorSelectedColor(getActivity().getResources().getColor(R.color.white));
+        banner.setIndicatorSelectedColor(getActivity().getResources().getColor(R.color.banner_normal));
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(Object data, int position) {
@@ -103,9 +117,23 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
             }
         });
 
+        if (DBManager.getInstance(getActivity()).queryHomeTitle().size() == 0){
+            for (GridItem gridItem : GridItem.getTestData()) {
+                DBManager.getInstance(getActivity()).insertHomeTitle(gridItem);
+            }
+        }
+
+        List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
+        List<GridItem> gridItems1 = new ArrayList<>();
+        for (int i = 0 ; i<gridItems.size();i++){
+            if (i<5 || i == 8) {
+                gridItems1.add(gridItems.get(i));
+            }
+        }
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        GridAdapter gridAdapter = new GridAdapter(R.layout.item_grid, GridItem.getTestData());
+        rvHome.setLayoutManager(gridLayoutManager);
+        gridAdapter = new GridAdapter(R.layout.item_grid, gridItems1);
         gridAdapter.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -125,13 +153,36 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
                         mainActivity.setCurPos(1);
                     } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
                         startActivity(new Intent(getContext(), PhotoWallActivity.class));
+                    }else if (getString(R.string.feedback).equals(gridItem.title)) {
+                        startActivity(new Intent(getContext(), FeedbackActivity.class));
+                    }else if ("问卷调查".equals(gridItem.title)) {
+                        Intent intent = new Intent(getContext(), WebviewActivity.class);
+                        intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                        startActivity(intent);
                     } else if (getString(R.string.more_services).equals(gridItem.title)) {
-                        startActivity(new Intent(getContext(), MoreActivity.class));
+//                        startActivity(new Intent(getContext(), MoreActivity.class));
+                        HomePopupWindow homePopupWindow = new HomePopupWindow(getContext());
+                        homePopupWindow.showPopupWindow(view);
+                        homePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+
+                                List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
+                                List<GridItem> gridItems1 = new ArrayList<>();
+                                for (int i = 0 ; i<gridItems.size();i++){
+                                    if (i<5 || i == 8) {
+                                        gridItems1.add(gridItems.get(i));
+                                    }
+                                }
+
+                                gridAdapter.setNewData(gridItems1);
+                            }
+                        });
                     }
                 }
             }
         });
-        recyclerView.setAdapter(gridAdapter);
+        rvHome.setAdapter(gridAdapter);
 
         topLineAdapter = new TopLineAdapter(null);
         anotherBanner.setAdapter(topLineAdapter);
@@ -203,6 +254,16 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
                                 Glide.with(getContext())
                                         .load(Urls.PREFIX + Urls.IMG + strings[i])
                                         .into(ivPhotoWall3);
+                                break;
+                            case 3:
+                                Glide.with(getContext())
+                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                        .into(ivPhotoWall4);
+                                break;
+                            case 4:
+                                Glide.with(getContext())
+                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                        .into(ivPhotoWall5);
                                 break;
                         }
                     }

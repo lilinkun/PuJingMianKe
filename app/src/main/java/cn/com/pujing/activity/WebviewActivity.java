@@ -1,32 +1,32 @@
 package cn.com.pujing.activity;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
+import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.util.AndroidJavascriptInterface;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 
-public class WebviewActivity extends AppCompatActivity {
+public class WebviewActivity extends BaseActivity {
     private WebView webView;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    public int getLayoutId() {
+        return R.layout.activity_webview;
     }
 
-    private void init() {
-        setContentView(R.layout.activity_webview);
+    public void init() {
 
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
         String url = getIntent().getStringExtra(Constants.URL);
 
         Log.i("OkGo", "" + url);
@@ -60,5 +60,10 @@ public class WebviewActivity extends AppCompatActivity {
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
     }
 }

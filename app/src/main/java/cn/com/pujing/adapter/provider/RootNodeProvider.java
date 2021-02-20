@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.section.RootNode;
+import cn.com.pujing.entity.section.RootNode;
 
 public class RootNodeProvider extends BaseNodeProvider {
 

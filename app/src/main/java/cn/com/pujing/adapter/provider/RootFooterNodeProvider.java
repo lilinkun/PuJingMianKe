@@ -1,5 +1,6 @@
 package cn.com.pujing.adapter.provider;
 
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.entity.node.BaseNode;
@@ -10,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.section.RootFooterNode;
+import cn.com.pujing.entity.section.RootFooterNode;
 
 public class RootFooterNodeProvider extends BaseNodeProvider {
 
     public RootFooterNodeProvider() {
-        addChildClickViewIds(R.id.iv_download);
-        addChildClickViewIds(R.id.iv_collect);
-        addChildClickViewIds(R.id.iv_share);
+//        addChildClickViewIds(R.id.iv_download);
+//        addChildClickViewIds(R.id.iv_collect);
+//        addChildClickViewIds(R.id.iv_share);
     }
 
     @Override
@@ -37,12 +38,8 @@ public class RootFooterNodeProvider extends BaseNodeProvider {
 
     @Override
     public void onChildClick(@NotNull BaseViewHolder helper, @NotNull View view, BaseNode data, int position) {
-        if (view.getId() == R.id.iv_download) {
-
-        } else if (view.getId() == R.id.iv_collect) {
-
-        } else if (view.getId() == R.id.iv_share) {
-
-        }
+        Log.v("LG","position"+position);
     }
+
+
 }

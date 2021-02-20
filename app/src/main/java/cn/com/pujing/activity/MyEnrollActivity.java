@@ -1,10 +1,5 @@
 package cn.com.pujing.activity;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;

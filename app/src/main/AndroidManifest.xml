@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_config"
         android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.PuJingMianKe">
 
@@ -39,5 +40,6 @@
         <activity android:name=".activity.CommunityCalendarActivity" />
         <activity android:name=".activity.WebviewActivity" />
         <activity android:name=".activity.MyCalendarActivity" />
+        <activity android:name=".activity.ShowPhotoActivity" />
     </application>
 </manifest>

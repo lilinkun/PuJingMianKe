@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="今天11:50"
-        android:textColor="#4A4A4A"
+        android:textColor="@color/text_gray"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv" />
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="餐饮美食"
-        android:textColor="#4A4A4A"
+        android:textColor="@color/text_gray"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />

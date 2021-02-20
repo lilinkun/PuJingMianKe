@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="wrap_content"
+        android:layout_width="136dp"
         android:layout_height="95dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -31,31 +31,6 @@
         app:layout_constraintStart_toEndOf="@id/iv"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:lineSpacingExtra="2dp"
-        android:id="@+id/tv_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:lines="3"
-        android:text="为深入贯彻习近平新时代中国特色社会主义思想和党的十九大精神，落实省委推动高质量发展走在前列..."
-        android:textColor="#474747"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-    <TextView
-        android:id="@+id/tv_cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="费用：40元/人"
-        android:textColor="#FF2D1D"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -65,9 +40,38 @@
         android:layout_marginTop="10dp"
         android:text="1小时前"
         android:textColor="#666666"
+        android:layout_marginEnd="20dp"
         android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+    <TextView
+        android:lineSpacingExtra="2dp"
+        android:id="@+id/tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:lines="3"
+        android:text="为深入贯彻习近平新时代中国特色社会主义思想和党的十九大精神，落实省委推动高质量发展走在前列..."
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+    <TextView
+        android:id="@+id/tv_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="费用：40元/人"
+        android:textColor="@color/text_black"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
 
     <TextView
         android:id="@+id/tv_remaining_enrollment"
@@ -77,9 +81,9 @@
         android:ellipsize="end"
         android:lines="1"
         android:text="剩余报名人数：4"
-        android:textColor="#FF2D1D"
+        android:textColor="@color/text_black"
         android:textSize="10sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_time"
-        app:layout_constraintStart_toEndOf="@id/tv_cost"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

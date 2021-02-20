@@ -2,6 +2,7 @@ package cn.com.pujing.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.haibin.calendarview.Calendar;
@@ -22,8 +23,9 @@ public class SimpleMonthView extends MonthView {
 
     @Override
     protected void onPreviewHook() {
-        mRadius = Math.min(mItemWidth, mItemHeight) / 5 * 2;
-        mSchemePaint.setStyle(Paint.Style.STROKE);
+        mRadius = Math.min(mItemWidth, mItemHeight) / 5 * 2 - 10;
+        mSchemePaint.setStyle(Paint.Style.FILL);
+        mSchemePaint.setColor(Color.parseColor("#ED6D0F"));
     }
 
     @Override
@@ -35,7 +37,7 @@ public class SimpleMonthView extends MonthView {
     protected boolean onDrawSelected(Canvas canvas, Calendar calendar, int x, int y, boolean hasScheme) {
         int cx = x + mItemWidth / 2;
         int cy = y + mItemHeight / 2;
-        canvas.drawCircle(cx, cy, mRadius, mSelectedPaint);
+        canvas.drawCircle(cx, cy, mRadius+10, mSelectedPaint);
         return false;
     }
 

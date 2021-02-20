@@ -26,7 +26,7 @@ public class MyMsgActivity extends BaseActivity implements View.OnClickListener 
     public void init() {
 
         ImmersionBar.with(this)
-                .statusBarColor("#ED6D0F")
+                .statusBarColor(R.color.main_color)
                 .fitsSystemWindows(true)
                 .init();
 

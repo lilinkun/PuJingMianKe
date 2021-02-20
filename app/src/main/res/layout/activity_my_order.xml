@@ -8,7 +8,7 @@
         android:id="@+id/v_title_bar"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="#ED6D0F"
+        android:background="@color/main_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

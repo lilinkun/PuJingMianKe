@@ -1,77 +1,72 @@
 package cn.com.pujing.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
-import com.tencent.cos.xml.CosXmlService;
-import com.tencent.cos.xml.CosXmlServiceConfig;
-import com.tencent.cos.xml.exception.CosXmlClientException;
-import com.tencent.cos.xml.exception.CosXmlServiceException;
-import com.tencent.cos.xml.listener.CosXmlResultListener;
-import com.tencent.cos.xml.model.CosXmlRequest;
-import com.tencent.cos.xml.model.CosXmlResult;
-import com.tencent.cos.xml.transfer.COSXMLUploadTask;
-import com.tencent.cos.xml.transfer.TransferConfig;
-import com.tencent.cos.xml.transfer.TransferManager;
-import com.tencent.qcloud.core.auth.QCloudCredentialProvider;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.TCloud.MySessionCredentialProvider;
+import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.Attachment;
-import cn.com.pujing.datastructure.FeedbackSave;
-import cn.com.pujing.datastructure.GetFilePathKey;
+import cn.com.pujing.entity.Attachment;
+import cn.com.pujing.entity.FeedbackSave;
 import cn.com.pujing.util.FileUtils;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import cn.com.pujing.view.FeedbackDialog;
+import cn.com.pujing.view.FeedbackPopup;
 
 
-public class FeedbackActivity extends BaseActivity implements View.OnClickListener {
-    private RadioGroup radioGroup;
+public class FeedbackActivity extends BaseActivity implements View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener {
+    @BindView(R.id.rg)
+    RadioGroup radioGroup;
+    @BindView(R.id.et_content)
+    EditText etContent;
+    @BindView(R.id.rl_feedback_type)
+    RelativeLayout rlFeedbackType;
+    @BindView(R.id.tv_feedback_type)
+    TextView tvFeedbackType;
+    private int id;
     private ImageView uploadImageView;
     private int checkedId;
-    private EditText editText;
-    private int id;
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_feedback;
     }
 
+
     @Override
     public void init() {
 
-        ImmersionBar.with(this).statusBarColor("#ED6D0F").fitsSystemWindows(true).init();
-
-        radioGroup = findViewById(R.id.rg);
-        editText = findViewById(R.id.et_content);
-        findViewById(R.id.iv_back).setOnClickListener(this);
-        findViewById(R.id.tv_submit).setOnClickListener(this);
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         uploadImageView = findViewById(R.id.iv_upload);
         uploadImageView.setOnClickListener(this);
@@ -84,7 +79,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         requestPermissions();
     }
 
-    private void upload(String filePath) {
+   /* private void upload(String filePath) {
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
         // 存储桶所在地域简称，例如广州地区是 ap-guangzhou
@@ -170,18 +165,24 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
+    @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type})
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.iv_back) {
             finish();
         } else if (id == R.id.iv_upload) {
-            Intent intent = new Intent(Intent.ACTION_PICK, null);
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-            startActivityForResult(intent, 110);
+//            Intent intent = new Intent(Intent.ACTION_PICK, null);
+//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//            startActivityForResult(intent, 110);
+            Intent mediaChooser = new Intent(Intent.ACTION_GET_CONTENT);
+            //comma-separated MIME types
+            mediaChooser.setType("video/*, image/*");
+            startActivityForResult(mediaChooser, 110);
+
         } else if (id == R.id.tv_submit) {
 
             int checkedId = radioGroup.getCheckedRadioButtonId();
@@ -196,7 +197,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                 type = 4;
             }
 
-            String content = editText.getText().toString();
+            String content = etContent.getText().toString();
 
             HashMap<String, String> params = new HashMap<>();
             params.put(Constants.CONTENT, content);
@@ -208,7 +209,11 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                     .tag(this)
                     .upJson(jsonObject)
                     .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));
-        }
+        } else if (id == R.id.rl_feedback_type){
+            FeedbackPopup feedbackPopup = new FeedbackPopup(this);
+            feedbackPopup.setListener(this);
+            feedbackPopup.showAsDropDown(rlFeedbackType);
+            }
     }
 
     @Override
@@ -225,7 +230,8 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
                         @Override
                         public void run() {
-                            upload(filePath);
+//                            upload(filePath);
+                            UploadFile.UpLoadFile(FeedbackActivity.this,filePath,uploadImageView);
                         }
                     }.start();
                 }
@@ -245,10 +251,21 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
             } else if (response.body() instanceof FeedbackSave) {
                 FeedbackSave feedbackSave = (FeedbackSave) response.body();
                 if (feedbackSave.data) {
-                    Toast.makeText(this, "反馈成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    FeedbackDialog feedbackDialog = new FeedbackDialog(this);
+                    feedbackDialog.show();
+                    feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            finish();
+                        }
+                    });
                 }
             }
         }
+    }
+
+    @Override
+    public void setItemValue(String value) {
+        tvFeedbackType.setText(value);
     }
 }

@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -24,15 +26,21 @@ import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.ActivityDate;
-import cn.com.pujing.datastructure.QuerySelectDay;
+import cn.com.pujing.entity.ActivityDate;
+import cn.com.pujing.entity.QuerySelectDay;
 
 public class CommunityCalendarActivity extends BaseActivity implements View.OnClickListener {
-    private CalendarView calendarView;
+    @BindView(R.id.calendarView)
+    CalendarView calendarView;
+    @BindView(R.id.rv_community_calendar)
+    RecyclerView rvCommunityCalendar;
+    @BindView(R.id.tv_month)
+    TextView monthTextView;
+    @BindView(R.id.tv_exercise)
+    TextView exerciseTextView;
     private int curYear;
     private int curMonth;
     private AnotherExerciseAdapter anotherExerciseAdapter;
-    private TextView exerciseTextView;
 
     @Override
     public int getLayoutId() {
@@ -43,23 +51,16 @@ public class CommunityCalendarActivity extends BaseActivity implements View.OnCl
     public void init() {
 
         ImmersionBar.with(this)
-                .statusBarColor("#ED6D0F")
+                .statusBarColor(R.color.main_color)
                 .fitsSystemWindows(true)
                 .init();
 
-        findViewById(R.id.iv_back).setOnClickListener(this);
-
-        TextView monthTextView = findViewById(R.id.tv_month);
         java.util.Calendar cal = java.util.Calendar.getInstance();
         curYear = cal.get(java.util.Calendar.YEAR);
         curMonth = cal.get(java.util.Calendar.MONTH);
         monthTextView.setText(curYear + "年" + (curMonth + 1) + "月");
 
-        findViewById(R.id.iv_pre).setOnClickListener(this);
-        findViewById(R.id.iv_next).setOnClickListener(this);
 
-
-        calendarView = findViewById(R.id.calendarView);
         calendarView.setOnMonthChangeListener(new CalendarView.OnMonthChangeListener() {
             @Override
             public void onMonthChange(int year, int month) {
@@ -95,15 +96,13 @@ public class CommunityCalendarActivity extends BaseActivity implements View.OnCl
             }
         });
 
-        exerciseTextView = findViewById(R.id.tv_exercise);
         exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), Methods.getDate(curYear, curMonth, calendarView.getCurDay())));
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rvCommunityCalendar.setLayoutManager(new LinearLayoutManager(this));
+//        rvCommunityCalendar.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 //        AnotherExerciseAdapter anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, AnotherExerciseItem.getTestData());
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
-        recyclerView.setAdapter(anotherExerciseAdapter);
+        rvCommunityCalendar.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
 
         OkGo.get(Urls.ACTIVITYDATE)
@@ -162,6 +161,7 @@ public class CommunityCalendarActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
+    @OnClick({R.id.iv_back,R.id.iv_pre,R.id.iv_next})
     public void onClick(View v) {
         int id = v.getId();
 

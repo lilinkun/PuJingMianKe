@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.datastructure.PayBillItem;
+import cn.com.pujing.entity.PayBillItem;
 
 public class PayBillAdapter extends BaseQuickAdapter<PayBillItem, BaseViewHolder> {
 

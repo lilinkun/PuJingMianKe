@@ -15,8 +15,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.util.Constants;
@@ -27,7 +25,7 @@ import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.ProfileActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.datastructure.MyInfo;
+import cn.com.pujing.entity.MyInfo;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
     private String avatar;
