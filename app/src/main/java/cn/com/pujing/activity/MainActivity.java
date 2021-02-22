@@ -18,7 +18,9 @@ import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.VpAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.TabEntity;
+import cn.com.pujing.fragment.ActivitiesFragment;
 import cn.com.pujing.fragment.ExerciseFragment;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MineFragment;
@@ -33,7 +35,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.ctl_main)
     CommonTabLayout commonTablayout;
 
-    private ArrayList<Fragment> fragmentList;
+    private ArrayList<BaseFragment> fragmentList;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private int[] mIconUnselectIds = {
             R.mipmap.ic_unselect_home, R.mipmap.ic_unselect_restaurant,
@@ -54,7 +56,7 @@ public class MainActivity extends BaseActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();
-        ExerciseFragment exerciseFragment = new ExerciseFragment();
+        ActivitiesFragment exerciseFragment = new ActivitiesFragment();
         MineFragment mineFragment = new MineFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(homeFragment);
@@ -115,7 +117,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setCurPos(int pos) {
-        bottomNavigationViewEx.setCurrentItem(pos);
+        viewPager.setCurrentItem(pos);
     }
 
     private long exitTime;

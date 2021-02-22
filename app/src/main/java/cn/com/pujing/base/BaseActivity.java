@@ -47,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
                 zLoadingDialog = new ZLoadingDialog(this);
                 zLoadingDialog.setLoadingBuilder(Z_TYPE.STAR_LOADING)
                         .setLoadingColor(Color.RED)
-                        .setHintText("Loading...");
+                        .setHintText("Loading");
             }
             zLoadingDialog.show();
         } else {

@@ -52,7 +52,7 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
                 zLoadingDialog = new ZLoadingDialog(getActivity());
                 zLoadingDialog.setLoadingBuilder(Z_TYPE.STAR_LOADING)
                         .setLoadingColor(Color.RED)
-                        .setHintText("Loading...");
+                        .setHintText("Loading");
             }
             zLoadingDialog.show();
         } else {

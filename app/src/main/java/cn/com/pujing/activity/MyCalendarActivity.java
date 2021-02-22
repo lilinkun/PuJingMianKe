@@ -48,6 +48,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     private int selectedYear;
     private int selectedMonth;
     private int selectedDay;
+    private String selectDay;
     private AnotherExerciseAdapter anotherExerciseAdapter;
 
     @Override
@@ -99,7 +100,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
                 selectedMonth = calendar.getMonth() - 1;
                 selectedDay = calendar.getDay();
 
-                String selectDay = Methods.getDate(calendar.getYear(), calendar.getMonth() - 1, calendar.getDay());
+                selectDay = Methods.getDate(calendar.getYear(), calendar.getMonth() - 1, calendar.getDay());
                 exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), selectDay));
 
                 OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
@@ -113,7 +114,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
         exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), Methods.getDate(curYear, curMonth, calendarView.getCurDay())));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 //        AnotherExerciseAdapter anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, AnotherExerciseItem.getTestData());
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
 
@@ -210,7 +211,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onDialogClick(String startTime, String endTime, String content) {
         HashMap<String, String> params = new HashMap<>();
-        params.put(Constants.ACTIVITYDATE, Methods.getDate(curYear, curMonth, calendarView.getCurDay()));
+        params.put(Constants.ACTIVITYDATE, selectDay);
         params.put(Constants.BEGINTIME, startTime);
         params.put(Constants.ENDTIME, endTime);
         params.put(Constants.CONTENT, content);

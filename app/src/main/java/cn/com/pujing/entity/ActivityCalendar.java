@@ -20,6 +20,7 @@ public class ActivityCalendar extends Base {
             public String activityStartDate;
             public int initiatorUser;
             public int itemType;
+            public String calendarStatus;
 
             @Override
             public int getItemType() {

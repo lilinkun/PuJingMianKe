@@ -7,7 +7,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,9 +56,12 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     RelativeLayout rlFeedbackType;
     @BindView(R.id.tv_feedback_type)
     TextView tvFeedbackType;
+    @BindView(R.id.tv_length_limit)
+    TextView tvLengthLimit;
     private int id;
     private ImageView uploadImageView;
     private int checkedId;
+    private int MAX_NUM = 500;
 
     @Override
     public int getLayoutId() {
@@ -70,6 +76,8 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
         uploadImageView = findViewById(R.id.iv_upload);
         uploadImageView.setOnClickListener(this);
+
+        etContent.addTextChangedListener(watcher);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,93 +87,6 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         requestPermissions();
     }
 
-   /* private void upload(String filePath) {
-        QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
-
-        // 存储桶所在地域简称，例如广州地区是 ap-guangzhou
-        String region = "ap-chengdu";
-        // 创建 CosXmlServiceConfig 对象，根据需要修改默认的配置参数
-        CosXmlServiceConfig serviceConfig = new CosXmlServiceConfig.Builder()
-                .setRegion(region)
-                .isHttps(true) // 使用 HTTPS 请求, 默认为 HTTP 请求
-                .builder();
-        // 初始化 COS Service，获取实例
-        CosXmlService cosXmlService = new CosXmlService(this,
-                serviceConfig, myCredentialProvider);
-
-        // 初始化 TransferConfig，这里使用默认配置，如果需要定制，请参考 SDK 接口文档
-        TransferConfig transferConfig = new TransferConfig.Builder().build();
-        // 初始化 TransferManager
-        TransferManager transferManager = new TransferManager(cosXmlService, transferConfig);
-
-        HashMap<String, String> params = new HashMap<>();
-        String suffix = filePath.substring(filePath.lastIndexOf(".") + 1);
-        params.put(Constants.EXTNAME, suffix);
-        params.put(Constants.MODENAME, "feedback");
-        JSONObject jsonObject = new JSONObject(params);
-
-        try {
-            Response response = OkGo.post(Urls.GETFILEPATHKEY).upJson(jsonObject).execute();
-
-            if (response != null) {
-                ResponseBody responseBody = response.body();
-                JsonReader jsonReader = new JsonReader(responseBody.charStream());
-                Gson gson = new Gson();
-
-                GetFilePathKey getFilePathKey = gson.fromJson(jsonReader, GetFilePathKey.class);
-                GetFilePathKey.Data data = getFilePathKey.data;
-                String bucket = data.bucket; //存储桶，格式：BucketName-APPID
-                String cosPath = data.key; //对象在存储桶中的位置标识符，即称对象键
-                String srcPath = filePath; //本地文件的绝对路径
-
-                //若存在初始化分块上传的 UploadId，则赋值对应的 uploadId 值用于续传；否则，赋值 null
-                String uploadId = null;
-                // 上传文件
-                COSXMLUploadTask cosxmlUploadTask = transferManager.upload(bucket, cosPath, srcPath, uploadId);
-
-                //设置返回结果回调
-                cosxmlUploadTask.setCosXmlResultListener(new CosXmlResultListener() {
-                    @Override
-                    public void onSuccess(CosXmlRequest request, CosXmlResult result) {
-//                        COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Glide.with(FeedbackActivity.this)
-                                        .load(data.prefixurl + data.key)
-                                        .into(uploadImageView);
-
-                                HashMap<String, String> params = new HashMap<>();
-                                params.put(Constants.FILEEXT, suffix);
-                                params.put(Constants.FILEPATH, data.key);
-                                JSONObject jsonObject = new JSONObject(params);
-
-                                OkGo.post(Urls.ATTACHMENT)
-                                        .tag(this)
-                                        .upJson(jsonObject)
-                                        .execute(new JsonCallback<>(Attachment.class, FeedbackActivity.this));
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFail(CosXmlRequest request, CosXmlClientException clientException, CosXmlServiceException serviceException) {
-                        Log.i("OkGo", "onFail");
-                        if (clientException != null) {
-                            clientException.printStackTrace();
-                            Log.i("OkGo", "onFail=" + clientException.toString());
-                        } else {
-                            serviceException.printStackTrace();
-                            Log.i("OkGo", "onFail=" + serviceException.toString());
-                        }
-                    }
-                });
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type})
@@ -198,6 +119,11 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
             }
 
             String content = etContent.getText().toString();
+
+            if (content.trim().length() == 0){
+                Toast.makeText(this,R.string.feedback_tip,Toast.LENGTH_LONG).show();
+                return;
+            }
 
             HashMap<String, String> params = new HashMap<>();
             params.put(Constants.CONTENT, content);
@@ -268,4 +194,30 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     public void setItemValue(String value) {
         tvFeedbackType.setText(value);
     }
+
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //只要编辑框内容有变化就会调用该方法，s为编辑框变化后的内容
+            Log.i("onTextChanged", s.toString());
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //编辑框内容变化之前会调用该方法，s为编辑框内容变化之前的内容
+            Log.i("beforeTextChanged", s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+            Log.i("afterTextChanged", s.toString());
+            if (s.length() > MAX_NUM) {
+                s.delete(MAX_NUM, s.length());
+            }
+            int num = MAX_NUM - s.length();
+            tvLengthLimit.setText( s.length() + "/500");
+        }
+    };
 }

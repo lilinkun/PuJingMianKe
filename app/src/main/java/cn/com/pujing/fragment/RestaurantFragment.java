@@ -28,6 +28,11 @@ public class RestaurantFragment extends BaseFragment {
     }
 
     @Override
+    public boolean immersionBarEnabled() {
+        return true;
+    }
+
+    @Override
     public void initImmersionBar() {
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
     }

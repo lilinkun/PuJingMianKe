@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -67,9 +68,15 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 loginActivity.showFragment(LoginActivity.FORGET_PWD);
             }
         } else if (id == R.id.btn_login) {
-            OkGo.get(Urls.GETPUBLICKEY)
-                    .tag(this)
-                    .execute(new JsonCallback<>(GetPublicKey.class, this));
+
+            if (etUsername.getText().toString().trim().isEmpty() || etPwd.getText().toString().trim().isEmpty()){
+                Toast.makeText(getActivity(),R.string.login_tip,Toast.LENGTH_LONG).show();
+            }else {
+
+                OkGo.get(Urls.GETPUBLICKEY)
+                        .tag(this)
+                        .execute(new JsonCallback<>(GetPublicKey.class, this));
+            }
         }
     }
 

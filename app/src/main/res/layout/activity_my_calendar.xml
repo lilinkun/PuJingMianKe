@@ -80,36 +80,26 @@
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         app:calendar_height="46dp"
-        app:current_month_text_color="#333333"
+        app:current_month_text_color="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_date"
         app:min_year="2020"
         app:month_view="cn.com.pujing.view.SimpleMonthView"
-        app:other_month_text_color="#e1e1e1"
         app:scheme_text="事"
-        app:scheme_text_color="#333"
+        app:scheme_text_color="@color/white"
         app:scheme_theme_color="#333"
         app:select_mode="single_mode"
+        app:month_view_show_mode="mode_only_current"
         app:selected_text_color="#fff"
-        app:selected_theme_color="#333"
+        app:selected_theme_color="#FF2D1D"
         app:week_background="#fff"
         app:week_bar_view="cn.com.pujing.view.CustomWeekBar"
-        app:week_text_color="#111" />
-
-    <View
-        android:id="@+id/v_calendar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/calendarView"
-        app:layout_constraintEnd_toEndOf="@id/calendarView"
-        app:layout_constraintStart_toStartOf="@id/calendarView"
-        app:layout_constraintTop_toTopOf="@id/calendarView" />
+        app:week_text_color="@color/black" />
 
     <TextView
         android:id="@+id/tv_exercise"
@@ -121,7 +111,7 @@
         android:textColor="@color/text_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_calendar" />
+        app:layout_constraintTop_toBottomOf="@id/calendarView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -130,7 +120,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/shape_calendar"
         app:layout_constraintBottom_toTopOf="@id/tv_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

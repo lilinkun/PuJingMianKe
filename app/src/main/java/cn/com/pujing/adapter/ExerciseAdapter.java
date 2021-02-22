@@ -33,18 +33,20 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
 //                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(ivHeader);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);
+                baseViewHolder.setText(R.id.tv_status, record.calendarStatus);
                 baseViewHolder.setText(R.id.tv_content, record.content);
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));
                 baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
                 break;
             case 0:
-                ImageView iv = baseViewHolder.getView(R.id.iv);
+                ImageView iv = baseViewHolder.getView(R.id.iv_item_exercise);
                 Glide.with(getContext())
                         .load(Urls.PREFIX + Urls.IMG + record.photo)
 //                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(iv);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);
+                baseViewHolder.setText(R.id.tv_status, record.calendarStatus);
                 baseViewHolder.setText(R.id.tv_content, record.content);
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));

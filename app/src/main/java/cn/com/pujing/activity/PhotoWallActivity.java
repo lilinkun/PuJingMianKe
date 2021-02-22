@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.node.BaseNode;
@@ -36,6 +37,8 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
 
     @BindView(R.id.rv_photo_wall)
     RecyclerView recyclerView;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     public int getLayoutId() {
@@ -88,6 +91,15 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                OkGo.get(Urls.PHOTOWALL)
+                        .tag(this)
+                        .execute(new JsonCallback<>(PhotoWall.class, PhotoWallActivity.this));
+            }
+        });
+
 
         OkGo.get(Urls.PHOTOWALL)
                 .tag(this)
@@ -96,6 +108,11 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onSuccess(Response response) {
+
+        if (swipeLayout.isRefreshing()){
+            swipeLayout.setRefreshing(false);
+        }
+
         if (response != null) {
 
             if (response.body() instanceof PhotoWall) {

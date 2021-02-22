@@ -1,8 +1,11 @@
 package cn.com.pujing.util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -40,6 +43,7 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 public class UploadFile {
 
     public static void UpLoadFile(Context context, String filePath, ImageView uploadImageView) {
+
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
         // 存储桶所在地域简称，例如广州地区是 ap-guangzhou
@@ -87,6 +91,7 @@ public class UploadFile {
                 cosxmlUploadTask.setCosXmlResultListener(new CosXmlResultListener() {
                     @Override
                     public void onSuccess(CosXmlRequest request, CosXmlResult result) {
+
 //                        COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
                         runOnUiThread(new Runnable() {
                             @Override
@@ -126,6 +131,7 @@ public class UploadFile {
                     @Override
                     public void onFail(CosXmlRequest request, CosXmlClientException clientException, CosXmlServiceException serviceException) {
                         Log.i("OkGo", "onFail");
+
                         if (clientException != null) {
                             clientException.printStackTrace();
                             Log.i("OkGo", "onFail=" + clientException.toString());

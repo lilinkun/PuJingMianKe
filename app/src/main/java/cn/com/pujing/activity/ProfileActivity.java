@@ -60,6 +60,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @BindView(R.id.iv_head)
     ImageView headImageView;
+    @BindView(R.id.tv_cellphone_number)
+    TextView phoneTextView;
 
     @Override
     public int getLayoutId() {
@@ -68,7 +70,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void init() {
-        ImmersionBar.with(this).statusBarColor("#ED6D0F").fitsSystemWindows(true).init();
+        ImmersionBar.with(this).transparentStatusBar().init();
 
         String avatar = Methods.getValueByKey(Constants.AVATAR, this);
         if (!TextUtils.isEmpty(avatar)) {
@@ -80,10 +82,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         data = (MyInfo.Data) getIntent().getSerializableExtra(Constants.KEY);
         if (data != null) {
-            TextView textView = findViewById(R.id.tv_identity_authentication_value);
-            textView.setText(data.auditStatus_label);
-
-            TextView phoneTextView = findViewById(R.id.tv_cellphone_number_value);
             phoneTextView.setText(data.phone);
         }
     }

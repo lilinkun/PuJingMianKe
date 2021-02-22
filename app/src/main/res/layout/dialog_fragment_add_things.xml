@@ -86,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:src="@mipmap/ic_forward"
+        android:paddingLeft="20dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_start_time_key"
         app:layout_constraintEnd_toEndOf="@id/v_content"
         app:layout_constraintTop_toTopOf="@id/tv_start_time_key" />
@@ -130,6 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:paddingLeft="20dp"
         android:src="@mipmap/ic_forward"
         app:layout_constraintBottom_toBottomOf="@id/tv_end_time_key"
         app:layout_constraintEnd_toEndOf="@id/v_content"
@@ -148,6 +150,53 @@
 
     <View
         android:id="@+id/v_end_time"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="#cccccc"
+        app:layout_constraintEnd_toEndOf="@id/v_content"
+        app:layout_constraintStart_toStartOf="@id/v_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_limit_time_key" />
+
+
+    <TextView
+        android:id="@+id/tv_limit_time_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/notice_time"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/v_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
+
+    <ImageView
+        android:id="@+id/iv_limit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:paddingLeft="20dp"
+        android:src="@mipmap/ic_forward"
+        app:layout_constraintBottom_toBottomOf="@id/tv_limit_time_key"
+        app:layout_constraintEnd_toEndOf="@id/v_content"
+        app:layout_constraintTop_toTopOf="@id/tv_limit_time_key" />
+
+    <TextView
+        android:id="@+id/tv_limit_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_limit_time_key"
+        app:layout_constraintEnd_toStartOf="@id/iv_limit_time"
+        app:layout_constraintTop_toTopOf="@id/tv_limit_time_key" />
+
+    <View
+        android:id="@+id/v_limit_time"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="15dp"

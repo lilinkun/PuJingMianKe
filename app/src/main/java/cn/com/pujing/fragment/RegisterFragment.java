@@ -67,17 +67,25 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             String pwd = etPwd.getText().toString().trim();
             String captcha = etCaptcha.getText().toString().trim();
 
-            HashMap<String, String> params = new HashMap<>();
-            params.put(Constants.USERNAME, userName);
-            params.put(Constants.PHONE, phone);
-            params.put(Constants.NEWPASSWORD, pwd);
-            params.put(Constants.SMSVALIDCODE, captcha);
-            JSONObject jsonObject = new JSONObject(params);
+            if (userName.isEmpty() || pwd.isEmpty()){
+                Toast.makeText(getActivity(),R.string.login_tip,Toast.LENGTH_LONG).show();
+            }else if (phone.isEmpty()){
+                Toast.makeText(getActivity(),"手机号不能为空",Toast.LENGTH_LONG).show();
+            }else if (captcha.isEmpty()){
+                Toast.makeText(getActivity(),"验证码不能为空",Toast.LENGTH_LONG).show();
+            }else {
+                HashMap<String, String> params = new HashMap<>();
+                params.put(Constants.USERNAME, userName);
+                params.put(Constants.PHONE, phone);
+                params.put(Constants.NEWPASSWORD, pwd);
+                params.put(Constants.SMSVALIDCODE, captcha);
+                JSONObject jsonObject = new JSONObject(params);
 
-            OkGo.post(Urls.REGISTER)
-                    .tag(this)
-                    .upJson(jsonObject)
-                    .execute(new JsonCallback<>(Register.class, this));
+                OkGo.post(Urls.REGISTER)
+                        .tag(this)
+                        .upJson(jsonObject)
+                        .execute(new JsonCallback<>(Register.class, this));
+            }
         }
     }
 

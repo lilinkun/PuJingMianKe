@@ -41,4 +41,6 @@ public class Urls {
     public static String NOTICE = PREFIX + H5 + "notice";
     public static String EVENTDETAILS = PREFIX + H5 + "eventDetails/";
     public static String SURVEYLIST = PREFIX + H5 + "surveyList";
+
+    public static String MSG = PREFIX + "/messagePush/page";
 }

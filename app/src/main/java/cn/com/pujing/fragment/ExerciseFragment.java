@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;

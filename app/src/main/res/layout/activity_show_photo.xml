@@ -11,6 +11,7 @@
         >
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -29,6 +30,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_show_photo_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"

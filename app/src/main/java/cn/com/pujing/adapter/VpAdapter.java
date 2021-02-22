@@ -6,10 +6,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-public class VpAdapter extends FragmentPagerAdapter {
-    private List<Fragment> fragmentList;
+import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.entity.Base;
 
-    public VpAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+public class VpAdapter extends FragmentPagerAdapter {
+    private List<BaseFragment> fragmentList;
+
+    public VpAdapter(FragmentManager fm, List<BaseFragment> fragmentList) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragmentList = fragmentList;
     }

@@ -17,6 +17,7 @@ import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.activity.MyMsgActivity;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -87,8 +88,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //            startActivity(new Intent(getContext(), MyOrderActivity.class));
             Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.my_msg) {
-//            startActivity(new Intent(getContext(), MyMsgActivity.class));
-            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), MyMsgActivity.class));
+//            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.my_bill) {
 //            startActivity(new Intent(getContext(), MyBillActivity.class));
             Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();

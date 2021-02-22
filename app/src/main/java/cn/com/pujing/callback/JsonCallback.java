@@ -67,9 +67,9 @@ public class JsonCallback<T> extends AbsCallback {
     @Override
     public void onFinish() {
         super.onFinish();
-        if (OkGo.getInstance().getOkHttpClient().dispatcher().runningCallsCount() == 0 && requestCallback != null) {
+//        if (OkGo.getInstance().getOkHttpClient().dispatcher().runningCallsCount() == 0 && requestCallback != null) {
             requestCallback.loading(false);
-        }
+//        }
     }
 
     @Override

@@ -6,7 +6,7 @@
     android:paddingBottom="20dp">
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/iv_item_exercise"
         android:layout_width="136dp"
         android:layout_height="95dp"
         android:layout_marginStart="20dp"
@@ -28,7 +28,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv"
+        app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -43,6 +43,18 @@
         android:layout_marginEnd="20dp"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#177CFF"
+        android:layout_marginEnd="20dp"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
 
