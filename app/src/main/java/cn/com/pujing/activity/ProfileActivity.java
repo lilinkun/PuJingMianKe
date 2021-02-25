@@ -40,10 +40,14 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.entity.FeedbackSave;
+import cn.com.pujing.entity.LoginoutBean;
+import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
+import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
@@ -58,7 +62,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private String avatar;
     private MyInfo.Data data;
 
-    @BindView(R.id.iv_head)
+    @BindView(R.id.iv_profile_head)
     ImageView headImageView;
     @BindView(R.id.tv_cellphone_number)
     TextView phoneTextView;
@@ -71,6 +75,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void init() {
         ImmersionBar.with(this).transparentStatusBar().init();
+
+        ActivityUtil.addActivity(this);
 
         String avatar = Methods.getValueByKey(Constants.AVATAR, this);
         if (!TextUtils.isEmpty(avatar)) {
@@ -94,17 +100,48 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    @OnClick({R.id.iv_back,R.id.iv_head})
+    @OnClick({R.id.iv_back,R.id.iv_profile_head,R.id.tv_profile_modify_head,R.id.tv_exit,R.id.rl_personal_signature,R.id.rl_personal_nickname,
+    R.id.rl_personal_birthday,R.id.rl_personal_room_number})
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.iv_back) {
-            finish();
-        } else if (id == R.id.iv_head) {
-            Intent intent = new Intent(Intent.ACTION_PICK, null);
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-            startActivityForResult(intent, 110);
+        switch (v.getId()){
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.iv_profile_head:
+            case R.id.tv_profile_modify_head:
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*, image/*");
+                startActivityForResult(intent, 110);
+                break;
+            case R.id.tv_exit:
+
+                OkGo.post(Urls.LOGINOUT)
+                        .tag(this)
+                        .execute(new JsonCallback<>(LoginoutBean.class,this));
+                break;
+            case R.id.rl_personal_nickname:
+                modifyInfo(1);
+                break;
+            case R.id.rl_personal_signature:
+                modifyInfo(2);
+                break;
+            case R.id.rl_personal_birthday:
+                modifyInfo(3);
+                break;
+            case R.id.rl_personal_room_number:
+                modifyInfo(4);
+                break;
         }
+
+    }
+
+    private void modifyInfo(int type){
+        Intent intent = new Intent();
+        intent.putExtra("modifyType",type);
+        intent.setClass(this,ModifyPersonalInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -113,17 +150,19 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         switch (requestCode) {
             case 110:
-                Uri uri = data.getData();
-                String filePath = FileUtils.getFilePathByUri(this, uri);
+                if (data != null) {
+                    Uri uri = data.getData();
+                    String filePath = FileUtils.getFilePathByUri(this, uri);
 
-                if (!TextUtils.isEmpty(filePath)) {
-                    new Thread() {
+                    if (!TextUtils.isEmpty(filePath)) {
+                        new Thread() {
 
-                        @Override
-                        public void run() {
-                            upload(filePath);
-                        }
-                    }.start();
+                            @Override
+                            public void run() {
+                                upload(filePath);
+                            }
+                        }.start();
+                    }
                 }
                 break;
         }
@@ -226,6 +265,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             if (response.body() instanceof EditMyInfo) {
                 Methods.saveKeyValue(Constants.AVATAR, String.valueOf(avatar), this);
                 finish();
+            }else if (response.body() instanceof LoginoutBean){
+                Methods.saveKeyValue(Constants.AUTHORIZATION, "", this);
+                ActivityUtil.finishAll();
             }
         }
     }

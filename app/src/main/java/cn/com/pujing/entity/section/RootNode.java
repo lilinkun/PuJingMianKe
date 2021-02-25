@@ -8,17 +8,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import cn.com.pujing.entity.PhotoWall;
+
 public class RootNode extends BaseExpandNode implements NodeFooterImp {
     private List<BaseNode> childNode;
     public String title;
     public String content;
     public int pos;
+    public int isCollect;
 
-    public RootNode(List<BaseNode> childNode, String title, String content,int pos) {
+    public RootNode(List<BaseNode> childNode, PhotoWall.Data.Record record, int pos) {
         this.childNode = childNode;
-        this.title = title;
-        this.content = content;
+        this.title = record.title;
+        this.content = record.content;
         this.pos = pos;
+        this.isCollect = record.isCollent;
 
         if (this.childNode != null && this.childNode.size() > 9) {
             ItemNode itemNode = (ItemNode) this.childNode.get(8);
@@ -49,6 +53,6 @@ public class RootNode extends BaseExpandNode implements NodeFooterImp {
     @Nullable
     @Override
     public BaseNode getFooterNode() {
-        return new RootFooterNode(pos);
+        return new RootFooterNode(pos,isCollect > 0);
     }
 }

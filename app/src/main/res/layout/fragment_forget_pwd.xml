@@ -139,7 +139,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/selector_login"
+        android:background="@drawable/shape_feedback_btn_bg"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"

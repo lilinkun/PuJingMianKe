@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.zyao89.view.zloading.ZLoadingDialog;
 import com.zyao89.view.zloading.Z_TYPE;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.com.pujing.callback.RequestCallback;
+import cn.com.pujing.entity.Base;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements RequestCallback {
@@ -33,12 +35,24 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
+
         init();
+
     }
 
     public abstract int getLayoutId();
 
     public abstract void init();
+
+    @Override
+    public void onSuccess(Response response) {
+
+    }
+
+    @Override
+    public void onFail(Base base) {
+
+    }
 
     @Override
     public void loading(boolean b) {
@@ -47,6 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
                 zLoadingDialog = new ZLoadingDialog(this);
                 zLoadingDialog.setLoadingBuilder(Z_TYPE.STAR_LOADING)
                         .setLoadingColor(Color.RED)
+                        .setCancelable(false)
+                        .setCanceledOnTouchOutside(false)
                         .setHintText("Loading");
             }
             zLoadingDialog.show();
@@ -84,4 +100,5 @@ public abstract class BaseActivity extends AppCompatActivity implements RequestC
             requestPermissions((String[]) list.toArray(new String[list.size()]), 100);
         }
     }
+
 }

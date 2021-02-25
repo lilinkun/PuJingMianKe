@@ -34,7 +34,7 @@ public class PuJIngUtils {
             startDate = sdf.parse(startTime);
             endDate = sdf.parse(endTime);
 
-            if (startDate.after(endDate)) { //startDate是否在endTime之后，为true 表示  startTime>endTime
+            if (endDate.after(startDate)) { //startDate是否在endTime之后，为true 表示  startTime>endTime
                 return true;
             } else {
                 return false;

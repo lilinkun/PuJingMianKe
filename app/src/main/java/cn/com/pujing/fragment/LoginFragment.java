@@ -2,6 +2,7 @@ package cn.com.pujing.fragment;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import java.net.URLEncoder;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -130,4 +133,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         etUsername.setText(userName);
     }
 
+    @Override
+    public void onFail(Base base) {
+
+        Toast.makeText(getActivity(), base.msg + "", Toast.LENGTH_SHORT).show();
+
+    }
 }

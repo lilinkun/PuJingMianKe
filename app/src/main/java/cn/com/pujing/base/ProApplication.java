@@ -39,7 +39,7 @@ public class ProApplication extends Application {
 
         OkGo.getInstance().init(this)
                 .setOkHttpClient(builder.build())
-                .setRetryCount(0)
+                .setRetryCount(3)
                 .addCommonHeaders(headers);
     }
 }

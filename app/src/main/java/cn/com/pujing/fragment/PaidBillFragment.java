@@ -16,6 +16,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.activity.BillInfoActivity;
 import cn.com.pujing.adapter.PaidBillAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.PaidBillItem;
 
 public class PaidBillFragment extends BaseFragment {
@@ -41,4 +42,5 @@ public class PaidBillFragment extends BaseFragment {
             }
         });
     }
+
 }

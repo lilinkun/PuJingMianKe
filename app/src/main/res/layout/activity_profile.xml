@@ -60,17 +60,18 @@
         >
 
     <ImageView
-        android:id="@+id/iv_head"
+        android:id="@+id/iv_profile_head"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="15dp"
         android:src="@mipmap/ic_head"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
 
     <TextView
-        android:id="@+id/tv_modify_head"
+        android:id="@+id/tv_profile_modify_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -127,16 +128,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:layout_below="@+id/ll_personinfo_head"
         >
 
         <RelativeLayout
+            android:id="@+id/rl_personal_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             >
 
             <TextView
@@ -173,9 +175,10 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_personal_signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             >
 
             <TextView
@@ -211,9 +214,10 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_personal_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             >
 
             <TextView
@@ -249,9 +253,10 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_personal_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             >
 
             <TextView
@@ -286,9 +291,10 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_personal_room_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             >
 
             <TextView
@@ -323,6 +329,21 @@
         </RelativeLayout>
 
 
+        <TextView
+            android:id="@+id/tv_exit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="退出"
+            android:textColor="@color/text_gray"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_input_text"
+            android:elevation="3dp"
+            />
 
     </LinearLayout>
 

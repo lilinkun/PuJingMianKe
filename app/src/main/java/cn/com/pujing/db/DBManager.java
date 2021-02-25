@@ -63,6 +63,10 @@ public class DBManager {
     }
 
 
+    /**
+     * 插入首页功能按钮
+     * @param gridItem
+     */
     public void insertHomeTitle(GridItem gridItem){
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
@@ -70,6 +74,10 @@ public class DBManager {
         gridItemDao.insert(gridItem);
     }
 
+    /**
+     * 取出首页功能按钮
+     * @return
+     */
     public List<GridItem> queryHomeTitle(){
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
@@ -79,6 +87,10 @@ public class DBManager {
         return list;
     }
 
+    /**
+     * 删除首页功能按钮
+     * @return
+     */
     public void deleteHomeTitle(){
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();

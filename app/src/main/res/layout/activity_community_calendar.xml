@@ -89,7 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_date"
         app:min_year="2020"
-        app:month_view="cn.com.pujing.view.SimpleMonthView"
+        app:month_view="cn.com.pujing.widget.SimpleMonthView"
         app:scheme_text="事"
         app:scheme_text_color="@color/white"
         app:scheme_theme_color="#333"
@@ -98,7 +98,7 @@
         app:selected_text_color="#fff"
         app:selected_theme_color="#FF2D1D"
         app:week_background="#fff"
-        app:week_bar_view="cn.com.pujing.view.CustomWeekBar"
+        app:week_bar_view="cn.com.pujing.widget.CustomWeekBar"
         app:week_text_color="@color/black" />
 
     <!--<View

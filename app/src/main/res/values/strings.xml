@@ -116,4 +116,10 @@
     <string name="login_tip">用户名或密码不能为空</string>
     <string name="feedback_tip">提交反馈内容不能为空</string>
     <string name="no_msg_tip">暂无消息</string>
+
+    <string name="cur_hot_activities">当前热门</string>
+    <string name="cur_history_activities">历史活动</string>
+    <string name="cur_my_activities">我的活动</string>
+    <string name="collect_success_tip">收藏成功</string>
+
 </resources>

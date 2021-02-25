@@ -20,6 +20,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.ExerciseAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
 import cn.com.pujing.entity.GetAllCategory;

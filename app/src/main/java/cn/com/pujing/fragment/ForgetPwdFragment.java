@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 
 public class ForgetPwdFragment extends BaseFragment implements View.OnClickListener {
 
@@ -37,6 +38,7 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void initEventAndData() {
     }
+
 
     @Override
     @OnClick({R.id.tv_get_captcha,R.id.tv_submit})

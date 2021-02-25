@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/iv_myactivities"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/tv_myactivies_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢庆双“蛋”！园区企业交流会开启报名"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_myactivies_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="随着元旦佳节的到来,举国上下充满了节日的欢庆氛围。铭诚绿谷企业服务站为了全民联欢元旦佳节,组..."
+        android:textColor="@color/text_black"
+        android:textSize="14sp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/tv_activities_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="费用：40元/人"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_activities_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已结束"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            android:layout_marginRight="6dp"
+            />
+
+    </RelativeLayout>
+    
+    
+</LinearLayout>

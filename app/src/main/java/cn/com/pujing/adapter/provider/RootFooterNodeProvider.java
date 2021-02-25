@@ -34,6 +34,9 @@ public class RootFooterNodeProvider extends BaseNodeProvider {
     @Override
     public void convert(@NotNull BaseViewHolder helper, @Nullable BaseNode data) {
         RootFooterNode rootFooterNode = (RootFooterNode) data;
+
+        helper.setImageResource(R.id.iv_collect,rootFooterNode.isCollect ? R.mipmap.ic_collect : R.mipmap.ic_uncollect);
+
     }
 
     @Override

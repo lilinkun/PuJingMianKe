@@ -77,12 +77,12 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
 
                 if (PuJIngUtils.checkTimeRange(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), "HH:mm")) {
 
-                    Toast.makeText(getActivity(), "时间不对", Toast.LENGTH_LONG).show();
-                } else {
                     if (onDialogListener != null) {
                         onDialogListener.onDialogClick(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), editText.getText().toString());
                     }
                     dismiss();
+                } else {
+                    Toast.makeText(getActivity(), "结束事件必须大于开始时间", Toast.LENGTH_LONG).show();
                 }
             }else {
                 Toast.makeText(getActivity(), "请填写事项", Toast.LENGTH_LONG).show();

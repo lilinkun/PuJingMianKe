@@ -10,6 +10,8 @@ import com.lzy.okgo.request.base.Request;
 import cn.com.pujing.entity.Base;
 import okhttp3.ResponseBody;
 
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
+
 public class JsonCallback<T> extends AbsCallback {
     private Class<T> clazz;
     private RequestCallback requestCallback;
@@ -50,7 +52,17 @@ public class JsonCallback<T> extends AbsCallback {
                 if (base.code == 0) {
                     return t;
                 } else{
+                    if (requestCallback != null) {
+                        requestCallback.loading(false);
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                requestCallback.onFail(base);
+                            }
+                        });
+
+                    }
                 }
             }
         }

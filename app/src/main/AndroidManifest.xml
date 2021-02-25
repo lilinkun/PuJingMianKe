@@ -41,5 +41,6 @@
         <activity android:name=".activity.WebviewActivity" />
         <activity android:name=".activity.MyCalendarActivity" />
         <activity android:name=".activity.ShowPhotoActivity" />
+        <activity android:name=".activity.ModifyPersonalInfoActivity" />
     </application>
 </manifest>

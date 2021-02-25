@@ -8,6 +8,7 @@ import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.PayBillAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.PayBillItem;
 
 public class PayBillFragment extends BaseFragment {
@@ -27,4 +28,5 @@ public class PayBillFragment extends BaseFragment {
         PayBillAdapter payBillAdapter = new PayBillAdapter(R.layout.item_pay_bill, PayBillItem.getTestData());
         recyclerView.setAdapter(payBillAdapter);
     }
+
 }

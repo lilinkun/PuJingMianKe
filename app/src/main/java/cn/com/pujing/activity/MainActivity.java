@@ -25,6 +25,7 @@ import cn.com.pujing.fragment.ExerciseFragment;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MineFragment;
 import cn.com.pujing.fragment.RestaurantFragment;
+import cn.com.pujing.util.ActivityUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -53,6 +54,8 @@ public class MainActivity extends BaseActivity {
     public void init() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
+
+        ActivityUtil.addActivity(this);
 
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();

@@ -17,6 +17,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import cn.com.pujing.adapter.NodeSectionAdapter;
 import cn.com.pujing.adapter.PhotoWallAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
+import cn.com.pujing.entity.ActivityDateAdd;
 import cn.com.pujing.entity.PhotoWall;
 import cn.com.pujing.entity.section.ItemNode;
 import cn.com.pujing.entity.section.RootFooterNode;
@@ -39,6 +41,9 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
     RecyclerView recyclerView;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
+
+    private PhotoWall photoWall;
+    private List<BaseNode> baseNodes;
 
     @Override
     public int getLayoutId() {
@@ -71,6 +76,7 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
 //                            imgViewDialogFragment.show(getSupportFragmentManager(), "");
                             Intent intent = new Intent(PhotoWallActivity.this,ShowPhotoActivity.class);
                             intent.putExtra("showphoto",strings);
+                            intent.putExtra("pos",itemNode.pos);
                             startActivity(intent);
                         }
                     }
@@ -81,7 +87,11 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                             Toast.makeText(PhotoWallActivity.this,"down"+pos.getPos(),Toast.LENGTH_LONG).show();
                             break;
                         case R.id.iv_collect:
-                            Toast.makeText(PhotoWallActivity.this,"collect"+pos.getPos(),Toast.LENGTH_LONG).show();
+
+                            OkGo.put(Urls.PHOTOWALLCOLLECT + photoWall.data.records.get(pos.getPos()).id).execute(new JsonCallback<>(ActivityDateAdd.class, PhotoWallActivity.this));
+
+                            pos.isCollect = !pos.isCollect;
+                            nodeSectionAdapter.notifyDataSetChanged();
                             break;
                         case R.id.iv_share:
                             Toast.makeText(PhotoWallActivity.this,"share"+pos.getPos(),Toast.LENGTH_LONG).show();
@@ -116,12 +126,15 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
         if (response != null) {
 
             if (response.body() instanceof PhotoWall) {
-                PhotoWall photoWall = (PhotoWall) response.body();
+                photoWall = (PhotoWall) response.body();
 
                 PhotoWallAdapter photoWallAdapter =  new PhotoWallAdapter(R.layout.adapter_photo_wall,photoWall.data.records,this);
 
 //                recyclerView.setAdapter(photoWallAdapter);
-                nodeSectionAdapter.setNewInstance(getEntity(photoWall.data.records));
+                baseNodes = getEntity(photoWall.data.records);
+                nodeSectionAdapter.setNewInstance(baseNodes);
+            }else if (response.body() instanceof ActivityDateAdd){
+                Toast.makeText(this,R.string.collect_success_tip,Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -147,15 +160,19 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                             ItemNode itemNode = new ItemNode(string);
                             itemNode.pos = i;
                             itemNode.photo = photo;
-                            if (i == 8){
-                                itemNode.showMore = true;
+                            if (photoLength > 9) {
+                                if (i == 8) {
+                                    itemNode.showMore = true;
+                                } else {
+                                    itemNode.showMore = false;
+                                }
                             }else {
                                 itemNode.showMore = false;
                             }
                             itemNodes.add(itemNode);
                         }
 
-                        RootNode rootNode = new RootNode(itemNodes, record.title, record.content,j);
+                        RootNode rootNode = new RootNode(itemNodes, record,j);
                         list.add(rootNode);
                     }
                 }

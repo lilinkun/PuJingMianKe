@@ -4,36 +4,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.entity.OpinionTypeBean;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
 import cn.com.pujing.util.UploadFile;
@@ -43,13 +38,11 @@ import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.Attachment;
 import cn.com.pujing.entity.FeedbackSave;
 import cn.com.pujing.util.FileUtils;
-import cn.com.pujing.view.FeedbackDialog;
-import cn.com.pujing.view.FeedbackPopup;
-
+import cn.com.pujing.widget.FeedbackDialog;
+import cn.com.pujing.widget.FeedbackPopup;
 
 public class FeedbackActivity extends BaseActivity implements View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener {
-    @BindView(R.id.rg)
-    RadioGroup radioGroup;
+
     @BindView(R.id.et_content)
     EditText etContent;
     @BindView(R.id.rl_feedback_type)
@@ -58,10 +51,14 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     TextView tvFeedbackType;
     @BindView(R.id.tv_length_limit)
     TextView tvLengthLimit;
-    private int id;
+    private int id = 0;
     private ImageView uploadImageView;
     private int checkedId;
     private int MAX_NUM = 500;
+    private String filePath;
+    List<OpinionTypeBean.Data> data;
+    String content;
+    private String type = "1";
 
     @Override
     public int getLayoutId() {
@@ -78,6 +75,10 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         uploadImageView.setOnClickListener(this);
 
         etContent.addTextChangedListener(watcher);
+
+        OkGo.get(Urls.OPINION_TYPE)
+                .execute(new JsonCallback<>(OpinionTypeBean.class,this));
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -96,47 +97,38 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         if (id == R.id.iv_back) {
             finish();
         } else if (id == R.id.iv_upload) {
-//            Intent intent = new Intent(Intent.ACTION_PICK, null);
-//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//            startActivityForResult(intent, 110);
-            Intent mediaChooser = new Intent(Intent.ACTION_GET_CONTENT);
-            //comma-separated MIME types
-            mediaChooser.setType("video/*, image/*");
-            startActivityForResult(mediaChooser, 110);
+            Intent intent = new Intent(Intent.ACTION_PICK, null);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*, image/*");
+            startActivityForResult(intent, 110);
 
         } else if (id == R.id.tv_submit) {
 
-            int checkedId = radioGroup.getCheckedRadioButtonId();
-            int type = 0;
-            if (checkedId == R.id.rb_opinion) {
-                type = 1;
-            } else if (checkedId == R.id.rb_opinion) {
-                type = 2;
-            } else if (checkedId == R.id.rb_opinion) {
-                type = 3;
-            } else if (checkedId == R.id.rb_opinion) {
-                type = 4;
-            }
-
-            String content = etContent.getText().toString();
+            content = etContent.getText().toString();
 
             if (content.trim().length() == 0){
                 Toast.makeText(this,R.string.feedback_tip,Toast.LENGTH_LONG).show();
                 return;
             }
 
-            HashMap<String, String> params = new HashMap<>();
-            params.put(Constants.CONTENT, content);
-            params.put(Constants.PHOTO, String.valueOf(this.id));
-            params.put(Constants.TYPE, String.valueOf(type));
-            JSONObject jsonObject = new JSONObject(params);
+            loading(true);
 
-            OkGo.post(Urls.FEEDBACKSAVE)
-                    .tag(this)
-                    .upJson(jsonObject)
-                    .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));
+            if (filePath != null && filePath.trim().length() > 0){
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath);
+                            }
+                        }
+                ).start();
+            }else {
+                submitData();
+            }
+
+
+
         } else if (id == R.id.rl_feedback_type){
-            FeedbackPopup feedbackPopup = new FeedbackPopup(this);
+            FeedbackPopup feedbackPopup = new FeedbackPopup(this,data);
             feedbackPopup.setListener(this);
             feedbackPopup.showAsDropDown(rlFeedbackType);
             }
@@ -148,19 +140,15 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
         switch (requestCode) {
             case 110:
-                Uri uri = data.getData();
-                String filePath = FileUtils.getFilePathByUri(this, uri);
+                if (data != null) {
+                    Uri uri = data.getData();
+                    filePath = FileUtils.getFilePathByUri(this, uri);
 
-                if (!TextUtils.isEmpty(filePath)) {
-                    new Thread() {
-
-                        @Override
-                        public void run() {
-//                            upload(filePath);
-                            UploadFile.UpLoadFile(FeedbackActivity.this,filePath,uploadImageView);
-                        }
-                    }.start();
+                    Glide.with(this)
+                            .load(filePath)
+                            .into(uploadImageView);
                 }
+
                 break;
         }
     }
@@ -174,8 +162,10 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                 Attachment attachment = (Attachment) response.body();
                 Attachment.Data data = attachment.data;
                 this.id = data.id;
+                submitData();
             } else if (response.body() instanceof FeedbackSave) {
                 FeedbackSave feedbackSave = (FeedbackSave) response.body();
+                loading(false);
                 if (feedbackSave.data) {
                     FeedbackDialog feedbackDialog = new FeedbackDialog(this);
                     feedbackDialog.show();
@@ -186,13 +176,40 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                         }
                     });
                 }
+            }else if (response.body() instanceof OpinionTypeBean){
+                OpinionTypeBean opinionTypeBeans = (OpinionTypeBean) response.body();
+                data = opinionTypeBeans.data;
+                tvFeedbackType.setText(data.get(0).label);
+                type = data.get(0).value;
             }
         }
     }
 
+
+    /**
+     * 提交数据
+     */
+    private void submitData(){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put(Constants.CONTENT, content);
+        if (id != 0){
+            params.put(Constants.PHOTO, String.valueOf(this.id));
+
+        }
+        params.put(Constants.TYPE, String.valueOf(type));
+        JSONObject jsonObject = new JSONObject(params);
+
+        OkGo.post(Urls.FEEDBACKSAVE)
+                .tag(this)
+                .upJson(jsonObject)
+                .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));
+    }
+
     @Override
-    public void setItemValue(String value) {
+    public void setItemValue(String value,int pos) {
         tvFeedbackType.setText(value);
+        type = data.get(pos).value;
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -200,19 +217,16 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             //只要编辑框内容有变化就会调用该方法，s为编辑框变化后的内容
-            Log.i("onTextChanged", s.toString());
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             //编辑框内容变化之前会调用该方法，s为编辑框内容变化之前的内容
-            Log.i("beforeTextChanged", s.toString());
         }
 
         @Override
         public void afterTextChanged(Editable s) {
             //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
-            Log.i("afterTextChanged", s.toString());
             if (s.length() > MAX_NUM) {
                 s.delete(MAX_NUM, s.length());
             }

@@ -1,5 +1,6 @@
 package cn.com.pujing.base;
 
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.zyao89.view.zloading.Z_TYPE;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.com.pujing.callback.RequestCallback;
+import cn.com.pujing.entity.Base;
 
 public abstract class BaseFragment extends Fragment implements RequestCallback, SimpleImmersionOwner {
     public ZLoadingDialog zLoadingDialog;
@@ -31,11 +33,17 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
 
     }
 
+    @Override
+    public void onFail(Base base) {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(getlayoutId(), container, false);
         unbinder = ButterKnife.bind(this, v);
+
         //初始化事件和获取数据, 在此方法中获取数据不是懒加载模式
         initEventAndData();
         return v;
@@ -52,6 +60,8 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
                 zLoadingDialog = new ZLoadingDialog(getActivity());
                 zLoadingDialog.setLoadingBuilder(Z_TYPE.STAR_LOADING)
                         .setLoadingColor(Color.RED)
+                        .setCancelable(false)
+                        .setCanceledOnTouchOutside(false)
                         .setHintText("Loading");
             }
             zLoadingDialog.show();
@@ -101,4 +111,5 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
     public void initImmersionBar() {
 
     }
+
 }

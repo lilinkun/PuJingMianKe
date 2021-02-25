@@ -20,6 +20,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
         android:src="@mipmap/ic_head"
         app:layout_constraintBottom_toBottomOf="@id/iv"
         app:layout_constraintStart_toStartOf="@id/iv" />

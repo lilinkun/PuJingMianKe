@@ -1,4 +1,4 @@
-package cn.com.pujing.view;
+package cn.com.pujing.widget;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -1,8 +1,14 @@
 package cn.com.pujing.fragment;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -13,6 +19,8 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -115,5 +123,12 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 }
             }
         }
+    }
+
+    @Override
+    public void onFail(Base base) {
+
+        Toast.makeText(getActivity(), base.msg + "", Toast.LENGTH_SHORT).show();
+
     }
 }

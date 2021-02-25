@@ -13,6 +13,7 @@ import com.gyf.immersionbar.components.SimpleImmersionFragment;
 
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 
 public class RestaurantFragment extends BaseFragment {
 
@@ -36,4 +37,5 @@ public class RestaurantFragment extends BaseFragment {
     public void initImmersionBar() {
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
     }
+
 }

@@ -42,7 +42,8 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class UploadFile {
 
-    public static void UpLoadFile(Context context, String filePath, ImageView uploadImageView) {
+    //上传照片视频
+    public static void UpLoadFile(Context context, String filePath) {
 
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
@@ -96,24 +97,6 @@ public class UploadFile {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (data.key.endsWith(".mp4") || data.key.endsWith(".rmvb") || data.key.endsWith(".MOV") || data.key.endsWith(".3GP") ){
-
-//                                    Glide.with(context).load(data.prefixurl + data.key).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-//                                            .crossFade().centerCrop().placeholder(placeHolder).error(placeHolder).into(new GlideDrawableImageViewTarget(imageview));
-                                    Glide.with(context)
-                                            .setDefaultRequestOptions(
-                                                    new RequestOptions()
-                                                            .frame(4000000)
-                                                            .centerCrop()
-                                            )
-                                            .load(filePath)
-                                            .into(uploadImageView);
-                                }else {
-                                    Glide.with(context)
-//                                            .load(data.prefixurl + data.key)
-                                            .load(filePath)
-                                            .into(uploadImageView);
-                                }
 
                                 HashMap<String, String> params = new HashMap<>();
                                 params.put(Constants.FILEEXT, suffix);

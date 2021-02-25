@@ -8,13 +8,19 @@ import java.util.List;
 
 public class RootFooterNode extends BaseNode {
     public int pos;
+    public boolean isCollect;
 
-    public RootFooterNode(int pos) {
+    public RootFooterNode(int pos,boolean isCollect) {
         this.pos = pos;
+        this.isCollect = isCollect;
     }
 
     public int getPos() {
         return pos;
+    }
+
+    public boolean isCollect() {
+        return isCollect;
     }
 
     @Nullable

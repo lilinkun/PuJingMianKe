@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,6 +20,7 @@ import com.lzy.okgo.model.Response;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.activity.MyMsgActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -127,4 +130,5 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void initImmersionBar() {
         ImmersionBar.with(this).init();
     }
+
 }

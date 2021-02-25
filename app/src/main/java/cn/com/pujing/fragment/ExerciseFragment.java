@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
 import cn.com.pujing.util.Urls;
@@ -179,4 +180,5 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
     public void initImmersionBar() {
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
     }
+
 }

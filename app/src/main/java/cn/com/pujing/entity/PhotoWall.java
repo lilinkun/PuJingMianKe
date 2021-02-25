@@ -12,6 +12,8 @@ public class PhotoWall extends Base {
             public String title;
             public String photo;
             public String content;
+            public int id;
+            public int isCollent;
         }
     }
 }

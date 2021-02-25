@@ -1,7 +1,9 @@
 package cn.com.pujing.activity;
 
+import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -111,6 +114,8 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
             }
         });
 
+        selectDay = Methods.getCurDate();
+
         exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), Methods.getDate(curYear, curMonth, calendarView.getCurDay())));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -180,6 +185,13 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    @Override
+    public void onFail(Base base) {
+
+        Toast.makeText(this,base.msg+"添加失败",Toast.LENGTH_SHORT).show();
+
+    }
+
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
         Calendar calendar = new Calendar();
         calendar.setYear(year);
@@ -222,4 +234,6 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
                 .upJson(jsonObject)
                 .execute(new JsonCallback<>(ActivityDateAdd.class, this));
     }
+
+
 }

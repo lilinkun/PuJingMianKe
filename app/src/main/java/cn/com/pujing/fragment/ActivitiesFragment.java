@@ -3,6 +3,7 @@ package cn.com.pujing.fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -20,8 +21,10 @@ import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.TabPageAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.GetAllCategory;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Urls;
@@ -45,14 +48,14 @@ public class ActivitiesFragment extends BaseFragment{
 
         List<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new CurrentHotFragment());
-        fragmentList.add(new CurrentHotFragment());
+        fragmentList.add(new HistoryActivitiesFragment());
         fragmentList.add(new MyActivitiesFragment());
         List<String> strings = new ArrayList<>();
-        strings.add("当前热门");
-        strings.add("历史活动");
-        strings.add("我的活动");
+        strings.add(getContext().getString(R.string.cur_hot_activities));
+        strings.add(getContext().getString(R.string.cur_history_activities));
+        strings.add(getContext().getString(R.string.cur_my_activities));
 
-        TabPageAdapter tabPageAdapter = new TabPageAdapter(getActivity().getSupportFragmentManager(), fragmentList,strings);
+        TabPageAdapter tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList,strings);
         vpListExerciset.setAdapter(tabPageAdapter);
         stlListActivities.setViewPager(vpListExerciset);
 
@@ -71,4 +74,5 @@ public class ActivitiesFragment extends BaseFragment{
     public void initImmersionBar() {
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
     }
+
 }

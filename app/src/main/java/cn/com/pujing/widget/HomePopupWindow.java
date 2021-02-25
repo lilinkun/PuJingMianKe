@@ -1,4 +1,4 @@
-package cn.com.pujing.view;
+package cn.com.pujing.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -10,30 +10,23 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.dragswipe.DragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.GridAdapter;
-import cn.com.pujing.callback.DragItemCallback;
 import cn.com.pujing.db.DBManager;
 import cn.com.pujing.entity.GridItem;
-import cn.com.pujing.util.DragItemHelper;
 
 public class HomePopupWindow extends PopupWindow {
     private Context context;

@@ -1,13 +1,30 @@
 package cn.com.pujing.util;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.text.format.DateUtils;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+import butterknife.internal.Utils;
 
 public class FileUtils {
 
@@ -117,4 +134,85 @@ public class FileUtils {
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
+
+
+    /**
+     * android 11及以上保存图片到相册
+     * @param context
+     * @param image
+     */
+    public static void saveImageToGallery2(Context context, Bitmap image){
+        Long mImageTime = System.currentTimeMillis();
+        String imageDate = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date(mImageTime));
+        String SCREENSHOT_FILE_NAME_TEMPLATE = "winetalk_%s.png";//图片名称，以"winetalk"+时间戳命名
+        String mImageFileName = String.format(SCREENSHOT_FILE_NAME_TEMPLATE, imageDate);
+
+        final ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES
+                + File.separator + "winetalk"); //Environment.DIRECTORY_SCREENSHOTS:截图,图库中显示的文件夹名。"dh"
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, mImageFileName);
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
+        values.put(MediaStore.MediaColumns.DATE_ADDED, mImageTime / 1000);
+        values.put(MediaStore.MediaColumns.DATE_MODIFIED, mImageTime / 1000);
+        values.put(MediaStore.MediaColumns.DATE_EXPIRES, (mImageTime + DateUtils.DAY_IN_MILLIS) / 1000);
+        values.put(MediaStore.MediaColumns.IS_PENDING, 1);
+
+        ContentResolver resolver = context.getContentResolver();
+        final Uri uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        try {
+            // First, write the actual data for our screenshot
+            try (OutputStream out = resolver.openOutputStream(uri)) {
+                if (!image.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                    throw new IOException("Failed to compress");
+                }
+            }
+            // Everything went well above, publish it!
+            values.clear();
+            values.put(MediaStore.MediaColumns.IS_PENDING, 0);
+            values.putNull(MediaStore.MediaColumns.DATE_EXPIRES);
+            resolver.update(uri, values, null, null);
+        }catch (IOException e){
+            resolver.delete(uri, null);
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveImage(Bitmap image,Context context) {
+        String saveImagePath = null;
+        Random random = new Random();
+        String imageFileName = "JPEG_" + "down" + random.nextInt(10) + ".jpg";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_PICTURES) + "test");
+
+        boolean success = true;
+        if(!storageDir.exists()){
+            success = storageDir.mkdirs();
+        }
+        if(success){
+            File imageFile = new File(storageDir, imageFileName);
+            saveImagePath = imageFile.getAbsolutePath();
+            try {
+                OutputStream fout = new FileOutputStream(imageFile);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                fout.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Add the image to the system gallery
+            galleryAddPic(context,saveImagePath);
+            Toast.makeText(context, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+        }
+//        return saveImagePath;
+    }
+
+    public static void galleryAddPic(Context context,String imagePath) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(imagePath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        context.sendBroadcast(mediaScanIntent);
+    }
+
+
 }

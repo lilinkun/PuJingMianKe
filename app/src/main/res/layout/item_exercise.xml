@@ -24,7 +24,6 @@
         android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:lines="1"
-        android:text="中秋节活动"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"

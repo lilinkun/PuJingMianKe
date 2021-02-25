@@ -1,7 +1,15 @@
 package cn.com.pujing.activity;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +32,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +44,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.ImgViewAdapter;
 import cn.com.pujing.adapter.ShowPhotoAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.util.FileUtils;
 import cn.com.pujing.util.PuJIngUtils;
 import cn.com.pujing.util.Urls;
 
@@ -44,6 +57,7 @@ public class ShowPhotoActivity extends BaseActivity {
 
     String currentPic = "";
     String[] showPhoto;
+    int pos = 0;
 
     @Override
     public int getLayoutId() {
@@ -59,6 +73,7 @@ public class ShowPhotoActivity extends BaseActivity {
                 .init();
 
         showPhoto = getIntent().getStringArrayExtra("showphoto");
+        pos = getIntent().getIntExtra("pos",0);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -70,8 +85,8 @@ public class ShowPhotoActivity extends BaseActivity {
 
         ImgViewAdapter imgViewAdapter = new ImgViewAdapter(showPhoto, this);
         vpShowPhoto.setAdapter(imgViewAdapter);
-        currentPic = showPhoto[0];
-
+        currentPic = showPhoto[pos];
+        vpShowPhoto.setCurrentItem(pos);
         showPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -97,19 +112,22 @@ public class ShowPhotoActivity extends BaseActivity {
             case R.id.tv_show_photo_save:
                 currentPic = showPhoto[vpShowPhoto.getCurrentItem()];
                 Glide.with(this)
-                                             .asBitmap()
-                                             .load(Urls.PREFIX + Urls.IMG + currentPic)
-                                             .into(new SimpleTarget<Bitmap>() {
-
-                                                 @Override
-                                  public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-
-                                                         }
-                             });
-
+                     .asBitmap()
+                     .load(Urls.PREFIX + Urls.IMG + currentPic).into(new SimpleTarget<Bitmap>() {
+                      @Override
+                      public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                              FileUtils.saveImageToGallery2(ShowPhotoActivity.this, resource);
+                          }else {
+                              FileUtils.saveImage(resource,ShowPhotoActivity.this);
+                          }
+                          }
+                     });
 
                 break;
         }
     }
+
+
 
 }

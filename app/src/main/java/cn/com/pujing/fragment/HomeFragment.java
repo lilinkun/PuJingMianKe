@@ -30,24 +30,30 @@ import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
+import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
-import cn.com.pujing.activity.MoreActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.callback.RequestCallback;
 import cn.com.pujing.db.DBManager;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BannerInfo;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.GetPhoto;
 import cn.com.pujing.entity.GridItem;
 import cn.com.pujing.entity.NotifyInfo;
+import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.view.HomePopupWindow;
+import cn.com.pujing.view.HomeView;
+import cn.com.pujing.widget.HomePopupWindow;
 
 public class HomeFragment extends BaseFragment implements RequestCallback, View.OnClickListener {
 
@@ -75,6 +81,7 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
 
     private String[] strings;
     private GridAdapter gridAdapter;
+    private int mLoginOut = 0;
 
     @Override
     public int getlayoutId() {
@@ -112,8 +119,10 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
             public void OnBannerClick(Object data, int position) {
                 BannerInfo.Data data1 = (BannerInfo.Data) data;
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, Urls.EVENTDETAILS + data1.linkAddress);
-                startActivity(intent);
+                if(data1.linkAddress != null && data1.linkAddress.trim().length() > 0) {
+                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + data1.linkAddress);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -225,8 +234,10 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
 
             if (response.body() instanceof BannerInfo) {
                 BannerInfo bannerInfo = (BannerInfo) response.body();
+                banner.setVisibility(View.VISIBLE);
                 imageNetAdapter.setDatas(bannerInfo.data);
                 imageNetAdapter.notifyDataSetChanged();
+
             } else if (response.body() instanceof NotifyInfo) {
                 NotifyInfo notifyInfo = (NotifyInfo) response.body();
                 NotifyInfo.Data data = notifyInfo.data;
@@ -311,4 +322,19 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
             }
         }
     }
+
+    @Override
+    public void onFail(Base base) {
+        super.onFail(base);
+        if (base.code == 5){
+            mLoginOut++;
+            if (mLoginOut == 1) {
+                Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        }
+    }
+
 }

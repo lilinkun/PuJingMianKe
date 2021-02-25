@@ -1,14 +1,9 @@
 package cn.com.pujing.activity;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
@@ -93,8 +88,4 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onSuccess(Response response) {
-
-    }
 }

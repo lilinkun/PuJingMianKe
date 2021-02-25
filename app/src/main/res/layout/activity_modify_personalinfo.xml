@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        >
+
+        <ImageView
+            android:id="@+id/iv_modify_personalinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_back"
+            android:paddingStart="20dp"
+            android:paddingEnd="@dimen/dp_10"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_modify_personalinfo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tv_modify_personalinfo_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="@string/save"
+            android:textSize="14sp"
+            android:paddingEnd="20dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/et_modify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        />
+
+
+</LinearLayout>
