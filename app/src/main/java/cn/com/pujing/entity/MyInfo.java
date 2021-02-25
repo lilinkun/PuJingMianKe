@@ -10,5 +10,6 @@ public class MyInfo extends Base {
         public String username;
         public String phone;
         public String auditStatus_label;
+        public String nikeName;
     }
 }

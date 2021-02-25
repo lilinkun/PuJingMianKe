@@ -66,6 +66,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     ImageView headImageView;
     @BindView(R.id.tv_cellphone_number)
     TextView phoneTextView;
+    @BindView(R.id.tv_nick_name_value)
+    TextView tvNickName;
 
     @Override
     public int getLayoutId() {
@@ -89,6 +91,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         data = (MyInfo.Data) getIntent().getSerializableExtra(Constants.KEY);
         if (data != null) {
             phoneTextView.setText(data.phone);
+            tvNickName.setText(data.nikeName);
         }
     }
 
@@ -141,7 +144,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         Intent intent = new Intent();
         intent.putExtra("modifyType",type);
         intent.setClass(this,ModifyPersonalInfoActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,0x2211);
     }
 
     @Override
@@ -164,6 +167,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         }.start();
                     }
                 }
+                break;
+
+            case 0x2211:
+
+//                this.data = (MyInfo.Data)data.getExtras("");
+
                 break;
         }
     }

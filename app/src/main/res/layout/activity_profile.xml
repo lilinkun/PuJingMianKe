@@ -155,12 +155,12 @@
                 android:id="@+id/tv_nick_name_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:textColor="@color/text_gray"
-                android:textSize="12sp"
-                android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_nick_name"/>
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/iv_nick_name"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
 
 
             <ImageView

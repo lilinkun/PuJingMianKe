@@ -38,21 +38,17 @@ import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.callback.RequestCallback;
 import cn.com.pujing.db.DBManager;
-import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BannerInfo;
 import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.GetPhoto;
 import cn.com.pujing.entity.GridItem;
 import cn.com.pujing.entity.NotifyInfo;
-import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.view.HomeView;
 import cn.com.pujing.widget.HomePopupWindow;
 
 public class HomeFragment extends BaseFragment implements RequestCallback, View.OnClickListener {
@@ -294,33 +290,37 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
     }
 
     @Override
-    @OnClick({R.id.iv_search,R.id.iv_msg,R.id.tv_more,R.id.iv_photo_wall_1,R.id.iv_photo_wall_2,R.id.iv_photo_wall_3})
+    @OnClick({R.id.iv_search,R.id.iv_msg,R.id.tv_more,R.id.iv_photo_wall_1,R.id.iv_photo_wall_2,R.id.iv_photo_wall_3,R.id.iv_photo_wall_4,R.id.iv_photo_wall_5})
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.iv_search) {
-            Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.iv_msg) {
-//            startActivity(new Intent(getActivity(), MyMsgActivity.class));
-            Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.tv_more) {
-            startActivity(new Intent(getContext(), PhotoWallActivity.class));
-        } else if (id == R.id.iv_photo_wall_1) {
+        switch (v.getId()){
+            case R.id.iv_search:
+
+            case R.id.iv_msg:
+                Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_more:
+            case R.id.iv_photo_wall_1:
+            case R.id.iv_photo_wall_2:
+            case R.id.iv_photo_wall_3:
+            case R.id.iv_photo_wall_4:
+            case R.id.iv_photo_wall_5:
+
+                startActivity(new Intent(getContext(), PhotoWallActivity.class));
+
+                break;
+
+
+        }
+
+        /*if (id == R.id.iv_photo_wall_1) {
             if (strings != null) {
                 ImgViewDialogFragment imgViewDialogFragment = new ImgViewDialogFragment(0, strings);
                 imgViewDialogFragment.show(getFragmentManager(), "");
             }
-        } else if (id == R.id.iv_photo_wall_2) {
-            if (strings != null) {
-                ImgViewDialogFragment imgViewDialogFragment = new ImgViewDialogFragment(1, strings);
-                imgViewDialogFragment.show(getFragmentManager(), "");
-            }
-        } else if (id == R.id.iv_photo_wall_3) {
-            if (strings != null) {
-                ImgViewDialogFragment imgViewDialogFragment = new ImgViewDialogFragment(2, strings);
-                imgViewDialogFragment.show(getFragmentManager(), "");
-            }
-        }
+        }*/
+
     }
 
     @Override

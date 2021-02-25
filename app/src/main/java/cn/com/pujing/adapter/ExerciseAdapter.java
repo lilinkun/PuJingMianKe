@@ -4,6 +4,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +16,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.entity.ActivityCalendar;
 
-public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.Data.Record, BaseViewHolder> {
+public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.Data.Record, BaseViewHolder> implements LoadMoreModule {
 
     public ExerciseAdapter(@Nullable List<ActivityCalendar.Data.Record> data) {
         super(data);

@@ -5,7 +5,7 @@ public class Urls {
 //    public static String H5 = "/app/#/";
     public static String H5 = "/app/#/";
 
-    //        public static final String PREFIX = "http://172.18.9.235"; // 君
+//            public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
 //    public static final String PREFIX = "http://172.18.19.251"; // 勇

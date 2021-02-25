@@ -24,6 +24,7 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
+import cn.com.pujing.util.PuJIngUtils;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.ProfileActivity;
@@ -80,22 +81,38 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v.getId() == R.id.iv_head || v.getId() == R.id.tv_name || v.getId() == R.id.iv_next) {
-            Intent intent = new Intent(getContext(), ProfileActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.KEY, data);
-            intent.putExtras(bundle);
-            startActivity(intent);
+
+            if (!PuJIngUtils.isFastDoubleClick()){
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.KEY, data);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+
         } else if (v.getId() == R.id.tv_my_calendar) {
-            startActivity(new Intent(getContext(), MyCalendarActivity.class));
+
+            if (!PuJIngUtils.isFastDoubleClick()) {
+                startActivity(new Intent(getContext(), MyCalendarActivity.class));
+            }
         } else if (v.getId() == R.id.my_order) {
 //            startActivity(new Intent(getContext(), MyOrderActivity.class));
-            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+
+            if (!PuJIngUtils.isFastDoubleClick()) {
+                Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+            }
         } else if (v.getId() == R.id.my_msg) {
-            startActivity(new Intent(getContext(), MyMsgActivity.class));
+
+            if (!PuJIngUtils.isFastDoubleClick()) {
+                startActivity(new Intent(getContext(), MyMsgActivity.class));
+            }
 //            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.my_bill) {
 //            startActivity(new Intent(getContext(), MyBillActivity.class));
-            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+
+            if (!PuJIngUtils.isFastDoubleClick()) {
+                Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

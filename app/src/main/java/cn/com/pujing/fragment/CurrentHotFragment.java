@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
@@ -33,6 +34,8 @@ public class CurrentHotFragment extends BaseFragment {
     RecyclerView rvExercise1;
 
     private ExerciseAdapter exerciseAdapter;
+    private List<ActivityCalendar.Data.Record> list;
+    int page = 1;
 
     @Override
     public int getlayoutId() {
@@ -62,11 +65,23 @@ public class CurrentHotFragment extends BaseFragment {
             }
         });
 
+        exerciseAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+                page++;
+                OkGo.get(Urls.ACTIVITYCALENDAR)
+                        .tag(this)
+//                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
+                        .params("page", page+"")
+                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+            }
+        });
 
         OkGo.get(Urls.ACTIVITYCALENDAR)
                 .tag(this)
 //                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
-//                            .params(Constants.CATEGORYID, selectedId)
+                            .params("page", page+"")
                 .execute(new JsonCallback<>(ActivityCalendar.class, this));
     }
 
@@ -77,12 +92,22 @@ public class CurrentHotFragment extends BaseFragment {
             if (response.body() instanceof ActivityCalendar) {
                 ActivityCalendar activityCalendar = (ActivityCalendar) response.body();
 
-                List<ActivityCalendar.Data.Record> list = activityCalendar.data.records;
+                if (list != null && list.size() > 0){
+                    list.addAll(activityCalendar.data.records);
+                }else {
+                    list = activityCalendar.data.records;
+                }
+
                 if (list != null && list.size() > 0) {
                     ActivityCalendar.Data.Record record = list.get(0);
                     record.itemType = -1;
                 }
+
                 exerciseAdapter.setNewInstance(list);
+
+                if (exerciseAdapter.getLoadMoreModule().isLoading()){
+                    exerciseAdapter.getLoadMoreModule().loadMoreEnd();
+                }
             }
         }
     }
