@@ -75,4 +75,9 @@ public class ActivitiesFragment extends BaseFragment{
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
     }
 
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
 }

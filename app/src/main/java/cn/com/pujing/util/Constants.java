@@ -9,6 +9,7 @@ public class Constants {
     public static final String USERNAME = "username";
     public static final String NEWPASSWORD = "newPassword";
     public static final String SMSVALIDCODE = "smsValidCode";
+    public static final String VALIDCODE = "validCode";
     public static final String PASSWORD = "password";
     public static final String RSAKEY = "rsaKey";
     public static final String APPLICATIONCODE = "applicationCode";

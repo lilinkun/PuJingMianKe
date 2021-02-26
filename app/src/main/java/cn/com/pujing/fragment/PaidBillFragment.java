@@ -43,4 +43,9 @@ public class PaidBillFragment extends BaseFragment {
         });
     }
 
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
 }

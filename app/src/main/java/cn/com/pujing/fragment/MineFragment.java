@@ -148,4 +148,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ImmersionBar.with(this).init();
     }
 
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
 }

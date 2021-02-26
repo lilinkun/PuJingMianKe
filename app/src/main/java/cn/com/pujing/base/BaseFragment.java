@@ -23,10 +23,12 @@ import butterknife.Unbinder;
 import cn.com.pujing.callback.RequestCallback;
 import cn.com.pujing.entity.Base;
 
-public abstract class BaseFragment extends Fragment implements RequestCallback, SimpleImmersionOwner {
+public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment implements RequestCallback, SimpleImmersionOwner {
     public ZLoadingDialog zLoadingDialog;
 
     public Unbinder unbinder;
+
+    protected T mPresenter;
 
     @Override
     public void onSuccess(Response response) {
@@ -44,6 +46,11 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
         View v = inflater.inflate(getlayoutId(), container, false);
         unbinder = ButterKnife.bind(this, v);
 
+        //判断是否使用MVP模式
+        mPresenter = createPresenter();
+        if (mPresenter != null) {
+            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
+        }
         //初始化事件和获取数据, 在此方法中获取数据不是懒加载模式
         initEventAndData();
         return v;
@@ -112,4 +119,6 @@ public abstract class BaseFragment extends Fragment implements RequestCallback, 
 
     }
 
+    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
+    protected abstract T createPresenter();
 }

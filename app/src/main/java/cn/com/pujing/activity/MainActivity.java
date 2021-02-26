@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
             R.mipmap.ic_unselect_home, R.mipmap.ic_unselect_restaurant,
             R.mipmap.ic_unselect_exercise, R.mipmap.ic_unselect_mine};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_select_home, R.mipmap.ic_unselect_restaurant,
+            R.mipmap.ic_select_home, R.mipmap.ic_select_restaurant,
             R.mipmap.ic_select_exercise, R.mipmap.ic_select_mine};
 
     @Override

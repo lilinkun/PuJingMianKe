@@ -14,13 +14,14 @@ import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.entity.NotifyInfo;
+import cn.com.pujing.entity.NotifyInfoBean;
 
 /**
  * 自定义布局，实现类似1号店、淘宝头条的滚动效果
  */
-public class TopLineAdapter extends BannerAdapter<NotifyInfo.Data.Record, TopLineAdapter.TopLineHolder> {
+public class TopLineAdapter extends BannerAdapter<NotifyInfoBean.Record, TopLineAdapter.TopLineHolder> {
 
-    public TopLineAdapter(List<NotifyInfo.Data.Record> mDatas) {
+    public TopLineAdapter(List<NotifyInfoBean.Record> mDatas) {
         super(mDatas);
     }
 
@@ -30,8 +31,8 @@ public class TopLineAdapter extends BannerAdapter<NotifyInfo.Data.Record, TopLin
     }
 
     @Override
-    public void onBindView(TopLineHolder holder, NotifyInfo.Data.Record data, int position, int size) {
-        holder.contentTextView.setText(data.title);
+    public void onBindView(TopLineHolder holder, NotifyInfoBean.Record data, int position, int size) {
+        holder.contentTextView.setText(data.getTitle());
     }
 
     class TopLineHolder extends RecyclerView.ViewHolder {

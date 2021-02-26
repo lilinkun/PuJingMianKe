@@ -1,12 +1,6 @@
 package cn.com.pujing.util;
 
 import java.io.UnsupportedEncodingException;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
-
-import javax.crypto.Cipher;
 
 public class Base64Utils {
 

@@ -15,8 +15,6 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.youth.banner.Banner;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
@@ -38,20 +36,21 @@ import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.callback.RequestCallback;
 import cn.com.pujing.db.DBManager;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BannerInfo;
 import cn.com.pujing.entity.Base;
-import cn.com.pujing.entity.GetPhoto;
 import cn.com.pujing.entity.GridItem;
-import cn.com.pujing.entity.NotifyInfo;
+import cn.com.pujing.entity.NotifyInfoBean;
+import cn.com.pujing.entity.PhotoBean;
+import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.Urls;
+import cn.com.pujing.view.HomeView;
 import cn.com.pujing.widget.HomePopupWindow;
 
-public class HomeFragment extends BaseFragment implements RequestCallback, View.OnClickListener {
+public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implements View.OnClickListener,HomeView {
 
     private ImageNetAdapter imageNetAdapter;
     private TopLineAdapter topLineAdapter;
@@ -206,77 +205,13 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
     }
 
     private void requesData() {
-        OkGo.get(Urls.BANNER)
-                .tag(this)
-                .execute(new JsonCallback<>(BannerInfo.class, this));
 
-        OkGo.get(Urls.NOTIFY)
-                .tag(this)
-                .params(Constants.QUERYIDENTIFY, Constants.RELEASED)
-                .execute(new JsonCallback<>(NotifyInfo.class, this));
+        mPresenter.getBannerData();
 
-        OkGo.get(Urls.GETPHOTO)
-                .tag(this)
-                .execute(new JsonCallback<>(GetPhoto.class, this));
-    }
+        mPresenter.getNoticeData();
 
-    @Override
-    public void onSuccess(Response response) {
-        if (response != null) {
+        mPresenter.getHomePhoto();
 
-            if (swipeRefreshLayout.isRefreshing()) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            if (response.body() instanceof BannerInfo) {
-                BannerInfo bannerInfo = (BannerInfo) response.body();
-                banner.setVisibility(View.VISIBLE);
-                imageNetAdapter.setDatas(bannerInfo.data);
-                imageNetAdapter.notifyDataSetChanged();
-
-            } else if (response.body() instanceof NotifyInfo) {
-                NotifyInfo notifyInfo = (NotifyInfo) response.body();
-                NotifyInfo.Data data = notifyInfo.data;
-                topLineAdapter.setDatas(data.records);
-                topLineAdapter.notifyDataSetChanged();
-            } else if (response.body() instanceof GetPhoto) {
-                GetPhoto getPhoto = (GetPhoto) response.body();
-                String photo = getPhoto.data.photo;
-                String[] strings = photo.split(",");
-                this.strings = strings;
-                if (strings != null) {
-                    for (int i = 0; i < strings.length; i++) {
-                        switch (i) {
-                            case 0:
-                                Glide.with(getContext())
-                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(ivPhotoWall1);
-                                break;
-                            case 1:
-                                Glide.with(getContext())
-                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(ivPhotoWall2);
-                                break;
-                            case 2:
-                                Glide.with(getContext())
-                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(ivPhotoWall3);
-                                break;
-                            case 3:
-                                Glide.with(getContext())
-                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(ivPhotoWall4);
-                                break;
-                            case 4:
-                                Glide.with(getContext())
-                                        .load(Urls.PREFIX + Urls.IMG + strings[i])
-                                        .into(ivPhotoWall5);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -287,6 +222,11 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
     @Override
     public void initImmersionBar() {
         ImmersionBar.with(this).titleBar((R.id.v_title_bar)).init();
+    }
+
+    @Override
+    protected HomePresenter createPresenter() {
+        return new HomePresenter();
     }
 
     @Override
@@ -337,4 +277,60 @@ public class HomeFragment extends BaseFragment implements RequestCallback, View.
         }
     }
 
+    @Override
+    public void getBannerDataSuccess(List<BannerBean> data) {
+        List<BannerBean> bannerBeans = data;
+        banner.setVisibility(View.VISIBLE);
+        imageNetAdapter.setDatas(bannerBeans);
+        imageNetAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getNoticeDataSuccess(NotifyInfoBean notifyInfoBean) {
+        topLineAdapter.setDatas(notifyInfoBean.getRecords());
+        topLineAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getPhotoDataSuccess(PhotoBean photoBean) {
+        String photo = photoBean.getPhoto();
+        String[] strings = photo.split(",");
+        this.strings = strings;
+        if (strings != null) {
+            for (int i = 0; i < strings.length; i++) {
+                switch (i) {
+                    case 0:
+                        Glide.with(getContext())
+                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .into(ivPhotoWall1);
+                        break;
+                    case 1:
+                        Glide.with(getContext())
+                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .into(ivPhotoWall2);
+                        break;
+                    case 2:
+                        Glide.with(getContext())
+                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .into(ivPhotoWall3);
+                        break;
+                    case 3:
+                        Glide.with(getContext())
+                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .into(ivPhotoWall4);
+                        break;
+                    case 4:
+                        Glide.with(getContext())
+                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .into(ivPhotoWall5);
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void getDataError(String message) {
+
+    }
 }

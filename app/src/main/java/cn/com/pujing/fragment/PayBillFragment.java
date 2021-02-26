@@ -29,4 +29,9 @@ public class PayBillFragment extends BaseFragment {
         recyclerView.setAdapter(payBillAdapter);
     }
 
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
 }

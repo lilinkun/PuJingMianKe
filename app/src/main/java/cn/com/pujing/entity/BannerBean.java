@@ -1,11 +1,13 @@
 package cn.com.pujing.entity;
 
+import java.io.Serializable;
+
 /**
  * author : liguo
  * date : 2021/2/25 14:18
  * description :首页轮播图
  */
-public class BannerBean {
+public class BannerBean implements Serializable {
     private String picture;
     private String linkAddress;
 

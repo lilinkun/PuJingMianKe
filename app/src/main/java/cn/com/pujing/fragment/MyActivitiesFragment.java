@@ -51,6 +51,11 @@ public class MyActivitiesFragment extends BaseFragment {
 
     }
 
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
 
     @Override
     public void onSuccess(Response response) {

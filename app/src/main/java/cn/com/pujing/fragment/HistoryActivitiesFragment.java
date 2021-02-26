@@ -50,6 +50,11 @@ public class HistoryActivitiesFragment extends BaseFragment {
     }
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     public void onSuccess(Response response) {
         super.onSuccess(response);
         if (response != null) {

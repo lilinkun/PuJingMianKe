@@ -17,9 +17,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.Base;
+import cn.com.pujing.entity.LoginToken;
+import cn.com.pujing.entity.PublicKey;
+import cn.com.pujing.presenter.LoginPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
@@ -28,8 +32,9 @@ import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.GetPublicKey;
 import cn.com.pujing.entity.Token;
 import cn.com.pujing.util.Base64Utils;
+import cn.com.pujing.view.LoginView;
 
-public class LoginFragment extends BaseFragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> implements View.OnClickListener ,LoginView{
 
     @BindView(R.id.tv_register)
     TextView registerTV;
@@ -55,6 +60,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     @Override
+    protected LoginPresenter createPresenter() {
+        return new LoginPresenter();
+    }
+
+    @Override
     @OnClick({R.id.tv_register,R.id.tv_forget_pwd,R.id.btn_login})
     public void onClick(View v) {
         int id = v.getId();
@@ -76,55 +86,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 Toast.makeText(getActivity(),R.string.login_tip,Toast.LENGTH_LONG).show();
             }else {
 
-                OkGo.get(Urls.GETPUBLICKEY)
+                /*OkGo.get(Urls.GETPUBLICKEY)
                         .tag(this)
-                        .execute(new JsonCallback<>(GetPublicKey.class, this));
-            }
-        }
-    }
-
-    @Override
-    public void onSuccess(Response response) {
-        super.onSuccess(response);
-
-        if (response != null) {
-
-            if (response.body() instanceof GetPublicKey) {
-                GetPublicKey getPublicKey = (GetPublicKey) response.body();
-                GetPublicKey.Data data = getPublicKey.data;
-
-                String publicKey = data.publicKey;
-                publicKey = publicKey.replaceAll("-----BEGIN PUBLIC KEY-----", "").trim();
-                publicKey = publicKey.replaceAll("-----END PUBLIC KEY-----", "").trim();
-
-                String rsaKey = data.rsaKey;
-                String userName = etUsername.getText().toString().trim();
-                String pwd = etPwd.getText().toString().trim();
-
-                try {
-                    String password = Base64Utils.encode(Methods.encryptByPublicKey(pwd.getBytes(), Methods.getPublicKey(publicKey)));
-
-                    OkGo.post(Urls.TOKEN)
-                            .tag(this)
-                            .params(Constants.USERNAME, userName)
-                            .params(Constants.PASSWORD, URLEncoder.encode(password, "UTF-8"))
-                            .params(Constants.RSAKEY, rsaKey)
-                            .params(Constants.APPLICATIONCODE, Constants.ANDROID)
-                            .execute(new JsonCallback<>(Token.class, this));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (response.body() instanceof Token) {
-                Token token = (Token) response.body();
-                Token.Data data = token.data;
-                Methods.saveKeyValue(Constants.AUTHORIZATION, Constants.BEARER + data.access_token, getActivity());
-                OkGo.getInstance().getCommonHeaders().put(Constants.AUTHORIZATION, Constants.BEARER + data.access_token);
-
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
-                getActivity().finish();
+                        .execute(new JsonCallback<>(GetPublicKey.class, this));*/
+                mPresenter.getPublicKey();
             }
         }
     }
@@ -133,10 +98,43 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         etUsername.setText(userName);
     }
 
+
     @Override
-    public void onFail(Base base) {
+    public void getPublicKeySucccess(PublicKey mPublicKey) {
 
-        Toast.makeText(getActivity(), base.msg + "", Toast.LENGTH_SHORT).show();
+        String publicKey = mPublicKey.getPublicKey();
+        publicKey = publicKey.replaceAll("-----BEGIN PUBLIC KEY-----", "").trim();
+        publicKey = publicKey.replaceAll("-----END PUBLIC KEY-----", "").trim();
 
+        String rsaKey = mPublicKey.getRsaKey();
+        String userName = etUsername.getText().toString().trim();
+        String pwd = etPwd.getText().toString().trim();
+
+        try {
+            String password = Base64Utils.encode(Methods.encryptByPublicKey(pwd.getBytes(), Methods.getPublicKey(publicKey)));
+
+            mPresenter.getLoginSuccess(userName,password,rsaKey);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void getLoginSuccess(LoginToken loginToken) {
+
+        Methods.saveKeyValue(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token(), getActivity());
+        OkGo.getInstance().getCommonHeaders().put(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token());
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+        getActivity().finish();
     }
 }
