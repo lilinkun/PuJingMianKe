@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/iv_header_exercise"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:scaleType="fitXY"
         android:src="@mipmap/header_exercise"
         app:layout_constraintEnd_toEndOf="parent"

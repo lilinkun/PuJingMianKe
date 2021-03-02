@@ -11,6 +11,7 @@ import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.fragment.PaidBillFragment;
 import cn.com.pujing.fragment.PayBillFragment;
 
@@ -65,5 +66,10 @@ public class MyBillActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

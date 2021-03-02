@@ -19,4 +19,8 @@
 
     <color name="blue_bg">#EBF9FF</color>
 
+    <color name="gray_line">#F5F5F5</color>
+
+    <color name="common_gray">#CCCCCC</color>
+
 </resources>

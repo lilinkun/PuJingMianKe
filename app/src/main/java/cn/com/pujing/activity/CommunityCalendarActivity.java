@@ -19,6 +19,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -148,6 +149,11 @@ public class CommunityCalendarActivity extends BaseActivity implements View.OnCl
                 anotherExerciseAdapter.setNewInstance(querySelectDay.data);
             }
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {

@@ -1,12 +1,18 @@
 package cn.com.pujing.activity;
 
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gyf.immersionbar.ImmersionBar;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.fragment.ForgetPwdFragment;
 import cn.com.pujing.fragment.LoginFragment;
 import cn.com.pujing.fragment.RegisterFragment;
@@ -20,6 +26,9 @@ public class LoginActivity extends BaseActivity {
     private ForgetPwdFragment forgetPwdFragment;
     private int current;
 
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -30,6 +39,11 @@ public class LoginActivity extends BaseActivity {
                 .statusBarDarkFont(true)
                 .init();
         showFragment(LOGIN);
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     public void showFragment(int type) {
@@ -50,6 +64,7 @@ public class LoginActivity extends BaseActivity {
 
         switch (type) {
             case LOGIN:
+                ivBack.setVisibility(View.GONE);
                 if (loginFragment == null) {
                     loginFragment = new LoginFragment();
                     fragmentTransaction.add(R.id.fl, loginFragment);
@@ -58,6 +73,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case REGISTER:
+                ivBack.setVisibility(View.GONE);
                 if (registerFragment == null) {
                     registerFragment = new RegisterFragment();
                     fragmentTransaction.add(R.id.fl, registerFragment);
@@ -66,6 +82,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case FORGET_PWD:
+                ivBack.setVisibility(View.VISIBLE);
                 if (forgetPwdFragment == null) {
                     forgetPwdFragment = new ForgetPwdFragment();
                     fragmentTransaction.add(R.id.fl, forgetPwdFragment);
@@ -85,6 +102,17 @@ public class LoginActivity extends BaseActivity {
             showFragment(LOGIN);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @OnClick({R.id.iv_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iv_back:
+
+                onBackPressed();
+
+                break;
         }
     }
 

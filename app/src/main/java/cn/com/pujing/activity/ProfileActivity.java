@@ -1,12 +1,16 @@
 package cn.com.pujing.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,17 +40,22 @@ import com.tencent.qcloud.core.auth.QCloudCredentialProvider;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.entity.FeedbackSave;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.LoginoutBean;
+import cn.com.pujing.entity.MyInfoBean;
+import cn.com.pujing.presenter.ModifyPersonalInfoPresenter;
+import cn.com.pujing.presenter.ProfilePresenter;
 import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
@@ -55,12 +64,14 @@ import cn.com.pujing.entity.EditMyInfo;
 import cn.com.pujing.entity.GetFilePathKey;
 import cn.com.pujing.entity.MyInfo;
 import cn.com.pujing.util.FileUtils;
+import cn.com.pujing.view.ModifyPersonalInfoView;
+import cn.com.pujing.view.ProfileView;
 import okhttp3.ResponseBody;
 
-public class ProfileActivity extends BaseActivity implements View.OnClickListener {
+public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter> implements View.OnClickListener ,ProfileView{
 
     private String avatar;
-    private MyInfo.Data data;
+    private MyInfoBean myInfoBean;
 
     @BindView(R.id.iv_profile_head)
     ImageView headImageView;
@@ -68,6 +79,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     TextView phoneTextView;
     @BindView(R.id.tv_nick_name_value)
     TextView tvNickName;
+    @BindView(R.id.tv_personal_signature_value)
+    TextView tvPersonalSignature;
+    @BindView(R.id.tv_room_number)
+    TextView tvRoomNumber;
+    @BindView(R.id.tv_personal_birthday_value)
+    TextView tvPersonalBirthday;
 
     @Override
     public int getLayoutId() {
@@ -88,10 +105,20 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     .into(headImageView);
         }
 
-        data = (MyInfo.Data) getIntent().getSerializableExtra(Constants.KEY);
-        if (data != null) {
-            phoneTextView.setText(data.phone);
-            tvNickName.setText(data.nikeName);
+
+        myInfoBean = (MyInfoBean) getIntent().getSerializableExtra(Constants.KEY);
+        initData();
+
+        mPresenter.getMyInfo();
+    }
+
+    private void initData(){
+        if (myInfoBean != null) {
+            phoneTextView.setText(myInfoBean.getPhone());
+            tvNickName.setText(myInfoBean.getNikeName());
+            tvPersonalSignature.setText(myInfoBean.getSignature());
+            tvRoomNumber.setText(myInfoBean.getRoomNumber());
+            tvPersonalBirthday.setText(myInfoBean.getBirthday());
         }
     }
 
@@ -143,6 +170,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private void modifyInfo(int type){
         Intent intent = new Intent();
         intent.putExtra("modifyType",type);
+        intent.putExtra("personalinfo",myInfoBean);
         intent.setClass(this,ModifyPersonalInfoActivity.class);
         startActivityForResult(intent,0x2211);
     }
@@ -172,6 +200,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             case 0x2211:
 
 //                this.data = (MyInfo.Data)data.getExtras("");
+
+                mPresenter.getMyInfo();
+                /*if (data != null) {
+                    MyInfoBean myInfoBean1 = (MyInfoBean) data.getSerializableExtra("myinfo");
+                    myInfoBean = myInfoBean1;
+                    initData();
+                }*/
 
                 break;
         }
@@ -272,6 +307,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         if (response != null) {
 
             if (response.body() instanceof EditMyInfo) {
+                Glide.with(ProfileActivity.this)
+                        .load(avatar)
+                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                        .into(headImageView);
                 Methods.saveKeyValue(Constants.AVATAR, String.valueOf(avatar), this);
                 finish();
             }else if (response.body() instanceof LoginoutBean){
@@ -281,4 +320,21 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    protected ProfilePresenter createPresenter() {
+        return new ProfilePresenter();
+    }
+
+    @Override
+    public void getMyInfoSuccess(MyInfoBean myInfoBean) {
+        if (this.myInfoBean != myInfoBean) {
+            this.myInfoBean = myInfoBean;
+            initData();
+        }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        UToast.show(this,msg);
+    }
 }

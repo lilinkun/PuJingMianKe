@@ -33,4 +33,8 @@ public class Constants {
     public static final String TYPE = "type";
     public static final String AVATAR = "avatar";
     public static final String KEY = "key";
+    public static final String NICKNAME = "nikeName";
+    public static final String SIGNATURE = "signature";
+    public static final String BIRTHDAY = "birthday";
+    public static final String ROOMNUMBER = "roomNumber";
 }

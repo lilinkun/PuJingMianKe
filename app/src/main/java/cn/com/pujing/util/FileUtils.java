@@ -171,6 +171,7 @@ public class FileUtils {
             values.put(MediaStore.MediaColumns.IS_PENDING, 0);
             values.putNull(MediaStore.MediaColumns.DATE_EXPIRES);
             resolver.update(uri, values, null, null);
+            UToast.show(context,"照片保存成功");
         }catch (IOException e){
             resolver.delete(uri, null);
             e.printStackTrace();
@@ -201,7 +202,7 @@ public class FileUtils {
 
             // Add the image to the system gallery
             galleryAddPic(context,saveImagePath);
-            Toast.makeText(context, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+            UToast.show(context,"照片保存成功");
         }
 //        return saveImagePath;
     }

@@ -42,5 +42,7 @@
         <activity android:name=".activity.MyCalendarActivity" />
         <activity android:name=".activity.ShowPhotoActivity" />
         <activity android:name=".activity.ModifyPersonalInfoActivity" />
+        <activity android:name=".activity.RestRoutineActivity" />
+        <activity android:name=".activity.RestBanquetsActivity" />
     </application>
 </manifest>

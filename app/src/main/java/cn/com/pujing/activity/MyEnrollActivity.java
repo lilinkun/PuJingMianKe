@@ -4,6 +4,7 @@ import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 
 public class MyEnrollActivity extends BaseActivity {
 
@@ -20,5 +21,10 @@ public class MyEnrollActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

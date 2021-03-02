@@ -14,6 +14,7 @@ import com.lzy.okgo.model.Response;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.MsgAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.MyMessageBean;
 import cn.com.pujing.util.Urls;
@@ -62,5 +63,10 @@ public class MyMsgActivity extends BaseActivity implements View.OnClickListener 
         if (response.body() instanceof MyMessageBean){
 
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

@@ -1,9 +1,15 @@
 package cn.com.pujing.fragment;
 
+import android.content.Intent;
+import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
@@ -11,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.HistoryActivitiesAdapter;
 import cn.com.pujing.adapter.MyActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
@@ -18,13 +25,19 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
 import cn.com.pujing.entity.ExerciseBean;
+import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.presenter.HistoryActivitiesPresenter;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
+import cn.com.pujing.view.HistoryActivitiesView;
 
-public class HistoryActivitiesFragment extends BaseFragment {
+public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesView, HistoryActivitiesPresenter> implements HistoryActivitiesView {
     @BindView(R.id.rv_history_activities)
     RecyclerView rvHistoryActivities;
 
     HistoryActivitiesAdapter historyActivitiesAdapter;
+    private HistoryActivitiesBean historyActivitiesBean;
 
     @Override
     public int getlayoutId() {
@@ -45,25 +58,37 @@ public class HistoryActivitiesFragment extends BaseFragment {
         rvHistoryActivities.setAdapter(historyActivitiesAdapter);
         historyActivitiesAdapter.setEmptyView(R.layout.empty_view);
 
-        OkGo.get(Urls.QUERY_HISTORY_ACTIVITY)
-                .tag(this).execute(new JsonCallback<>(ExerciseBean.class, this));
-    }
+        historyActivitiesAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
-
-    @Override
-    public void onSuccess(Response response) {
-        super.onSuccess(response);
-        if (response != null) {
-
-            if (response.body() instanceof ExerciseBean) {
-                ExerciseBean exerciseBean = (ExerciseBean) response.body();
-
-                historyActivitiesAdapter.setNewInstance(exerciseBean.data);
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra(Constants.URL, Urls.EVENTDETAILS + historyActivitiesBean.getRecords().get(position).id);
+                startActivity(intent);
             }
+        });
+
+        mPresenter.getActivitiesDataSuccess();
+
+    }
+
+    @Override
+    protected HistoryActivitiesPresenter createPresenter() {
+        return new HistoryActivitiesPresenter();
+    }
+
+
+
+    @Override
+    public void getHistoryDataSuccess(HistoryActivitiesBean historyActivitiesBean) {
+        if (historyActivitiesBean != null){
+            this.historyActivitiesBean = historyActivitiesBean;
+            historyActivitiesAdapter.setNewInstance(historyActivitiesBean.getRecords());
         }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        UToast.show(getActivity(),msg);
     }
 }

@@ -18,9 +18,10 @@ public class ActivityCalendar extends Base {
             public String price;
             public int stayUserNum;
             public String activityStartDate;
-            public int initiatorUser;
             public int itemType;
             public String calendarStatus;
+            public String summary;
+            public String calendarStatus_label;
 
             @Override
             public int getItemType() {

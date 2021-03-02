@@ -9,6 +9,7 @@ import com.lzy.okgo.model.Response;
 
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 
 public class BillInfoActivity extends BaseActivity {
 
@@ -25,5 +26,10 @@ public class BillInfoActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

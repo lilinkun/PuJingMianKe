@@ -1,20 +1,12 @@
 package cn.com.pujing.activity;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,15 +20,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,8 +28,8 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.ImgViewAdapter;
 import cn.com.pujing.adapter.ShowPhotoAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.FileUtils;
-import cn.com.pujing.util.PuJIngUtils;
 import cn.com.pujing.util.Urls;
 
 public class ShowPhotoActivity extends BaseActivity {
@@ -98,6 +82,19 @@ public class ShowPhotoActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestPermissions();
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     @OnClick({R.id.iv_back,R.id.tv_show_photo_save})

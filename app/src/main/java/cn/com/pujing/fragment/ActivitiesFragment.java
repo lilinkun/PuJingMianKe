@@ -58,10 +58,6 @@ public class ActivitiesFragment extends BaseFragment{
         TabPageAdapter tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList,strings);
         vpListExerciset.setAdapter(tabPageAdapter);
         stlListActivities.setViewPager(vpListExerciset);
-
-        OkGo.get(Urls.GETALLCATEGORY)
-                .tag(this)
-                .execute(new JsonCallback<>(GetAllCategory.class, this));
     }
 
 

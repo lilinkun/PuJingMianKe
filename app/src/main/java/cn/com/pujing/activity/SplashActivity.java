@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
 
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
@@ -68,5 +69,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

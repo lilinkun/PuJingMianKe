@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/tv_child_restroutine_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="蒸点粥食"
+        android:textColor="#ff177cff"
+        android:background="@drawable/shape_child_restroutine"
+        android:textSize="11sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_child_restroutine_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="生煎包"
+        android:textColor="@color/text_gray"
+        android:textSize="12sp"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+
+</LinearLayout>

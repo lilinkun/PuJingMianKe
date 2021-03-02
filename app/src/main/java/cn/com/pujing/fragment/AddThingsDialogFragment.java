@@ -15,10 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.net.IDN;
-
 import cn.com.pujing.R;
-import cn.com.pujing.util.PuJIngUtils;
+import cn.com.pujing.util.PuJingUtils;
 
 public class AddThingsDialogFragment extends DialogFragment implements View.OnClickListener {
     private OnDialogListener onDialogListener;
@@ -75,7 +73,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
 
             if (editText.getText().toString().trim().length() > 0) {
 
-                if (PuJIngUtils.checkTimeRange(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), "HH:mm")) {
+                if (PuJingUtils.checkTimeRange(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), "HH:mm")) {
 
                     if (onDialogListener != null) {
                         onDialogListener.onDialogClick(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), editText.getText().toString());

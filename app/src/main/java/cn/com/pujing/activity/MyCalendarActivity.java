@@ -23,6 +23,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.Base;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
@@ -190,6 +191,11 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
 
         Toast.makeText(this,base.msg+"添加失败",Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {

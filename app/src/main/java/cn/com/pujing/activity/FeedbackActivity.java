@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.OpinionTypeBean;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
@@ -117,7 +118,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                         new Runnable() {
                             @Override
                             public void run() {
-                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath);
+                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath,"feedback");
                             }
                         }
                 ).start();
@@ -183,6 +184,11 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                 type = data.get(0).value;
             }
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
 

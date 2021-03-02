@@ -19,6 +19,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.VpAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.TabEntity;
 import cn.com.pujing.fragment.ActivitiesFragment;
 import cn.com.pujing.fragment.ExerciseFragment;
@@ -117,6 +118,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     public void setCurPos(int pos) {

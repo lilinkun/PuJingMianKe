@@ -20,6 +20,7 @@ import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.DragItemCallback;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
@@ -108,6 +109,11 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     ItemTouchHelper mItemHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {

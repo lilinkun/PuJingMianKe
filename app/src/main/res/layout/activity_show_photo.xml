@@ -82,6 +82,7 @@
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom"
+                android:visibility="gone"
                 android:background="#6B000000"
                 >
 

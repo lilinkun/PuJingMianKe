@@ -2,6 +2,7 @@ package cn.com.pujing.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -31,9 +33,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
+import cn.com.pujing.activity.ProfileActivity;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.Attachment;
+import cn.com.pujing.entity.EditMyInfo;
 import cn.com.pujing.entity.GetFilePathKey;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -42,8 +46,10 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class UploadFile {
 
+    public static UploadListener uploadListener;
+
     //上传照片视频
-    public static void UpLoadFile(Context context, String filePath) {
+    public static void UpLoadFile(Context context, String filePath, String istype) {
 
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
@@ -98,15 +104,18 @@ public class UploadFile {
                             @Override
                             public void run() {
 
-                                HashMap<String, String> params = new HashMap<>();
-                                params.put(Constants.FILEEXT, suffix);
-                                params.put(Constants.FILEPATH, data.key);
-                                JSONObject jsonObject = new JSONObject(params);
+                                if (istype.equals("feedback")) {
 
-                                OkGo.post(Urls.ATTACHMENT)
-                                        .tag(this)
-                                        .upJson(jsonObject)
-                                        .execute(new JsonCallback<>(Attachment.class, (BaseActivity)context));
+                                    HashMap<String, String> params = new HashMap<>();
+                                    params.put(Constants.FILEEXT, suffix);
+                                    params.put(Constants.FILEPATH, data.key);
+                                    JSONObject jsonObject = new JSONObject(params);
+
+                                    OkGo.post(Urls.ATTACHMENT)
+                                            .tag(this)
+                                            .upJson(jsonObject)
+                                            .execute(new JsonCallback<>(Attachment.class, (BaseActivity) context));
+                                }
                             }
                         });
                     }
@@ -129,6 +138,14 @@ public class UploadFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setLisener(UploadListener lisener){
+        uploadListener = lisener;
+    }
+
+    public static interface UploadListener{
+        public void onUploadData(String AVATAR);
     }
 
 

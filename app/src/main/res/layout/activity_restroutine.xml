@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_line">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        >
+
+        <ImageView
+            android:id="@+id/iv_setmeal_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_back"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rest_routine"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:id="@+id/iv_restroutine_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_black_back"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/tv_restroutine_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="2021-02-01"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_black"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_restroutine_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_next_another"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            />
+
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:id="@+id/rl_rest_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_pressed_order"
+                >
+
+                <View
+                    android:id="@+id/view_rest_breakfast"
+                    android:layout_width="4dp"
+                    android:layout_height="21dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_line_rest"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_rest_breakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="早餐"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/iv_rest_oval_breakfast"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:layout_toRightOf="@+id/tv_rest_breakfast"
+                    android:layout_marginTop="16dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_rest_lunch"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_pressed_order"
+                >
+
+                <View
+                    android:id="@+id/view_rest_lunch"
+                    android:layout_width="4dp"
+                    android:layout_height="21dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_rest_lunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="午餐"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    />
+
+                <View
+                    android:id="@+id/iv_rest_oval_lunch"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:layout_toRightOf="@+id/tv_rest_lunch"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_rest_dinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_pressed_order"
+                >
+
+                <View
+                    android:id="@+id/view_rest_dinner"
+                    android:layout_width="4dp"
+                    android:layout_height="21dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_rest_dinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="晚餐"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    />
+
+                <View
+                    android:id="@+id/iv_rest_oval_dinner"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:layout_toRightOf="@+id/tv_rest_dinner"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_rest_soup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_pressed_order"
+                >
+
+                <View
+                    android:id="@+id/view_rest_soup"
+                    android:layout_width="4dp"
+                    android:layout_height="21dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_rest_soup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="茶点"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    />
+
+                <View
+                    android:id="@+id/iv_rest_oval_soup"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_line_rest"
+                    android:layout_toRightOf="@+id/tv_rest_soup"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_restroutine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

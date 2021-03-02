@@ -26,6 +26,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.NodeSectionAdapter;
 import cn.com.pujing.adapter.PhotoWallAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityDateAdd;
 import cn.com.pujing.entity.PhotoWall;
@@ -137,6 +138,11 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                 Toast.makeText(this,R.string.collect_success_tip,Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     private List<BaseNode> getEntity(List<PhotoWall.Data.Record> records) {

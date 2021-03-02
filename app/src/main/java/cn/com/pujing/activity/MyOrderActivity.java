@@ -9,6 +9,7 @@ import com.lzy.okgo.model.Response;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.OrderAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.OrderItem;
 
 public class MyOrderActivity extends BaseActivity {
@@ -30,5 +31,10 @@ public class MyOrderActivity extends BaseActivity {
     @Override
     public void onSuccess(Response response) {
 
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

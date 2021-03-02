@@ -9,7 +9,7 @@ public class Urls {
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
 //    public static final String PREFIX = "http://172.18.19.251"; // 勇
-//    public static final String PREFIX = "http://172.18.19.69"; // 鸿
+//    public static final String PREFIX = "http://172.18.19.69:8120"; // 鸿
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static final String PREFIX = "http://42.49.141.68:2080";
@@ -34,7 +34,7 @@ public class Urls {
     public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
 
     public static String GETALLCATEGORY = PREFIX + "/life-service/activityCategory/getAllCategory";
-    public static String ACTIVITYCALENDAR = PREFIX + "/life-service/activityCalendar/page";
+    public static String ACTIVITYCALENDAR = PREFIX + "/life-service/activityCalendar/currentHotActivity";
 
     public static String ACTIVITYDATE = PREFIX + "/life-service/activityCalendar/queryActivityDateList";
     public static String ACTIVITYDATE_ANOTHER = PREFIX + "/life-service/userNotes/queryActivityDateList";

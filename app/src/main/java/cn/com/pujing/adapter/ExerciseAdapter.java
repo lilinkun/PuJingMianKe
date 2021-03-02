@@ -3,6 +3,8 @@ package cn.com.pujing.adapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -31,11 +33,11 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
                 ImageView ivHeader = baseViewHolder.getView(R.id.iv_header_exercise);
                 Glide.with(getContext())
                         .load(Urls.PREFIX + Urls.IMG + record.photo)
-//                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(ivHeader);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);
-                baseViewHolder.setText(R.id.tv_status, record.calendarStatus);
-                baseViewHolder.setText(R.id.tv_content, record.content);
+                baseViewHolder.setText(R.id.tv_status, record.calendarStatus_label);
+                baseViewHolder.setText(R.id.tv_content, record.summary);
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));
                 baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
@@ -44,11 +46,11 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
                 ImageView iv = baseViewHolder.getView(R.id.iv_item_exercise);
                 Glide.with(getContext())
                         .load(Urls.PREFIX + Urls.IMG + record.photo)
-//                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(iv);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);
-                baseViewHolder.setText(R.id.tv_status, record.calendarStatus);
-                baseViewHolder.setText(R.id.tv_content, record.content);
+                baseViewHolder.setText(R.id.tv_status, record.calendarStatus_label);
+                baseViewHolder.setText(R.id.tv_content, record.summary);
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));
                 baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
