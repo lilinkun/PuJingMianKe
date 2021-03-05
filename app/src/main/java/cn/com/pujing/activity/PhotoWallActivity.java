@@ -95,7 +95,6 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                             nodeSectionAdapter.notifyDataSetChanged();
                             break;
                         case R.id.iv_share:
-                            Toast.makeText(PhotoWallActivity.this,"share"+pos.getPos(),Toast.LENGTH_LONG).show();
                             break;
                     }
                 }

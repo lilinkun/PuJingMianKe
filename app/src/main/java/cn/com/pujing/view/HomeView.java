@@ -15,6 +15,8 @@ public interface HomeView {
 
     void getBannerDataSuccess(List<BannerBean> data);
 
+    void getBannerDataFail(String msg);
+
     void getNoticeDataSuccess(NotifyInfoBean notifyInfoBean);
 
     void getPhotoDataSuccess(PhotoBean photoBean);

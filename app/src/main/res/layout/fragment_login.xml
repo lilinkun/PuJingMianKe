@@ -49,6 +49,8 @@
         android:hint="@string/plz_input_account"
         android:textColorHint="@color/text_gray"
         android:textSize="16sp"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_login" />

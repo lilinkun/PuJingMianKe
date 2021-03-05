@@ -5,14 +5,15 @@ public class Urls {
 //    public static String H5 = "/app/#/";
     public static String H5 = "/app/#/";
 
-//            public static final String PREFIX = "http://172.18.9.235"; // 君
-//    public static final String PREFIX = "http://172.18.9.207"; // 文
-//    public static final String PREFIX = "http://172.18.19.131"; // 金
-//    public static final String PREFIX = "http://172.18.19.251"; // 勇
-//    public static final String PREFIX = "http://172.18.19.69:8120"; // 鸿
-//    public static final String PREFIX = "http://172.18.7.21";
-//    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
-    public static final String PREFIX = "http://42.49.141.68:2080";
+//  public static final String PREFIX = "http://172.18.9.235"; // 君
+//  public static final String PREFIX = "http://172.18.9.207"; // 文
+  public static final String PREFIX = "http://172.18.19.131"; // 金
+//  public static final String PREFIX = "http://172.18.19.251"; // 勇
+//  public static final String PREFIX = "http://172.18.19.69:8120"; // 鸿
+//  public static final String PREFIX = "http://172.18.7.21";
+//  public static final String PREFIX = "http://172.18.19.240:8080"; // 华
+//    public static final String PREFIX = "http://172.18.9.94"; //曜
+//    public static final String PREFIX = "http://42.49.141.68:2080";//测试
 
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
     public static String SENDSMS = PREFIX + "/upms-service/oauth/sendSms";
@@ -56,4 +57,5 @@ public class Urls {
     public static String DIRECTORY = PREFIX + "/upms-service/dict/type/";
     //反馈类型
     public static String OPINION_TYPE = DIRECTORY + "opinion_type";
+
 }

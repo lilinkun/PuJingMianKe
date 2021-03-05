@@ -3,6 +3,8 @@ package cn.com.pujing.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,6 +34,7 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
     // 1,昵称 2，个性签名 3，出生日期 4，房号
     private int modifytype;
     private MyInfoBean myInfoBean;
+    private int MAX_NUM = 0;
 
     @BindView(R.id.tv_modify_personalinfo_title)
     TextView tvModifyPersonalinfoTitle;
@@ -41,6 +44,8 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
     TextView tvModifyDate;
     @BindView(R.id.tv_choose_date)
     TextView tvChooseDate;
+    @BindView(R.id.tv_max_text)
+    TextView tvMaxText;
 
     @Override
     public int getLayoutId() {
@@ -57,8 +62,10 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
 
         if (modifytype == 1){
             tvModifyPersonalinfoTitle.setText("修改昵称");
+            MAX_NUM = 20;
         }else if (modifytype == 2){
             tvModifyPersonalinfoTitle.setText("编辑个人签名");
+            MAX_NUM = 50;
         }else if (modifytype == 3){
             tvModifyPersonalinfoTitle.setText("选择出生日期");
             tvModifyDate.setVisibility(View.VISIBLE);
@@ -70,6 +77,12 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
         } else if (modifytype == 4){
             tvModifyPersonalinfoTitle.setText("编辑房号");
         }
+
+        if (MAX_NUM != 0){
+            tvMaxText.setText(MAX_NUM+"");
+            etModify.addTextChangedListener(watcher);
+        }
+
 
     }
 
@@ -141,4 +154,28 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
     public void modifyFail(String msg) {
         UToast.show(this,msg);
     }
+
+
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //只要编辑框内容有变化就会调用该方法，s为编辑框变化后的内容
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //编辑框内容变化之前会调用该方法，s为编辑框内容变化之前的内容
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+            if (s.length() > MAX_NUM) {
+                s.delete(MAX_NUM, s.length());
+            }
+            int num = MAX_NUM - s.length();
+            tvMaxText.setText( num + "");
+        }
+    };
 }

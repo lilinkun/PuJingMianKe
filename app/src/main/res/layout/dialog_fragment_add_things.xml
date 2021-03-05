@@ -208,7 +208,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
 
     <EditText
-        android:id="@+id/et"
+        android:id="@+id/et_add_thing"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="20dp"
@@ -225,6 +225,19 @@
         app:layout_constraintStart_toStartOf="@id/v_content" />
 
     <TextView
+        android:id="@+id/tv_add_limit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/et_add_thing"
+        app:layout_constraintEnd_toEndOf="@+id/et_add_thing"
+        android:text="50"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        />
+
+
+    <TextView
         android:id="@+id/tv_matter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -233,6 +246,6 @@
         android:text="@string/matter"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/et"
+        app:layout_constraintBottom_toTopOf="@id/et_add_thing"
         app:layout_constraintStart_toStartOf="@id/v_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

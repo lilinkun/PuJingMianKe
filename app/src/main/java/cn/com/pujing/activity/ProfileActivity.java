@@ -1,16 +1,12 @@
 package cn.com.pujing.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,31 +36,25 @@ import com.tencent.qcloud.core.auth.QCloudCredentialProvider;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.LoginoutBean;
-import cn.com.pujing.entity.MyInfoBean;
-import cn.com.pujing.presenter.ModifyPersonalInfoPresenter;
-import cn.com.pujing.presenter.ProfilePresenter;
-import cn.com.pujing.util.ActivityUtil;
-import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
-import cn.com.pujing.util.UToast;
-import cn.com.pujing.util.UploadFile;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.EditMyInfo;
 import cn.com.pujing.entity.GetFilePathKey;
-import cn.com.pujing.entity.MyInfo;
+import cn.com.pujing.entity.LoginoutBean;
+import cn.com.pujing.entity.MyInfoBean;
+import cn.com.pujing.presenter.ProfilePresenter;
+import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.FileUtils;
-import cn.com.pujing.view.ModifyPersonalInfoView;
+import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.UToast;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.ProfileView;
 import okhttp3.ResponseBody;
 
@@ -161,7 +151,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                 modifyInfo(3);
                 break;
             case R.id.rl_personal_room_number:
-                modifyInfo(4);
+//                modifyInfo(4);
                 break;
         }
 
@@ -185,9 +175,9 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                     Uri uri = data.getData();
                     String filePath = FileUtils.getFilePathByUri(this, uri);
 
+                    loading(true);
                     if (!TextUtils.isEmpty(filePath)) {
                         new Thread() {
-
                             @Override
                             public void run() {
                                 upload(filePath);
@@ -261,10 +251,12 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                     @Override
                     public void onSuccess(CosXmlRequest request, CosXmlResult result) {
 //                        COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                avatar = data.prefixurl + data.key;
+                                avatar = result.accessUrl;
+//                                avatar = data.prefixurl + data.key;
 
                                 Glide.with(ProfileActivity.this)
                                         .load(avatar)
@@ -272,7 +264,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                                         .into(headImageView);
 
                                 HashMap<String, String> params = new HashMap<>();
-                                params.put(Constants.AVATAR, data.prefixurl + data.key);
+                                params.put(Constants.AVATAR, result.accessUrl);
                                 JSONObject jsonObject = new JSONObject(params);
 
                                 OkGo.post(Urls.EDITMYINFO)
@@ -307,15 +299,21 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
         if (response != null) {
 
             if (response.body() instanceof EditMyInfo) {
+                loading(false);
                 Glide.with(ProfileActivity.this)
                         .load(avatar)
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                         .into(headImageView);
                 Methods.saveKeyValue(Constants.AVATAR, String.valueOf(avatar), this);
+                setResult(RESULT_OK);
                 finish();
             }else if (response.body() instanceof LoginoutBean){
+                Methods.saveKeyValue(Constants.AVATAR, "", this);
                 Methods.saveKeyValue(Constants.AUTHORIZATION, "", this);
+                Intent intent = new Intent(this,LoginActivity.class);
+                startActivity(intent);
                 ActivityUtil.finishAll();
+
             }
         }
     }

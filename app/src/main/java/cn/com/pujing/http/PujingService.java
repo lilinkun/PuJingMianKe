@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.pujing.entity.BannerBean;
+import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.entity.LoginToken;
 import cn.com.pujing.entity.MyInfoBean;
@@ -17,6 +18,7 @@ import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.PhotoBean;
 import cn.com.pujing.entity.PublicKey;
 import cn.com.pujing.entity.ResponseData;
+import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
@@ -29,12 +31,13 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-    public static final String PREFIX = "http://42.49.141.68:2080";
+//    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
+//    public static final String PREFIX = "http://172.18.9.94"; //曜
     //            public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
-//    public static final String PREFIX = "http://172.18.19.131"; // 金
+    public static final String PREFIX = "http://172.18.19.131"; // 金
 //    public static final String PREFIX = "http://172.18.19.251"; // 勇
-//    public static final String PREFIX = "http://172.18.19.69:8120"; // 鸿
+//    public static final String PREFIX = "http://172.18.19.69"; // 鸿
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
@@ -56,11 +59,18 @@ public class PujingService {
     public static String QUERY_HISTORY_ACTIVITY = PREFIX + "/life-service/activityCalendar/historyActivity";
     //常规套餐数据
     public static String GETSETMEALDATA = PREFIX + "/restaurant-service/restaurantCycleMealMenu/queryOne";
+    //宴会餐和零点餐数据
+    public static String GETBANQUETSDATA = PREFIX + "/restaurant-service/restaurantMenuItem/getBanquetInfo";
 
     //图片链接
     public static String IMG = "/basic-service/attachment/cos/down/";
     public static String H5 = "/app/#/";
     public static String h5_myinfo = PREFIX + H5 + "myEventDetails/";
+
+    //字典
+    public static String DIRECTORY = PREFIX + "/upms-service/dict/type/";
+    //常规餐类型
+    public static String REST_TYPE = DIRECTORY + "meal_type";
 
     /**
      * 获取公钥
@@ -227,13 +237,37 @@ public class PujingService {
      */
     public static Observable<ResponseData<List<SetMealBean>>> getSetMealData(String dateStr,int type) {
         return OkGo.<ResponseData<List<SetMealBean>>>get(GETSETMEALDATA)
-                .params("time","2021-02-25")
-//                .params("time",dateStr)
-                .params("type",3)
-//                .params("type",type)
+//                .params("time","2021-02-25")
+                .params("time",dateStr)
+//                .params("type",3)
+                .params("type",type)
                 .converter(new JsonConvert<ResponseData<List<SetMealBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<SetMealBean>>>());
+    }
+
+
+    /**
+     * 获取零点餐和宴会餐数据
+     */
+    public static Observable<ResponseData<List<BanquetBean>>> getBanquetsData(int type) {
+        return OkGo.<ResponseData<List<BanquetBean>>>get(GETBANQUETSDATA)
+                .params("type",type)
+                .params("menuType",type)
+                .converter(new JsonConvert<ResponseData<List<BanquetBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<BanquetBean>>>());
+    }
+
+
+    /**
+     * 获取常规餐类别
+     */
+    public static Observable<ResponseData<List<RestTypeBean>>> getSetMealTypeData() {
+        return OkGo.<ResponseData<List<RestTypeBean>>>get(REST_TYPE)
+                .converter(new JsonConvert<ResponseData<List<RestTypeBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<RestTypeBean>>>());
     }
 
 

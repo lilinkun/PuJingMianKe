@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -37,6 +38,8 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
 
     @BindView(R.id.rv_my_activities)
     RecyclerView rvMyActivities;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private MyActivitiesAdapter myActivitiesAdapter;
     private HistoryActivitiesBean historyActivitiesBean;
@@ -66,10 +69,18 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
             }
         });
 
-//        OkGo.get(Urls.QUERY_MYACTIVITY)
-//                .tag(this).execute(new JsonCallback<>(ExerciseBean.class, this));
         mPresenter.getMyActivitiesData();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getMyActivitiesData();
+            }
+        });
+    }
+
+    public void getData(){
+        mPresenter.getMyActivitiesData();
     }
 
     @Override
@@ -79,25 +90,16 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
 
 
     @Override
-    public void onSuccess(Response response) {
-        super.onSuccess(response);
-        if (response != null) {
-
-            if (response.body() instanceof ExerciseBean) {
-                ExerciseBean exerciseBean = (ExerciseBean) response.body();
-
-//                myActivitiesAdapter.setNewInstance(exerciseBean.data);
-            }
-
-        }
-    }
-
-    @Override
     public void getHistoryDataSuccess(HistoryActivitiesBean historyActivitiesBean) {
         if (historyActivitiesBean != null) {
             this.historyActivitiesBean = historyActivitiesBean;
             myActivitiesAdapter.setNewInstance(historyActivitiesBean.getRecords());
         }
+
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
     @Override

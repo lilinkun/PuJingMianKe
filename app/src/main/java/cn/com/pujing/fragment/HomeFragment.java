@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.internal.Utils;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
@@ -34,6 +35,7 @@ import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
+import cn.com.pujing.adapter.MsgAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.db.DBManager;
@@ -46,6 +48,7 @@ import cn.com.pujing.entity.PhotoBean;
 import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.HomeView;
 import cn.com.pujing.widget.HomePopupWindow;
@@ -77,6 +80,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     private String[] strings;
     private GridAdapter gridAdapter;
     private int mLoginOut = 0;
+    private List<BannerBean> bannerBeans;
 
     @Override
     public int getlayoutId() {
@@ -112,10 +116,10 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(Object data, int position) {
-                BannerInfo.Data data1 = (BannerInfo.Data) data;
+                BannerBean bannerBean = bannerBeans.get(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                if(data1.linkAddress != null && data1.linkAddress.trim().length() > 0) {
-                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + data1.linkAddress);
+                if(bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
+                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
                     startActivity(intent);
                 }
             }
@@ -279,10 +283,21 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
     @Override
     public void getBannerDataSuccess(List<BannerBean> data) {
-        List<BannerBean> bannerBeans = data;
-        banner.setVisibility(View.VISIBLE);
-        imageNetAdapter.setDatas(bannerBeans);
-        imageNetAdapter.notifyDataSetChanged();
+        bannerBeans = data;
+        if (data != null && data.size() > 0) {
+            banner.setVisibility(View.VISIBLE);
+            imageNetAdapter.setDatas(bannerBeans);
+            imageNetAdapter.notifyDataSetChanged();
+        }else {
+            banner.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void getBannerDataFail(String msg) {
+        if (banner != null) {
+            banner.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -331,6 +346,14 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
     @Override
     public void getDataError(String message) {
-
+        if (message.contains("无效用户")){
+            mLoginOut++;
+            if (mLoginOut == 1) {
+                Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        }
     }
 }

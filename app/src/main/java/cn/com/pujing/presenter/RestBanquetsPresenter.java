@@ -1,6 +1,9 @@
 package cn.com.pujing.presenter;
 
+import java.util.List;
+
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
@@ -16,22 +19,22 @@ import cn.com.pujing.view.RestRoutineView;
  */
 public class RestBanquetsPresenter extends BasePresenter<RestBanquetsView> {
 
-    public void getBanquetsData(String dateStr,int type){
+    public void getBanquetsData(int type){
 
-        /*PujingService.getSetMealData(dateStr,type)
+        PujingService.getBanquetsData(type)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<SetMealBean>() {
+                .subscribe(new RxObserver<List<BanquetBean>>() {
                     @Override
-                    public void _onNext(SetMealBean setMealBean) {
-                        getView().getSetMealSuccess(setMealBean);
+                    public void _onNext(List<BanquetBean> banquetBeans) {
+                        getView().getBanquetSuccess(banquetBeans);
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
                         getView().getDataFail(errorMessage);
                     }
-                });*/
+                });
 
 
     }

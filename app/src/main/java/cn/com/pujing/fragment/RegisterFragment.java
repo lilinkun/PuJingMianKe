@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.internal.Utils;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.base.BaseFragment;
@@ -22,6 +23,8 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     EditText etUserName;
     @BindView(R.id.et_pwd)
     EditText etPwd;
+    @BindView(R.id.et_sure_pwd)
+    EditText etSurePwd;
     @BindView(R.id.et_captcha)
     EditText etCaptcha;
 
@@ -61,13 +64,18 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
             String phone = etCellPhoneNumber.getText().toString().trim();
             String pwd = etPwd.getText().toString().trim();
             String captcha = etCaptcha.getText().toString().trim();
+            String etsurePwd = etSurePwd.getText().toString().trim();
 
-            if (userName.isEmpty() || pwd.isEmpty()){
-                Toast.makeText(getActivity(),R.string.login_tip,Toast.LENGTH_LONG).show();
+            if (userName.isEmpty() || pwd.isEmpty() || etsurePwd.isEmpty()){
+                UToast.show(getActivity(),R.string.login_tip);
             }else if (phone.isEmpty()){
-                Toast.makeText(getActivity(),"手机号不能为空",Toast.LENGTH_LONG).show();
+                UToast.show(getActivity(),R.string.phone_null_tip);
             }else if (captcha.isEmpty()){
-                Toast.makeText(getActivity(),"验证码不能为空",Toast.LENGTH_LONG).show();
+                UToast.show(getActivity(),R.string.vcode_null_tip);
+            }else if(pwd != etsurePwd){
+                UToast.show(getActivity(),R.string.psd_no_identical);
+            }else if( pwd.length() < 6 || pwd.length() > 20){
+                UToast.show(getActivity(),R.string.psw_null_tip);
             }else {
 
                 mPresenter.register(userName,phone,pwd,captcha);

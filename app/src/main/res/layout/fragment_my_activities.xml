@@ -4,10 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_my_activities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

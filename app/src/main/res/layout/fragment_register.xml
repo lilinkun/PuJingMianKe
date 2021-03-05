@@ -137,6 +137,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_pwd" />
 
+
+    <TextView
+        android:id="@+id/tv_sure_pwd_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/sure_pwd"
+        android:textColor="@color/text_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_pwd" />
+
+    <EditText
+        android:id="@+id/et_sure_pwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sure_pwd_key"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_sure_pwd_key"
+        app:layout_constraintTop_toTopOf="@id/tv_sure_pwd_key" />
+
+    <View
+        android:id="@+id/v_sure_pwd"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/common_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_sure_pwd" />
+
     <TextView
         android:id="@+id/tv_captcha_key"
         android:layout_width="wrap_content"
@@ -146,7 +181,7 @@
         android:textColor="@color/text_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_pwd" />
+        app:layout_constraintTop_toBottomOf="@id/v_sure_pwd" />
 
     <EditText
         android:id="@+id/et_captcha"

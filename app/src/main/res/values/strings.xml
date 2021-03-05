@@ -7,10 +7,11 @@
     <string name="plz_input_pwd">请输入您的密码</string>
     <string name="forget_pwd">忘记密码?</string>
 
-    <string name="user_name">用户名：</string>
-    <string name="cell_phone_number">手机号：</string>
-    <string name="pwd">密码：</string>
-    <string name="captcha">验证码：</string>
+    <string name="user_name">用\t户\t名 ：</string>
+    <string name="cell_phone_number">手\t机\t号 ：</string>
+    <string name="pwd">密\t\t\t\t码 ：</string>
+    <string name="sure_pwd">确认密码：</string>
+    <string name="captcha">验 证 码：</string>
     <string name="get_captcha">获取验证码</string>
     <string name="agreement">阅读并接受《用户协议》及《隐私权保护声明》</string>
     <string name="register_success">注册成功</string>
@@ -117,6 +118,10 @@
     <string name="login_tip">用户名或密码不能为空</string>
     <string name="feedback_tip">提交反馈内容不能为空</string>
     <string name="no_msg_tip">暂无消息</string>
+    <string name="vcode_null_tip">验证码不能为空</string>
+    <string name="psd_no_identical">两次密码不一致</string>
+    <string name="phone_null_tip">手机号不能为空</string>
+    <string name="psw_null_tip">密码长度2-20个字符</string>
 
     <string name="cur_hot_activities">当前热门</string>
     <string name="cur_history_activities">历史活动</string>
@@ -131,5 +136,6 @@
 
     <string name="search_detail">查看详情</string>
     <string name="fold">折叠</string>
+    <string name="next_day">下一天</string>
 
 </resources>

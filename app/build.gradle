@@ -33,6 +33,11 @@ android {
     greendao{
         schemaVersion 1 //数据库版本号
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 

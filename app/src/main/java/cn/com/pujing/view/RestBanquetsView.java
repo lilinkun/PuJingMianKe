@@ -1,5 +1,8 @@
 package cn.com.pujing.view;
 
+import java.util.List;
+
+import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.SetMealBean;
 
 /**
@@ -9,5 +12,8 @@ import cn.com.pujing.entity.SetMealBean;
  */
 public interface RestBanquetsView {
 
+    public void getBanquetSuccess(List<BanquetBean> banquetBeanList);
+
+    public void getDataFail(String msg);
 
 }

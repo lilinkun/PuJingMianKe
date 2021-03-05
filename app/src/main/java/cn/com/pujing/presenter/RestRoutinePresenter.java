@@ -3,6 +3,7 @@ package cn.com.pujing.presenter;
 import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
@@ -34,6 +35,25 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
                     }
                 });
 
+
+    }
+
+    public void getSetMealTypeData(){
+
+        PujingService.getSetMealTypeData()
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<List<RestTypeBean>>() {
+                    @Override
+                    public void _onNext(List<RestTypeBean> setMealBean) {
+                        getView().getSetMealTypeSuccess(setMealBean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+                });
 
     }
 

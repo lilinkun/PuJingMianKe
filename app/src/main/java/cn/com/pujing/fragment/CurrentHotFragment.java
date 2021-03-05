@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -32,10 +33,12 @@ public class CurrentHotFragment extends BaseFragment {
 
     @BindView(R.id.rv_exercise1)
     RecyclerView rvExercise1;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private ExerciseAdapter exerciseAdapter;
     private List<ActivityCalendar.Data.Record> list;
-    int page = 1;
+    int page  = 1;
 
     @Override
     public int getlayoutId() {
@@ -52,6 +55,11 @@ public class CurrentHotFragment extends BaseFragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         rvExercise1.addItemDecoration(dividerItemDecoration);
 
+        if (list != null){
+            list.clear();
+            page = 1;
+        }
+
         exerciseAdapter = new ExerciseAdapter(null);
         rvExercise1.setAdapter(exerciseAdapter);
         exerciseAdapter.setEmptyView(R.layout.empty_view);
@@ -62,6 +70,18 @@ public class CurrentHotFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, Urls.EVENTDETAILS + record.id);
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                OkGo.get(Urls.ACTIVITYCALENDAR)
+                        .tag(this)
+//                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
+                        .params("page", page+"")
+                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
             }
         });
 
@@ -96,6 +116,9 @@ public class CurrentHotFragment extends BaseFragment {
 
             if (response.body() instanceof ActivityCalendar) {
                 ActivityCalendar activityCalendar = (ActivityCalendar) response.body();
+                if (swipeRefreshLayout.isRefreshing()){
+                    swipeRefreshLayout.setRefreshing(false);
+                }
 
                 if (list != null && list.size() > 0){
                     list.addAll(activityCalendar.data.records);

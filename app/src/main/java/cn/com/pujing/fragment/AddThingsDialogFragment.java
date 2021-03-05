@@ -3,6 +3,8 @@ package cn.com.pujing.fragment;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,10 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     private OnDialogListener onDialogListener;
     private TextView startTimeTextView;
     private TextView endTimeTextView;
+    private TextView limitTimeTextView;
+    private TextView limitTextView;
     private EditText editText;
+    private int MAX_NUM = 50;
 
     public AddThingsDialogFragment(OnDialogListener onDialogListener) {
         this.onDialogListener = onDialogListener;
@@ -57,10 +62,13 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
         view.findViewById(R.id.tv_add).setOnClickListener(this);
         startTimeTextView = view.findViewById(R.id.tv_start_time_value);
         endTimeTextView = view.findViewById(R.id.tv_end_time_value);
-        editText = view.findViewById(R.id.et);
+        limitTimeTextView = view.findViewById(R.id.tv_limit_time_value);
+        editText = view.findViewById(R.id.et_add_thing);
         view.findViewById(R.id.iv_start_time).setOnClickListener(this);
         view.findViewById(R.id.iv_end_time).setOnClickListener(this);
         view.findViewById(R.id.iv_limit_time).setOnClickListener(this);
+        limitTextView = view.findViewById(R.id.tv_add_limit_text);
+        editText.addTextChangedListener(watcher);
     }
 
     @Override
@@ -113,7 +121,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     String startTime = String.format("%02d:%02d", hourOfDay, minute);
-                    endTimeTextView.setText(startTime);
+                    limitTimeTextView.setText(startTime);
                 }
             }, 0, 0, true);
             timePickerDialog.show();
@@ -123,4 +131,27 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     public interface OnDialogListener {
         void onDialogClick(String startTime, String endTime, String content);
     }
+
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //只要编辑框内容有变化就会调用该方法，s为编辑框变化后的内容
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //编辑框内容变化之前会调用该方法，s为编辑框内容变化之前的内容
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+            if (s.length() > MAX_NUM) {
+                s.delete(MAX_NUM, s.length());
+            }
+            int num = MAX_NUM - s.length();
+            limitTextView.setText( num + "");
+        }
+    };
 }

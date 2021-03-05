@@ -2,7 +2,9 @@ package cn.com.pujing.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import java.util.List;
 import cn.com.pujing.R;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.Urls;
 
 /**
@@ -42,30 +45,48 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, SetMealBean setMealBean) {
         baseViewHolder.setText(R.id.tv_content_name,setMealBean.getMealName());
-        baseViewHolder.setText(R.id.tv_setmeal_name,"套餐"+ baseViewHolder.getAdapterPosition());
+        baseViewHolder.setText(R.id.tv_setmeal_name,"套餐"+ PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
         ImageView imageView = baseViewHolder.getView(R.id.iv_restroutine);
+        ImageView ivRestArrow = baseViewHolder.getView(R.id.iv_rest_arrow);
 
         RecyclerView rvChildRest = baseViewHolder.getView(R.id.rv_child_rest);
 
+        LinearLayout llSearchDetail = baseViewHolder.getView(R.id.ll_search_detail);
         TextView textView = baseViewHolder.getView(R.id.tv_search_detail);
-        textView.setOnClickListener(new View.OnClickListener() {
+
+        ImageView ivSelectRestroutine = baseViewHolder.getView(R.id.iv_select_restroutine);
+
+        if (restRoutineChildAdapter == null) {
+            restRoutineChildAdapter = new RestRoutineChildAdapter(R.layout.adapter_restroutine_child, setMealBean.getFoodDetailVoList());
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+            rvChildRest.setLayoutManager(linearLayoutManager);
+            rvChildRest.setAdapter(restRoutineChildAdapter);
+        }
+
+        if (setMealBean.isShow()){
+            ivSelectRestroutine.setSelected(true);
+        }else{
+            ivSelectRestroutine.setSelected(false);
+        }
+
+        llSearchDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(textView.getText().toString().equals(R.string.search_detail)) {
+                if(textView.getText().toString().equals(context.getString(R.string.search_detail))) {
+
+                    textView.setText(R.string.fold);
+                    ivRestArrow.setImageResource(R.mipmap.ic_rest_close_arrow);
 
                     rvChildRest.setVisibility(View.VISIBLE);
 
-                    if (restRoutineChildAdapter == null) {
-                        restRoutineChildAdapter = new RestRoutineChildAdapter(R.layout.adapter_restroutine_child, setMealBean.getFoodDetailVoList());
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-                        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                        rvChildRest.setLayoutManager(linearLayoutManager);
-                        rvChildRest.setAdapter(restRoutineChildAdapter);
-                    }
+
 
                 }else {
                     textView.setText(R.string.search_detail);
+                    ivRestArrow.setImageResource(R.mipmap.ic_rest_open_arrow);
+                    rvChildRest.setVisibility(View.GONE);
 //                    textView.setdra
                 }
             }
@@ -75,5 +96,7 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
                 .load(PujingService.PREFIX + PujingService.IMG + setMealBean.getCoverPic())
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                 .into(imageView);
+
+
     }
 }

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,6 +31,8 @@ import cn.com.pujing.activity.ProfileActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.MyInfo;
 import cn.com.pujing.view.MineView;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MineFragment extends BaseFragment<MineView, MinePresenter> implements View.OnClickListener,MineView {
     private String avatar;
@@ -58,9 +62,6 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
 
         mPresenter.getMyInfo();
 
-        /*OkGo.get(Urls.MYINFO)
-                .tag(this)
-                .execute(new JsonCallback<>(MyInfo.class, this));*/
     }
 
     @Override
@@ -89,7 +90,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.KEY, myInfoBean);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,0x121);
             }
 
         } else if (v.getId() == R.id.tv_my_calendar) {
@@ -118,27 +119,6 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
         }
     }
 
-    @Override
-    public void onSuccess(Response response) {
-
-        if (response != null) {
-
-            if (response.body() instanceof MyInfo) {
-                MyInfo myInfo = (MyInfo) response.body();
-                MyInfo.Data data = myInfo.data;
-                tvName.setText(data.username);
-
-                if (!TextUtils.isEmpty(data.avatar)) {
-                    Glide.with(getContext())
-                            .load(data.avatar)
-                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                            .into(headImageView);
-                    Methods.saveKeyValue(Constants.AVATAR, data.avatar, getContext());
-                }
-                this.data = data;
-            }
-        }
-    }
 
     @Override
     public boolean immersionBarEnabled() {
@@ -172,5 +152,23 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == 0x121){
+                    String avatar = Methods.getValueByKey(Constants.AVATAR, getContext());
+                    if (!TextUtils.isEmpty(avatar)) {
+                        avatar = avatar;
+                        Glide.with(getContext())
+                                .load(avatar)
+                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                                .into(headImageView);
+
+                }
+            }
+        }
     }
 }

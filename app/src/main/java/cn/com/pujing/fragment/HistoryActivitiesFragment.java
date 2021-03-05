@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -35,6 +36,8 @@ import cn.com.pujing.view.HistoryActivitiesView;
 public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesView, HistoryActivitiesPresenter> implements HistoryActivitiesView {
     @BindView(R.id.rv_history_activities)
     RecyclerView rvHistoryActivities;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
 
     HistoryActivitiesAdapter historyActivitiesAdapter;
     private HistoryActivitiesBean historyActivitiesBean;
@@ -70,6 +73,13 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
 
         mPresenter.getActivitiesDataSuccess();
 
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getActivitiesDataSuccess();
+            }
+        });
+
     }
 
     @Override
@@ -84,6 +94,10 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
         if (historyActivitiesBean != null){
             this.historyActivitiesBean = historyActivitiesBean;
             historyActivitiesAdapter.setNewInstance(historyActivitiesBean.getRecords());
+        }
+
+        if (swipeLayout.isRefreshing()){
+            swipeLayout.setRefreshing(false);
         }
     }
 

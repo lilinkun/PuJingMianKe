@@ -37,6 +37,7 @@ public class ActivitiesFragment extends BaseFragment{
     SlidingTabLayout stlListActivities;
     @BindView(R.id.vp_list_exerciset)
     ViewPager vpListExerciset;
+    MyActivitiesFragment myActivitiesFragment = new MyActivitiesFragment();
 
     @Override
     public int getlayoutId() {
@@ -49,7 +50,7 @@ public class ActivitiesFragment extends BaseFragment{
         List<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new CurrentHotFragment());
         fragmentList.add(new HistoryActivitiesFragment());
-        fragmentList.add(new MyActivitiesFragment());
+        fragmentList.add(myActivitiesFragment);
         List<String> strings = new ArrayList<>();
         strings.add(getContext().getString(R.string.cur_hot_activities));
         strings.add(getContext().getString(R.string.cur_history_activities));
@@ -58,6 +59,25 @@ public class ActivitiesFragment extends BaseFragment{
         TabPageAdapter tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList,strings);
         vpListExerciset.setAdapter(tabPageAdapter);
         stlListActivities.setViewPager(vpListExerciset);
+        vpListExerciset.setOffscreenPageLimit(1);
+        vpListExerciset.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 2){
+                    myActivitiesFragment.getData();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 

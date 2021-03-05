@@ -131,6 +131,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
         Methods.saveKeyValue(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token(), getActivity());
         OkGo.getInstance().getCommonHeaders().put(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token());
 
+
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
