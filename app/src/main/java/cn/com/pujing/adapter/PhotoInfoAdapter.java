@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
 public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
@@ -25,7 +26,7 @@ public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         Glide.with(getContext())
-                .load(Urls.PREFIX + Urls.IMG + s)
+                .load(PujingService.PREFIX + Urls.IMG + s)
                 .into(imageView);
     }
 }

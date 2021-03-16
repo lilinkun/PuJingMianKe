@@ -53,6 +53,7 @@ import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.FileUtils;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.ProfileView;
@@ -91,7 +92,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
         if (!TextUtils.isEmpty(avatar)) {
             Glide.with(this)
                     .load(avatar)
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+                    .apply(PuJingUtils.setGlideCircle(10))
                     .into(headImageView);
         }
 
@@ -132,7 +133,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
             case R.id.iv_profile_head:
             case R.id.tv_profile_modify_head:
                 Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*, image/*");
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, 110);
                 break;
             case R.id.tv_exit:
@@ -302,7 +303,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                 loading(false);
                 Glide.with(ProfileActivity.this)
                         .load(avatar)
-                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                        .apply(PuJingUtils.setGlideCircle(10))
                         .into(headImageView);
                 Methods.saveKeyValue(Constants.AVATAR, String.valueOf(avatar), this);
                 setResult(RESULT_OK);

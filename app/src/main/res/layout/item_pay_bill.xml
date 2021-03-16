@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/to_pay"
-        android:textColor="#FF3131"
+        android:textColor="@color/red_31"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="20.00"
-        android:textColor="#FF3131"
+        android:textColor="@color/red_31"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_status" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="￥"
-        android:textColor="#FF3131"
+        android:textColor="@color/red_31"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_price"
         app:layout_constraintEnd_toStartOf="@id/tv_price" />

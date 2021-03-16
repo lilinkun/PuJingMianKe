@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,8 @@ import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.MyActivitiesView;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActivitiesPresenter> implements MyActivitiesView {
 
     @BindView(R.id.rv_my_activities)
@@ -43,6 +46,7 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
 
     private MyActivitiesAdapter myActivitiesAdapter;
     private HistoryActivitiesBean historyActivitiesBean;
+    private int result_myactivity = 0x434;
 
     @Override
     public int getlayoutId() {
@@ -65,7 +69,7 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, PujingService.h5_myinfo + historyActivitiesBean.getRecords().get(position).id);
-                startActivity(intent);
+                startActivityForResult(intent,result_myactivity);
             }
         });
 
@@ -105,5 +109,13 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            mPresenter.getMyActivitiesData();
+        }
     }
 }

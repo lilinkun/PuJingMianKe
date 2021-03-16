@@ -1,7 +1,11 @@
 package cn.com.pujing.activity;
 
+import android.telecom.DisconnectCause;
 import android.util.Log;
+import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,6 +19,7 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.util.AndroidJavascriptInterface;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.UToast;
 
 public class WebviewActivity extends BaseActivity {
     private WebView webView;
@@ -42,8 +47,16 @@ public class WebviewActivity extends BaseActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.addJavascriptInterface(new AndroidJavascriptInterface(this), "Android");
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                view.setVisibility(View.GONE);
+                UToast.show(WebviewActivity.this,R.string.net_error_tip);
+            }
+        });
         webView.loadUrl(url);
+
     }
 
     public WebView getWebView() {
@@ -58,6 +71,7 @@ public class WebviewActivity extends BaseActivity {
             if (webView.canGoBack()) {
                 webView.goBack();
             } else {
+                setResult(RESULT_OK);
                 super.onBackPressed();
             }
         }

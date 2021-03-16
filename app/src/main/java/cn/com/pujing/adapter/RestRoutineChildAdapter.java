@@ -19,13 +19,27 @@ import cn.com.pujing.entity.SetMealBean;
  */
 public class RestRoutineChildAdapter extends BaseQuickAdapter<SetMealBean.FoodDetailVoList, BaseViewHolder> {
 
+    List<SetMealBean.FoodDetailVoList> data;
+
     public RestRoutineChildAdapter(int layoutResId, @Nullable List<SetMealBean.FoodDetailVoList> data) {
         super(layoutResId, data);
+        this.data = data;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, SetMealBean.FoodDetailVoList foodDetailVoList) {
+
+        if (baseViewHolder.getAdapterPosition() > 0){
+            if (data.get(baseViewHolder.getAdapterPosition() - 1).getCategoryName().equals(foodDetailVoList.getCategoryName())){
+                baseViewHolder.setVisible(R.id.tv_child_restroutine_type,false);
+            }else {
+
+                baseViewHolder.setVisible(R.id.tv_child_restroutine_type,true);
+            }
+        }
+
         baseViewHolder.setText(R.id.tv_child_restroutine_type,foodDetailVoList.getCategoryName());
+
         baseViewHolder.setText(R.id.tv_child_restroutine_content,foodDetailVoList.getFoodCategoryName());
     }
 }

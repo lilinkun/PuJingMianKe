@@ -16,6 +16,9 @@ import android.provider.MediaStore;
 import android.text.format.DateUtils;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +28,7 @@ import java.util.Date;
 import java.util.Random;
 
 import butterknife.internal.Utils;
+import cn.com.pujing.widget.GlideRoundTransform;
 
 public class FileUtils {
 
@@ -214,6 +218,5 @@ public class FileUtils {
         mediaScanIntent.setData(contentUri);
         context.sendBroadcast(mediaScanIntent);
     }
-
 
 }

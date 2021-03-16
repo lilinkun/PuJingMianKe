@@ -29,7 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.OpinionTypeBean;
+import cn.com.pujing.presenter.FeedbackPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
 import cn.com.pujing.util.UploadFile;
@@ -39,10 +41,11 @@ import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.Attachment;
 import cn.com.pujing.entity.FeedbackSave;
 import cn.com.pujing.util.FileUtils;
+import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
 
-public class FeedbackActivity extends BaseActivity implements View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener {
+public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener {
 
     @BindView(R.id.et_content)
     EditText etContent;
@@ -77,8 +80,10 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
         etContent.addTextChangedListener(watcher);
 
-        OkGo.get(Urls.OPINION_TYPE)
-                .execute(new JsonCallback<>(OpinionTypeBean.class,this));
+//        OkGo.get(Urls.OPINION_TYPE)
+//                .execute(new JsonCallback<>(OpinionTypeBean.class,this));
+
+        mPresenter.giveFeedback();
 
     }
 
@@ -99,7 +104,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
             finish();
         } else if (id == R.id.iv_upload) {
             Intent intent = new Intent(Intent.ACTION_PICK, null);
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*, image/*");
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
             startActivityForResult(intent, 110);
 
         } else if (id == R.id.tv_submit) {
@@ -178,17 +183,17 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                     });
                 }
             }else if (response.body() instanceof OpinionTypeBean){
-                OpinionTypeBean opinionTypeBeans = (OpinionTypeBean) response.body();
+                /*OpinionTypeBean opinionTypeBeans = (OpinionTypeBean) response.body();
                 data = opinionTypeBeans.data;
                 tvFeedbackType.setText(data.get(0).label);
-                type = data.get(0).value;
+                type = data.get(0).value;*/
             }
         }
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected FeedbackPresenter createPresenter() {
+        return new FeedbackPresenter();
     }
 
 
@@ -240,4 +245,15 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
             tvLengthLimit.setText( s.length() + "/500");
         }
     };
+
+    @Override
+    public void giveFeedbackType(List<FeedbackBean> feedbackBeans) {
+        tvFeedbackType.setText(feedbackBeans.get(0).label);
+        type = feedbackBeans.get(0).value;
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+
+    }
 }

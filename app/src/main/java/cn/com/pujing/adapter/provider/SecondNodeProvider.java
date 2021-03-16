@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import cn.com.pujing.R;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.entity.section.ItemNode;
 
@@ -33,7 +34,7 @@ public class SecondNodeProvider extends BaseNodeProvider {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         Glide.with(getContext())
-                .load(Urls.PREFIX + Urls.IMG + ((ItemNode) data).imgUrl)
+                .load(PujingService.PREFIX + Urls.IMG + ((ItemNode) data).imgUrl)
                 .into(imageView);
         baseViewHolder.setVisible(R.id.tv, itemNode.showMore);
     }

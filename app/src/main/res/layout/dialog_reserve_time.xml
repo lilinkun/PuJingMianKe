@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" >
+
+        <NumberPicker
+            android:id="@+id/hourpicker"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textSize="16dp"
+            android:text=":" />
+
+        <NumberPicker
+            android:id="@+id/minuteicker"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10" />
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="分" />-->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:text="@string/sure"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:background="@color/main_color"
+        />
+
+</LinearLayout>

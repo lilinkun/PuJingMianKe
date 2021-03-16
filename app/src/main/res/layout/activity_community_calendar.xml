@@ -96,7 +96,7 @@
         app:select_mode="single_mode"
         app:month_view_show_mode="mode_only_current"
         app:selected_text_color="#fff"
-        app:selected_theme_color="#FF2D1D"
+        app:selected_theme_color="@color/red_1d"
         app:week_background="#fff"
         app:week_bar_view="cn.com.pujing.widget.CustomWeekBar"
         app:week_text_color="@color/black" />
@@ -126,9 +126,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_community_calendar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/dp_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_exercise" />
 </androidx.constraintlayout.widget.ConstraintLayout>

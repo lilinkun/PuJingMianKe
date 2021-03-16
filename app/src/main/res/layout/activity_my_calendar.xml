@@ -96,7 +96,7 @@
         app:select_mode="single_mode"
         app:month_view_show_mode="mode_only_current"
         app:selected_text_color="#fff"
-        app:selected_theme_color="#FF2D1D"
+        app:selected_theme_color="@color/red_1d"
         app:week_background="#fff"
         app:week_bar_view="cn.com.pujing.widget.CustomWeekBar"
         app:week_text_color="@color/black" />

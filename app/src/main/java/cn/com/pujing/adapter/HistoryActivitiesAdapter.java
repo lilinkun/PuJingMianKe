@@ -17,6 +17,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.entity.ActivityCalendar;
 import cn.com.pujing.entity.ExerciseBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
 /**
@@ -36,7 +37,7 @@ public class HistoryActivitiesAdapter extends BaseQuickAdapter<HistoryActivities
 
         ImageView ivHeader = baseViewHolder.getView(R.id.iv_item_exercise);
         Glide.with(getContext())
-                .load(Urls.PREFIX + Urls.IMG + record.photo)
+                .load(PujingService.PREFIX + Urls.IMG + record.photo)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                 .into(ivHeader);
         baseViewHolder.setText(R.id.tv_title, record.activityName);

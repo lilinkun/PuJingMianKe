@@ -1,5 +1,7 @@
 package cn.com.pujing.entity;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,8 +16,9 @@ public class BanquetBean implements Serializable {
     private String typeName;
 
 
-    class CategoryList implements Serializable{
+    public class CategoryList implements MultiItemEntity,Serializable{
         private String groupName;
+        private int quantity;
 
         public String getGroupName() {
             return groupName;
@@ -23,6 +26,34 @@ public class BanquetBean implements Serializable {
 
         public void setGroupName(String groupName) {
             this.groupName = groupName;
+        }
+
+        @Override
+        public int getItemType() {
+            return 0;
+        }
+
+        public List<Categorys> categorys;
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public class Categorys implements Serializable{
+            public String typeName;
+            public int id;
+            public int foodId;
+            public String name;
+            public String type;
+            public double price;
+            public String picId;
+            public String remark;
+            public int goodsNum = 1;
+
         }
     }
 
@@ -41,4 +72,6 @@ public class BanquetBean implements Serializable {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
+
+
 }

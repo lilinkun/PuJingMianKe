@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用餐时间："
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_reserve_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用餐时间"
+            android:textColor="#ff000000"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_reserve_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff4a4a4a"
+                android:textSize="14sp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_rest_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_next_another"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_rest_banquets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+        android:id="@+id/rl_reserve_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预订日期"
+            android:textColor="#ff000000"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_reserve_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff4a4a4a"
+                android:textSize="14sp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_rest_right_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_next_another"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_rest_meal_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="餐次"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_meal_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff4a4a4a"
+                android:textSize="14sp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_rest_right_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_next_another"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_reserve_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预订时间"
+            android:textColor="#ff000000"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_reserve_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff4a4a4a"
+                android:textSize="14sp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_rest_right_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_next_another"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_reserve_person_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就餐人数"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_reserve_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff4a4a4a"
+                android:textSize="14sp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_rest_right_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_next_another"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

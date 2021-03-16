@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        >
+
+        <ImageView
+            android:id="@+id/iv_setmeal_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_detail"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_input_text"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_10"
+        >
+
+        <TextView
+            android:id="@+id/tv_meal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4~6人"
+            android:textColor="#ff666666"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            />
+
+
+    </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_meal_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_meal_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:padding="@dimen/dp_10"
+        android:background="@drawable/bg_input_text"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reserve_tip"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reserve_tip_value"
+            android:textColor="#ff4a4a4a"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            />
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_rest_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red_1d"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_goods_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_rest_plus"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/tv_goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/iv_goods_add"
+            android:visibility="gone"
+            android:paddingBottom="10dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_goods_reduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_goods_num"
+            android:src="@mipmap/ic_rest_reduce"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:visibility="gone"
+            />
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

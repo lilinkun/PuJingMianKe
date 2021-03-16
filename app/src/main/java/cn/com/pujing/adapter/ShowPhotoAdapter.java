@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
 public class ShowPhotoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
@@ -29,7 +30,7 @@ public class ShowPhotoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
         ImageView ivShowPhoto = baseViewHolder.getView(R.id.iv_show_photo);
         Glide.with(context)
-                .load(Urls.PREFIX + Urls.IMG + s)
+                .load(PujingService.PREFIX + Urls.IMG + s)
                 .apply(new RequestOptions().override(100, 100))
                 .into(ivShowPhoto);
     }

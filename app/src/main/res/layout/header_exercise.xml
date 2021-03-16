@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="#FF2D1D"
+        android:textColor="@color/red_1d"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="费用：40元/人"
-        android:textColor="#FF2D1D"
+        android:textColor="@color/red_1d"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
@@ -84,7 +84,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:text="剩余报名人数：4"
-        android:textColor="#FF2D1D"
+        android:textColor="@color/red_1d"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />

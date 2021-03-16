@@ -53,6 +53,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         }
         //初始化事件和获取数据, 在此方法中获取数据不是懒加载模式
         initEventAndData();
+
         return v;
     }
 

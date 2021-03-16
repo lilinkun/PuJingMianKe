@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_rest_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/iv_rest_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/iv_rest_detail"
+        app:layout_constraintStart_toStartOf="@+id/iv_rest_detail"
+        android:src="@mipmap/ic_rest_back"
+        android:paddingTop="@dimen/dp_40"
+        android:paddingLeft="@dimen/dp_10"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_rest_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/iv_rest_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_rest_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red_1d"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rest_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_goods_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:src="@mipmap/ic_rest_plus"
+        app:layout_constraintTop_toTopOf="@id/tv_rest_price"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_goods_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@+id/iv_goods_add"
+        app:layout_constraintTop_toTopOf="@+id/iv_goods_add"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_goods_add"
+        android:visibility="gone"
+        android:paddingBottom="10dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_goods_reduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@+id/tv_goods_num"
+        app:layout_constraintTop_toTopOf="@+id/tv_goods_num"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_goods_num"
+        android:src="@mipmap/ic_rest_reduce"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        />
+
+
+    <View
+        android:id="@+id/view_rest_line"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:background="@color/gray_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rest_price"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_rest_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="详情"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/tv_rest_price"
+        app:layout_constraintTop_toBottomOf="@+id/view_rest_line"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_rest_main_food"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:text="主要食材："
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rest_detail"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_rest_main_food_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@+id/tv_rest_main_food"
+        app:layout_constraintStart_toEndOf="@+id/tv_rest_main_food"
+        android:layout_marginStart="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_rest_nutrient_elements"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:text="营养元素："
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rest_main_food_value"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_rest_nutrient_elements_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@+id/tv_rest_nutrient_elements"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food_value"
+        />
+
+    <TextView
+        android:id="@+id/tv_rest_taboo"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:text="禁忌："
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_nutrient_elements"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rest_nutrient_elements_value"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_rest_taboo_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@+id/tv_rest_taboo"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food_value"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

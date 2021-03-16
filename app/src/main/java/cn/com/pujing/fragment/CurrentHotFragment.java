@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,8 @@ import cn.com.pujing.entity.GetAllCategory;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Urls;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CurrentHotFragment extends BaseFragment {
 
     @BindView(R.id.rv_exercise1)
@@ -39,6 +42,7 @@ public class CurrentHotFragment extends BaseFragment {
     private ExerciseAdapter exerciseAdapter;
     private List<ActivityCalendar.Data.Record> list;
     int page  = 1;
+    private int web_result = 0x232;
 
     @Override
     public int getlayoutId() {
@@ -69,7 +73,7 @@ public class CurrentHotFragment extends BaseFragment {
                 ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, Urls.EVENTDETAILS + record.id);
-                startActivity(intent);
+                startActivityForResult(intent,web_result);
             }
         });
 
@@ -77,9 +81,11 @@ public class CurrentHotFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
+                if (list != null){
+                    list.clear();
+                }
                 OkGo.get(Urls.ACTIVITYCALENDAR)
                         .tag(this)
-//                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
                         .params("page", page+"")
                         .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
             }
@@ -139,4 +145,24 @@ public class CurrentHotFragment extends BaseFragment {
             }
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == web_result){
+                page = 1;
+                if (list != null){
+                    list.clear();
+                }
+                OkGo.get(Urls.ACTIVITYCALENDAR)
+                        .tag(this)
+                        .params("page", page+"")
+                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+            }
+        }
+    }
+
+
+
 }

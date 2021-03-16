@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,6 +27,7 @@ import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.Urls;
+import cn.com.pujing.widget.GlideRoundTransform;
 
 /**
  * author : liguo
@@ -94,7 +96,7 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
 
         Glide.with(getContext())
                 .load(PujingService.PREFIX + PujingService.IMG + setMealBean.getCoverPic())
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                .apply(PuJingUtils.setGlideCircle(10))
                 .into(imageView);
 
 

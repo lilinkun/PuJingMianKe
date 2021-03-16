@@ -20,7 +20,14 @@ public class SetMealBean implements Serializable {
     public class FoodDetailVoList implements Serializable{
         private String categoryName; //菜品分类名称
         private String foodCategoryName;  //名称
+        private String categoryType; //菜品类别
+        public String getCategoryType() {
+            return categoryType;
+        }
 
+        public void setCategoryType(String categoryType) {
+            this.categoryType = categoryType;
+        }
 
         public String getCategoryName() {
             return categoryName;

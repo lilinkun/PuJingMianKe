@@ -48,7 +48,7 @@ public class RestaurantFragment extends BaseFragment {
         return null;
     }
 
-    @OnClick({R.id.rl_rest_routine,R.id.rl_rest_banquets})
+    @OnClick({R.id.rl_rest_routine,R.id.rl_rest_banquets,R.id.rl_rest_order})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_rest_routine:
@@ -61,7 +61,19 @@ public class RestaurantFragment extends BaseFragment {
             case R.id.rl_rest_banquets:
 
                 Intent intent1 = new Intent(getActivity(), RestBanquetsActivity.class);
+                intent1.putExtra("type",2);
+                intent1.putExtra("add",false);
                 startActivity(intent1);
+
+                break;
+
+            case R.id.rl_rest_order:
+
+
+                Intent intent2 = new Intent(getActivity(), RestBanquetsActivity.class);
+                intent2.putExtra("type",1);
+                intent2.putExtra("add",false);
+                startActivity(intent2);
 
                 break;
         }

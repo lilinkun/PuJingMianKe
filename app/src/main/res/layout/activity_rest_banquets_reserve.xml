@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:id="@+id/iv_banquets_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_back"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/banquets_reserve"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_input_text"
+        android:orientation="vertical"
+        android:layout_above="@+id/ll_total_price"
+        android:layout_marginBottom="20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
+            >
+
+            <include
+                layout="@layout/layout_rest_date"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单详情："
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_order_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                />
+
+
+        </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_sure_order"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="确认下单"
+            android:gravity="center"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_input_text"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_sure_order"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合计"
+                android:textColor="#ffffffff"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffffff"
+                android:textSize="21sp"
+                android:layout_marginLeft="15dp"
+                />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

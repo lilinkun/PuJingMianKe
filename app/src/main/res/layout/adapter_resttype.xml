@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_rest_type"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/selector_pressed_order"
         >
 
         <View
-            android:id="@+id/view_rest_type"
-            android:layout_width="4dp"
-            android:layout_height="21dp"
+            android:id="@+id/view_rest_devide"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="#707070"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:visibility="gone"
-            android:background="@drawable/bg_line_rest"
             />
 
         <TextView
@@ -25,13 +24,24 @@
             android:textSize="14sp" />
 
         <View
+            android:id="@+id/view_rest_type"
+            android:layout_width="14dp"
+            android:layout_height="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_rest_type"
+            android:layout_marginTop="2dp"
+            android:background="@color/main_color"
+            />
+
+        <View
             android:id="@+id/iv_rest_oval_type"
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:visibility="gone"
             android:background="@drawable/bg_line_rest"
-            android:layout_toRightOf="@+id/tv_rest_breakfast"
+            android:layout_toRightOf="@+id/tv_rest_type"
             android:layout_marginTop="16dp"
             />
+
 
 </RelativeLayout>

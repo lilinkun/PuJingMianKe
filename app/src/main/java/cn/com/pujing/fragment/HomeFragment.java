@@ -45,6 +45,7 @@ import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.GridItem;
 import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.PhotoBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
@@ -119,7 +120,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 BannerBean bannerBean = bannerBeans.get(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 if(bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
-                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
+                    intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
+//                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
                     startActivity(intent);
                 }
             }
@@ -298,6 +300,15 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         if (banner != null) {
             banner.setVisibility(View.INVISIBLE);
         }
+        if (msg.contains("无效用户")){
+            mLoginOut++;
+            if (mLoginOut == 1) {
+                Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        }
     }
 
     @Override
@@ -316,27 +327,27 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 switch (i) {
                     case 0:
                         Glide.with(getContext())
-                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall1);
                         break;
                     case 1:
                         Glide.with(getContext())
-                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall2);
                         break;
                     case 2:
                         Glide.with(getContext())
-                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall3);
                         break;
                     case 3:
                         Glide.with(getContext())
-                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall4);
                         break;
                     case 4:
                         Glide.with(getContext())
-                                .load(Urls.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall5);
                         break;
                 }
@@ -354,6 +365,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 startActivity(intent);
                 getActivity().finish();
             }
+        }else {
+            UToast.show(getActivity(),message);
         }
     }
 }

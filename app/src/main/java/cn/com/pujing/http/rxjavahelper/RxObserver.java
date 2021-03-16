@@ -1,6 +1,9 @@
 package cn.com.pujing.http.rxjavahelper;
 
 
+import android.accounts.NetworkErrorException;
+
+import cn.com.pujing.R;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -21,7 +24,12 @@ public abstract class RxObserver<T>  implements Observer<T> {
     }
     @Override
     public void onError(Throwable e) {
-        _onError(e.getMessage());
+        if (!e.getMessage().contains("Failed to connect to")) {
+            _onError(e.getMessage());
+        }else {
+            _onError("连接服务器异常");
+        }
+
     }
     @Override
     public void onComplete() {

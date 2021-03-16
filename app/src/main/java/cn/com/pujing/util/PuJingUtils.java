@@ -1,11 +1,16 @@
 package cn.com.pujing.util;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import cn.com.pujing.entity.RestDayBean;
+import cn.com.pujing.widget.GlideRoundTransform;
 
 public class PuJingUtils {
 
@@ -114,7 +122,7 @@ public class PuJingUtils {
      * 获取当前日期的下周一到下周日的所有日期集合
      * @return
      */
-    public static List<String> getNextWeekDateList(){
+    public static List<RestDayBean> getNextWeekDateList(){
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
 
@@ -135,17 +143,35 @@ public class PuJingUtils {
         cStart.setTime(cal1.getTime());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM月dd日");
 
         List<String> dateList = new ArrayList();
+        List<String> monthDayList = new ArrayList();
+
+        String[] weekList = {"周一","周二","周三","周四","周五","周六","周天"};
+
+        List<RestDayBean> restDayBeans = new ArrayList<>();
+
         //别忘了，把起始日期加上
         dateList.add(simpleDateFormat.format(cal1.getTime()));
+        monthDayList.add(simpleDateFormat1.format(cal1.getTime()));
         // 此日期是否在指定日期之后
         while (cal2.getTime().after(cStart.getTime())) {
             // 根据日历的规则，为给定的日历字段添加或减去指定的时间量
             cStart.add(Calendar.DAY_OF_MONTH, 1);
             dateList.add(simpleDateFormat.format(cStart.getTime()));
+            monthDayList.add(simpleDateFormat1.format(cStart.getTime()));
         }
-        return dateList;
+
+        for (int i = 0;i< dateList.size();i++){
+            RestDayBean restDayBean = new RestDayBean();
+            restDayBean.dateDay = dateList.get(i);
+            restDayBean.weekDay = weekList[i];
+            restDayBean.monthDay = monthDayList.get(i);
+            restDayBeans.add(restDayBean);
+        }
+
+        return restDayBeans;
     }
 
     //数字转字母 1-26 ： A-Z
@@ -164,6 +190,32 @@ public class PuJingUtils {
         } while (num > 0);
 
         return letter;
+    }
+
+
+
+    //glide设置圆角
+    public static RequestOptions setGlideCircle(int degrees){
+
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .transform(new GlideRoundTransform(degrees)); //圆角
+        return options;
+    }
+
+    /**
+     * 复制内容到剪贴板
+     *
+     * @param content
+     * @param context
+     */
+    public static void copyContentToClipboard(String content, Context context) {
+        //获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("Label", content);
+        // 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
     }
 
 }

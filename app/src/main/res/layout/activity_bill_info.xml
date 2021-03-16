@@ -51,7 +51,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="￥20.00"
-        android:textColor="#FF3131"
+        android:textColor="@color/red_31"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_status" />

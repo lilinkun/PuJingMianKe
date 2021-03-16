@@ -34,6 +34,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         setContentView(getLayoutId());
 
         //判断是否使用MVP模式
@@ -44,7 +45,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
 
         unbinder = ButterKnife.bind(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
 
         init();
 

@@ -11,7 +11,7 @@
     <string name="cell_phone_number">手\t机\t号 ：</string>
     <string name="pwd">密\t\t\t\t码 ：</string>
     <string name="sure_pwd">确认密码：</string>
-    <string name="captcha">验 证 码：</string>
+    <string name="captcha">验\t证\t码 ：</string>
     <string name="get_captcha">获取验证码</string>
     <string name="agreement">阅读并接受《用户协议》及《隐私权保护声明》</string>
     <string name="register_success">注册成功</string>
@@ -64,7 +64,8 @@
     <string name="complaint">投诉</string>
     <string name="feedback_content">反馈内容...</string>
     <string name="length_limit">0/500字</string>
-    <string name="upload_prompt">上传图片/视频：</string>
+    <string name="upload_prompt">上传图片：</string>
+<!--    <string name="upload_prompt">上传图片/视频：</string>-->
 
     <string name="profile">个人资料</string>
     <string name="modify_head">点击更换头像</string>
@@ -79,6 +80,7 @@
     <string name="my_housekeeper">我的管家</string>
     <string name="my_doctor">我的医生</string>
 
+    <string name="sure">确定</string>
     <string name="cancel">取消</string>
     <string name="start_time">开始时间</string>
     <string name="end_time">结束时间</string>
@@ -121,7 +123,7 @@
     <string name="vcode_null_tip">验证码不能为空</string>
     <string name="psd_no_identical">两次密码不一致</string>
     <string name="phone_null_tip">手机号不能为空</string>
-    <string name="psw_null_tip">密码长度2-20个字符</string>
+    <string name="psw_null_tip">密码长度6-20个字符</string>
 
     <string name="cur_hot_activities">当前热门</string>
     <string name="cur_history_activities">历史活动</string>
@@ -132,10 +134,31 @@
     <string name="rest_order_meal">零点餐</string>
     <string name="rest_banquets">宴会餐</string>
 
+    <string name="order_rest_banquets">宴会订单</string>
+    <string name="order_rest_detail">订单详情</string>
+
+    <string name="see_order">查看订单</string>
+    <string name="back_home">返回首页</string>
+
     <string name="input_phone_tip">请填写手机号码</string>
 
     <string name="search_detail">查看详情</string>
     <string name="fold">折叠</string>
     <string name="next_day">下一天</string>
+    <string name="meal_detail">套餐详情</string>
+
+    <string name="food">菜品</string>
+
+    <string name="reserve">预定</string>
+    <string name="banquets_reserve">宴会预定下单</string>
+    <string name="order_meal_reserve">零点餐订单</string>
+    <string name="reserve_tip">预订须知</string>
+    <string name="reserve_tip_value">必须提前两天预订，如需取消预订，请提前一天通过APP操作或联系客服。</string>
+
+    <string name="rightnow_order">现点</string>
+    <string name="reserve_order">预约</string>
+
+    <string name="net_error_tip">连接服务器异常</string>
+    <string name="rest_person_num_tip">请输入就餐人数</string>
 
 </resources>

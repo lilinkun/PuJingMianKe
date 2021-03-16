@@ -44,5 +44,9 @@
         <activity android:name=".activity.ModifyPersonalInfoActivity" />
         <activity android:name=".activity.RestRoutineActivity" />
         <activity android:name=".activity.RestBanquetsActivity" />
+        <activity android:name=".activity.RestDetailActivity" />
+        <activity android:name=".activity.SetMealDetailActivity" />
+        <activity android:name=".activity.RestBanquetsReserveActivity" />
+        <activity android:name=".activity.RanquetsOrderActivity" />
     </application>
 </manifest>

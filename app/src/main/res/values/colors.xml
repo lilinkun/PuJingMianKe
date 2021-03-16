@@ -23,4 +23,8 @@
 
     <color name="common_gray">#CCCCCC</color>
 
+    <color name="red_1d">#FF2D1D</color>
+
+    <color name="red_31">#FF3131</color>
+
 </resources>

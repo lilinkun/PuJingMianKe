@@ -1,5 +1,6 @@
 package cn.com.pujing.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,9 +23,11 @@ import cn.com.pujing.entity.RestTypeBean;
 public class RestTypeAdapter extends BaseQuickAdapter<RestTypeBean, BaseViewHolder> {
 
     private int itemPosition = 0;
+    private Context context;
 
-    public RestTypeAdapter(int layoutResId, @Nullable List<RestTypeBean> data) {
+    public RestTypeAdapter(int layoutResId,Context context, @Nullable List<RestTypeBean> data) {
         super(layoutResId, data);
+        this.context = context;
     }
 
     @Override
@@ -34,15 +37,20 @@ public class RestTypeAdapter extends BaseQuickAdapter<RestTypeBean, BaseViewHold
         TextView  tvRestType = baseViewHolder.getView(R.id.tv_rest_type);
         View viewRestType = baseViewHolder.getView(R.id.view_rest_type);
 
+        if (baseViewHolder.getAdapterPosition() == 0){
+            baseViewHolder.setVisible(R.id.view_rest_devide,false);
+        }else {
+            baseViewHolder.setVisible(R.id.view_rest_devide,true);
+        }
 
         if (baseViewHolder.getAdapterPosition() == itemPosition){
             tvRestType.setTextSize(16);
+            tvRestType.setTextColor(context.getResources().getColor(R.color.main_color));
             viewRestType.setVisibility(View.VISIBLE);
-            baseViewHolder.setBackgroundResource(R.id.rl_rest_type,R.color.white);
         }else {
             tvRestType.setTextSize(14);
+            tvRestType.setTextColor(context.getResources().getColor(R.color.black));
             viewRestType.setVisibility(View.GONE);
-            baseViewHolder.setBackgroundResource(R.id.rl_rest_type,R.color.gray_line);
         }
 
     }

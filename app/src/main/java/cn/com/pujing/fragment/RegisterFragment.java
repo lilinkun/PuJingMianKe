@@ -72,7 +72,7 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
                 UToast.show(getActivity(),R.string.phone_null_tip);
             }else if (captcha.isEmpty()){
                 UToast.show(getActivity(),R.string.vcode_null_tip);
-            }else if(pwd != etsurePwd){
+            }else if(!pwd.equals(etsurePwd)){
                 UToast.show(getActivity(),R.string.psd_no_identical);
             }else if( pwd.length() < 6 || pwd.length() > 20){
                 UToast.show(getActivity(),R.string.psw_null_tip);

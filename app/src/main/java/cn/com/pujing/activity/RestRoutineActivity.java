@@ -20,12 +20,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.adapter.RestDayAdapter;
 import cn.com.pujing.adapter.RestRoutineAdapter;
 import cn.com.pujing.adapter.RestTypeAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.RestDayBean;
 import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.presenter.RestRoutinePresenter;
+import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RestRoutineView;
@@ -37,29 +40,29 @@ import cn.com.pujing.view.RestRoutineView;
  */
 public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRoutinePresenter> implements RestRoutineView {
 
-    @BindView(R.id.tv_restroutine_date)
-    TextView tvRestroutineDate;
-    @BindView(R.id.iv_restroutine_left)
-    ImageView ivRestroutineLeft;
-    @BindView(R.id.iv_restroutine_right)
-    ImageView ivRestroutineRight;
     @BindView(R.id.rv_restroutine)
     RecyclerView rvRestroutine;
     @BindView(R.id.tv_next_day)
     TextView tvNextDay;
     @BindView(R.id.rv_rest_type)
     RecyclerView rvRestType;
+    @BindView(R.id.rv_rest_day)
+    RecyclerView rvRestDay;
 
     private List<SetMealBean> setMealBeans;
     List<RestTypeBean> restTypeBeans;
     private int currentDateItem = 0;
     private int type = 1; //1早餐2早午茶3中餐4下午茶5晚餐
-    private List<String> nextWeek;
+    private List<RestDayBean> nextWeek;
     private RestRoutineAdapter restRoutineAdapter;
     private RestTypeAdapter restTypeAdapter;
-    private SetMealBean setMealBean_breakfast;
-    private SetMealBean setMealBean_lunch;
-    private SetMealBean setMealBean_dinner;
+    private RestDayAdapter restDayAdapter;
+    private SetMealBean setMealBean_breakfast; //早餐
+    private SetMealBean setMealBean_lunch;      //中餐
+    private SetMealBean setMealBean_dinner;     //晚餐
+    private SetMealBean setMealBean_brunch;     //早午茶
+    private SetMealBean setMealBean_afternoon_tea;     //下午茶
+    private String currentDay;
 
     View[] ovalViews ;
 
@@ -73,12 +76,34 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
+        ActivityUtil.addHomeActivity(this);
+
         nextWeek = PuJingUtils.getNextWeekDateList();
 
-        LinearLayoutManager typeLinearLayoutManager = new LinearLayoutManager(this);
-        typeLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        currentDay = nextWeek.get(0).dateDay;
 
-        restTypeAdapter = new RestTypeAdapter(R.layout.adapter_resttype,null);
+
+        LinearLayoutManager dayLinearLayoutManager = new LinearLayoutManager(this);
+        dayLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+
+        restDayAdapter = new RestDayAdapter(R.layout.adapter_rest_day,nextWeek,this);
+        rvRestDay.setLayoutManager(dayLinearLayoutManager);
+        rvRestDay.setAdapter(restDayAdapter);
+        restDayAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                restDayAdapter.setPositionView(position);
+                currentDateItem = position;
+                currentDay = nextWeek.get(currentDateItem).dateDay;
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(type).value));
+            }
+        });
+
+
+        LinearLayoutManager typeLinearLayoutManager = new LinearLayoutManager(this);
+        typeLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        restTypeAdapter = new RestTypeAdapter(R.layout.adapter_resttype,this,null);
 
         rvRestType.setLayoutManager(typeLinearLayoutManager);
         rvRestType.setAdapter(restTypeAdapter);
@@ -87,14 +112,13 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 restTypeAdapter.setPositionView(position);
-                mPresenter.getSetMealData(nextWeek.get(currentDateItem),Integer.valueOf(restTypeBeans.get(position).value));
+                type = position;
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(type).value));
             }
         });
 
         mPresenter.getSetMealTypeData();
 
-
-        tvRestroutineDate.setText(nextWeek.get(currentDateItem));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -110,6 +134,9 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                 for (int i = 0; i < setMealBeans.size();i++){
                     if (i == position){
                         setMealBeans.get(i).setShow(true);
+
+                        mPresenter.saveSetMeal(setMealBeans.get(position),currentDay,Integer.valueOf(restTypeBeans.get(type).value));
+
                     }else {
                         setMealBeans.get(i).setShow(false);
                     }
@@ -119,8 +146,12 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                 if (type == 1){
                     setMealBean_breakfast = setMealBeans.get(position);
                 }else if (type == 2){
-                    setMealBean_lunch = setMealBeans.get(position);
+                    setMealBean_brunch = setMealBeans.get(position);
                 }else if (type == 3){
+                    setMealBean_lunch = setMealBeans.get(position);
+                }else if (type == 4){
+                    setMealBean_afternoon_tea = setMealBeans.get(position);
+                }else if (type == 5){
                     setMealBean_dinner = setMealBeans.get(position);
                 }
             }
@@ -133,27 +164,10 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     }
 
 
-    @OnClick({R.id.iv_restroutine_left,R.id.iv_restroutine_right,R.id.iv_setmeal_back,R.id.tv_next_day})
+    @OnClick({R.id.iv_setmeal_back,R.id.tv_next_day})
     public void onClick(View view){
         switch (view.getId()){
 
-            case R.id.iv_restroutine_left:
-
-                if (currentDateItem > 0){
-                    currentDateItem--;
-                    tvRestroutineDate.setText(nextWeek.get(currentDateItem));
-                }
-
-                break;
-
-            case R.id.iv_restroutine_right:
-
-                if (currentDateItem < 6){
-                    currentDateItem++;
-                    tvRestroutineDate.setText(nextWeek.get(currentDateItem));
-                }
-
-                break;
 
             case R.id.iv_setmeal_back:
 
@@ -198,6 +212,9 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         if (restTypeAdapter != null){
             this.restTypeBeans = restTypeBeans;
             restTypeAdapter.setNewInstance(restTypeBeans);
+
+            mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(0).value));
+
             //获取第一个位置的view，并点击
 //            rvRestType.getLayoutManager().findViewByPosition(0).performClick();
         }
@@ -208,7 +225,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         for (int i = 0;i<setMealBeans.size();i++){
             if (setMealBeans.get(i).getId() == setMealBean.getId()){
                 setMealBeans.get(i).setShow(true);
-                ovalViews[type-1].setVisibility(View.VISIBLE);
+//                ovalViews[type-1].setVisibility(View.VISIBLE);
             }else {
                 setMealBeans.get(i).setShow(false);
             }

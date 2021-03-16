@@ -137,7 +137,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
 
     @Override
     public void getMyInfoSuccess(MyInfoBean myInfoBean) {
-        tvName.setText(myInfoBean.getUsername());
+        tvName.setText(myInfoBean.getNikeName());
 
         if (!TextUtils.isEmpty(myInfoBean.getAvatar())) {
             Glide.with(getContext())

@@ -25,6 +25,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.Base;
+import cn.com.pujing.entity.QuerySelectDayBean;
+import cn.com.pujing.presenter.CommunityCalendarPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
@@ -36,8 +38,9 @@ import cn.com.pujing.entity.ActivityDate;
 import cn.com.pujing.entity.ActivityDateAdd;
 import cn.com.pujing.entity.QuerySelectDay;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
+import cn.com.pujing.view.CommunityCalendarView;
 
-public class MyCalendarActivity extends BaseActivity implements View.OnClickListener, AddThingsDialogFragment.OnDialogListener {
+public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, CommunityCalendarPresenter> implements View.OnClickListener, AddThingsDialogFragment.OnDialogListener,CommunityCalendarView {
     @BindView(R.id.calendarView)
     CalendarView calendarView;
     @BindView(R.id.tv_month)
@@ -85,11 +88,13 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
                 curMonth = month - 1;
                 monthTextView.setText(year + "年" + month + "月");
 
-                OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
+                mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),2);
+
+                /*OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
                         .tag(this)
                         .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
                         .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
-                        .execute(new JsonCallback<>(ActivityDate.class, MyCalendarActivity.this));
+                        .execute(new JsonCallback<>(ActivityDate.class, MyCalendarActivity.this));*/
             }
         });
         calendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -107,10 +112,13 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
                 selectDay = Methods.getDate(calendar.getYear(), calendar.getMonth() - 1, calendar.getDay());
                 exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), selectDay));
 
-                OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
-                        .tag(this)
-                        .params(Constants.SELECTDAY, selectDay)
-                        .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
+
+                mPresenter.querySelectDay(selectDay,2);
+
+//                OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
+//                        .tag(this)
+//                        .params(Constants.SELECTDAY, selectDay)
+//                        .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
 
             }
         });
@@ -125,13 +133,16 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
 
 //        View footerView = LayoutInflater.from(this).inflate(R.layout.footer_my_calendar, null);
-//        footerView.findViewById(R.id.tv_add).setOnClickListener(this);
+//        footerView.findViewById(R.iSystemd.tv_add).setOnClickListener(this);
 //        anotherExerciseAdapter.addFooterView(footerView);
 
         recyclerView.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
 
-        OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
+        mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),2);
+
+        mPresenter.querySelectDay(Methods.getDate(curYear, curMonth, calendarView.getCurDay()),2);
+        /*OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
                 .tag(this)
                 .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
                 .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
@@ -140,7 +151,7 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
         OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
                 .tag(this)
                 .params(Constants.SELECTDAY, Methods.getDate(selectedYear, selectedMonth, selectedDay))
-                .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
+                .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));*/
     }
 
     @Override
@@ -171,16 +182,17 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
 
             } else if (response.body() instanceof QuerySelectDay) {
                 QuerySelectDay querySelectDay = (QuerySelectDay) response.body();
-                anotherExerciseAdapter.setNewInstance(querySelectDay.data);
+//                anotherExerciseAdapter.setNewInstance(querySelectDay.data);
             } else if (response.body() instanceof ActivityDateAdd) {
                 ActivityDateAdd activityDateAdd = (ActivityDateAdd) response.body();
                 if (activityDateAdd.data) {
                     String selectDay = Methods.getDate(selectedYear, selectedMonth, selectedDay);
 
-                    OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
-                            .tag(this)
-                            .params(Constants.SELECTDAY, selectDay)
-                            .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
+                    mPresenter.querySelectDay(selectDay,2);
+//                    OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
+//                            .tag(this)
+//                            .params(Constants.SELECTDAY, selectDay)
+//                            .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
                 }
             }
         }
@@ -194,8 +206,8 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected CommunityCalendarPresenter createPresenter() {
+        return new CommunityCalendarPresenter();
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -242,4 +254,35 @@ public class MyCalendarActivity extends BaseActivity implements View.OnClickList
     }
 
 
+    @Override
+    public void getCommunityDataSuccess(List<Long> longs) {
+        List<Long> list = longs;
+
+        if (list != null && list.size() > 0) {
+            Map<String, Calendar> map = new HashMap<>();
+
+            for (Long l : list) {
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+                calendar.setTimeInMillis(l);
+                int year = calendar.get(java.util.Calendar.YEAR);
+                int month = calendar.get(java.util.Calendar.MONTH) + 1;
+                int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+                map.put(getSchemeCalendar(year, month, day, 0xFFe69138, "事").toString(),
+                        getSchemeCalendar(year, month, day, 0xFFe69138, "事"));
+            }
+            calendarView.setSchemeDate(map);
+            calendarView.update();
+        }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+
+    }
+
+    @Override
+    public void getDaySuccess(List<QuerySelectDayBean> querySelectDayBeans) {
+                anotherExerciseAdapter.setNewInstance(querySelectDayBeans);
+    }
 }

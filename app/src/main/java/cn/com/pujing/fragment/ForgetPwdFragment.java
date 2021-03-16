@@ -1,14 +1,23 @@
 package cn.com.pujing.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.entity.LoginToken;
+import cn.com.pujing.entity.PublicKey;
 import cn.com.pujing.presenter.ForgetPwdPresenter;
+import cn.com.pujing.util.Base64Utils;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.ForgetPwdView;
 
@@ -66,10 +75,14 @@ public class ForgetPwdFragment extends BaseFragment<ForgetPwdView, ForgetPwdPres
 
             if (cellPhoneNumber.length() > 0 && captcha.length() > 0 && newPwd.length() > 0 && sureNewPwd.length() > 0){
 
-                if (newPwd.equals(sureNewPwd)){
-                    mPresenter.modifyPwd(cellPhoneNumber,newPwd,captcha);
+                if( newPwd.length() < 6 || newPwd.length() > 20) {
+                    UToast.show(getActivity(), R.string.psw_null_tip);
                 }else {
-                    UToast.show(getActivity(),"两次密码不一致");
+                    if (newPwd.equals(sureNewPwd)) {
+                        mPresenter.modifyPwd(cellPhoneNumber, newPwd, captcha);
+                    } else {
+                        UToast.show(getActivity(), "两次密码不一致");
+                    }
                 }
 
             }else {
@@ -87,10 +100,44 @@ public class ForgetPwdFragment extends BaseFragment<ForgetPwdView, ForgetPwdPres
     @Override
     public void modifyPwdSuccess(boolean result) {
         UToast.show(getActivity(), "修改成功");
+        mPresenter.getPublicKey();
     }
 
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(), msg);
+    }
+
+    @Override
+    public void getPublicKeySucccess(PublicKey mPublicKey) {
+        String publicKey = mPublicKey.getPublicKey();
+        publicKey = publicKey.replaceAll("-----BEGIN PUBLIC KEY-----", "").trim();
+        publicKey = publicKey.replaceAll("-----END PUBLIC KEY-----", "").trim();
+
+        String rsaKey = mPublicKey.getRsaKey();
+        String userName = etCellPhoneNumber.getText().toString().trim();
+        String pwd = etNewPwd.getText().toString().trim();
+
+        try {
+            String password = Base64Utils.encode(Methods.encryptByPublicKey(pwd.getBytes(), Methods.getPublicKey(publicKey)));
+
+            mPresenter.getLoginSuccess(userName,password,rsaKey);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getLoginSuccess(LoginToken loginToken) {
+        Methods.saveKeyValue(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token(), getActivity());
+        OkGo.getInstance().getCommonHeaders().put(Constants.AUTHORIZATION, Constants.BEARER + loginToken.getAccess_token());
+
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+        getActivity().finish();
     }
 }
