@@ -1,6 +1,7 @@
 package cn.com.pujing.adapter;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -30,15 +31,26 @@ public class RestDayAdapter extends BaseQuickAdapter<RestDayBean, BaseViewHolder
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, RestDayBean restDayBean) {
+
+        TextView tvWeekDay = baseViewHolder.getView(R.id.tv_week_day);
+        TextView tvDateDay = baseViewHolder.getView(R.id.tv_date_day);
+
         baseViewHolder.setText(R.id.tv_week_day,restDayBean.weekDay);
         baseViewHolder.setText(R.id.tv_date_day,restDayBean.monthDay);
 
         if (itemPosition == baseViewHolder.getAdapterPosition()){
             baseViewHolder.setVisible(R.id.view_day_line,true);
+            baseViewHolder.setTextColor(R.id.tv_week_day,context.getResources().getColor(R.color.main_color));
+            baseViewHolder.setTextColor(R.id.tv_date_day,context.getResources().getColor(R.color.main_color));
+            tvWeekDay.setTextSize(16);
             baseViewHolder.setBackgroundColor(R.id.rl_day_top,context.getResources().getColor(R.color.white));
         }else {
             baseViewHolder.setVisible(R.id.view_day_line,false);
             baseViewHolder.setBackgroundColor(R.id.rl_day_top,context.getResources().getColor(R.color.gray_line));
+
+            baseViewHolder.setTextColor(R.id.tv_week_day,context.getResources().getColor(R.color.text_black));
+            baseViewHolder.setTextColor(R.id.tv_date_day,context.getResources().getColor(R.color.text_black));
+            tvWeekDay.setTextSize(14);
         }
 
     }

@@ -36,7 +36,6 @@
                 android:id="@+id/tv_setmeal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="套餐A"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 />
@@ -45,7 +44,6 @@
                 android:id="@+id/tv_content_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="生煎包+小米粥+春卷"
                 android:textColor="@color/text_gray"
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"
@@ -112,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_rest_open_arrow"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
             />
 
         </LinearLayout>

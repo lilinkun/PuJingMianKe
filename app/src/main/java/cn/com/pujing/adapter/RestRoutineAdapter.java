@@ -47,7 +47,7 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, SetMealBean setMealBean) {
         baseViewHolder.setText(R.id.tv_content_name,setMealBean.getMealName());
-        baseViewHolder.setText(R.id.tv_setmeal_name,"套餐"+ PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
+        baseViewHolder.setText(R.id.tv_setmeal_name,context.getResources().getString(R.string.meal)+ PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
         ImageView imageView = baseViewHolder.getView(R.id.iv_restroutine);
         ImageView ivRestArrow = baseViewHolder.getView(R.id.iv_rest_arrow);
 
@@ -66,11 +66,18 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
             rvChildRest.setAdapter(restRoutineChildAdapter);
         }
 
-        if (setMealBean.isShow()){
-            ivSelectRestroutine.setSelected(true);
-        }else{
-            ivSelectRestroutine.setSelected(false);
+        if (setMealBean.isVisibel()){
+
+            ivSelectRestroutine.setVisibility(View.VISIBLE);
+            if (setMealBean.isShow()){
+                ivSelectRestroutine.setSelected(true);
+            }else{
+                ivSelectRestroutine.setSelected(false);
+            }
+        }else {
+            ivSelectRestroutine.setVisibility(View.GONE);
         }
+
 
         llSearchDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +101,18 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
             }
         });
 
+        String coverPic = "";
+
+        if (setMealBean.getCoverPic().contains(",")){
+            coverPic = setMealBean.getCoverPic().split(",")[0];
+        }else {
+            coverPic = setMealBean.getCoverPic();
+        }
+
         Glide.with(getContext())
-                .load(PujingService.PREFIX + PujingService.IMG + setMealBean.getCoverPic())
+                .load(PujingService.PREFIX + PujingService.IMG + coverPic)
                 .apply(PuJingUtils.setGlideCircle(10))
+                .error(R.color.gray_line)
                 .into(imageView);
 
 

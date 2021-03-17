@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.RestTypeBean;
+import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SaveSetMealBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
@@ -27,7 +29,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
      * @param dateStr
      * @param type
      */
-    public void getSetMealData(String dateStr,int type){
+    public void getSetMealData(String dateStr,String type){
 
         PujingService.getSetMealData(dateStr,type)
                 .compose(RxSchedulersHelper.io_main())
@@ -69,7 +71,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
     /**
      * 保存套餐
      */
-    public void saveSetMeal(SetMealBean setMealBean,String time,int type){
+    public void saveSetMeal(SetMealBean setMealBean,String time,String type,int id){
 
         SaveSetMealBean saveSetMealBean = new SaveSetMealBean();
 
@@ -79,10 +81,12 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
 
         cycleMealVoList.setTime(time);
         cycleMealVoList.setMealName(setMealBean.getMealName());
-        cycleMealVoList.setType(type);
+        cycleMealVoList.setType(Integer.valueOf(type));
         cycleMealVoList.setMealIds(setMealBean.getId()+"");
-
-        cycleMealVoList.setCategoryList(setMealBean.getFoodDetailVoList());
+        if (id != 0) {
+            cycleMealVoList.setId(id);
+        }
+//        cycleMealVoList.setCategoryList(setMealBean.getFoodDetailVoList());
 
         cycleMealVoLists.add(cycleMealVoList);
 
@@ -95,10 +99,10 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
         PujingService.saveSetMealData(json)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<List<RestTypeBean>>() {
+                .subscribe(new RxObserver<Boolean>() {
                     @Override
-                    public void _onNext(List<RestTypeBean> setMealBean) {
-                        getView().getSetMealTypeSuccess(setMealBean);
+                    public void _onNext(Boolean aBoolean) {
+                        getView().saveDataSuccess(aBoolean);
                     }
 
                     @Override
@@ -108,6 +112,59 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
                 });
 
     }
+
+    /**
+     * 提交常规餐
+     */
+    public void submitSetMeal(int status){
+
+        SaveSetMealBean saveSetMealBean = new SaveSetMealBean();
+        SaveSetMealBean.RestaurantCycleRecord restaurantCycleRecord = saveSetMealBean.new RestaurantCycleRecord();
+        restaurantCycleRecord.setStatus(status);
+        saveSetMealBean.setRestaurantCycleRecord(restaurantCycleRecord);
+
+
+        Gson gson = new Gson();
+        String json = gson.toJson(saveSetMealBean);
+
+        PujingService.saveSetMealData(json)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Boolean>() {
+                    @Override
+                    public void _onNext(Boolean aBoolean) {
+                        getView().submitSuccess(aBoolean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+                });
+
+    }
+
+
+
+    //检查用户是否点击完常规餐
+    public void getRoutineData(String curDate){
+
+        PujingService.getRoutineData(curDate)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<RoutineRecordBean>() {
+                    @Override
+                    public void _onNext(RoutineRecordBean addRestBean) {
+                        getView().getRestClickData(addRestBean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getRestClickDataFail(errorMessage);
+                    }
+                });
+    }
+
 
 
 }

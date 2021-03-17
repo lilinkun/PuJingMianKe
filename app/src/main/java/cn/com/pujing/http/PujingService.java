@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.ChangeDataBean;
@@ -32,6 +33,7 @@ import cn.com.pujing.entity.RestMealBean;
 import cn.com.pujing.entity.RestMealTypeBean;
 import cn.com.pujing.entity.RestOrderBean;
 import cn.com.pujing.entity.RestTypeBean;
+import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
@@ -49,11 +51,12 @@ public class PujingService {
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
-//    public static final String PREFIX = "http://172.18.9.207"; // 文
+    public static final String PREFIX = "http://172.18.9.207"; // 文
+//    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
 //    public static final String PREFIX = "http://172.18.19.251"; // 勇
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-    public static final String PREFIX = "http://172.18.7.21";
+//    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
     public static String TOKEN = PREFIX + "/upms-service/oauth/token";
@@ -73,11 +76,14 @@ public class PujingService {
     //历史活动
     public static String QUERY_HISTORY_ACTIVITY = PREFIX + "/life-service/activityCalendar/historyActivity";
     //常规套餐数据
-    public static String GETSETMEALDATA = PREFIX + "/restaurant-service/restaurantCycleMealMenu/queryOne";
+    public static String GETSETMEALDATA = PREFIX + "/restaurant-service/restaurantCycleMealMenu/queryOneByApp";
+//    public static String GETSETMEALDATA = PREFIX + "/restaurant-service/restaurantCycleMealMenu/queryOne";
     //常规套餐数据
     public static String SAVESETMEALDATA = PREFIX + "/restaurant-service/restaurantCycleRecord/appSave";
     //宴会餐和零点餐数据
     public static String GETBANQUETSDATA = PREFIX + "/restaurant-service/restaurantMenuItem/getBanquetInfo";
+    //常规餐数据
+    public static String GETROUTINEDATA = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetCycleCategory";
 
     //图片链接
     public static String IMG = "/basic-service/attachment/cos/down/";
@@ -87,7 +93,8 @@ public class PujingService {
     //字典
     public static String DIRECTORY = PREFIX + "/upms-service/dict/type/";
     //常规餐类型
-    public static String REST_TYPE = DIRECTORY + "meal_type";
+    public static String REST_TYPE = DIRECTORY + "app_meal_type";
+//    public static String REST_TYPE = DIRECTORY + "meal_type";
     //反馈类型
     public static String OPINION_TYPE = DIRECTORY + "opinion_type";
     //餐次
@@ -113,6 +120,10 @@ public class PujingService {
     public static String RESTORDERDETAIL = PREFIX + "/restaurant-service/restaurantOrder/getOrderDetail/";
     public static String RESTORDERCLEAN = PREFIX + "/restaurant-service/restaurantOrder/cleanOrder/";
     public static String ADDFOOD = PREFIX + "/restaurant-service/restaurantOrder/addFood";
+
+    public static String NOTICE = PREFIX + H5 + "notice";
+    public static String EVENTDETAILS = PREFIX + H5 + "eventDetails/";
+    public static String SURVEYLIST = PREFIX + H5 + "surveyList";
 
     /**
      * 获取公钥
@@ -277,7 +288,7 @@ public class PujingService {
     /**
      * 获取套餐数据
      */
-    public static Observable<ResponseData<List<SetMealBean>>> getSetMealData(String dateStr,int type) {
+    public static Observable<ResponseData<List<SetMealBean>>> getSetMealData(String dateStr,String type) {
         return OkGo.<ResponseData<List<SetMealBean>>>get(GETSETMEALDATA)
 //                .params("time","2021-02-25")
                 .params("time",dateStr)
@@ -316,12 +327,12 @@ public class PujingService {
     /**
      * 保存常规餐数据
      */
-    public static Observable<ResponseData<List<RestTypeBean>>> saveSetMealData(String json) {
-        return OkGo.<ResponseData<List<RestTypeBean>>>post(SAVESETMEALDATA)
+    public static Observable<ResponseData<Boolean>> saveSetMealData(String json) {
+        return OkGo.<ResponseData<Boolean>>post(SAVESETMEALDATA)
                 .upJson(json)
-                .converter(new JsonConvert<ResponseData<List<RestTypeBean>>>() {
+                .converter(new JsonConvert<ResponseData<Boolean>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<List<RestTypeBean>>>());
+                .adapt(new ObservableBody<ResponseData<Boolean>>());
     }
 
 
@@ -503,6 +514,27 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<Boolean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Boolean>>());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Observable<ResponseData<RoutineRecordBean>> getRoutineData(String curDate){
+
+        if (curDate.equals("")){
+
+            return OkGo.<ResponseData<RoutineRecordBean>>get(GETROUTINEDATA)
+                    .converter(new JsonConvert<ResponseData<RoutineRecordBean>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<RoutineRecordBean>>());
+        }else {
+            return OkGo.<ResponseData<RoutineRecordBean>>get(GETROUTINEDATA)
+                    .params("cycleTime",curDate)
+                    .converter(new JsonConvert<ResponseData<RoutineRecordBean>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<RoutineRecordBean>>());
+        }
     }
 
 

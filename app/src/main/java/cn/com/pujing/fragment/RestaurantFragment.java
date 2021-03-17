@@ -18,9 +18,14 @@ import cn.com.pujing.activity.RestBanquetsActivity;
 import cn.com.pujing.activity.RestRoutineActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.AddRestBean;
+import cn.com.pujing.entity.RoutineRecordBean;
+import cn.com.pujing.presenter.RestaurantPresenter;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RestBanquetsView;
+import cn.com.pujing.view.RestaurantView;
 
-public class RestaurantFragment extends BaseFragment {
+public class RestaurantFragment extends BaseFragment<RestaurantView, RestaurantPresenter> implements RestaurantView{
 
 
     @Override
@@ -44,8 +49,8 @@ public class RestaurantFragment extends BaseFragment {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected RestaurantPresenter createPresenter() {
+        return new RestaurantPresenter();
     }
 
     @OnClick({R.id.rl_rest_routine,R.id.rl_rest_banquets,R.id.rl_rest_order})
@@ -53,8 +58,8 @@ public class RestaurantFragment extends BaseFragment {
         switch (view.getId()){
             case R.id.rl_rest_routine:
 
-                Intent intent = new Intent(getActivity(), RestRoutineActivity.class);
-                startActivity(intent);
+
+                mPresenter.getRoutineData();
 
                 break;
 
@@ -79,4 +84,18 @@ public class RestaurantFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void getRestData(RoutineRecordBean addRestBean) {
+
+        if (addRestBean.restaurantCycleRecord.status == 1) {
+
+            Intent intent = new Intent(getActivity(), RestRoutineActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        UToast.show(getActivity(),msg);
+    }
 }

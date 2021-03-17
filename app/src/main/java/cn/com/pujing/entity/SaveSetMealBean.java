@@ -11,6 +11,7 @@ import java.util.List;
 public class SaveSetMealBean implements Serializable {
 
     private List<CycleMealVoList> cycleMealVoList;
+    private RestaurantCycleRecord restaurantCycleRecord;
 
 
     public class CycleMealVoList{
@@ -19,8 +20,17 @@ public class SaveSetMealBean implements Serializable {
         private String time;
         private int type;
         private String mealIds;
-        private List<SetMealBean.FoodDetailVoList> categoryList;
+        private int id;
+//        private List<SetMealBean.FoodDetailVoList> categoryList;
 
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public String getMealName() {
             return mealName;
@@ -54,13 +64,13 @@ public class SaveSetMealBean implements Serializable {
             this.mealIds = mealIds;
         }
 
-        public List<SetMealBean.FoodDetailVoList> getCategoryList() {
+        /*public List<SetMealBean.FoodDetailVoList> getCategoryList() {
             return categoryList;
         }
 
         public void setCategoryList(List<SetMealBean.FoodDetailVoList> categoryList) {
             this.categoryList = categoryList;
-        }
+        }*/
 
         @Override
         public String toString() {
@@ -81,16 +91,23 @@ public class SaveSetMealBean implements Serializable {
         this.cycleMealVoList = cycleMealVoList;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "\"cycleMealVoList\":" + cycleMealVoList +
-                '}';
+    public class RestaurantCycleRecord{
+        private int status;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
     }
 
+    public RestaurantCycleRecord getRestaurantCycleRecord() {
+        return restaurantCycleRecord;
+    }
 
-    public class CategoryList{
-        private String categoryName;
-        private String categoryType;
+    public void setRestaurantCycleRecord(RestaurantCycleRecord restaurantCycleRecord) {
+        this.restaurantCycleRecord = restaurantCycleRecord;
     }
 }

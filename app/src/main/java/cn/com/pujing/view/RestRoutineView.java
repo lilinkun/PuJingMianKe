@@ -2,7 +2,9 @@ package cn.com.pujing.view;
 
 import java.util.List;
 
+import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.RestTypeBean;
+import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
 
 /**
@@ -17,5 +19,13 @@ public interface RestRoutineView {
     public void getSetMealTypeSuccess(List<RestTypeBean> restTypeBeans);
 
     public void getDataFail(String msg);
+
+    public void getRestClickDataFail(String msg);
+
+    public void saveDataSuccess(boolean b);
+
+    public void submitSuccess(boolean b);
+
+    public void getRestClickData(RoutineRecordBean addRestBean);
 
 }

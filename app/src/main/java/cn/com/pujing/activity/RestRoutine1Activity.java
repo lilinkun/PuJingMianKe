@@ -20,8 +20,10 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.RestRoutineAdapter;
 import cn.com.pujing.adapter.RestTypeAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.RestDayBean;
 import cn.com.pujing.entity.RestTypeBean;
+import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.presenter.RestRoutinePresenter;
 import cn.com.pujing.util.PuJingUtils;
@@ -85,7 +87,7 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 restTypeAdapter.setPositionView(position);
-                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(position).value));
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(position).value);
             }
         });
 
@@ -216,5 +218,25 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
     @Override
     public void getDataFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @Override
+    public void getRestClickDataFail(String msg) {
+
+    }
+
+    @Override
+    public void saveDataSuccess(boolean b) {
+
+    }
+
+    @Override
+    public void submitSuccess(boolean b) {
+
+    }
+
+    @Override
+    public void getRestClickData(RoutineRecordBean addRestBean) {
+
     }
 }

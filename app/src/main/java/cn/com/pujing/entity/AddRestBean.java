@@ -28,4 +28,6 @@ public class AddRestBean implements Serializable {
     public void setFoodList(List<ChangeDataBean.DetailList> orderFoodList) {
         this.orderFoodList = orderFoodList;
     }
+
+
 }

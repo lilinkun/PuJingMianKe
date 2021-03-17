@@ -15,6 +15,7 @@ public class SetMealBean implements Serializable {
     private String coverPic;
     private int id;
     private boolean isShow;
+    private boolean isVisibel;
 
 
     public class FoodDetailVoList implements Serializable{
@@ -84,5 +85,13 @@ public class SetMealBean implements Serializable {
 
     public void setShow(boolean show) {
         isShow = show;
+    }
+
+    public boolean isVisibel() {
+        return isVisibel;
+    }
+
+    public void setVisibel(boolean visibel) {
+        isVisibel = visibel;
     }
 }
