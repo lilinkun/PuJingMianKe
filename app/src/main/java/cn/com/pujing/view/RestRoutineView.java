@@ -28,4 +28,8 @@ public interface RestRoutineView {
 
     public void getRestClickData(RoutineRecordBean addRestBean);
 
+    public void checkCycleRecord(boolean b);
+
+    public void checkCycleRecordFail(String msg);
+
 }

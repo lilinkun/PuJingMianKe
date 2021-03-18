@@ -40,6 +40,9 @@ import cn.com.pujing.entity.QuerySelectDay;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
 import cn.com.pujing.view.CommunityCalendarView;
 
+/**
+ * 我的日历
+ */
 public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, CommunityCalendarPresenter> implements View.OnClickListener, AddThingsDialogFragment.OnDialogListener,CommunityCalendarView {
     @BindView(R.id.calendarView)
     CalendarView calendarView;

@@ -1,5 +1,6 @@
 package cn.com.pujing.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 
@@ -42,7 +43,7 @@ public class CurrentHotFragment extends BaseFragment {
     private ExerciseAdapter exerciseAdapter;
     private List<ActivityCalendar.Data.Record> list;
     int page  = 1;
-    private int web_result = 0x232;
+    private static final int WEB_RESULT = 0x232;
 
     @Override
     public int getlayoutId() {
@@ -73,7 +74,7 @@ public class CurrentHotFragment extends BaseFragment {
                 ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, Urls.EVENTDETAILS + record.id);
-                startActivityForResult(intent,web_result);
+                startActivityForResult(intent,WEB_RESULT);
             }
         });
 
@@ -150,7 +151,7 @@ public class CurrentHotFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
-            if (requestCode == web_result){
+            if (requestCode == WEB_RESULT){
                 page = 1;
                 if (list != null){
                     list.clear();

@@ -60,7 +60,7 @@ public class ActivitiesFragment extends BaseFragment{
         vpListExerciset.setAdapter(tabPageAdapter);
         stlListActivities.setViewPager(vpListExerciset);
         vpListExerciset.setOffscreenPageLimit(1);
-        vpListExerciset.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vpListExerciset.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

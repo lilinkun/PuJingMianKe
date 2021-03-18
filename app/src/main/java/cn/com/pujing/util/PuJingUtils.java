@@ -174,6 +174,20 @@ public class PuJingUtils {
         return restDayBeans;
     }
 
+    /**
+     * 获取下周集合
+     * @return
+     */
+    public static List<String> nextWeek(){
+        List<RestDayBean> restDayBeans = getNextWeekDateList();
+        List<String> strings = new ArrayList<>();
+        for(RestDayBean restDayBean : restDayBeans){
+            strings.add(restDayBean.dateDay);
+        }
+
+        return strings;
+    }
+
     //数字转字母 1-26 ： A-Z
     public static String numberToLetter(int num) {
         if (num <= 0) {

@@ -27,7 +27,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     private TextView limitTimeTextView;
     private TextView limitTextView;
     private EditText editText;
-    private int MAX_NUM = 50;
+    private static final int MAX_NUM = 50;
 
     public AddThingsDialogFragment(OnDialogListener onDialogListener) {
         this.onDialogListener = onDialogListener;

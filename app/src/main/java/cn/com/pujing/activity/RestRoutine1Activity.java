@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -103,6 +104,7 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
 
         rvRestroutine.setLayoutManager(linearLayoutManager);
         rvRestroutine.setAdapter(restRoutineAdapter);
+        ((SimpleItemAnimator)rvRestroutine.getItemAnimator()).setSupportsChangeAnimations(false);
 
         restRoutineAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -237,6 +239,16 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
 
     @Override
     public void getRestClickData(RoutineRecordBean addRestBean) {
+
+    }
+
+    @Override
+    public void checkCycleRecord(boolean b) {
+
+    }
+
+    @Override
+    public void checkCycleRecordFail(String msg) {
 
     }
 }

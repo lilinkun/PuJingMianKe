@@ -1,5 +1,6 @@
 package cn.com.pujing.entity;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,17 +11,24 @@ import java.util.List;
  */
 public class RoutineRecordBean implements Serializable {
 
-    public List<CycleMealVoList> cycleMealVoList;
+    public List<CycleMeals> cycleMeals;
 
     public RestaurantCycleRecord restaurantCycleRecord;
 
+    public class CycleMeals{
+        public String time;
+        public List<CycleMealVoList> cycleMealVoList;
+    }
 
     public class CycleMealVoList{
 
         public int id;
         public int type;
         public int mealIds;
-
+        public String time;
+        public String mealName;
+        public String type_label;
+        public String coverPic;
 
     }
 

@@ -310,6 +310,9 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                 reserveTypeDialog.show();
 
                 break;
+
+            default:
+                break;
         }
     }
 

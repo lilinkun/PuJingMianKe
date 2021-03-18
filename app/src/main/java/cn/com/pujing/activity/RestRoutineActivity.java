@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     private RoutineRecordBean routineRecordBean;
     private String currentDay;
 
+    public static int checkId = 0;
+
     View[] ovalViews ;
 
     @Override
@@ -87,8 +90,13 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                 restDayAdapter.setPositionView(position);
                 currentDateItem = position;
                 currentDay = nextWeek.get(currentDateItem).dateDay;
-                mPresenter.getRoutineData(currentDay);
-//                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(type).value));
+//                mPresenter.getRoutineData(currentDay);
+                if(position == 6){
+                    tvNextDay.setText(R.string.submit);
+                }else {
+                    tvNextDay.setText(R.string.next_day);
+                }
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
             }
         });
 
@@ -124,27 +132,10 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         restRoutineAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                /*for (int i = 0; i < setMealBeans.size();i++){
-                    if (i == position){
-                        setMealBeans.get(i).setShow(true);
-*/
 
                 if (!restTypeBeans.get(type).value.contains(",")) {
-                    int id = 0;
-
-                    for (int j = 0; j < routineRecordBean.cycleMealVoList.size(); j++) {
-                        if (routineRecordBean.cycleMealVoList.get(j).type == Integer.valueOf(restTypeBeans.get(type).value)) {
-                            id = routineRecordBean.cycleMealVoList.get(j).id;
-                        }
-                    }
-
-                    mPresenter.saveSetMeal(setMealBeans.get(position), currentDay, restTypeBeans.get(type).value, id);
+                    mPresenter.saveSetMeal(setMealBeans.get(position), currentDay, restTypeBeans.get(type).value, checkId);
                 }
-                    /*}else {
-                        setMealBeans.get(i).setShow(false);
-                    }
-                }
-                restRoutineAdapter.notifyDataSetChanged();*/
 
             }
         });
@@ -174,35 +165,31 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                     restDayAdapter.setPositionView(currentDateItem);
                     currentDay = nextWeek.get(currentDateItem).dateDay;
 
-                    mPresenter.getRoutineData(currentDay);
-
+//                    mPresenter.getRoutineData(currentDay);
+                    mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
                     if(currentDateItem == 6){
                         tvNextDay.setText("提交");
                     }
 
 //                    mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(type).value));
                 }else {
-                    mPresenter.submitSetMeal(2);
+//                    mPresenter.submitSetMeal(2);
+
+                    mPresenter.checkCycleRecord();
+
                 }
 
+                break;
+
+            default:
                 break;
         }
     }
 
     @Override
     public void getSetMealSuccess(List<SetMealBean> setMealBeans) {
-        int id = 0;
-
-        if (routineRecordBean.cycleMealVoList != null) {
-
-            for (int i = 0; i < routineRecordBean.cycleMealVoList.size(); i++) {
-                if (!restTypeBeans.get(type).value.contains(",")) {
-                    if (routineRecordBean.cycleMealVoList.get(i).type == Integer.valueOf(restTypeBeans.get(type).value)) {
-                        id = routineRecordBean.cycleMealVoList.get(i).mealIds;
-                    }
-                }
-            }
-        }
+//        int id = 0;
+        checkId = 0;
 
         this.setMealBeans = setMealBeans;
 
@@ -212,9 +199,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                 setMealBeans.get(j).setVisibel(false);
             }else {
                 setMealBeans.get(j).setVisibel(true);
-                if (setMealBeans.get(j).getId() == id) {
-                    setMealBeans.get(j).setShow(true);
-                }
+
             }
         }
 
@@ -227,13 +212,8 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
             this.restTypeBeans = restTypeBeans;
             restTypeAdapter.setNewInstance(restTypeBeans);
 
+            mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(0).value);
 
-            mPresenter.getRoutineData(currentDay);
-
-//            mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,Integer.valueOf(restTypeBeans.get(0).value));
-
-            //获取第一个位置的view，并点击
-//            rvRestType.getLayoutManager().findViewByPosition(0).performClick();
         }
     }
 
@@ -255,12 +235,12 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
     @Override
     public void getRestClickDataFail(String msg) {
-        routineRecordBean.cycleMealVoList.clear();
+        routineRecordBean.cycleMeals.clear();
     }
 
     @Override
     public void saveDataSuccess(boolean b) {
-        mPresenter.getRoutineData(currentDay);
+        mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
     }
 
     @Override
@@ -274,5 +254,20 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         this.routineRecordBean = routineRecordBean;
 
         mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+    }
+
+    @Override
+    public void checkCycleRecord(boolean b) {
+
+        if (b) {
+            Intent intent = new Intent(this, MealOrderActivity.class);
+            intent.putExtra("status", 1);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void checkCycleRecordFail(String msg) {
+        UToast.show(this,msg);
     }
 }

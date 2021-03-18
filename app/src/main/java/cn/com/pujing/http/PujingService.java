@@ -120,6 +120,7 @@ public class PujingService {
     public static String RESTORDERDETAIL = PREFIX + "/restaurant-service/restaurantOrder/getOrderDetail/";
     public static String RESTORDERCLEAN = PREFIX + "/restaurant-service/restaurantOrder/cleanOrder/";
     public static String ADDFOOD = PREFIX + "/restaurant-service/restaurantOrder/addFood";
+    public static String CHECKCYCLERECORD = PREFIX + "/restaurant-service/restaurantCycleRecord/checkCycleRecord";
 
     public static String NOTICE = PREFIX + H5 + "notice";
     public static String EVENTDETAILS = PREFIX + H5 + "eventDetails/";
@@ -511,6 +512,18 @@ public class PujingService {
 
         return OkGo.<ResponseData<Boolean>>put(ADDFOOD)
                 .upJson(json)
+                .converter(new JsonConvert<ResponseData<Boolean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Boolean>>());
+    }
+
+    /**
+     * 检查用户常规餐是否点全
+     * @return
+     */
+    public static Observable<ResponseData<Boolean>> checkCycleRecord(){
+
+        return OkGo.<ResponseData<Boolean>>get(CHECKCYCLERECORD)
                 .converter(new JsonConvert<ResponseData<Boolean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Boolean>>());

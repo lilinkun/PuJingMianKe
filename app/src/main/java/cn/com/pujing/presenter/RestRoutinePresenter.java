@@ -83,6 +83,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
         cycleMealVoList.setMealName(setMealBean.getMealName());
         cycleMealVoList.setType(Integer.valueOf(type));
         cycleMealVoList.setMealIds(setMealBean.getId()+"");
+        cycleMealVoList.setCoverPic(setMealBean.getCoverPic());
         if (id != 0) {
             cycleMealVoList.setId(id);
         }
@@ -147,20 +148,20 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
 
 
     //检查用户是否点击完常规餐
-    public void getRoutineData(String curDate){
+    public void checkCycleRecord(){
 
-        PujingService.getRoutineData(curDate)
+        PujingService.checkCycleRecord()
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<RoutineRecordBean>() {
+                .subscribe(new RxObserver<Boolean>() {
                     @Override
-                    public void _onNext(RoutineRecordBean addRestBean) {
-                        getView().getRestClickData(addRestBean);
+                    public void _onNext(Boolean aBoolean) {
+                        getView().checkCycleRecord(aBoolean);
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getRestClickDataFail(errorMessage);
+                        getView().checkCycleRecordFail(errorMessage);
                     }
                 });
     }

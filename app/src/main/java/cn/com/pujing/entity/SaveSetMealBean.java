@@ -21,6 +21,7 @@ public class SaveSetMealBean implements Serializable {
         private int type;
         private String mealIds;
         private int id;
+        private String coverPic;
 //        private List<SetMealBean.FoodDetailVoList> categoryList;
 
 
@@ -62,6 +63,14 @@ public class SaveSetMealBean implements Serializable {
 
         public void setMealIds(String mealIds) {
             this.mealIds = mealIds;
+        }
+
+        public String getCoverPic() {
+            return coverPic;
+        }
+
+        public void setCoverPic(String coverPic) {
+            this.coverPic = coverPic;
         }
 
         /*public List<SetMealBean.FoodDetailVoList> getCategoryList() {

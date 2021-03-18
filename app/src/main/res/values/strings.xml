@@ -139,6 +139,9 @@
 
     <string name="see_order">查看订单</string>
     <string name="back_home">返回首页</string>
+    
+    <string name="order_preview">菜单预览</string>
+    <string name="order_see">菜单查看</string>
 
     <string name="input_phone_tip">请填写手机号码</string>
 
@@ -161,5 +164,12 @@
 
     <string name="net_error_tip">连接服务器异常</string>
     <string name="rest_person_num_tip">请输入就餐人数</string>
+
+    <string name="edit">编辑</string>
+
+    <string name="year">年</string>
+
+    <string name="rest_num">就餐人数</string>
+    <string name="rest_num_tip">请输入人数</string>
 
 </resources>

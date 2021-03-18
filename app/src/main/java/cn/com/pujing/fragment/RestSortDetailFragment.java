@@ -26,6 +26,7 @@ import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.RestSortDetailBean;
 import cn.com.pujing.presenter.RestSortDetailPresenter;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RestSortDetailView;
 import cn.com.pujing.widget.ItemHeaderDecoration;
 
@@ -49,6 +50,7 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
     private boolean move = false;
     private LinearLayoutManager mManager;
     private List<RestSortDetailBean> restSortDetailBeans = new ArrayList<>();
+    private BanquetBean banquetBean;
 
     private static int REQUESTCODE =0x111;
 
@@ -60,73 +62,80 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
     @Override
     public void initEventAndData() {
 
-
-        mManager = new LinearLayoutManager(getActivity());
-
-        mManager.setOrientation(RecyclerView.VERTICAL);
-
-        rvRestSortDetail.setLayoutManager(mManager);
-        restDetailAdapter = new RestDetailAdapter(getActivity(),restSortDetailBeans,this);
-
-        rvRestSortDetail.setAdapter(restDetailAdapter);
-
-        mDecoration = new ItemHeaderDecoration(getActivity(), restSortDetailBeans);
-        rvRestSortDetail.addItemDecoration(mDecoration);
-        mDecoration.setCheckListener(checkListener);
+        banquetBean = (BanquetBean) getArguments().getSerializable("right");
+        rest_type =  getArguments().getInt("rest_type");
 
 
-        initData();
-        initListener();
+        if (banquetBean.getCategoryList().size() == 0) {
+            UToast.show(getActivity(),"没有数据");
+            return;
+        }else {
+            mManager = new LinearLayoutManager(getActivity());
+
+            mManager.setOrientation(RecyclerView.VERTICAL);
+
+            rvRestSortDetail.setLayoutManager(mManager);
+            restDetailAdapter = new RestDetailAdapter(getActivity(), restSortDetailBeans, this);
+
+            rvRestSortDetail.setAdapter(restDetailAdapter);
+
+            mDecoration = new ItemHeaderDecoration(getActivity(), restSortDetailBeans);
+            rvRestSortDetail.addItemDecoration(mDecoration);
+            mDecoration.setCheckListener(checkListener);
+
+
+            initData();
+            initListener();
+        }
     }
 
     private void initData(){
 
-        BanquetBean banquetBean = (BanquetBean) getArguments().getSerializable("right");
-        rest_type =  getArguments().getInt("rest_type");
 
-        for (int i = 0;i < banquetBean.getCategoryList().size();i++){
-            RestSortDetailBean sortDetailBean = new RestSortDetailBean();
-            sortDetailBean.setTitle(true);
-            sortDetailBean.setName(banquetBean.getCategoryList().get(i).getGroupName());
-            sortDetailBean.setTitleName(banquetBean.getCategoryList().get(i).getGroupName());
-            sortDetailBean.setTag(String.valueOf(i));
-            sortDetailBean.setFoodId(0);
-            restSortDetailBeans.add(sortDetailBean);
 
-            List<BanquetBean.CategoryList.Categorys> categorys = banquetBean.getCategoryList().get(i).categorys;
+            for (int i = 0; i < banquetBean.getCategoryList().size(); i++) {
+                RestSortDetailBean sortDetailBean = new RestSortDetailBean();
+                sortDetailBean.setTitle(true);
+                sortDetailBean.setName(banquetBean.getCategoryList().get(i).getGroupName());
+                sortDetailBean.setTitleName(banquetBean.getCategoryList().get(i).getGroupName());
+                sortDetailBean.setTag(String.valueOf(i));
+                sortDetailBean.setFoodId(0);
+                restSortDetailBeans.add(sortDetailBean);
 
-            for (int j = 0; j < categorys.size();j++){
-                RestSortDetailBean sortDetailBean1 = new RestSortDetailBean();
-                sortDetailBean1.setTitleName(banquetBean.getCategoryList().get(i).getGroupName());
-                sortDetailBean1.setName(categorys.get(j).name);
-                sortDetailBean1.setTitle(false);
-                sortDetailBean1.setImgsrc(categorys.get(j).picId);
-                sortDetailBean1.setPrice(categorys.get(j).price);
-                sortDetailBean1.setDetail(categorys.get(j).remark);
-                sortDetailBean1.setTag(String.valueOf(i));
-                sortDetailBean1.setmId(categorys.get(j).id);
-                sortDetailBean1.setFoodId(categorys.get(j).foodId);
-                sortDetailBean1.setType(categorys.get(j).type);
-                restSortDetailBeans.add(sortDetailBean1);
-            }
-        }
+                List<BanquetBean.CategoryList.Categorys> categorys = banquetBean.getCategoryList().get(i).categorys;
 
-        restDetailAdapter.setNewInstance(restSortDetailBeans);
-        mDecoration.setData(restSortDetailBeans);
-
-        restDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-
-                if (restSortDetailBeans.get(position) != null && restSortDetailBeans.get(position).getmId() != 0) {
-                    if (restSortDetailBeans.get(position).getType().equals("1")) {
-                        intentActivity(RestDetailActivity.class,position);
-                    }else {
-                        intentActivity(SetMealDetailActivity.class,position);
-                    }
+                for (int j = 0; j < categorys.size(); j++) {
+                    RestSortDetailBean sortDetailBean1 = new RestSortDetailBean();
+                    sortDetailBean1.setTitleName(banquetBean.getCategoryList().get(i).getGroupName());
+                    sortDetailBean1.setName(categorys.get(j).name);
+                    sortDetailBean1.setTitle(false);
+                    sortDetailBean1.setImgsrc(categorys.get(j).picId);
+                    sortDetailBean1.setPrice(categorys.get(j).price);
+                    sortDetailBean1.setDetail(categorys.get(j).remark);
+                    sortDetailBean1.setTag(String.valueOf(i));
+                    sortDetailBean1.setmId(categorys.get(j).id);
+                    sortDetailBean1.setFoodId(categorys.get(j).foodId);
+                    sortDetailBean1.setType(categorys.get(j).type);
+                    restSortDetailBeans.add(sortDetailBean1);
                 }
             }
-        });
+
+            restDetailAdapter.setNewInstance(restSortDetailBeans);
+            mDecoration.setData(restSortDetailBeans);
+
+            restDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+
+                    if (restSortDetailBeans.get(position) != null && restSortDetailBeans.get(position).getmId() != 0) {
+                        if (restSortDetailBeans.get(position).getType().equals("1")) {
+                            intentActivity(RestDetailActivity.class, position);
+                        } else {
+                            intentActivity(SetMealDetailActivity.class, position);
+                        }
+                    }
+                }
+            });
     }
 
     private void intentActivity(Class aClass,int position){
@@ -170,9 +179,13 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
             }
         }
         if (type == 1){
-            restDetailAdapter.notifyDataSetChanged();
+            if (restDetailAdapter != null) {
+                restDetailAdapter.notifyDataSetChanged();
+            }
         }else {
-            restDetailAdapter.setNewInstance(restSortDetailBeans);
+            if (restDetailAdapter != null) {
+                restDetailAdapter.setNewInstance(restSortDetailBeans);
+            }
         }
 
 //        restDetailAdapter.notifyItemRangeChanged(0,restSortDetailBeans.size());

@@ -185,7 +185,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                                     }
                                 }
 
-                                gridAdapter.setNewData(gridItems1);
+                                gridAdapter.setNewInstance(gridItems1);
                             }
                         });
                     }

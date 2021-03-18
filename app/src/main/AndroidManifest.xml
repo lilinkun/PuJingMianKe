@@ -48,5 +48,6 @@
         <activity android:name=".activity.SetMealDetailActivity" />
         <activity android:name=".activity.RestBanquetsReserveActivity" />
         <activity android:name=".activity.RanquetsOrderActivity" />
+        <activity android:name=".activity.MealOrderActivity" />
     </application>
 </manifest>

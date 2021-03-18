@@ -126,7 +126,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
 
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm月dd日");
 
-//        tvReserveDate.setText(simpleDateFormat.format(restOrderBean.getOrderingDate()));
+        tvReserveDate.setText(restOrderBean.getOrderingDate());
         tvReserveTime.setText(restOrderBean.getOrderingTime());
         tvReserveNum.setText(restOrderBean.getPeopleNumber()+"");
         tvMealType.setText(restOrderBean.mealTime_label);

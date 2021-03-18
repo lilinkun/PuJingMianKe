@@ -14,6 +14,7 @@ import com.gyf.immersionbar.components.SimpleImmersionFragment;
 
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.MealOrderActivity;
 import cn.com.pujing.activity.RestBanquetsActivity;
 import cn.com.pujing.activity.RestRoutineActivity;
 import cn.com.pujing.base.BaseFragment;
@@ -87,10 +88,22 @@ public class RestaurantFragment extends BaseFragment<RestaurantView, RestaurantP
     @Override
     public void getRestData(RoutineRecordBean addRestBean) {
 
-        if (addRestBean.restaurantCycleRecord.status == 1) {
+        if (addRestBean.restaurantCycleRecord == null){
 
             Intent intent = new Intent(getActivity(), RestRoutineActivity.class);
             startActivity(intent);
+        }else {
+
+            if (addRestBean.restaurantCycleRecord.status == 1) {
+
+                Intent intent = new Intent(getActivity(), RestRoutineActivity.class);
+                startActivity(intent);
+            } else {
+
+                Intent intent = new Intent(getActivity(), MealOrderActivity.class);
+                intent.putExtra("status",addRestBean.restaurantCycleRecord.status);
+                startActivity(intent);
+            }
         }
     }
 

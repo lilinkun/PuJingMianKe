@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
+import cn.com.pujing.activity.RestRoutineActivity;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.PuJingUtils;
@@ -69,8 +70,9 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
         if (setMealBean.isVisibel()){
 
             ivSelectRestroutine.setVisibility(View.VISIBLE);
-            if (setMealBean.isShow()){
+            if (setMealBean.isCheck()){
                 ivSelectRestroutine.setSelected(true);
+                RestRoutineActivity.checkId = setMealBean.getCheckId();
             }else{
                 ivSelectRestroutine.setSelected(false);
             }
@@ -109,11 +111,15 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
             coverPic = setMealBean.getCoverPic();
         }
 
-        Glide.with(getContext())
-                .load(PujingService.PREFIX + PujingService.IMG + coverPic)
-                .apply(PuJingUtils.setGlideCircle(10))
-                .error(R.color.gray_line)
-                .into(imageView);
+        if (imageView.getDrawable() == null){
+            Glide.with(getContext())
+                    .load(PujingService.PREFIX + PujingService.IMG + coverPic)
+                    .apply(PuJingUtils.setGlideCircle(10))
+                    .error(R.color.gray_line)
+                    .skipMemoryCache(true)
+                    .into(imageView);
+        }
+
 
 
     }
