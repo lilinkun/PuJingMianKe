@@ -1,5 +1,7 @@
 package cn.com.pujing.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -7,6 +9,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import com.tencent.qcloud.core.auth.QCloudCredentialProvider;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -149,7 +153,26 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                 modifyInfo(2);
                 break;
             case R.id.rl_personal_birthday:
-                modifyInfo(3);
+//                modifyInfo(3);
+                Calendar c = Calendar.getInstance();
+                Dialog dialog = new DatePickerDialog(
+                        this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
+//                                et.setText("您选择了：" + year + "年" + (month+1) + "月" + dayOfMonth + "日");
+//                                tvModifyDate.setText(year + "-" + (month+1) + "-" + dayOfMonth);
+                                tvPersonalBirthday.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
+
+                                mPresenter.modifyPersonalInfo("", "", tvPersonalBirthday.getText().toString(), "");
+                            }
+                        },
+                        c.get(Calendar.YEAR), // 传入年份
+                        c.get(Calendar.MONTH), // 传入月份
+                        c.get(Calendar.DAY_OF_MONTH) // 传入天数
+                );
+
+                dialog.show();
                 break;
             case R.id.rl_personal_room_number:
 //                modifyInfo(4);
@@ -335,5 +358,16 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
     @Override
     public void getDataFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @Override
+    public void modifyPersonalInfoSuccess(MyInfoBean myInfoBean) {
+
+    }
+
+    @Override
+    public void modifyFail(String msg) {
+        UToast.show(this,msg);
+        tvPersonalBirthday.setText("");
     }
 }

@@ -40,18 +40,9 @@ public class MealOrderPresenter extends BasePresenter<MealOrderView> {
     /**
      * 提交常规餐
      */
-    public void submitSetMeal(int status){
+    public void submitSetMeal(){
 
-        SaveSetMealBean saveSetMealBean = new SaveSetMealBean();
-        SaveSetMealBean.RestaurantCycleRecord restaurantCycleRecord = saveSetMealBean.new RestaurantCycleRecord();
-        restaurantCycleRecord.setStatus(status);
-        saveSetMealBean.setRestaurantCycleRecord(restaurantCycleRecord);
-
-
-        Gson gson = new Gson();
-        String json = gson.toJson(saveSetMealBean);
-
-        PujingService.saveSetMealData(json)
+        PujingService.submitRest()
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<Boolean>() {

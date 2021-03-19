@@ -34,6 +34,8 @@ public class RestBanquetsBean implements Serializable {
     public String mealTime_label; //餐次名
     public String createTime; //下单时间
 
+    public String orderStatus_label;
+
     /**
      * 订单金额
      */

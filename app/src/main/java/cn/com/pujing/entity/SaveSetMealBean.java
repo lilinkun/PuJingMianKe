@@ -22,8 +22,16 @@ public class SaveSetMealBean implements Serializable {
         private String mealIds;
         private int id;
         private String coverPic;
+        private String mealNikeName;
 //        private List<SetMealBean.FoodDetailVoList> categoryList;
 
+        public String getMealNikeName() {
+            return mealNikeName;
+        }
+
+        public void setMealNikeName(String mealNikeName) {
+            this.mealNikeName = mealNikeName;
+        }
 
         public int getId() {
             return id;

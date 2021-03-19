@@ -34,7 +34,7 @@ public class MealOrderDetailAdapter extends BaseQuickAdapter<RoutineRecordBean.C
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, RoutineRecordBean.CycleMealVoList cycleMealVoList) {
         baseViewHolder.setText(R.id.tv_meal,cycleMealVoList.type_label);
-        baseViewHolder.setText(R.id.tv_meal_name,context.getString(R.string.meal) + PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
+        baseViewHolder.setText(R.id.tv_meal_name,cycleMealVoList.mealNikeName);
         baseViewHolder.setText(R.id.tv_meal_name_value,cycleMealVoList.mealName);
         if (baseViewHolder.getAdapterPosition() == 0) {
             baseViewHolder.setVisible(R.id.view_line, false);

@@ -9,6 +9,7 @@
         android:id="@+id/rv_rest_sort_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:background="@android:color/white">
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

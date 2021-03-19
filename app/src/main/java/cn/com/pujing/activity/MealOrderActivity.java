@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class MealOrderActivity extends BaseActivity<MealOrderView, MealOrderPres
             case R.id.tv_submit:
 
                 if (status== 1) {
-                    mPresenter.submitSetMeal(2);
+                    mPresenter.submitSetMeal();
                 }else {
 
                     Intent intent = new Intent(this, RestRoutineActivity.class);

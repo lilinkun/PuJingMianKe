@@ -163,7 +163,7 @@ public class PuJingUtils {
             monthDayList.add(simpleDateFormat1.format(cStart.getTime()));
         }
 
-        for (int i = 0;i< dateList.size();i++){
+        for (int i = 0;i< weekList.length;i++){
             RestDayBean restDayBean = new RestDayBean();
             restDayBean.dateDay = dateList.get(i);
             restDayBean.weekDay = weekList[i];

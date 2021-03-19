@@ -68,6 +68,8 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
     LinearLayout llRestDate;
     @BindView(R.id.ll_order_rest_bottom)
     LinearLayout llOrderRestBottom;
+    @BindView(R.id.tv_order_status)
+    TextView tvOrderStatus;
 
     private OrderListDetailAdapter orderListDetailAdapter;
     private String orderNumber;
@@ -119,6 +121,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
     @Override
     public void RanquetsOrderDataSuccess(RestBanquetsBean restOrderBean) {
         tvOrderTime.setText(restOrderBean.createTime);
+        tvOrderStatus.setText(restOrderBean.orderStatus_label);
 
         List<RestBanquetsBean.OrderFoodList> orderFoodLists = restOrderBean.getOrderFoodList();
 

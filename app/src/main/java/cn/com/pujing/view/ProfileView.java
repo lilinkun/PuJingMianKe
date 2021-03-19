@@ -12,5 +12,8 @@ public interface ProfileView {
     public void getMyInfoSuccess(MyInfoBean myInfoBean);
     public void getDataFail(String msg);
 
+    public void modifyPersonalInfoSuccess(MyInfoBean myInfoBean);
+
+    public void modifyFail(String msg);
 
 }

@@ -124,7 +124,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:padding="20dp"
+        android:background="@color/white"
         >
 
         <TextView
@@ -133,7 +134,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/red_1d"
             android:textSize="16sp"
-            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
             />
 
 
@@ -141,20 +142,18 @@
             android:id="@+id/iv_goods_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_rest_plus"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/ic_rest_plus" />
 
         <TextView
             android:id="@+id/tv_goods_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/iv_goods_add"
+            android:layout_toStartOf="@id/iv_goods_add"
             android:visibility="gone"
-            android:paddingBottom="10dp"
+            android:layout_centerVertical="true"
             />
 
 
@@ -162,11 +161,9 @@
             android:id="@+id/iv_goods_reduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/tv_goods_num"
+            android:layout_toStartOf="@id/tv_goods_num"
             android:src="@mipmap/ic_rest_reduce"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
+            android:padding="10dp"
             android:visibility="gone"
             />
 

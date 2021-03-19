@@ -33,4 +33,30 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
                 });
     }
 
+
+    /**
+     * 修改个人信息
+     * @param nickName
+     * @param personal_signature
+     * @param personal_birthday
+     * @param personal_room_number
+     */
+    public void modifyPersonalInfo(String nickName,String personal_signature,String personal_birthday,String personal_room_number){
+        PujingService.editMyInfo(nickName,personal_signature,personal_birthday,personal_room_number)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<MyInfoBean>() {
+                    @Override
+                    public void _onNext(MyInfoBean myInfoBean) {
+                        getView().modifyPersonalInfoSuccess(myInfoBean);
+                    }
+
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().modifyFail(errorMessage);
+                    }
+                });
+    }
+
 }

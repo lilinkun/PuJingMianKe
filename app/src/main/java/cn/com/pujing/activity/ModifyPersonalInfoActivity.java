@@ -124,6 +124,7 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
                 Dialog dialog = new DatePickerDialog(
                         this,
                         new DatePickerDialog.OnDateSetListener() {
+                            @Override
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
 //                                et.setText("您选择了：" + year + "年" + (month+1) + "月" + dayOfMonth + "日");
 //                                tvModifyDate.setText(year + "-" + (month+1) + "-" + dayOfMonth);

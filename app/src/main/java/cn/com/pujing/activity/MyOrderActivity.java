@@ -19,6 +19,7 @@ public class MyOrderActivity extends BaseActivity {
         return R.layout.activity_my_order;
     }
 
+    @Override
     public void init() {
 
         RecyclerView recyclerView = findViewById(R.id.rv);
@@ -26,11 +27,6 @@ public class MyOrderActivity extends BaseActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(getBaseContext(), DividerItemDecoration.VERTICAL));
         OrderAdapter orderAdapter = new OrderAdapter(R.layout.item_order, OrderItem.getTestData());
         recyclerView.setAdapter(orderAdapter);
-    }
-
-    @Override
-    public void onSuccess(Response response) {
-
     }
 
     @Override

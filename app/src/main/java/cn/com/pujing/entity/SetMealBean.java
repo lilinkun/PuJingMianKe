@@ -18,6 +18,7 @@ public class SetMealBean implements Serializable {
     private boolean isVisibel;
     private boolean isCheck;
     private int checkId;
+    private String mealNikeName;
 
 
     public class FoodDetailVoList implements Serializable{
@@ -111,5 +112,13 @@ public class SetMealBean implements Serializable {
 
     public void setCheckId(int checkId) {
         this.checkId = checkId;
+    }
+
+    public String getMealNikeName() {
+        return mealNikeName;
+    }
+
+    public void setMealNikeName(String mealNikeName) {
+        this.mealNikeName = mealNikeName;
     }
 }

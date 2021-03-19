@@ -83,7 +83,7 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
         rvMealPic.setLayoutManager(linearLayoutManager);
         rvMealPic.setAdapter(mealPicAdapter);
 
-        tvRestPrice.setText(restSortDetailBean.getPrice()+"");
+        tvRestPrice.setText("￥" + restSortDetailBean.getPrice());
         num = restSortDetailBean.getGoodsNum();
         if (num > 0){
             tvGoodsNum.setText(num+"");

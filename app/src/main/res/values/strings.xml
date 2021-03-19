@@ -172,4 +172,6 @@
     <string name="rest_num">就餐人数</string>
     <string name="rest_num_tip">请输入人数</string>
 
+    <string name="order_status">订单状态</string>
+
 </resources>

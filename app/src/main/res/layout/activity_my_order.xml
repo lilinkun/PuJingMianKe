@@ -33,10 +33,11 @@
         app:layout_constraintTop_toTopOf="@id/v_title_bar" />
 
     <ImageView
+        android:id="@+id/iv_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:src="@mipmap/ic_filter"
         app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
         app:layout_constraintEnd_toEndOf="parent"

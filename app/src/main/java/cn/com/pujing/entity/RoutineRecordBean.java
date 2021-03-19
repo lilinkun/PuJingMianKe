@@ -23,12 +23,13 @@ public class RoutineRecordBean implements Serializable {
     public class CycleMealVoList{
 
         public int id;
-        public int type;
-        public int mealIds;
+        public String type;
+        public String mealIds;
         public String time;
         public String mealName;
         public String type_label;
         public String coverPic;
+        public String mealNikeName;
 
     }
 

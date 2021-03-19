@@ -1,10 +1,14 @@
 package cn.com.pujing.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -268,6 +272,23 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
     @Override
     public void checkCycleRecordFail(String msg) {
-        UToast.show(this,msg);
+//        UToast.show(this,msg);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_checkorder,null);
+
+        TextView tvDialogTip = view.findViewById(R.id.tv_dialog_tip);
+        TextView tvChooseTip = view.findViewById(R.id.tv_choose_tip);
+
+        tvDialogTip.setText(msg);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        tvChooseTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

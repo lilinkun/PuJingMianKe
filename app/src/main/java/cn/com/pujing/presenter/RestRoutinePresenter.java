@@ -84,6 +84,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
         cycleMealVoList.setType(Integer.valueOf(type));
         cycleMealVoList.setMealIds(setMealBean.getId()+"");
         cycleMealVoList.setCoverPic(setMealBean.getCoverPic());
+        cycleMealVoList.setMealNikeName(setMealBean.getMealNikeName());
         if (id != 0) {
             cycleMealVoList.setId(id);
         }
