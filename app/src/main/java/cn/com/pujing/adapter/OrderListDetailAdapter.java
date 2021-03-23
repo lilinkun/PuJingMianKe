@@ -16,6 +16,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.entity.RestBanquetsBean;
 import cn.com.pujing.entity.RestOrderBean;
 import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.PuJingUtils;
 
 /**
  * author : liguo
@@ -34,12 +35,12 @@ public class OrderListDetailAdapter extends BaseQuickAdapter<RestBanquetsBean.Or
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, RestBanquetsBean.OrderFoodList orderFoodList) {
         baseViewHolder.setText(R.id.tv_reserve_name,orderFoodList.getFoodName());
-        baseViewHolder.setText(R.id.tv_reserve_price,"￥" + orderFoodList.getPrice());
+        baseViewHolder.setText(R.id.tv_reserve_price,"￥" + PuJingUtils.removeAmtLastZero(orderFoodList.getPrice()));
         baseViewHolder.setText(R.id.tv_reserve_num, "x"+orderFoodList.getNumber());
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_reserve_head);
 
-//        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + orderFoodList.coverPic).into(imageView);
+        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + orderFoodList.getCoverPic()).into(imageView);
 
 
     }

@@ -5,18 +5,9 @@
     android:background="@color/gray_line"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
 
     <RelativeLayout
+        android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/main_color"
@@ -42,6 +33,19 @@
 
     </RelativeLayout>
 
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_top"
+            android:layout_above="@+id/ll_order_rest_bottom"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="订单号码"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:layout_centerVertical="true"
                 android:textSize="14sp"
                 />
@@ -87,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="复制"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:textSize="12sp"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
@@ -102,7 +106,7 @@
                 android:id="@+id/tv_ordernumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:textSize="13sp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/tv_copy"
@@ -125,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="下单时间"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:layout_centerVertical="true"
                 android:textSize="14sp"
                 />
@@ -135,7 +139,7 @@
                 android:id="@+id/tv_ordertime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:textSize="14sp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
@@ -158,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_status"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:textSize="14sp"
                 />
 
@@ -167,7 +171,7 @@
                 android:id="@+id/tv_order_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ff4a4a4a"
+                android:textColor="@color/text_gray"
                 android:textSize="14sp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"

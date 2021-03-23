@@ -13,7 +13,6 @@ import com.youth.banner.util.BannerUtils;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.entity.NotifyInfo;
 import cn.com.pujing.entity.NotifyInfoBean;
 
 /**

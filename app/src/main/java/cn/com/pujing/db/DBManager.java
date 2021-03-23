@@ -2,6 +2,7 @@ package cn.com.pujing.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.service.quicksettings.Tile;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -83,6 +84,19 @@ public class DBManager {
         DaoSession daoSession = daoMaster.newSession();
         GridItemDao gridItemDao = daoSession.getGridItemDao();
         QueryBuilder<GridItem> qb = gridItemDao.queryBuilder();
+        List<GridItem> list = qb.list();
+        return list;
+    }
+
+    /**
+     * 模糊查询首页功能按钮
+     * @return
+     */
+    public List<GridItem> queryHomeTitle(String title){
+        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
+        DaoSession daoSession = daoMaster.newSession();
+        GridItemDao gridItemDao = daoSession.getGridItemDao();
+        QueryBuilder<GridItem> qb = gridItemDao.queryBuilder().where(GridItemDao.Properties.Title.like("%" + title + "%"));
         List<GridItem> list = qb.list();
         return list;
     }

@@ -15,6 +15,7 @@ import java.util.List;
 import cn.com.pujing.R;
 import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.Urls;
 
 /**
@@ -35,7 +36,7 @@ public class RestBanquetsReserveAdapter extends BaseQuickAdapter<ChangeDataBean.
     protected void convert(@NotNull BaseViewHolder baseViewHolder, ChangeDataBean.DetailList detailList) {
 
         baseViewHolder.setText(R.id.tv_reserve_name,detailList.name);
-        baseViewHolder.setText(R.id.tv_reserve_price,"￥ " + detailList.amount);
+        baseViewHolder.setText(R.id.tv_reserve_price,"￥ " + PuJingUtils.removeAmtLastZero(detailList.amount));
         baseViewHolder.setText(R.id.tv_reserve_num,"x" + detailList.quantity);
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_reserve_head);

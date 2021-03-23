@@ -12,6 +12,9 @@ import cn.com.pujing.entity.FeedbackBean;
 public interface FeedbackView {
 
     public void giveFeedbackType(List<FeedbackBean> feedbackBeans);
+
     public void getDataFail(String msg);
+
+    public void saveFeedback(boolean b);
 
 }

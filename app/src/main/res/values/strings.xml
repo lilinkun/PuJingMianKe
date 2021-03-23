@@ -153,8 +153,8 @@
 
     <string name="food">菜品</string>
 
-    <string name="reserve">预定</string>
-    <string name="banquets_reserve">宴会预定下单</string>
+    <string name="reserve">预订</string>
+    <string name="banquets_reserve">宴会预订下单</string>
     <string name="order_meal_reserve">零点餐订单</string>
     <string name="reserve_tip">预订须知</string>
     <string name="reserve_tip_value">必须提前两天预订，如需取消预订，请提前一天通过APP操作或联系客服。</string>
@@ -173,5 +173,11 @@
     <string name="rest_num_tip">请输入人数</string>
 
     <string name="order_status">订单状态</string>
+
+    <string name="choosed">已选</string>
+    <string name="item">项</string>
+    <string name="current_order_tip">当前可预订</string>
+    <string name="after_order">以后的宴会</string>
+    <string name="rest_choose">请选择菜品</string>
 
 </resources>

@@ -20,5 +20,6 @@ public interface RestBanquetsReserveView {
     public void getMealType(List<RestMealTypeBean> s);
 
     public void getOrderNumber(String orderNumber);
+    public void getOrderNumberFail(String msg);
 
 }

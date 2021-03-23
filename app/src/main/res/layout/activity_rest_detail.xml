@@ -126,14 +126,14 @@
 
     <TextView
         android:id="@+id/tv_rest_main_food_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="8dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/text_gray"
         android:textSize="14sp"
-        app:layout_constraintTop_toTopOf="@+id/tv_rest_main_food"
         app:layout_constraintStart_toEndOf="@+id/tv_rest_main_food"
-        android:layout_marginStart="20dp"
-        />
+        app:layout_constraintTop_toTopOf="@+id/tv_rest_main_food" />
 
 
 
@@ -157,6 +157,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_gray"
         android:textSize="14sp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintTop_toTopOf="@+id/tv_rest_nutrient_elements"
         app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food_value"
         />
@@ -180,6 +181,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_gray"
         android:textSize="14sp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintTop_toTopOf="@+id/tv_rest_taboo"
         app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food_value"
         />

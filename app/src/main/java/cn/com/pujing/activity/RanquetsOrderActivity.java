@@ -92,9 +92,10 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
         orderNumber = getIntent().getStringExtra("ordernumber");
         int type = getIntent().getIntExtra("type",0);
 
-        if (type == 1){
+        if (type == 3){
             llRestDate.setVisibility(View.GONE);
             tvOrderTitle.setText(R.string.order_rest_detail);
+            llOrderRestBottom.setVisibility(View.GONE);
         }else if (type == 2){
             llOrderRestBottom.setVisibility(View.VISIBLE);
         }
@@ -134,7 +135,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
         tvReserveNum.setText(restOrderBean.getPeopleNumber()+"");
         tvMealType.setText(restOrderBean.mealTime_label);
 
-        tvTotalPrice.setText("￥" + restOrderBean.orderMoney);
+        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(restOrderBean.orderMoney));
 
     }
 
@@ -146,7 +147,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
     @Override
     public void exitOrderSuccess(boolean isTrue) {
         UToast.show(this,"取消订单成功");
-        finish();
+        ActivityUtil.finishHomeAll();
     }
 
     @OnClick({R.id.tv_copy,R.id.iv_setmeal_back,R.id.tv_exit_order,R.id.tv_add_rest})

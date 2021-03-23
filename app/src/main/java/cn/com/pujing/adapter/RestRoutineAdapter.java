@@ -39,6 +39,7 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
 
     private Context context;
     private RestRoutineChildAdapter restRoutineChildAdapter;
+    private boolean isNewData = false;
 
     public RestRoutineAdapter(int layoutResId, @Nullable List<SetMealBean> data,Context context) {
         super(layoutResId, data);
@@ -59,13 +60,13 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
 
         ImageView ivSelectRestroutine = baseViewHolder.getView(R.id.iv_select_restroutine);
 
-        if (restRoutineChildAdapter == null) {
+//        if (restRoutineChildAdapter == null) {
             restRoutineChildAdapter = new RestRoutineChildAdapter(R.layout.adapter_restroutine_child, setMealBean.getFoodDetailVoList());
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
             rvChildRest.setLayoutManager(linearLayoutManager);
             rvChildRest.setAdapter(restRoutineChildAdapter);
-        }
+//        }
 
         if (setMealBean.isVisibel()){
 
@@ -105,13 +106,15 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
 
         String coverPic = "";
 
-        if (setMealBean.getCoverPic().contains(",")){
-            coverPic = setMealBean.getCoverPic().split(",")[0];
-        }else {
-            coverPic = setMealBean.getCoverPic();
+        if (setMealBean.getCoverPic() != null) {
+            if (setMealBean.getCoverPic().contains(",")) {
+                coverPic = setMealBean.getCoverPic().split(",")[0];
+            } else {
+                coverPic = setMealBean.getCoverPic();
+            }
         }
 
-        if (imageView.getDrawable() == null){
+        if (isNewData){
             Glide.with(getContext())
                     .load(PujingService.PREFIX + PujingService.IMG + coverPic)
                     .apply(PuJingUtils.setGlideCircle(10))
@@ -120,7 +123,10 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
                     .into(imageView);
         }
 
-
-
     }
+
+    public void setBooleanNewData(boolean isNewData){
+        this.isNewData = isNewData;
+    }
+
 }

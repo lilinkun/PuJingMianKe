@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.lang.annotation.ElementType;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
@@ -17,6 +19,7 @@ import cn.com.pujing.entity.RestSortDetailBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.RestDetailPresenter;
 import cn.com.pujing.util.Eyes;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.RestDetailView;
@@ -88,7 +91,11 @@ public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailP
                 .load(PujingService.PREFIX + Urls.IMG + restDetailBean.coverPic)
                 .into(ivRestDetail);
 
-        tvRestprice.setText("￥ " + restDetailBean.retailPrice);
+        if (type == 2) {
+            tvRestprice.setText("￥ " + PuJingUtils.removeAmtLastZero(restDetailBean.banquetPrice));
+        }else {
+            tvRestprice.setText("￥ " + PuJingUtils.removeAmtLastZero(restDetailBean.sporadicPrice));
+        }
         tvRestMainFoodValue.setText(restDetailBean.materiel);
         tvRestNutrientElementsValue.setText(restDetailBean.nutrientElement);
         tvRestTabooValue.setText(restDetailBean.disableLabel);
@@ -100,13 +107,18 @@ public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailP
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_goods_add:
-                num++;
-                tvGoodsNum.setText(num+"");
-                if (num > 0){
-                tvGoodsNum.setVisibility(View.VISIBLE);
-                ivGoodsReduce.setVisibility(View.VISIBLE);
+                if (num == 99){
+                    UToast.show(this,"已到最大值");
+                }else {
+
+                    num++;
+                    tvGoodsNum.setText(num + "");
+                    if (num > 0) {
+                        tvGoodsNum.setVisibility(View.VISIBLE);
+                        ivGoodsReduce.setVisibility(View.VISIBLE);
+                    }
+                    mPresenter.restDataChange(restSortDetailBean.getmId(), num, type);
                 }
-                mPresenter.restDataChange(restSortDetailBean.getmId(),num,type);
 
                 break;
 

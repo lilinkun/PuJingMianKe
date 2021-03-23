@@ -23,6 +23,7 @@ import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.RestMealBean;
 import cn.com.pujing.entity.RestSortDetailBean;
 import cn.com.pujing.presenter.SetMealDetailPresenter;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.SetMealDetailView;
 
@@ -83,7 +84,7 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
         rvMealPic.setLayoutManager(linearLayoutManager);
         rvMealPic.setAdapter(mealPicAdapter);
 
-        tvRestPrice.setText("￥" + restSortDetailBean.getPrice());
+        tvRestPrice.setText("￥" + PuJingUtils.removeAmtLastZero(restSortDetailBean.getPrice()));
         num = restSortDetailBean.getGoodsNum();
         if (num > 0){
             tvGoodsNum.setText(num+"");
@@ -158,13 +159,17 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_goods_add:
-                num++;
-                tvGoodsNum.setText(num+"");
-                if (num > 0){
-                    tvGoodsNum.setVisibility(View.VISIBLE);
-                    ivGoodsReduce.setVisibility(View.VISIBLE);
+                if (num == 99){
+                    UToast.show(this,"已到最大值");
+                }else {
+                    num++;
+                    tvGoodsNum.setText(num + "");
+                    if (num > 0) {
+                        tvGoodsNum.setVisibility(View.VISIBLE);
+                        ivGoodsReduce.setVisibility(View.VISIBLE);
+                    }
+                    mPresenter.restDataChange(restSortDetailBean.getmId(), num, type);
                 }
-                mPresenter.restDataChange(restSortDetailBean.getmId(),num,type);
 
                 break;
 

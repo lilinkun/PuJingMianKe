@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class BannerBean implements Serializable {
     private String picture;
     private String linkAddress;
+    private int type;
 
     public String getPicture() {
         return picture;
@@ -25,5 +26,13 @@ public class BannerBean implements Serializable {
 
     public void setLinkAddress(String linkAddress) {
         this.linkAddress = linkAddress;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

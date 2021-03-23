@@ -34,6 +34,7 @@ import cn.com.pujing.entity.RestBanquetsBean;
 import cn.com.pujing.entity.RestMealTypeBean;
 import cn.com.pujing.presenter.RestBanquetsReservePresenter;
 import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RestBanquetsReserveView;
 import cn.com.pujing.widget.OnAccountDialog;
@@ -123,7 +124,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
             tvReserve.setText(R.string.banquets_reserve);
             rlReserveType.setVisibility(View.GONE);
             llRestBanquets.setVisibility(View.VISIBLE);
-        }else if (type == 1){
+        }else if (type == 3){
             orderType = 1;
             tvReserve.setText(R.string.order_meal_reserve);
             rlReserveType.setVisibility(View.VISIBLE);
@@ -147,7 +148,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
         restBanquetsReserveAdapter.setNewInstance(changeDataBean.detailList);
 
-        tvTotalPrice.setText("￥" + changeDataBean.totalAmount);
+        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(changeDataBean.totalAmount));
     }
 
     @Override
@@ -157,7 +158,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
     @Override
     public void clearMyShoppingCart(ChangeDataBean changeDataBean) {
-        this.changeDataBean = changeDataBean;
+//        this.changeDataBean = changeDataBean;
     }
 
     @Override
@@ -181,6 +182,11 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
     }
 
+    @Override
+    public void getOrderNumberFail(String msg) {
+        UToast.show(this,"下单失败");
+    }
+
     @OnClick({R.id.iv_banquets_back,R.id.rl_reserve_date,R.id.rl_reserve_time,R.id.tv_sure_order,R.id.rl_rest_meal_type,R.id.rl_reserve_person_num,R.id.rl_reserve_type})
     public void onClick(View view){
         switch (view.getId()){
@@ -197,7 +203,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                         new DatePickerDialog.OnDateSetListener() {
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
                                 tvReserveDate.setText(String.format("%02d月%02d日",(month+1),dayOfMonth));
-                                dateStr = year + "-" + month + "-" + dayOfMonth;
+                                dateStr = year + "-" +(month +1)  + "-" + dayOfMonth;
                             }
                         },
                         calendar.get(Calendar.YEAR), // 传入年份
@@ -231,7 +237,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
             case R.id.tv_sure_order:
 
-                if (type != 1) {
+                if (type != 3) {
                     if (tvReserveNum.getText().toString().trim().length() == 0) {
                         UToast.show(this, R.string.rest_person_num_tip);
                         return;
@@ -241,7 +247,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
                 RestBanquetsBean restBanquetsBean = new RestBanquetsBean();
 
-                restBanquetsBean.setOrderType(type);
+//                restBanquetsBean.setOrderType(type);
                 restBanquetsBean.setOrderingDate(dateStr);
                 restBanquetsBean.setOrderType(type);
 
@@ -254,7 +260,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                 if (orderType != 1){
                     restBanquetsBean.setMealTime(Integer.valueOf(restMealTypeBean.value));
                     restBanquetsBean.setOrderingTime(tvReserveTime.getText().toString());
-                    if (type != 1){
+                    if (type != 3){
                         restBanquetsBean.setPeopleNumber(Integer.valueOf(tvReserveNum.getText().toString()));
                     }
                 }

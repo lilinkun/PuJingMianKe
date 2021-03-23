@@ -68,15 +68,15 @@ public class RestBanquetsBean implements Serializable {
 
         private double price;
 
-//        private String coverPic;
+        private String coverPic;
 
-        /*public String getCoverPic() {
+        public String getCoverPic() {
             return coverPic;
         }
 
         public void setCoverPic(String coverPic) {
             this.coverPic = coverPic;
-        }*/
+        }
 
         public double getPrice() {
             return price;

@@ -3,15 +3,12 @@ package cn.com.pujing.activity;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,18 +16,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.QuerySelectDayBean;
-import cn.com.pujing.presenter.CommunityCalendarPresenter;
-import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.ActivityDate;
-import cn.com.pujing.entity.QuerySelectDay;
+import cn.com.pujing.entity.QuerySelectDayBean;
+import cn.com.pujing.presenter.CommunityCalendarPresenter;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.view.CommunityCalendarView;
 
 public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarView, CommunityCalendarPresenter> implements View.OnClickListener,CommunityCalendarView {
@@ -62,7 +53,7 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
         java.util.Calendar cal = java.util.Calendar.getInstance();
         curYear = cal.get(java.util.Calendar.YEAR);
         curMonth = cal.get(java.util.Calendar.MONTH);
-        monthTextView.setText(curYear + "年" + (curMonth + 1) + "月");
+        monthTextView.setText(curYear + getString(R.string.year) + (curMonth + 1) + "月");
 
 
         calendarView.setOnMonthChangeListener(new CalendarView.OnMonthChangeListener() {
@@ -72,13 +63,9 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
                 calendarView.update();
                 curYear = year;
                 curMonth = month - 1;
-                monthTextView.setText(year + "年" + month + "月");
+                monthTextView.setText(year + getString(R.string.year) + month + "月");
                 mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),1);
-                /*OkGo.get(Urls.ACTIVITYDATE)
-                        .tag(this)
-                        .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
-                        .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
-                        .execute(new JsonCallback<>(ActivityDate.class, CommunityCalendarActivity.this));*/
+
             }
         });
         calendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -93,10 +80,6 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
                 exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), selectDay));
 
                 mPresenter.querySelectDay(selectDay,1);
-                /*OkGo.get(Urls.QUERYSELECTDAY)
-                        .tag(this)
-                        .params(Constants.SELECTDAY, selectDay)
-                        .execute(new JsonCallback<>(QuerySelectDay.class, CommunityCalendarActivity.this));*/
 
             }
         });
@@ -110,54 +93,13 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
         rvCommunityCalendar.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
 
-        /*OkGo.get(Urls.ACTIVITYDATE)
-                .tag(this)
-                .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
-                .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
-                .execute(new JsonCallback<>(ActivityDate.class, this));*/
 
         mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),1);
 
         mPresenter.querySelectDay(Methods.getDate(curYear, curMonth, calendarView.getCurDay()),1);
 
-        /*OkGo.get(Urls.QUERYSELECTDAY)
-                .tag(this)
-                .params(Constants.SELECTDAY, Methods.getDate(curYear, curMonth, calendarView.getCurDay()))
-                .execute(new JsonCallback<>(QuerySelectDay.class, CommunityCalendarActivity.this));*/
     }
 
-    @Override
-    public void onSuccess(Response response) {
-
-        if (response != null) {
-
-            if (response.body() instanceof ActivityDate) {
-                ActivityDate activityDate = (ActivityDate) response.body();
-                List<Long> list = activityDate.data;
-
-                if (list != null && list.size() > 0) {
-                    Map<String, Calendar> map = new HashMap<>();
-
-                    for (Long l : list) {
-                        java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        calendar.setTimeInMillis(l);
-                        int year = calendar.get(java.util.Calendar.YEAR);
-                        int month = calendar.get(java.util.Calendar.MONTH) + 1;
-                        int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-
-                        map.put(getSchemeCalendar(year, month, day, 0xFFe69138, "事").toString(),
-                                getSchemeCalendar(year, month, day, 0xFFe69138, "事"));
-                    }
-//                    calendarView.setSchemeDate(map);
-//                    calendarView.update();
-                }
-
-            } else if (response.body() instanceof QuerySelectDay) {
-                QuerySelectDay querySelectDay = (QuerySelectDay) response.body();
-//                anotherExerciseAdapter.setNewInstance(querySelectDay.data);
-            }
-        }
-    }
 
     @Override
     protected CommunityCalendarPresenter createPresenter() {

@@ -6,14 +6,18 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
@@ -51,6 +55,7 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
     private LinearLayoutManager mManager;
     private List<RestSortDetailBean> restSortDetailBeans = new ArrayList<>();
     private BanquetBean banquetBean;
+    private ArrayList<ArrayList<Integer>> arrayLists = new ArrayList<>();
 
     private static int REQUESTCODE =0x111;
 
@@ -83,6 +88,8 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
             rvRestSortDetail.addItemDecoration(mDecoration);
             mDecoration.setCheckListener(checkListener);
 
+            ((SimpleItemAnimator) rvRestSortDetail.getItemAnimator()).setSupportsChangeAnimations(false);
+
 
             initData();
             initListener();
@@ -91,7 +98,7 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
 
     private void initData(){
 
-
+        ArrayList<Integer> strings = new ArrayList<>();
 
             for (int i = 0; i < banquetBean.getCategoryList().size(); i++) {
                 RestSortDetailBean sortDetailBean = new RestSortDetailBean();
@@ -107,6 +114,11 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
                 for (int j = 0; j < categorys.size(); j++) {
                     RestSortDetailBean sortDetailBean1 = new RestSortDetailBean();
                     sortDetailBean1.setTitleName(banquetBean.getCategoryList().get(i).getGroupName());
+
+                    if (banquetBean.getCategoryList().get(i).getGroupName().equals("推荐")){
+                        strings.add(categorys.get(j).foodId);
+                    }
+
                     sortDetailBean1.setName(categorys.get(j).name);
                     sortDetailBean1.setTitle(false);
                     sortDetailBean1.setImgsrc(categorys.get(j).picId);
@@ -116,12 +128,38 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
                     sortDetailBean1.setmId(categorys.get(j).id);
                     sortDetailBean1.setFoodId(categorys.get(j).foodId);
                     sortDetailBean1.setType(categorys.get(j).type);
+                    sortDetailBean1.setTypeName(banquetBean.getCategoryList().get(i).getGroupName());
                     restSortDetailBeans.add(sortDetailBean1);
                 }
             }
 
+            ArrayList<HashMap<Integer,ArrayList<Integer>>> hashMaps = new ArrayList<>();
+
+            for (int i = 0;i<strings.size();i++){
+                ArrayList<Integer> integers = new ArrayList<>();
+                HashMap<Integer,ArrayList<Integer>> arrayListHashMap = new HashMap<>();
+                for (int j = 0;j<restSortDetailBeans.size();j++){
+                    if (restSortDetailBeans.get(j).getFoodId() == strings.get(i)){
+                        integers.add(j);
+                    }
+                }
+                arrayListHashMap.put(strings.get(i),integers);
+                arrayLists.add(integers);
+                hashMaps.add(arrayListHashMap);
+            }
+
+            restDetailAdapter.setHash(hashMaps,strings,arrayLists);
+
             restDetailAdapter.setNewInstance(restSortDetailBeans);
             mDecoration.setData(restSortDetailBeans);
+
+            rvRestSortDetail.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+//                    restDetailAdapter.setNotify(false);
+                }
+            });
 
             restDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
@@ -167,6 +205,8 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
             sortDetailBean.setGoodsNum(0);
         }
 
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.clear();
         for (int i = 0;i<restSortDetailBeans.size();i++){
             if (changeDataBean == null || changeDataBean.detailList.size() == 0){
                 restSortDetailBeans.get(i).setGoodsNum(0);
@@ -174,6 +214,7 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
                 for (int j = 0; j < changeDataBean.detailList.size(); j++) {
                     if (changeDataBean.detailList.get(j).menuItemId == restSortDetailBeans.get(i).getmId()) {
                         restSortDetailBeans.get(i).setGoodsNum(changeDataBean.detailList.get(j).quantity);
+                        integers.add(i);
                     }
                 }
             }
@@ -184,7 +225,13 @@ public class RestSortDetailFragment extends BaseFragment<RestSortDetailView, Res
             }
         }else {
             if (restDetailAdapter != null) {
-                restDetailAdapter.setNewInstance(restSortDetailBeans);
+//                rvRestSortDetail.setAdapter(restDetailAdapter);
+//                if (integers.size() > 0) {
+                    restDetailAdapter.setNotify(true);
+//                restDetailAdapter.notifyDataSetChanged();
+//                }
+//                restDetailAdapter.setNewInstance(restSortDetailBeans);
+
             }
         }
 

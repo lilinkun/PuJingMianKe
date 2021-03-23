@@ -40,7 +40,6 @@ import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.db.DBManager;
 import cn.com.pujing.entity.BannerBean;
-import cn.com.pujing.entity.BannerInfo;
 import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.GridItem;
 import cn.com.pujing.entity.NotifyInfoBean;
@@ -53,8 +52,9 @@ import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.HomeView;
 import cn.com.pujing.widget.HomePopupWindow;
+import cn.com.pujing.widget.SearchPupWindow;
 
-public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implements View.OnClickListener,HomeView {
+public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implements View.OnClickListener, HomeView, SearchPupWindow.OnHomeClick {
 
     private ImageNetAdapter imageNetAdapter;
     private TopLineAdapter topLineAdapter;
@@ -117,12 +117,19 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(Object data, int position) {
+
                 BannerBean bannerBean = bannerBeans.get(position);
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                if(bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
-                    intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
+
+                if(bannerBean.getType() == 3){
+                    startActivity(new Intent(getContext(), PhotoWallActivity.class));
+                }else {
+
+                    Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                    if (bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
+                        intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
 //                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
-                    startActivity(intent);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -150,46 +157,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 GridItem gridItem = (GridItem) adapter.getItem(position);
 
-                if (gridItem != null) {
-                    if (getString(R.string.life_service).equals(gridItem.title)) {
-                        Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
-                    } else if (getString(R.string.exercise).equals(gridItem.title)) {
-                        MainActivity mainActivity = (MainActivity) getActivity();
-                        mainActivity.setCurPos(2);
-                    } else if (getString(R.string.community_calendar).equals(gridItem.title)) {
-                        startActivity(new Intent(getContext(), CommunityCalendarActivity.class));
-                    } else if (getString(R.string.restaurant).equals(gridItem.title)) {
-                        MainActivity mainActivity = (MainActivity) getActivity();
-                        mainActivity.setCurPos(1);
-                    } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
-                        startActivity(new Intent(getContext(), PhotoWallActivity.class));
-                    }else if (getString(R.string.feedback).equals(gridItem.title)) {
-                        startActivity(new Intent(getContext(), FeedbackActivity.class));
-                    }else if ("问卷调查".equals(gridItem.title)) {
-                        Intent intent = new Intent(getContext(), WebviewActivity.class);
-                        intent.putExtra(Constants.URL, Urls.SURVEYLIST);
-                        startActivity(intent);
-                    } else if (getString(R.string.more_services).equals(gridItem.title)) {
-//                        startActivity(new Intent(getContext(), MoreActivity.class));
-                        HomePopupWindow homePopupWindow = new HomePopupWindow(getContext());
-                        homePopupWindow.showPopupWindow(view);
-                        homePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-
-                                List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
-                                List<GridItem> gridItems1 = new ArrayList<>();
-                                for (int i = 0 ; i<gridItems.size();i++){
-                                    if (i<5 || i == 8) {
-                                        gridItems1.add(gridItems.get(i));
-                                    }
-                                }
-
-                                gridAdapter.setNewInstance(gridItems1);
-                            }
-                        });
-                    }
-                }
+                onClickItem(gridItem);
             }
         });
         rvHome.setAdapter(gridAdapter);
@@ -243,6 +211,11 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         switch (v.getId()){
             case R.id.iv_search:
 
+                SearchPupWindow searchPupWindow = new SearchPupWindow(getActivity(),this);
+                searchPupWindow.showAsDropDown(banner);
+
+                break;
+
             case R.id.iv_msg:
                 Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
                 break;
@@ -259,13 +232,6 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
 
         }
-
-        /*if (id == R.id.iv_photo_wall_1) {
-            if (strings != null) {
-                ImgViewDialogFragment imgViewDialogFragment = new ImgViewDialogFragment(0, strings);
-                imgViewDialogFragment.show(getFragmentManager(), "");
-            }
-        }*/
 
     }
 
@@ -367,6 +333,54 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             }
         }else {
             UToast.show(getActivity(),message);
+        }
+    }
+
+    @Override
+    public void onHomeClick(GridItem gridItem) {
+        onClickItem(gridItem);
+    }
+
+    private void onClickItem(GridItem gridItem){
+        if (gridItem != null) {
+            if (getString(R.string.life_service).equals(gridItem.title)) {
+                Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
+            } else if (getString(R.string.exercise).equals(gridItem.title)) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setCurPos(2);
+            } else if (getString(R.string.community_calendar).equals(gridItem.title)) {
+                startActivity(new Intent(getContext(), CommunityCalendarActivity.class));
+            } else if (getString(R.string.restaurant).equals(gridItem.title)) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setCurPos(1);
+            } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
+                startActivity(new Intent(getContext(), PhotoWallActivity.class));
+            }else if (getString(R.string.feedback).equals(gridItem.title)) {
+                startActivity(new Intent(getContext(), FeedbackActivity.class));
+            }else if ("问卷调查".equals(gridItem.title)) {
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                startActivity(intent);
+            } else if (getString(R.string.more_services).equals(gridItem.title)) {
+//                        startActivity(new Intent(getContext(), MoreActivity.class));
+                HomePopupWindow homePopupWindow = new HomePopupWindow(getContext());
+                homePopupWindow.showPopupWindow(banner);
+                homePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+
+                        List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
+                        List<GridItem> gridItems1 = new ArrayList<>();
+                        for (int i = 0 ; i<gridItems.size();i++){
+                            if (i<5 || i == 8) {
+                                gridItems1.add(gridItems.get(i));
+                            }
+                        }
+
+                        gridAdapter.setNewInstance(gridItems1);
+                    }
+                });
+            }
         }
     }
 }

@@ -10,12 +10,30 @@ import java.util.List;
  */
 public class RestOrderBean implements Serializable {
 
-    public int mealTime; //餐次
-    public String orderingDate; //预定日期
-    public String orderingTime; //预定时间
-    public String peopleNumber; //就餐人数
-    public String mealTime_label; //餐次名
-    public String createTime; //下单时间
+    /**
+     * 餐次
+     */
+    public int mealTime;
+    /**
+     * 预定日期
+     */
+    public String orderingDate;
+    /**
+     * 预定时间
+     */
+    public String orderingTime;
+    /**
+     * 就餐人数
+     */
+    public String peopleNumber;
+    /**
+     * 餐次名
+     */
+    public String mealTime_label;
+    /**
+     * 下单时间
+     */
+    public String createTime;
 
     public List<OrderFoodList> orderFoodList;
 

@@ -35,7 +35,6 @@
         android:id="@+id/tv_banquets_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="当前可预订2月10日以后的宴会"
         android:gravity="center"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"

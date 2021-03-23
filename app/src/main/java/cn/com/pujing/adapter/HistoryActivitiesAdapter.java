@@ -14,8 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.entity.ActivityCalendar;
-import cn.com.pujing.entity.ExerciseBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;

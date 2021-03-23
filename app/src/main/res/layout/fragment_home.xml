@@ -38,17 +38,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
-                    android:text="@string/app_description"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/v_title_bar" />
+
 
                 <ImageView
                     android:id="@+id/iv_search"

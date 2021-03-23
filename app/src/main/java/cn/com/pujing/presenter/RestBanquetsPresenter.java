@@ -31,6 +31,10 @@ public class RestBanquetsPresenter extends BasePresenter<RestBanquetsView> {
     //得到零点餐和宴会餐数据 菜单类别2宴会菜单1零点
     public void getBanquetsData(int type){
 
+        if (type == 3){
+            type = 1;
+        }
+
         PujingService.getBanquetsData(type)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())

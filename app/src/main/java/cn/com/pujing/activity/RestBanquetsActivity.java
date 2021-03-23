@@ -34,6 +34,7 @@ import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.fragment.RestSortDetailFragment;
 import cn.com.pujing.presenter.RestBanquetsPresenter;
 import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RestBanquetsView;
 import cn.com.pujing.widget.ItemHeaderDecoration;
@@ -93,7 +94,7 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
             limitDate = limitDate.substring(1,limitDate.length());
         }
 
-        tvBanquetsTip.setText("当前可预订"+ limitDate +"以后的宴会");
+        tvBanquetsTip.setText(getString(R.string.current_order_tip)+ limitDate +getString(R.string.after_order));
 
         restSortAdapter = new RestSortAdapter(R.layout.rest_item_sort_list,this,null);
         mLinearLayoutManager = new LinearLayoutManager(this);
@@ -117,7 +118,7 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
         isAdd = getIntent().getBooleanExtra("add",false);
         type = getIntent().getIntExtra("type",0);
         mPresenter.getBanquetsData(type);
-        if (type == 1){
+        if (type == 3){
             tvBanquetsTip.setVisibility(View.GONE);
             tvRestTitle.setText(R.string.rest_order_meal);
         }else {
@@ -160,7 +161,6 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
                 break;
 
             case R.id.tv_rest_reserve:
-//                mPresenter.clearMyShoppingCart(type);
 
                 if (isAdd){
                     mPresenter.clearMyShoppingCart(type);
@@ -174,10 +174,12 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
                         intent.putExtra("type", type);
                         startActivity(intent);
                     } else {
-                        UToast.show(this, "请选择菜品");
+                        UToast.show(this, R.string.rest_choose);
                     }
                 }
 
+                break;
+            default:
                 break;
         }
     }
@@ -195,8 +197,8 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
 
     @Override
     public void onAddSuccess(ChangeDataBean changeDataBean) {
-        tvTotalChoose.setText("已选" + changeDataBean.totalQuantity + "项");
-        tvTotalPrice.setText("￥" + changeDataBean.totalAmount);
+        tvTotalChoose.setText(getString(R.string.choosed) + changeDataBean.totalQuantity + getString(R.string.item));
+        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(changeDataBean.totalAmount));
         mSortDetailFragment.setNum(changeDataBean,2);
         this.changeDataBean = changeDataBean;
 
@@ -226,8 +228,8 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
     @Override
     public void queryShoppingCartSuccess(ChangeDataBean changeDataBean,int type) {
         this.changeDataBean = changeDataBean;
-        tvTotalChoose.setText("已选" + changeDataBean.totalQuantity + "项");
-        tvTotalPrice.setText("￥" + changeDataBean.totalAmount);
+        tvTotalChoose.setText(getString(R.string.choosed) + changeDataBean.totalQuantity + getString(R.string.item));
+        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(changeDataBean.totalAmount));
         mSortDetailFragment.setNum(changeDataBean,1);
 
         for (int i = 0; i < banquetBean.getCategoryList().size(); i++) {
@@ -242,11 +244,6 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
                     }
                 }
             }
-        }else {
-
-            /*for (int i = 0; i < banquetBean.getCategoryList().size(); i++) {
-                banquetBean.getCategoryList().get(i).setQuantity(0);
-            }*/
         }
 
         if (type == 1) {
@@ -298,8 +295,9 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
         } else {
             if (isMoved) {
                 isMoved = false;
-            } else
+            } else {
                 restSortAdapter.setCheckedPosition(position);
+            }
             ItemHeaderDecoration.setCurrentTag(String.valueOf(position));//如果是滑动右边联动左边，则按照右边传过来的位置作为tag
 
         }

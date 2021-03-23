@@ -11,21 +11,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-
-import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.HistoryActivitiesAdapter;
-import cn.com.pujing.adapter.MyActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.ActivityCalendar;
-import cn.com.pujing.entity.ExerciseBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.presenter.HistoryActivitiesPresenter;
 import cn.com.pujing.util.Constants;

@@ -2,7 +2,6 @@ package cn.com.pujing.activity;
 
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -22,7 +21,6 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.TabEntity;
 import cn.com.pujing.fragment.ActivitiesFragment;
-import cn.com.pujing.fragment.ExerciseFragment;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MineFragment;
 import cn.com.pujing.fragment.RestaurantFragment;

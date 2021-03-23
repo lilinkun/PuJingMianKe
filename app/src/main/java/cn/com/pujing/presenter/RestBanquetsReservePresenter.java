@@ -80,7 +80,7 @@ public class RestBanquetsReservePresenter extends BasePresenter<RestBanquetsRese
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getDataFail(errorMessage);
+                        getView().getOrderNumberFail(errorMessage);
                     }
                 });
 

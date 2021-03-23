@@ -22,6 +22,7 @@ public class RestSortDetailBean implements MultiItemEntity, Serializable {
     private int foodId;
     private String type;
     private String calculateUnit;
+    private String typeName;
 
     public RestSortDetailBean(String name) {
         this.name = name;
@@ -129,5 +130,13 @@ public class RestSortDetailBean implements MultiItemEntity, Serializable {
 
     public void setCalculateUnit(String calculateUnit) {
         this.calculateUnit = calculateUnit;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 }

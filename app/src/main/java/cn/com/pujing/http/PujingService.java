@@ -110,6 +110,8 @@ public class PujingService {
     public static String QUERYSELECTDAY_ANOTHER = PREFIX + "/life-service/userNotes/querySelectDay";
     public static String QUERYSELECTDAY_ADD = PREFIX + "/life-service/userNotes/add";
 
+    public static String FEEDBACKSAVE = PREFIX + "/content-service/feedback/save";
+
     public static String QUERYSHOPPINGCART = PREFIX + "/restaurant-service/restaurantShoppingCart/";
     public static String GETSHOPPINGCART = PREFIX + "/restaurant-service/restaurantShoppingCart/getMyShoppingCart/";
     public static String CLEARMYSHOPPINGCART = PREFIX + "/restaurant-service/restaurantShoppingCart/clearMyShoppingCart/";
@@ -386,6 +388,19 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<List<FeedbackBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<FeedbackBean>>>());
+    }
+
+
+    /**
+     * 保存反馈信息
+     */
+    public static Observable<ResponseData<Boolean>> saveFeedback(JSONObject jsonObject) {
+
+        return OkGo.<ResponseData<Boolean>>post(FEEDBACKSAVE)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<Boolean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Boolean>>());
     }
 
     /**

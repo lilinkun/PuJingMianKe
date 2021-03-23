@@ -88,7 +88,7 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 restTypeAdapter.setPositionView(position);
-                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(position).value);
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(position).value,false);
             }
         });
 
@@ -176,7 +176,7 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
     }
 
     @Override
-    public void getSetMealSuccess(List<SetMealBean> setMealBeans) {
+    public void getSetMealSuccess(List<SetMealBean> setMealBeans,boolean isnew) {
         this.setMealBeans = setMealBeans;
 
         if (type == 1){

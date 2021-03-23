@@ -77,7 +77,7 @@ public class RestaurantFragment extends BaseFragment<RestaurantView, RestaurantP
 
 
                 Intent intent2 = new Intent(getActivity(), RestBanquetsActivity.class);
-                intent2.putExtra("type",1);
+                intent2.putExtra("type",3);
                 intent2.putExtra("add",false);
                 startActivity(intent2);
 

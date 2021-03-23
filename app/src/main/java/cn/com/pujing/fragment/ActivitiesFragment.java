@@ -1,33 +1,20 @@
 package cn.com.pujing.fragment;
 
-import android.view.View;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.TabPageAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.ActivityCalendar;
-import cn.com.pujing.entity.Base;
-import cn.com.pujing.entity.GetAllCategory;
-import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Urls;
 
 public class ActivitiesFragment extends BaseFragment{
 

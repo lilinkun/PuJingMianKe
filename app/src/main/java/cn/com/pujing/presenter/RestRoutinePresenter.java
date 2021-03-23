@@ -29,7 +29,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
      * @param dateStr
      * @param type
      */
-    public void getSetMealData(String dateStr,String type){
+    public void getSetMealData(String dateStr,String type,boolean isNew){
 
         PujingService.getSetMealData(dateStr,type)
                 .compose(RxSchedulersHelper.io_main())
@@ -37,7 +37,7 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
                 .subscribe(new RxObserver<List<SetMealBean>>() {
                     @Override
                     public void _onNext(List<SetMealBean> setMealBean) {
-                        getView().getSetMealSuccess(setMealBean);
+                        getView().getSetMealSuccess(setMealBean,isNew);
                     }
 
                     @Override
@@ -49,6 +49,9 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
 
     }
 
+    /**
+     * 获取餐次
+     */
     public void getSetMealTypeData(){
 
         PujingService.getSetMealTypeData()

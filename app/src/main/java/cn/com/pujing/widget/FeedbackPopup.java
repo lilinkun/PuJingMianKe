@@ -18,7 +18,7 @@ import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.FeedbackPopAdapter;
-import cn.com.pujing.entity.OpinionTypeBean;
+import cn.com.pujing.entity.FeedbackBean;
 
 public class FeedbackPopup extends PopupWindow {
 
@@ -26,9 +26,9 @@ public class FeedbackPopup extends PopupWindow {
     Context context;
     private FeedbackTypeClickListener feedbackTypeClickListener;
     private List<String> strings;
-    private List<OpinionTypeBean.Data> opinionTypeBeans;
+    private List<FeedbackBean> opinionTypeBeans;
 
-    public FeedbackPopup(Context context, List<OpinionTypeBean.Data> opinionTypeBeans){
+    public FeedbackPopup(Context context, List<FeedbackBean> opinionTypeBeans){
 
         this.opinionTypeBeans = opinionTypeBeans;
 

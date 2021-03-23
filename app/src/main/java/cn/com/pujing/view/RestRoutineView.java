@@ -14,7 +14,7 @@ import cn.com.pujing.entity.SetMealBean;
  */
 public interface RestRoutineView {
 
-    public void getSetMealSuccess(List<SetMealBean> setMealBean);
+    public void getSetMealSuccess(List<SetMealBean> setMealBean,boolean isNew);
 
     public void getSetMealTypeSuccess(List<RestTypeBean> restTypeBeans);
 

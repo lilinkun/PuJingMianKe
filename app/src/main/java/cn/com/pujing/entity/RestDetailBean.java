@@ -30,9 +30,13 @@ public class RestDetailBean implements Serializable {
      */
     public String coverPic;
     /**
-     * 成本价
+     * 零点餐价格
      */
-    public double costPrice;
+    public double sporadicPrice;
+    /**
+     * 宴会餐价格
+     */
+    public double banquetPrice;
     /**
      * 零售价
      */

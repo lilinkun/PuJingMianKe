@@ -14,7 +14,6 @@ import cn.com.pujing.R;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.entity.BannerInfo;
 import cn.com.pujing.viewholder.ImageHolder;
 
 /**

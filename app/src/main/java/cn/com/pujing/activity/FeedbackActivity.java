@@ -28,19 +28,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.FeedbackBean;
-import cn.com.pujing.entity.OpinionTypeBean;
-import cn.com.pujing.presenter.FeedbackPresenter;
-import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.util.UploadFile;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.Attachment;
+import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.FeedbackSave;
+import cn.com.pujing.presenter.FeedbackPresenter;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.FileUtils;
+import cn.com.pujing.util.UploadFile;
+import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
@@ -60,7 +58,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     private int checkedId;
     private int MAX_NUM = 500;
     private String filePath;
-    List<OpinionTypeBean.Data> data;
+    List<FeedbackBean> feedbackBeans;
     String content;
     private String type = "1";
 
@@ -79,9 +77,6 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
         uploadImageView.setOnClickListener(this);
 
         etContent.addTextChangedListener(watcher);
-
-//        OkGo.get(Urls.OPINION_TYPE)
-//                .execute(new JsonCallback<>(OpinionTypeBean.class,this));
 
         mPresenter.giveFeedback();
 
@@ -134,7 +129,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
 
         } else if (id == R.id.rl_feedback_type){
-            FeedbackPopup feedbackPopup = new FeedbackPopup(this,data);
+            FeedbackPopup feedbackPopup = new FeedbackPopup(this,feedbackBeans);
             feedbackPopup.setListener(this);
             feedbackPopup.showAsDropDown(rlFeedbackType);
             }
@@ -156,6 +151,10 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                 }
 
                 break;
+
+            default:
+
+                break;
         }
     }
 
@@ -170,7 +169,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                 this.id = data.id;
                 submitData();
             } else if (response.body() instanceof FeedbackSave) {
-                FeedbackSave feedbackSave = (FeedbackSave) response.body();
+                /*FeedbackSave feedbackSave = (FeedbackSave) response.body();
                 loading(false);
                 if (feedbackSave.data) {
                     FeedbackDialog feedbackDialog = new FeedbackDialog(this);
@@ -181,12 +180,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                             finish();
                         }
                     });
-                }
-            }else if (response.body() instanceof OpinionTypeBean){
-                /*OpinionTypeBean opinionTypeBeans = (OpinionTypeBean) response.body();
-                data = opinionTypeBeans.data;
-                tvFeedbackType.setText(data.get(0).label);
-                type = data.get(0).value;*/
+                }*/
             }
         }
     }
@@ -202,7 +196,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
      */
     private void submitData(){
 
-        HashMap<String, String> params = new HashMap<>();
+        /*HashMap<String, String> params = new HashMap<>();
         params.put(Constants.CONTENT, content);
         if (id != 0){
             params.put(Constants.PHOTO, String.valueOf(this.id));
@@ -214,13 +208,15 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
         OkGo.post(Urls.FEEDBACKSAVE)
                 .tag(this)
                 .upJson(jsonObject)
-                .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));
+                .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));*/
+
+        mPresenter.saveFeedBack(content,String.valueOf(this.id),String.valueOf(type));
     }
 
     @Override
     public void setItemValue(String value,int pos) {
         tvFeedbackType.setText(value);
-        type = data.get(pos).value;
+        type = feedbackBeans.get(pos).value;
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -248,6 +244,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
     @Override
     public void giveFeedbackType(List<FeedbackBean> feedbackBeans) {
+        this.feedbackBeans = feedbackBeans;
         tvFeedbackType.setText(feedbackBeans.get(0).label);
         type = feedbackBeans.get(0).value;
     }
@@ -255,5 +252,20 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     @Override
     public void getDataFail(String msg) {
 
+    }
+
+    @Override
+    public void saveFeedback(boolean b) {
+        loading(false);
+        if (b) {
+            FeedbackDialog feedbackDialog = new FeedbackDialog(this);
+            feedbackDialog.show();
+            feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    finish();
+                }
+            });
+        }
     }
 }

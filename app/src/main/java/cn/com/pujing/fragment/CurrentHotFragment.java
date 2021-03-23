@@ -1,6 +1,5 @@
 package cn.com.pujing.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 
@@ -27,7 +26,6 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
-import cn.com.pujing.entity.GetAllCategory;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Urls;
 

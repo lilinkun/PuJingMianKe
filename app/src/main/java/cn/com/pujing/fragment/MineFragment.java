@@ -14,29 +14,26 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.com.pujing.R;
+import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.MyMsgActivity;
+import cn.com.pujing.activity.ProfileActivity;
+import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.presenter.MinePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
-import cn.com.pujing.R;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
-import cn.com.pujing.activity.MyCalendarActivity;
-import cn.com.pujing.activity.ProfileActivity;
-import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.entity.MyInfo;
 import cn.com.pujing.view.MineView;
 
 import static android.app.Activity.RESULT_OK;
 
 public class MineFragment extends BaseFragment<MineView, MinePresenter> implements View.OnClickListener,MineView {
     private String avatar;
-    private MyInfo.Data data;
     private MyInfoBean myInfoBean;
 
     @BindView(R.id.iv_head)
@@ -137,7 +134,11 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
 
     @Override
     public void getMyInfoSuccess(MyInfoBean myInfoBean) {
-        tvName.setText(myInfoBean.getNikeName());
+        if (myInfoBean.getNikeName() != null) {
+            tvName.setText(myInfoBean.getNikeName() + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
+        }else {
+            tvName.setText("璞境会员" + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
+        }
 
         if (!TextUtils.isEmpty(myInfoBean.getAvatar())) {
             Glide.with(getContext())

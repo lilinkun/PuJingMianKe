@@ -50,6 +50,8 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     RecyclerView rvRestType;
     @BindView(R.id.rv_rest_day)
     RecyclerView rvRestDay;
+    @BindView(R.id.tv_rest_meal_choose)
+    TextView tvRestMealChoose;
 
     private List<SetMealBean> setMealBeans;
     List<RestTypeBean> restTypeBeans;
@@ -100,7 +102,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                 }else {
                     tvNextDay.setText(R.string.next_day);
                 }
-                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value,true);
             }
         });
 
@@ -118,7 +120,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 restTypeAdapter.setPositionView(position);
                 type = position;
-                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+                mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value,true);
             }
         });
 
@@ -170,7 +172,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
                     currentDay = nextWeek.get(currentDateItem).dateDay;
 
 //                    mPresenter.getRoutineData(currentDay);
-                    mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+                    mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value,true);
                     if(currentDateItem == 6){
                         tvNextDay.setText("提交");
                     }
@@ -191,7 +193,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     }
 
     @Override
-    public void getSetMealSuccess(List<SetMealBean> setMealBeans) {
+    public void getSetMealSuccess(List<SetMealBean> setMealBeans,boolean isNew) {
 //        int id = 0;
         checkId = 0;
 
@@ -201,13 +203,16 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
             if (restTypeBeans.get(type).value.contains(",")){
                 setMealBeans.get(j).setVisibel(false);
+                tvRestMealChoose.setVisibility(View.GONE);
             }else {
                 setMealBeans.get(j).setVisibel(true);
-
+                tvRestMealChoose.setVisibility(View.VISIBLE);
+                tvRestMealChoose.setText(restTypeBeans.get(type).label + "（"+ setMealBeans.size() + "选1）");
             }
         }
-
+        restRoutineAdapter.setBooleanNewData(isNew);
         restRoutineAdapter.setNewInstance(setMealBeans);
+
     }
 
     @Override
@@ -216,7 +221,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
             this.restTypeBeans = restTypeBeans;
             restTypeAdapter.setNewInstance(restTypeBeans);
 
-            mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(0).value);
+            mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(0).value,true);
 
         }
     }
@@ -244,7 +249,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
     @Override
     public void saveDataSuccess(boolean b) {
-        mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+        mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value,false);
     }
 
     @Override
@@ -257,7 +262,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
         this.routineRecordBean = routineRecordBean;
 
-        mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value);
+        mPresenter.getSetMealData(nextWeek.get(currentDateItem).dateDay,restTypeBeans.get(type).value,false);
     }
 
     @Override

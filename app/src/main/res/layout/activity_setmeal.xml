@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reserve_tip_value"
-            android:textColor="#ff4a4a4a"
+            android:textColor="@color/text_gray"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
             />

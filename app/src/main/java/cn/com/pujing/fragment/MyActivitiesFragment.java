@@ -5,34 +5,23 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
-
-import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.MyActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.ActivityCalendar;
-import cn.com.pujing.entity.ExerciseBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.MyActivitiesPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.UToast;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.MyActivitiesView;
 
 import static android.app.Activity.RESULT_OK;
