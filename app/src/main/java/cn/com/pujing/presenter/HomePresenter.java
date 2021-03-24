@@ -11,6 +11,7 @@ import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
 import cn.com.pujing.http.rxjavahelper.RxSchedulersHelper;
 import cn.com.pujing.view.HomeView;
+import io.reactivex.disposables.Disposable;
 
 /**
  * author : liguo
@@ -35,6 +36,11 @@ public class HomePresenter extends BasePresenter<HomeView> {
                     public void _onError(String errorMessage) {
                         getView().getBannerDataFail(errorMessage);
                     }
+
+                    @Override
+                    public void _onSubscribe(Disposable d) {
+                        super._onSubscribe(d);
+                    }
                 });
     }
 
@@ -57,6 +63,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 });
     }
 
+    /**
+     * 获取首页的照片墙
+     */
     public void getHomePhoto(){
 
         PujingService.getHomePhoto()
@@ -66,6 +75,27 @@ public class HomePresenter extends BasePresenter<HomeView> {
                     @Override
                     public void _onNext(PhotoBean photoBean) {
                         getView().getPhotoDataSuccess(photoBean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataError(errorMessage);
+                    }
+                });
+    }
+
+    /**
+     * 通过id查询照片墙详情
+     */
+    public void queryPhotoWall(String id){
+
+        PujingService.queryPhotoWall(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<PhotoBean>() {
+                    @Override
+                    public void _onNext(PhotoBean photoBean) {
+                        getView().queryPhotoWall(photoBean);
                     }
 
                     @Override

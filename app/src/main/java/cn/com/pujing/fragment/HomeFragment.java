@@ -32,6 +32,7 @@ import cn.com.pujing.activity.FeedbackActivity;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
+import cn.com.pujing.activity.ShowPhotoActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
@@ -121,7 +122,15 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 BannerBean bannerBean = bannerBeans.get(position);
 
                 if(bannerBean.getType() == 3){
-                    startActivity(new Intent(getContext(), PhotoWallActivity.class));
+                    String photoId = bannerBean.getLinkAddress();
+
+                    if (photoId.contains("/")){
+                        photoId = photoId.substring(photoId.lastIndexOf("/")+1,photoId.length());
+                    }
+
+                    mPresenter.queryPhotoWall(photoId);
+
+//                    startActivity(new Intent(getContext(), PhotoWallActivity.class));
                 }else {
 
                     Intent intent = new Intent(getActivity(), WebviewActivity.class);
@@ -266,7 +275,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         if (banner != null) {
             banner.setVisibility(View.INVISIBLE);
         }
-        if (msg.contains("无效用户")){
+        if (msg.contains("无效用户") || msg.contains("令牌失效")){
             mLoginOut++;
             if (mLoginOut == 1) {
                 Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
@@ -323,7 +332,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
     @Override
     public void getDataError(String message) {
-        if (message.contains("无效用户")){
+        if (message.contains("无效用户")|| message.contains("令牌失效")){
             mLoginOut++;
             if (mLoginOut == 1) {
                 Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
@@ -334,6 +343,16 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         }else {
             UToast.show(getActivity(),message);
         }
+    }
+
+    @Override
+    public void queryPhotoWall(PhotoBean photoBean) {
+        String photo = photoBean.getPhoto();
+        String[] photoStrings = photo.split(",");
+        Intent intent = new Intent(getActivity(), ShowPhotoActivity.class);
+        intent.putExtra("showphoto",photoStrings);
+        intent.putExtra("pos",0);
+        startActivity(intent);
     }
 
     @Override

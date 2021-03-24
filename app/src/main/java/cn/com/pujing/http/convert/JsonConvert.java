@@ -133,9 +133,14 @@ public class JsonConvert<T> implements Converter<T> {
         Type typeArgument = type.getActualTypeArguments()[0]; // 泛型的参数
         if (rawType != LzyResponse.class) {
             // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
-            T t = Convert.fromJson(jsonReader, type);
-            response.close();
-            return t;
+
+            if (response.code() == 401){
+            throw new IllegalStateException("令牌失效");
+            }else {
+                T t = Convert.fromJson(jsonReader, type);
+                response.close();
+                return t;
+            }
         } else {
             if (typeArgument == Void.class) {
                 // 泛型格式如下： new JsonCallback<LzyResponse<Void>>(this)

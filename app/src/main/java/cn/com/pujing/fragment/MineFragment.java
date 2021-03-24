@@ -135,7 +135,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @Override
     public void getMyInfoSuccess(MyInfoBean myInfoBean) {
         if (myInfoBean.getNikeName() != null) {
-            tvName.setText(myInfoBean.getNikeName() + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
+            tvName.setText(myInfoBean.getNikeName());
         }else {
             tvName.setText("璞境会员" + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
         }

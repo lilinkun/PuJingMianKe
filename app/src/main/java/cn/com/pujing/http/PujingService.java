@@ -84,6 +84,8 @@ public class PujingService {
     public static String GETBANQUETSDATA = PREFIX + "/restaurant-service/restaurantMenuItem/getBanquetInfo";
     //常规餐数据
     public static String GETROUTINEDATA = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetCycleCategory";
+    //通过id查询照片墙
+    public static String QUERYPHOTOWALL = PREFIX + "/content-service/photoWall/";
 
     //图片链接
     public static String IMG = "/basic-service/attachment/cos/down/";
@@ -182,6 +184,17 @@ public class PujingService {
     public static Observable<ResponseData<PhotoBean>> getHomePhoto() {
         return OkGo.<ResponseData<PhotoBean>>get(GETPHOTO)
                 .params(Constants.QUERYIDENTIFY, Constants.RELEASED)
+                .converter(new JsonConvert<ResponseData<PhotoBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<PhotoBean>>());
+    }
+
+
+    /**
+     * 通过id查询照片墙详情
+     */
+    public static Observable<ResponseData<PhotoBean>> queryPhotoWall(String id) {
+        return OkGo.<ResponseData<PhotoBean>>get(QUERYPHOTOWALL+id)
                 .converter(new JsonConvert<ResponseData<PhotoBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<PhotoBean>>());

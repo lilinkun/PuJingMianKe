@@ -40,7 +40,9 @@ public class OnAccountDialog extends Dialog {
         setCancelable(false);
 
         TextView tvSuccessInfo = findViewById(R.id.tv_success_info);
-        tvSuccessInfo.setText("挂账成功，费用" + orderPrice + "元将计入月末账单统一管理");
+        tvSuccessInfo.setText("下单成功");
+//        tvSuccessInfo.setText("挂账成功，费用" + orderPrice + "元将计入月末账单统一管理");
+
 
         TextView tvBackHome = findViewById(R.id.tv_back_home);
 

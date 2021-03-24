@@ -114,7 +114,7 @@
 
     <TextView
         android:id="@+id/tv_rest_main_food"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="主要食材："
         android:textColor="@color/black"
@@ -139,13 +139,14 @@
 
     <TextView
         android:id="@+id/tv_rest_nutrient_elements"
-        android:layout_width="70dp"
+        android:layout_width="0dp"
         android:layout_height="20dp"
         android:text="营养元素："
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food"
         app:layout_constraintTop_toBottomOf="@+id/tv_rest_main_food_value"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rest_main_food"
         android:layout_marginTop="20dp"
         />
 
@@ -164,13 +165,15 @@
 
     <TextView
         android:id="@+id/tv_rest_taboo"
-        android:layout_width="70dp"
+        android:layout_width="0dp"
         android:layout_height="20dp"
         android:text="禁忌："
+        android:gravity="left"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_rest_nutrient_elements"
+        app:layout_constraintStart_toStartOf="@+id/tv_rest_main_food"
         app:layout_constraintTop_toBottomOf="@+id/tv_rest_nutrient_elements_value"
+        app:layout_constraintEnd_toEndOf="@+id/tv_rest_main_food"
         android:layout_marginTop="20dp"
         />
 

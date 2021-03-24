@@ -33,6 +33,7 @@ public class Urls {
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
 
     public static String PHOTOWALL = PREFIX + "/content-service/photoWall/page";
+    public static String QUERYPHOTOWALL = PREFIX + "/content-service/photoWall/";
     public static String PHOTOWALLCOLLECT = PREFIX + "/content-service/photoWall/collectStatistics/";
     public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
 

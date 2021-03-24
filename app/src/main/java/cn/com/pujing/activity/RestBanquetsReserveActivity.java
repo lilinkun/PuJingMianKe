@@ -102,11 +102,11 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
         if (type == 2) {
             calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, 2);
-            tvReserveDate.setText(simpleDateFormat.format(calendar.getTime()));
+//            tvReserveDate.setText(simpleDateFormat.format(calendar.getTime()));
         }else {
             calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, 0);
-            tvReserveDate.setText(simpleDateFormat.format(new Date().getTime()));
+//            tvReserveDate.setText(simpleDateFormat.format(new Date().getTime()));
         }
 
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -164,18 +164,20 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
     @Override
     public void getMealType(List<RestMealTypeBean> beanList) {
         restMealTypeBeans = beanList;
-        restMealTypeBean = restMealTypeBeans.get(0);
-        tvMealType.setText(restMealTypeBean.label);
+//        restMealTypeBean = restMealTypeBeans.get(0);
+//        tvMealType.setText(restMealTypeBean.label);
 
-        String[] times = restMealTypeBean.meal_times.split("-");
+//        String[] times = restMealTypeBean.meal_times.split("-");
 
-        tvReserveTime.setText(times[0]);
+//        tvReserveTime.setText(times[0]);
     }
 
     @Override
     public void getOrderNumber(String orderNumber) {
 //        Intent intent = new Intent(this,);
 //        startActivity(intent);
+
+        mPresenter.clearMyShoppingCart(type);
 
         OnAccountDialog onAccountDialog = new OnAccountDialog(this,changeDataBean.totalAmount,type,orderNumber);
         onAccountDialog.show();
@@ -184,7 +186,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
     @Override
     public void getOrderNumberFail(String msg) {
-        UToast.show(this,"下单失败");
+        UToast.show(this,msg);
     }
 
     @OnClick({R.id.iv_banquets_back,R.id.rl_reserve_date,R.id.rl_reserve_time,R.id.tv_sure_order,R.id.rl_rest_meal_type,R.id.rl_reserve_person_num,R.id.rl_reserve_type})
@@ -225,17 +227,37 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
 
             case R.id.rl_reserve_time:
 
-                String[] times = restMealTypeBean.meal_times.split("-");
-                minTimes = times[0];
-                maxTimes = times[1];
+                if (restMealTypeBean == null){
+                    UToast.show(this,"请先选择餐次");
+                }else {
+                    String[] times = restMealTypeBean.meal_times.split("-");
+                    minTimes = times[0];
+                    maxTimes = times[1];
 
-                ReserveTimeDialog reserveTimeDialog = new ReserveTimeDialog(this,minTimes,maxTimes);
-                reserveTimeDialog.setOnListener(this);
-                reserveTimeDialog.show();
+                    ReserveTimeDialog reserveTimeDialog = new ReserveTimeDialog(this,minTimes,maxTimes);
+                    reserveTimeDialog.setOnListener(this);
+                    reserveTimeDialog.show();
+
+                }
 
                 break;
 
             case R.id.tv_sure_order:
+
+
+
+                if(type != 3 || orderType == 2){
+                    if (tvReserveDate.getText().toString().trim().length() == 0) {
+                        UToast.show(this, R.string.rest_order_date_tip);
+                        return;
+                    }else if (tvMealType.getText().toString().trim().length() == 0) {
+                        UToast.show(this, R.string.rest_order_num_tip);
+                        return;
+                    }else if (tvReserveTime.getText().toString().trim().length() == 0) {
+                        UToast.show(this, R.string.rest_order_time_tip);
+                        return;
+                    }
+                }
 
                 if (type != 3) {
                     if (tvReserveNum.getText().toString().trim().length() == 0) {
@@ -243,7 +265,6 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                         return;
                     }
                 }
-
 
                 RestBanquetsBean restBanquetsBean = new RestBanquetsBean();
 
@@ -276,8 +297,6 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                 }
 
                 restBanquetsBean.setOrderFoodList(orderFoodLists);
-
-                mPresenter.clearMyShoppingCart(type);
 
                 mPresenter.restOrder(restBanquetsBean.toString());
 
@@ -341,9 +360,9 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
     }
 
     @Override
-    public void onType(int type) {
-        orderType = type;
-        if (type == 1){
+    public void onType(int orderInt) {
+        orderType = orderInt;
+        if (orderType == 1){
             tvReserveType.setText(R.string.rightnow_order);
             llRestBanquets.setVisibility(View.GONE);
         }else {

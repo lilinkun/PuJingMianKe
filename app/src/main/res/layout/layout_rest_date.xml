@@ -92,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray"
                 android:textSize="14sp"
+                android:hint="@string/please_choose"
                 />
 
 
@@ -137,6 +138,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray"
                 android:textSize="14sp"
+                android:gravity="right"
+                android:hint="@string/please_choose"
                 />
 
 
@@ -180,6 +183,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray"
                 android:textSize="14sp"
+                android:gravity="right"
+                android:hint="@string/please_choose"
                 />
 
 
@@ -225,6 +230,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray"
                 android:textSize="14sp"
+                android:gravity="right"
+                android:hint="@string/please_input"
                 />
 
 
