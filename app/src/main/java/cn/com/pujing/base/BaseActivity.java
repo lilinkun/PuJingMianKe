@@ -46,13 +46,13 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
         unbinder = ButterKnife.bind(this);
 
-        init();
+        initView();
 
     }
 
     public abstract int getLayoutId();
 
-    public abstract void init();
+    public abstract void initView();
 
     @Override
     public void onSuccess(Response response) {

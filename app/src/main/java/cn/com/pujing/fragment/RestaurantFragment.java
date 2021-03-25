@@ -59,7 +59,6 @@ public class RestaurantFragment extends BaseFragment<RestaurantView, RestaurantP
         switch (view.getId()){
             case R.id.rl_rest_routine:
 
-
                 mPresenter.getRoutineData();
 
                 break;
@@ -80,6 +79,10 @@ public class RestaurantFragment extends BaseFragment<RestaurantView, RestaurantP
                 intent2.putExtra("type",3);
                 intent2.putExtra("add",false);
                 startActivity(intent2);
+
+                break;
+
+            default:
 
                 break;
         }

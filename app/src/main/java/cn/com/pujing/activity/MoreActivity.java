@@ -43,7 +43,8 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
         return R.layout.activity_more;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 

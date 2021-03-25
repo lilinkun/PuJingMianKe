@@ -91,7 +91,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ActivityUtil.addHomeActivity(this);
 
@@ -319,8 +319,10 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                     public void onClick(DialogInterface dialog, int which) {
 
                         if (etNum.getText().toString().trim().length() > 0){
-                            tvReserveNum.setText(etNum.getText().toString());
-                            dialog.dismiss();
+                            if (Integer.valueOf(etNum.getText().toString()) > 0) {
+                                tvReserveNum.setText(etNum.getText().toString());
+                                dialog.dismiss();
+                            }
                         }
                     }
                 });

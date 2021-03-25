@@ -7,8 +7,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_above="@+id/rl_add"
         >
 
     <RelativeLayout
@@ -34,7 +35,17 @@
             android:textSize="16sp" />
 
     </RelativeLayout>
-    
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,16 +67,6 @@
             android:textColor="#ff000000"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4~6人"
-            android:textColor="#ff666666"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:textSize="12sp"
             />
 
 
@@ -106,9 +107,11 @@
 
 
         <TextView
+            android:id="@+id/tv_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/reserve_tip_value"
+            android:maxLines="10"
+            android:ellipsize="end"
             android:textColor="@color/text_gray"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
@@ -118,9 +121,13 @@
     </LinearLayout>
 
     </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 
 
     <RelativeLayout
+        android:id="@+id/rl_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

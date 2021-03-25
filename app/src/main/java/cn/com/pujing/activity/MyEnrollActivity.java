@@ -14,7 +14,8 @@ public class MyEnrollActivity extends BaseActivity {
         return R.layout.activity_my_enroll;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
 
     }
 

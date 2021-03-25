@@ -73,6 +73,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
 
     private OrderListDetailAdapter orderListDetailAdapter;
     private String orderNumber;
+    private int type = 1;
 
     @Override
     public int getLayoutId() {
@@ -80,7 +81,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
         ActivityUtil.addHomeActivity(this);
@@ -90,14 +91,11 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
         ivRestRightNum.setVisibility(View.GONE);
 
         orderNumber = getIntent().getStringExtra("ordernumber");
-        int type = getIntent().getIntExtra("type",0);
+        type = getIntent().getIntExtra("type",0);
 
         if (type == 3){
             llRestDate.setVisibility(View.GONE);
             tvOrderTitle.setText(R.string.order_rest_detail);
-            llOrderRestBottom.setVisibility(View.GONE);
-        }else if (type == 2){
-            llOrderRestBottom.setVisibility(View.VISIBLE);
         }
 
 
@@ -177,7 +175,7 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
 
 
                 Intent intent = new Intent(this, RestBanquetsActivity.class);
-                intent.putExtra("type",2);
+                intent.putExtra("type",type);
                 intent.putExtra("add",true);
                 intent.putExtra("orderNumber",orderNumber);
                 startActivity(intent);

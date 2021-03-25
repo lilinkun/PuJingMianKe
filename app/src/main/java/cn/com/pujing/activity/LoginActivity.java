@@ -34,7 +34,8 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
         ImmersionBar.with(this)
                 .statusBarDarkFont(true)
                 .init();

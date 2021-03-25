@@ -26,7 +26,8 @@ public class MyBillActivity extends BaseActivity {
         return R.layout.activity_my_bill;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
         showFragment(PAID);
     }
 

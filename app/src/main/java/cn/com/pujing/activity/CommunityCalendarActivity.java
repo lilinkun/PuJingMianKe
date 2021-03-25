@@ -43,7 +43,7 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this)
                 .statusBarColor(R.color.main_color)

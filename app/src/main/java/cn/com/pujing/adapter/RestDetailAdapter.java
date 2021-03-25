@@ -126,7 +126,6 @@ public class RestDetailAdapter extends BaseMultiItemQuickAdapter<RestSortDetailB
 
                         imageUpdate(categoryList.getGoodsNum(),ivGoodsReduce,tvGoodsNum);
 
-//                        setNotify(true);
                     }
                 });
 
@@ -146,35 +145,9 @@ public class RestDetailAdapter extends BaseMultiItemQuickAdapter<RestSortDetailB
                             UToast.show(context,"已到最大值");
                         }
 
-//                        setNotify(true);
-
-                        /*if (integers.contains(categoryList.getFoodId())){
-
-                            for (int i = 0;i<arrayLists.size();i++){
-
-                                if (arrayLists.get(i).contains(baseViewHolder.getAdapterPosition())){
-                                    ArrayList<Integer> integers = arrayLists.get(i);
-                                    for (int j = 0 ; j< integers.size();j++){
-                                        for (int k = 0;k<textViews.size();k++){
-                                            if (baseViewHolder.getAdapterPosition() != integers.get(j)) {
-                                                textViews.get(k).get(integers.get(j)).setText(num+"");
-                                                textViews.get(k).get(integers.get(j)).setVisibility(View.VISIBLE);
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }*/
-
-
-                           /* HashMap<Integer,TextView> integerTextViewHashMap = new HashMap<>();
-                            integerTextViewHashMap.put(baseViewHolder.getAdapterPosition(),tvGoodsNum);
-
-                            viewHashMap.put(categoryList.getFoodId(),integerTextViewHashMap);*/
                         }
 
 
-//                    }
                 });
 
                 break;

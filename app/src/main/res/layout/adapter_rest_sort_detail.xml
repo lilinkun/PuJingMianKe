@@ -120,12 +120,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_sort_line"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:textSize="@dimen/sp_14"
         android:layout_marginTop="@dimen/dp_10"
-        android:text="营养元素：热量 300卡，蛋白质 100克，维生素B1 10毫克\n禁忌：忌辣"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

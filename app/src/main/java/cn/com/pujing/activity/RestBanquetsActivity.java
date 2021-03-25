@@ -78,7 +78,7 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 

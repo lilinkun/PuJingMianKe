@@ -52,7 +52,7 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 

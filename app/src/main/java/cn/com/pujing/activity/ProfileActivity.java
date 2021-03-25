@@ -87,7 +87,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
     }
 
     @Override
-    public void init() {
+    public void initView() {
         ImmersionBar.with(this).transparentStatusBar().init();
 
         ActivityUtil.addActivity(this);
@@ -177,6 +177,11 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
             case R.id.rl_personal_room_number:
 //                modifyInfo(4);
                 break;
+
+
+            default:
+
+                break;
         }
 
     }
@@ -213,14 +218,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
 
             case 0x2211:
 
-//                this.data = (MyInfo.Data)data.getExtras("");
-
                 mPresenter.getMyInfo();
-                /*if (data != null) {
-                    MyInfoBean myInfoBean1 = (MyInfoBean) data.getSerializableExtra("myinfo");
-                    myInfoBean = myInfoBean1;
-                    initData();
-                }*/
 
                 break;
         }

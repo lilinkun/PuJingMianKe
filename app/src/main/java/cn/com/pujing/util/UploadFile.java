@@ -38,7 +38,7 @@ public class UploadFile {
     public static UploadListener uploadListener;
 
     //上传照片视频
-    public static void UpLoadFile(Context context, String filePath, String istype) {
+    public static void UpLoadFile(Context context, String filePath, String istype,UploadListener lisener) {
 
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
@@ -100,10 +100,7 @@ public class UploadFile {
                                     params.put(Constants.FILEPATH, data.key);
                                     JSONObject jsonObject = new JSONObject(params);
 
-                                    OkGo.post(Urls.ATTACHMENT)
-                                            .tag(this)
-                                            .upJson(jsonObject)
-                                            .execute(new JsonCallback<>(Attachment.class, (BaseActivity) context));
+                                    lisener.onUploadData(jsonObject);
                                 }
                             }
                         });
@@ -129,12 +126,9 @@ public class UploadFile {
         }
     }
 
-    public static void setLisener(UploadListener lisener){
-        uploadListener = lisener;
-    }
 
     public static interface UploadListener{
-        public void onUploadData(String AVATAR);
+        public void onUploadData(JSONObject jsonObject);
     }
 
 

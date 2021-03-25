@@ -81,6 +81,10 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
             ivSelectRestroutine.setVisibility(View.GONE);
         }
 
+        textView.setText(R.string.search_detail);
+        ivRestArrow.setImageResource(R.mipmap.ic_rest_open_arrow);
+        rvChildRest.setVisibility(View.GONE);
+
 
         llSearchDetail.setOnClickListener(new View.OnClickListener() {
             @Override

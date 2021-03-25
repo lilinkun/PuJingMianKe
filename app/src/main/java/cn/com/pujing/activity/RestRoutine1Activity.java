@@ -70,7 +70,7 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 

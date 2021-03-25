@@ -32,18 +32,20 @@ import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.Attachment;
+import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.FeedbackSave;
 import cn.com.pujing.presenter.FeedbackPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.FileUtils;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
 
-public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener {
+public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener {
 
     @BindView(R.id.et_content)
     EditText etContent;
@@ -69,7 +71,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
@@ -118,7 +120,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                         new Runnable() {
                             @Override
                             public void run() {
-                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath,"feedback");
+                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath,"feedback",FeedbackActivity.this);
                             }
                         }
                 ).start();
@@ -159,33 +161,6 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     }
 
     @Override
-    public void onSuccess(com.lzy.okgo.model.Response response) {
-
-        if (response != null) {
-
-            if (response.body() instanceof Attachment) {
-                Attachment attachment = (Attachment) response.body();
-                Attachment.Data data = attachment.data;
-                this.id = data.id;
-                submitData();
-            } else if (response.body() instanceof FeedbackSave) {
-                /*FeedbackSave feedbackSave = (FeedbackSave) response.body();
-                loading(false);
-                if (feedbackSave.data) {
-                    FeedbackDialog feedbackDialog = new FeedbackDialog(this);
-                    feedbackDialog.show();
-                    feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            finish();
-                        }
-                    });
-                }*/
-            }
-        }
-    }
-
-    @Override
     protected FeedbackPresenter createPresenter() {
         return new FeedbackPresenter();
     }
@@ -195,20 +170,6 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
      * 提交数据
      */
     private void submitData(){
-
-        /*HashMap<String, String> params = new HashMap<>();
-        params.put(Constants.CONTENT, content);
-        if (id != 0){
-            params.put(Constants.PHOTO, String.valueOf(this.id));
-
-        }
-        params.put(Constants.TYPE, String.valueOf(type));
-        JSONObject jsonObject = new JSONObject(params);
-
-        OkGo.post(Urls.FEEDBACKSAVE)
-                .tag(this)
-                .upJson(jsonObject)
-                .execute(new JsonCallback<>(FeedbackSave.class, FeedbackActivity.this));*/
 
         mPresenter.saveFeedBack(content,String.valueOf(this.id),String.valueOf(type));
     }
@@ -251,7 +212,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
     @Override
     public void getDataFail(String msg) {
-
+        UToast.show(this,msg);
     }
 
     @Override
@@ -267,5 +228,16 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                 }
             });
         }
+    }
+
+    @Override
+    public void saveFeedFile(AttachmentBean attachmentBean) {
+        this.id = attachmentBean.id;
+        submitData();
+    }
+
+    @Override
+    public void onUploadData(JSONObject jsonObject) {
+        mPresenter.saveFeedFile(jsonObject);
     }
 }

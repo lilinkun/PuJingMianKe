@@ -50,6 +50,8 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
     ImageView ivGoodsReduce;
     @BindView(R.id.tv_goods_num)
     TextView tvGoodsNum;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
 
 
     private RestSortDetailBean restSortDetailBean;
@@ -67,7 +69,7 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
@@ -115,6 +117,7 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
     public void getSetMealDetail(RestMealBean restMealBean) {
         this.restMealBean = restMealBean;
         tvMealName.setText(restMealBean.mealName);
+        tvNotice.setText(restMealBean.notice);
 
         String[] restMealBeans = restMealBean.coverPic.split(",");
         ArrayList<String> strings = new ArrayList<>();

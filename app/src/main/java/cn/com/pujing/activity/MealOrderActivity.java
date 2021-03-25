@@ -54,7 +54,7 @@ public class MealOrderActivity extends BaseActivity<MealOrderView, MealOrderPres
     }
 
     @Override
-    public void init() {
+    public void initView() {
         ActivityUtil.addHomeActivity(this);
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();

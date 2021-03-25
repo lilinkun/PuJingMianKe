@@ -30,6 +30,13 @@ public class RestMealBean {
      */
     public String coverPic;
 
+    /**
+     * 预定须知
+     */
+    public String notice;
+
+
+
     public class CestaurantFoodCategory{
         public String coverPic;
     }

@@ -24,7 +24,8 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_splash);
 
         ImmersionBar.with(this)

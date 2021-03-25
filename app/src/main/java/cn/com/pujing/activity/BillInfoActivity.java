@@ -19,7 +19,8 @@ public class BillInfoActivity extends BaseActivity {
         return R.layout.activity_bill_info;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
 
     }
 

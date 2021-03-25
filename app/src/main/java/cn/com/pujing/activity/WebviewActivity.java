@@ -30,7 +30,8 @@ public class WebviewActivity extends BaseActivity {
         return R.layout.activity_webview;
     }
 
-    public void init() {
+    @Override
+    public void initView() {
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
         String url = getIntent().getStringExtra(Constants.URL);

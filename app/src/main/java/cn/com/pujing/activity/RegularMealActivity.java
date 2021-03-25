@@ -16,7 +16,7 @@ public class RegularMealActivity extends BaseActivity {
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
     }
 

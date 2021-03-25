@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.pujing.entity.AddRestBean;
+import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.ChangeDataBean;
@@ -126,6 +127,9 @@ public class PujingService {
     public static String ADDFOOD = PREFIX + "/restaurant-service/restaurantOrder/addFood";
     public static String CHECKCYCLERECORD = PREFIX + "/restaurant-service/restaurantCycleRecord/checkCycleRecord";
     public static String APPUPDATE = PREFIX + "/restaurant-service/restaurantCycleRecord/appUpdate";
+
+
+    public static String ATTACHMENT = PREFIX + "/basic-service/attachment";
 
     public static String NOTICE = PREFIX + H5 + "notice";
     public static String EVENTDETAILS = PREFIX + H5 + "eventDetails/";
@@ -414,6 +418,18 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<Boolean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Boolean>>());
+    }
+
+    /**
+     * 保存反馈图片
+     */
+    public static Observable<ResponseData<AttachmentBean>> saveFeedFile(JSONObject jsonObject) {
+
+        return OkGo.<ResponseData<AttachmentBean>>post(ATTACHMENT)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<AttachmentBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<AttachmentBean>>());
     }
 
     /**

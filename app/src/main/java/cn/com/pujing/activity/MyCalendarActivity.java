@@ -67,7 +67,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this)
                 .statusBarColor(R.color.main_color)
@@ -93,11 +93,6 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
                 mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),2);
 
-                /*OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
-                        .tag(this)
-                        .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
-                        .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
-                        .execute(new JsonCallback<>(ActivityDate.class, MyCalendarActivity.this));*/
             }
         });
         calendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -115,13 +110,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
                 selectDay = Methods.getDate(calendar.getYear(), calendar.getMonth() - 1, calendar.getDay());
                 exerciseTextView.setText(String.format(getString(R.string.format_date_exercise), selectDay));
 
-
                 mPresenter.querySelectDay(selectDay,2);
-
-//                OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
-//                        .tag(this)
-//                        .params(Constants.SELECTDAY, selectDay)
-//                        .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
 
             }
         });
@@ -135,9 +124,6 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 //        AnotherExerciseAdapter anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, AnotherExerciseItem.getTestData());
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
 
-//        View footerView = LayoutInflater.from(this).inflate(R.layout.footer_my_calendar, null);
-//        footerView.findViewById(R.iSystemd.tv_add).setOnClickListener(this);
-//        anotherExerciseAdapter.addFooterView(footerView);
 
         recyclerView.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
@@ -145,16 +131,6 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
         mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),2);
 
         mPresenter.querySelectDay(Methods.getDate(curYear, curMonth, calendarView.getCurDay()),2);
-        /*OkGo.get(Urls.ACTIVITYDATE_ANOTHER)
-                .tag(this)
-                .params(Constants.STARTTIME, Methods.getStartDayofMonth(curYear, curMonth))
-                .params(Constants.ENDTIME, Methods.getEndDayofMonth(curYear, curMonth))
-                .execute(new JsonCallback<>(ActivityDate.class, this));
-
-        OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
-                .tag(this)
-                .params(Constants.SELECTDAY, Methods.getDate(selectedYear, selectedMonth, selectedDay))
-                .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));*/
     }
 
     @Override

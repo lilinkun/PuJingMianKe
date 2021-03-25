@@ -61,7 +61,7 @@ public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailP
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         Eyes.translucentStatusBar(this, false);
 

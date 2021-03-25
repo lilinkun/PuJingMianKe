@@ -2,6 +2,7 @@ package cn.com.pujing.view;
 
 import java.util.List;
 
+import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.FeedbackBean;
 
 /**
@@ -16,5 +17,7 @@ public interface FeedbackView {
     public void getDataFail(String msg);
 
     public void saveFeedback(boolean b);
+
+    public void saveFeedFile(AttachmentBean attachmentBean);
 
 }

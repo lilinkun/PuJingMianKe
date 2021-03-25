@@ -50,7 +50,7 @@ public class ShowPhotoActivity extends BaseActivity {
     }
 
     @Override
-    public void init() {
+    public void initView() {
 
         ImmersionBar.with(this)
                 .statusBarColor(R.color.blue_bg)
