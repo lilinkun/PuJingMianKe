@@ -19,28 +19,21 @@ import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
-import com.lzy.okgo.OkGo;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.Attachment;
 import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.FeedbackBean;
-import cn.com.pujing.entity.FeedbackSave;
 import cn.com.pujing.presenter.FeedbackPresenter;
-import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.FileUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.UploadFile;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
@@ -236,8 +229,9 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
         submitData();
     }
 
+
     @Override
-    public void onUploadData(JSONObject jsonObject) {
+    public void onUploadData(JSONObject jsonObject, String accessUrl) {
         mPresenter.saveFeedFile(jsonObject);
     }
 }

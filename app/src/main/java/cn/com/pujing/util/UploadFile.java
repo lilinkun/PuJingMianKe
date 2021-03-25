@@ -24,10 +24,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import cn.com.pujing.TCloud.MySessionCredentialProvider;
-import cn.com.pujing.base.BaseActivity;
-import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.Attachment;
 import cn.com.pujing.entity.GetFilePathKey;
+import cn.com.pujing.http.PujingService;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -65,7 +63,7 @@ public class UploadFile {
         JSONObject jsonObject = new JSONObject(params);
 
         try {
-            Response response = OkGo.post(Urls.GETFILEPATHKEY).upJson(jsonObject).execute();
+            Response response = OkGo.post(PujingService.GETFILEPATHKEY).upJson(jsonObject).execute();
 
             if (response != null) {
                 ResponseBody responseBody = response.body();
@@ -74,9 +72,12 @@ public class UploadFile {
 
                 GetFilePathKey getFilePathKey = gson.fromJson(jsonReader, GetFilePathKey.class);
                 GetFilePathKey.Data data = getFilePathKey.data;
-                String bucket = data.bucket; //存储桶，格式：BucketName-APPID
-                String cosPath = data.key; //对象在存储桶中的位置标识符，即称对象键
-                String srcPath = filePath; //本地文件的绝对路径
+                //存储桶，格式：BucketName-APPID
+                String bucket = data.bucket;
+                //对象在存储桶中的位置标识符，即称对象键
+                String cosPath = data.key;
+                //本地文件的绝对路径
+                String srcPath = filePath;
 
                 //若存在初始化分块上传的 UploadId，则赋值对应的 uploadId 值用于续传；否则，赋值 null
                 String uploadId = null;
@@ -100,7 +101,12 @@ public class UploadFile {
                                     params.put(Constants.FILEPATH, data.key);
                                     JSONObject jsonObject = new JSONObject(params);
 
-                                    lisener.onUploadData(jsonObject);
+                                    lisener.onUploadData(jsonObject,"");
+                                }else {
+                                    HashMap<String, String> params = new HashMap<>();
+                                    params.put(Constants.AVATAR, result.accessUrl);
+                                    JSONObject jsonObject = new JSONObject(params);
+                                    lisener.onUploadData(jsonObject,result.accessUrl);
                                 }
                             }
                         });
@@ -128,7 +134,7 @@ public class UploadFile {
 
 
     public static interface UploadListener{
-        public void onUploadData(JSONObject jsonObject);
+        public void onUploadData(JSONObject jsonObject,String accessUrl);
     }
 
 

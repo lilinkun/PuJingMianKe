@@ -1,5 +1,9 @@
 package cn.com.pujing.presenter;
 
+import android.content.Context;
+
+import org.json.JSONObject;
+
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.http.PujingService;
@@ -58,5 +62,29 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
                     }
                 });
     }
+
+    /**
+     * 修改头像
+     * @param jsonObject
+     */
+    public void modifyHeadImg(JSONObject jsonObject){
+        PujingService.modifyHeadImg(jsonObject)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<MyInfoBean>() {
+                    @Override
+                    public void _onNext(MyInfoBean resultStr) {
+                        getView().uploadHeadImg(resultStr);
+                    }
+
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().modifyFail(errorMessage);
+                    }
+                });
+    }
+
+
 
 }

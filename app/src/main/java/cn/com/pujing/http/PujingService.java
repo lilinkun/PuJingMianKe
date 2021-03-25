@@ -1,6 +1,7 @@
 package cn.com.pujing.http;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -60,6 +61,10 @@ public class PujingService {
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
+
+    public static String GETTENCENTKEY = PREFIX + "/basic-service/attachment/cos/getTencentKey";
+    public static String GETFILEPATHKEY = PREFIX + "/basic-service/attachment/cos/getFilePathKey";
+
     public static String TOKEN = PREFIX + "/upms-service/oauth/token";
     public static String BANNER = PREFIX + "/content-service/banner/getAppBanner";
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
@@ -127,6 +132,10 @@ public class PujingService {
     public static String ADDFOOD = PREFIX + "/restaurant-service/restaurantOrder/addFood";
     public static String CHECKCYCLERECORD = PREFIX + "/restaurant-service/restaurantCycleRecord/checkCycleRecord";
     public static String APPUPDATE = PREFIX + "/restaurant-service/restaurantCycleRecord/appUpdate";
+    /**
+     *退出登录
+     */
+    public static String LOGINOUT = PREFIX + "/upms-service/oauth/revokeToken";
 
 
     public static String ATTACHMENT = PREFIX + "/basic-service/attachment";
@@ -273,6 +282,17 @@ public class PujingService {
                 .adapt(new ObservableBody<ResponseData<MyInfoBean>>());
     }
 
+
+    /**
+     * 修改头像
+     */
+    public static Observable<ResponseData<MyInfoBean>> modifyHeadImg(JSONObject jsonObject) {
+        return OkGo.<ResponseData<MyInfoBean>>post(EDITMYINFO)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<MyInfoBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<MyInfoBean>>());
+    }
 
 
     /**

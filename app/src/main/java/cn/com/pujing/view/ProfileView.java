@@ -16,4 +16,7 @@ public interface ProfileView {
 
     public void modifyFail(String msg);
 
+    public void uploadHeadImg(MyInfoBean myInfoBean);
+
+
 }
