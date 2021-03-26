@@ -50,7 +50,8 @@ public class GridItem implements Comparable<GridItem>{
         list.add(new GridItem(R.mipmap.ic_home_court_booking, "场馆预约",6));
         list.add(new GridItem(R.mipmap.ic_home_questionnaire_investigation, "问卷调查",7));
         list.add(new GridItem(R.mipmap.ic_feedback, "意见反馈",8));
-        list.add(new GridItem(R.mipmap.ic_more_services, "更多服务",9));
+        list.add(new GridItem(R.mipmap.ic_health_center, "健管中心",9));
+        list.add(new GridItem(R.mipmap.ic_more_services, "更多服务",10));
         return list;
     }
 
@@ -61,9 +62,10 @@ public class GridItem implements Comparable<GridItem>{
         list.add(new GridItem(R.mipmap.ic_community_calendar, "社区日历",3));
         list.add(new GridItem(R.mipmap.ic_restaurant_another, "餐饮",4));
         list.add(new GridItem(R.mipmap.ic_photo_wall, "照片墙",5));
-        list.add(new GridItem(R.mipmap.ic_home_court_booking, "场馆预约",7));
-        list.add(new GridItem(R.mipmap.ic_home_questionnaire_investigation, "问卷调查",8));
-        list.add(new GridItem(R.mipmap.ic_feedback, "意见反馈",9));
+        list.add(new GridItem(R.mipmap.ic_home_court_booking, "场馆预约",6));
+        list.add(new GridItem(R.mipmap.ic_home_questionnaire_investigation, "问卷调查",7));
+        list.add(new GridItem(R.mipmap.ic_feedback, "意见反馈",8));
+        list.add(new GridItem(R.mipmap.ic_health_center, "健管中心",9));
         return list;
     }
 

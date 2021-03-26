@@ -205,6 +205,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
     @Override
     public void getDataFail(String msg) {
+        loading(false);
         UToast.show(this,msg);
     }
 
@@ -233,5 +234,18 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     @Override
     public void onUploadData(JSONObject jsonObject, String accessUrl) {
         mPresenter.saveFeedFile(jsonObject);
+    }
+
+    @Override
+    public void onFail(String msg) {
+        loading(false);
+        runOnUiThread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        UToast.show(FeedbackActivity.this,msg);
+                    }
+                }
+        );
     }
 }

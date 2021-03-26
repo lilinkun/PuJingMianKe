@@ -278,4 +278,17 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
         mPresenter.modifyHeadImg(jsonObject);
 
     }
+
+    @Override
+    public void onFail(String msg) {
+        loading(false);
+        runOnUiThread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        UToast.show(ProfileActivity.this,msg);
+                    }
+                }
+        );
+    }
 }

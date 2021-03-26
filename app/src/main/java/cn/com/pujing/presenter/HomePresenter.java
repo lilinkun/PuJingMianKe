@@ -37,10 +37,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
                         getView().getBannerDataFail(errorMessage);
                     }
 
-                    @Override
-                    public void _onSubscribe(Disposable d) {
-                        super._onSubscribe(d);
-                    }
                 });
     }
 

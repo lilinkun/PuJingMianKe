@@ -29,6 +29,8 @@ import butterknife.internal.Utils;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
+import cn.com.pujing.activity.HealthCenterActivity;
+import cn.com.pujing.activity.LifeServiceActivity;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
@@ -147,12 +149,19 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             for (GridItem gridItem : GridItem.getTestData()) {
                 DBManager.getInstance(getActivity()).insertHomeTitle(gridItem);
             }
+        }else {
+            if (DBManager.getInstance(getActivity()).queryHomeTitle().size() != GridItem.getTestData().size()){
+                DBManager.getInstance(getActivity()).deleteHomeTitle();
+                for (GridItem gridItem : GridItem.getTestData()) {
+                    DBManager.getInstance(getActivity()).insertHomeTitle(gridItem);
+                }
+            }
         }
 
         List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
         List<GridItem> gridItems1 = new ArrayList<>();
         for (int i = 0 ; i<gridItems.size();i++){
-            if (i<5 || i == 8) {
+            if (i<5 || i == gridItems.size()-1) {
                 gridItems1.add(gridItems.get(i));
             }
         }
@@ -325,6 +334,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                                 .load(PujingService.PREFIX + Urls.IMG + strings[i])
                                 .into(ivPhotoWall5);
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -363,7 +374,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     private void onClickItem(GridItem gridItem){
         if (gridItem != null) {
             if (getString(R.string.life_service).equals(gridItem.title)) {
-                Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), LifeServiceActivity.class);
+                startActivity(intent);
             } else if (getString(R.string.exercise).equals(gridItem.title)) {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.setCurPos(2);
@@ -380,6 +392,9 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, Urls.SURVEYLIST);
                 startActivity(intent);
+            }else if ("健管中心".equals(gridItem.title)) {
+                Intent intent = new Intent(getContext(), HealthCenterActivity.class);
+                startActivity(intent);
             } else if (getString(R.string.more_services).equals(gridItem.title)) {
 //                        startActivity(new Intent(getContext(), MoreActivity.class));
                 HomePopupWindow homePopupWindow = new HomePopupWindow(getContext());
@@ -391,7 +406,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                         List<GridItem> gridItems = DBManager.getInstance(getActivity()).queryHomeTitle();
                         List<GridItem> gridItems1 = new ArrayList<>();
                         for (int i = 0 ; i<gridItems.size();i++){
-                            if (i<5 || i == 8) {
+                            if (i<5 || i == 9) {
                                 gridItems1.add(gridItems.get(i));
                             }
                         }

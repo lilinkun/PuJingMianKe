@@ -3,31 +3,24 @@ package cn.com.pujing.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.RestSortDetailBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
-import cn.com.pujing.widget.GlideRoundTransform;
 
 /**
  * author : liguo
@@ -110,7 +103,7 @@ public class RestDetailAdapter extends BaseMultiItemQuickAdapter<RestSortDetailB
 
                 if (ivGoodsImg.getTag() == null || !(imgUrl+baseViewHolder.getAdapterPosition()).equals(ivGoodsImg.getTag())) {
                     ivGoodsImg.setTag(imgUrl+baseViewHolder.getAdapterPosition());
-                    Glide.with(context).load(imgUrl).error(R.color.gray_line)
+                    Glide.with(context).load(imgUrl).error(R.mipmap.ic_default_rest)
                             .apply(PuJingUtils.setGlideCircle(10)).skipMemoryCache(true).into(ivGoodsImg);
                 }
 

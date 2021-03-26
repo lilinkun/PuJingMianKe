@@ -18,6 +18,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.HealthCenterActivity;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.MyMsgActivity;
 import cn.com.pujing.activity.ProfileActivity;

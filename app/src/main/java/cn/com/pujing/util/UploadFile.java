@@ -115,6 +115,7 @@ public class UploadFile {
                     @Override
                     public void onFail(CosXmlRequest request, CosXmlClientException clientException, CosXmlServiceException serviceException) {
                         Log.i("OkGo", "onFail");
+                        lisener.onFail("上传失败");
 
                         if (clientException != null) {
                             clientException.printStackTrace();
@@ -135,6 +136,7 @@ public class UploadFile {
 
     public static interface UploadListener{
         public void onUploadData(JSONObject jsonObject,String accessUrl);
+        public void onFail(String msg);
     }
 
 

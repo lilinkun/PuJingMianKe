@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color"
+        >
+
+        <ImageView
+            android:id="@+id/iv_lifeservice_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@mipmap/ic_back"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:text="服务预约"
+            android:layout_centerInParent="true"
+            />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="入户清洁"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2021-3-22"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9:00-10:00"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/dp_10"
+            />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="服务内容"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/dp_40"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1、清洁卫生间，淋浴房，皂盒，马桶，台盆，清洁硅胶条；
+                        2、清扫所有装饰物、家具、橱柜外表面，窗户窗框，家电，遥控器，门以及门框，镜面，外观上的灰尘；
+                        3、清扫户内及阳台地面、拖地，墙面，天花以及空调出风口抹灰；
+                        4、清洁厨房台面（部分户型）；"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="权益券"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            />
+
+
+        <ImageView
+            android:id="@+id/ic_reserve_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_next_another"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已使用1张权益券"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/ic_reserve_next"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预约须知"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预约须知预约须知预约须知预约须知预约须知预约须知预约须知"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_reserve_order"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/submit"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_feedback_btn_bg"
+        />
+
+
+</LinearLayout>

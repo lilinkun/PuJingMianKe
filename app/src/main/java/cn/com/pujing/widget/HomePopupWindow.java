@@ -72,14 +72,14 @@ public class HomePopupWindow extends PopupWindow {
                 for (int i = 0;i<gridItems.size();i++){
                     DBManager.getInstance(context).insertHomeTitle(gridItems.get(i));
                 }
-                DBManager.getInstance(context).insertHomeTitle(new GridItem(R.mipmap.ic_more_services, "更多服务",9));
+                DBManager.getInstance(context).insertHomeTitle(new GridItem(R.mipmap.ic_more_services, "更多服务",10));
 
                 dismiss();
             }
         });
 
         List<GridItem> gridItems = DBManager.getInstance(context).queryHomeTitle();
-        gridItems.remove(8);
+        gridItems.remove(9);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 5);
         rvDialogHome.setLayoutManager(gridLayoutManager);

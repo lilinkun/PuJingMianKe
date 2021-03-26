@@ -216,7 +216,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                 if (type == 2) {
                     min = calendar.getTime().getTime();
                 }else if(type == 1){
-                    min = new Date().getTime();
+                    min = System.currentTimeMillis();
                 }
 
                 dialog.getDatePicker().setMinDate(min);
