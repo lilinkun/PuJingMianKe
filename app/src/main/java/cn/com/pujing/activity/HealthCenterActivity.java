@@ -89,13 +89,14 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
         return new HealthCenterPresenter();
     }
 
-    @OnClick({R.id.tv_rights_and_interests,R.id.iv_health_back})
+    @OnClick({R.id.tv_rights_and_interests,R.id.iv_health_back,R.id.tv_mycard})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_rights_and_interests:
 
-                RightAndInterestsDialog rightAndInterestsDialog = new RightAndInterestsDialog(this);
-                rightAndInterestsDialog.show();
+                Intent intent1 = new Intent();
+                intent1.setClass(this,RightsAndInterestsActivity.class);
+                startActivity(intent1);
 
                 break;
 
@@ -105,6 +106,13 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
                 break;
 
+            case R.id.tv_mycard:
+
+                Intent intent = new Intent();
+                intent.setClass(this,MyCardActivity.class);
+                startActivity(intent);
+
+                break;
 
             default:
                 break;

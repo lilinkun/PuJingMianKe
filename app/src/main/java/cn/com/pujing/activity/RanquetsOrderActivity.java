@@ -135,6 +135,9 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
 
         tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(restOrderBean.orderMoney));
 
+        if(restOrderBean.getReservationType() == 1){
+            tvExitOrder.setVisibility(View.GONE);
+        }
     }
 
     @Override

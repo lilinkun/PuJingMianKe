@@ -2,6 +2,7 @@ package cn.com.pujing.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,23 +11,39 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.dragswipe.DragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.internal.Utils;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.CommunityCalendarActivity;
+import cn.com.pujing.activity.FeedbackActivity;
+import cn.com.pujing.activity.HealthCenterActivity;
+import cn.com.pujing.activity.LifeServiceActivity;
+import cn.com.pujing.activity.MainActivity;
+import cn.com.pujing.activity.PhotoWallActivity;
+import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.db.DBManager;
 import cn.com.pujing.entity.GridItem;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.UToast;
+import cn.com.pujing.util.Urls;
 
 public class HomePopupWindow extends PopupWindow {
     private Context context;
@@ -83,6 +100,7 @@ public class HomePopupWindow extends PopupWindow {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 5);
         rvDialogHome.setLayoutManager(gridLayoutManager);
+        rvDialogHome.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         gridAdapter = new GridAdapter(R.layout.item_grid, gridItems);
 
         BaseDraggableModule baseDraggableModule = new BaseDraggableModule(gridAdapter);
@@ -93,6 +111,38 @@ public class HomePopupWindow extends PopupWindow {
         gridAdapter.getDraggableModule().setDragEnabled(true);
         gridAdapter.getDraggableModule().setOnItemDragListener(listener);
         gridAdapter.getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.START | ItemTouchHelper.END);
+
+        gridAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                GridItem gridItem = gridItems.get(position);
+                if (context.getString(R.string.life_service).equals(gridItem.title)) {
+                    Intent intent = new Intent(context, LifeServiceActivity.class);
+                    context.startActivity(intent);
+                } else if (context.getString(R.string.exercise).equals(gridItem.title)) {
+                    MainActivity mainActivity = (MainActivity) context;
+                    mainActivity.setCurPos(2);
+                } else if (context.getString(R.string.community_calendar).equals(gridItem.title)) {
+                    context.startActivity(new Intent(context, CommunityCalendarActivity.class));
+                } else if (context.getString(R.string.restaurant).equals(gridItem.title)) {
+                    MainActivity mainActivity = (MainActivity) context;
+                    mainActivity.setCurPos(1);
+                } else if (context.getString(R.string.photo_wall).equals(gridItem.title)) {
+                    context.startActivity(new Intent(context, PhotoWallActivity.class));
+                }else if (context.getString(R.string.feedback).equals(gridItem.title)) {
+                    context.startActivity(new Intent(context, FeedbackActivity.class));
+                }else if ("问卷调查".equals(gridItem.title)) {
+                    Intent intent = new Intent(context, WebviewActivity.class);
+                    intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                    context.startActivity(intent);
+                }else if ("健管中心".equals(gridItem.title)) {
+                    Intent intent = new Intent(context, HealthCenterActivity.class);
+                    context.startActivity(intent);
+                }
+
+                dismiss();
+            }
+        });
 
         rvDialogHome.setAdapter(gridAdapter);
 

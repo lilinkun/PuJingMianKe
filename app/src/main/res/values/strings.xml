@@ -111,7 +111,7 @@
     <string name="format_date_exercise">%s活动</string>
     <string name="exit_prompt">再按一次返回退出程序</string>
 
-    <string name="change_tip">长按移动替换</string>
+    <string name="change_tip">单击进入，长按移动替换</string>
 
     <string name="know_tip">知道了</string>
 
@@ -185,5 +185,9 @@
     <string name="please_choose">请选择</string>
     <string name="please_input">请输入</string>
     <string name="nutrient_elements">营养元素：</string>
+
+    <string name="mycard">我的卡包</string>
+    <string name="invalid_coupon">失效券</string>
+    <string name="rights_and_interests">权益券</string>
 
 </resources>

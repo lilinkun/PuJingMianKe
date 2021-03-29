@@ -11,7 +11,7 @@
         >
 
         <ImageView
-            android:id="@+id/iv_lifeservice_back"
+            android:id="@+id/iv_lifetype_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"

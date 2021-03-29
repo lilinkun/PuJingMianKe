@@ -38,9 +38,10 @@ public class HistoryActivitiesAdapter extends BaseQuickAdapter<HistoryActivities
                 .load(PujingService.PREFIX + Urls.IMG + record.photo)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                 .into(ivHeader);
-        baseViewHolder.setText(R.id.tv_title, record.activityName);
+        baseViewHolder.setText(R.id.tv_title, record.name);
         baseViewHolder.setText(R.id.tv_status, record.calendarStatus_label);
         baseViewHolder.setText(R.id.tv_content, record.summary);
+        baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
         baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
 
     }

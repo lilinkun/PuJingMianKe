@@ -16,10 +16,12 @@ public class HistoryActivitiesBean implements Serializable {
         public String id;
         public String photo;
         public String activityName;
+        public String name;
         public String content;
         public String price;
         public String calendarStatus_label;
         public String summary;
+        public String activityStartDate;
     }
 
     public List<Records> getRecords() {

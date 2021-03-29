@@ -5,25 +5,64 @@
     android:padding="5dp"
     android:orientation="vertical">
 
-    <ImageView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择权益券"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/dp_10"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_choose_right_and_interests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_right_and_interests_service"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
         />
 
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_right_and_interests_chinese_medicine"
-        />
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        >
+
+        <TextView
+            android:id="@+id/tv_no_use"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="暂不使用"
+            android:textColor="@color/main_color"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/shape_rest_exit"
+            />
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_right_and_interests_health"
-        />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sure"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@drawable/shape_add_rest"
+            />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -57,7 +57,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
     }
 
 
-    @OnClick({R.id.tv_reserve_order,R.id.ll_reserve_order_time})
+    @OnClick({R.id.tv_reserve_order,R.id.ll_reserve_order_time,R.id.iv_lifetype_back})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_reserve_order:
@@ -89,6 +89,12 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
                 dialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 dialog.show();
+
+                break;
+
+            case R.id.iv_lifetype_back:
+
+                finish();
 
                 break;
 
