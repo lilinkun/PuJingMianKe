@@ -3,31 +3,30 @@ package cn.com.pujing.presenter;
 import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
 import cn.com.pujing.http.rxjavahelper.RxSchedulersHelper;
-import cn.com.pujing.view.RightsAndInterestsView;
+import cn.com.pujing.view.RightsAndInterestsDetailView;
 
 /**
  * author : liguo
- * date : 2021/3/29 16:52
+ * date : 2021/3/30 13:50
  * description :
  */
-public class RightsAndInterestsPresenter extends BasePresenter<RightsAndInterestsView> {
+public class RightsAndInterestsDetailPresenter extends BasePresenter<RightsAndInterestsDetailView> {
 
     /**
      * 获取权益包
      */
-    public void getRightsAndInterestsData(){
-        PujingService.getRightsAndInterestsList()
+    public void getRightsAndInterestsData(String id){
+        PujingService.getRightsAndInterests(id)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<List<RightsAndInterestsBean>>() {
+                .subscribe(new RxObserver<RightsAndInterestsBean>() {
                     @Override
-                    public void _onNext(List<RightsAndInterestsBean> rightsAndInterestsBeans) {
+                    public void _onNext(RightsAndInterestsBean rightsAndInterestsBeans) {
                         getView().getRightsAndInterestsListSuccess(rightsAndInterestsBeans);
                     }
 

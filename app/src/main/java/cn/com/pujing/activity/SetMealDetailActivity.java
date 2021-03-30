@@ -119,11 +119,18 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
         tvMealName.setText(restMealBean.mealName);
         tvNotice.setText(restMealBean.notice);
 
-        String[] restMealBeans = restMealBean.coverPic.split(",");
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < restMealBeans.length;i++){
-            strings.add(restMealBeans[i]);
+        if(restMealBean.coverPic!=null ) {
+            if (restMealBean.coverPic.contains(",")) {
+                String[] restMealBeans = restMealBean.coverPic.split(",");
+                for (int i = 0; i < restMealBeans.length; i++) {
+                    strings.add(restMealBeans[i]);
+                }
+            } else {
+                strings.add(restMealBean.coverPic);
+            }
         }
+
         mealPicAdapter.setNewInstance(strings);
 
         for (int i = 0;i<restMealBean.foodGruops.size();i++){

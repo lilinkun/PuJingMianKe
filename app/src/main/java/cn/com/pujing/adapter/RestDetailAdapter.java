@@ -103,7 +103,7 @@ public class RestDetailAdapter extends BaseMultiItemQuickAdapter<RestSortDetailB
 
                 if (ivGoodsImg.getTag() == null || !(imgUrl+baseViewHolder.getAdapterPosition()).equals(ivGoodsImg.getTag())) {
                     ivGoodsImg.setTag(imgUrl+baseViewHolder.getAdapterPosition());
-                    Glide.with(context).load(imgUrl).error(R.mipmap.ic_default_rest)
+                    Glide.with(context).load(imgUrl).error(R.drawable.ic_no_pic)
                             .apply(PuJingUtils.setGlideCircle(10)).skipMemoryCache(true).into(ivGoodsImg);
                 }
 

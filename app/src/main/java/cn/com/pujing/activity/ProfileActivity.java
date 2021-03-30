@@ -24,6 +24,10 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -110,6 +114,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
 
         switch (v.getId()){
             case R.id.iv_back:
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.iv_profile_head:
@@ -188,6 +193,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
 
                     loading(true);
                     if (!TextUtils.isEmpty(filePath)) {
+
                         new Thread() {
                             @Override
                             public void run() {
@@ -245,6 +251,12 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
     @Override
     public void modifyPersonalInfoSuccess(MyInfoBean myInfoBean) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
     }
 
     @Override

@@ -41,6 +41,7 @@ import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.db.DBManager;
 import cn.com.pujing.entity.GridItem;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
@@ -133,7 +134,7 @@ public class HomePopupWindow extends PopupWindow {
                     context.startActivity(new Intent(context, FeedbackActivity.class));
                 }else if ("问卷调查".equals(gridItem.title)) {
                     Intent intent = new Intent(context, WebviewActivity.class);
-                    intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                    intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                     context.startActivity(intent);
                 }else if ("健管中心".equals(gridItem.title)) {
                     Intent intent = new Intent(context, HealthCenterActivity.class);

@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.DragItemCallback;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
 import cn.com.pujing.util.DragItemHelper;
@@ -67,7 +68,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
                         startActivity(new Intent(MoreActivity.this, PhotoWallActivity.class));
                     } else if ("问卷调查".equals(gridItem.title)) {
                         Intent intent = new Intent(MoreActivity.this, WebviewActivity.class);
-                        intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                        intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                         startActivity(intent);
                     } else if (getString(R.string.feedback).equals(gridItem.title)) {
                         startActivity(new Intent(getBaseContext(), FeedbackActivity.class));

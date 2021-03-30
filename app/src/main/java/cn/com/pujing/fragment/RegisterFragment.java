@@ -2,6 +2,7 @@ package cn.com.pujing.fragment;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -27,6 +28,12 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     EditText etSurePwd;
     @BindView(R.id.et_captcha)
     EditText etCaptcha;
+    @BindView(R.id.et_username)
+    EditText etName;
+    @BindView(R.id.rb_man)
+    RadioButton rbMan;
+    @BindView(R.id.rb_woman)
+    RadioButton rbWoman;
 
     @Override
     public int getlayoutId() {
@@ -65,9 +72,12 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
             String pwd = etPwd.getText().toString().trim();
             String captcha = etCaptcha.getText().toString().trim();
             String etsurePwd = etSurePwd.getText().toString().trim();
+            String name = etName.getText().toString().trim();
 
             if (userName.isEmpty() || pwd.isEmpty() || etsurePwd.isEmpty()){
                 UToast.show(getActivity(),R.string.login_tip);
+            }else if (name.isEmpty()){
+                UToast.show(getActivity(),R.string.name_null_tip);
             }else if (phone.isEmpty()){
                 UToast.show(getActivity(),R.string.phone_null_tip);
             }else if (captcha.isEmpty()){
@@ -78,7 +88,14 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
                 UToast.show(getActivity(),R.string.psw_null_tip);
             }else {
 
-                mPresenter.register(userName,phone,pwd,captcha);
+                String sex = "";
+                if (rbMan.isChecked()){
+                    sex = "1";
+                }else {
+                    sex = "2";
+                }
+
+                mPresenter.register(userName,phone,pwd,captcha,name,sex);
 
             }
         }

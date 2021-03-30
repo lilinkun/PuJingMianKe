@@ -35,6 +35,7 @@ import cn.com.pujing.entity.RestMealBean;
 import cn.com.pujing.entity.RestMealTypeBean;
 import cn.com.pujing.entity.RestOrderBean;
 import cn.com.pujing.entity.RestTypeBean;
+import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.http.convert.JsonConvert;
@@ -112,6 +113,8 @@ public class PujingService {
     //餐次的时间段
     public static String MEAL_TIMES = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetMealType";
 
+    public static String PHOTOWALL = PREFIX + "/content-service/photoWall/page";
+    public static String PHOTOWALLCOLLECT = PREFIX + "/content-service/photoWall/collectStatistics/";
 
     public static String ACTIVITYDATE = PREFIX + "/life-service/activityCalendar/queryActivityDateList";
     public static String ACTIVITYDATE_ANOTHER = PREFIX + "/life-service/userNotes/queryActivityDateList";
@@ -144,6 +147,15 @@ public class PujingService {
     public static String NOTICE = PREFIX + H5 + "notice";
     public static String EVENTDETAILS = PREFIX + H5 + "eventDetails/";
     public static String SURVEYLIST = PREFIX + H5 + "surveyList";
+
+    public static String MSG = PREFIX + "/messagePush/page";
+
+    //权益包
+    public static String RIGHTSANDINTERESTS = PREFIX + "/life-service/serviceRightsPackage/list";
+    //权益包详情
+    public static String RIGHTSANDINTERESTSDETAIL = PREFIX + "/life-service/serviceRightsPackage/";
+
+
 
     /**
      * 获取公钥
@@ -229,13 +241,15 @@ public class PujingService {
     /**
      * 注册
      */
-    public static Observable<ResponseData<Boolean>> register(String userName,String phone,String pwd,String captcha) {
+    public static Observable<ResponseData<Boolean>> register(String userName,String phone,String pwd,String captcha,String name,String sex) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(Constants.USERNAME, userName);
         params.put(Constants.PHONE, phone);
         params.put(Constants.NEWPASSWORD, pwd);
         params.put(Constants.SMSVALIDCODE, captcha);
+        params.put(Constants.SEX, sex);
+        params.put(Constants.ACCOUNT, name);
         JSONObject jsonObject = new JSONObject(params);
 
         return OkGo.<ResponseData<Boolean>>post(REGISTER)
@@ -625,6 +639,30 @@ public class PujingService {
                     .converter(new JsonConvert<ResponseData<Boolean>>() {
                     })
                     .adapt(new ObservableBody<ResponseData<Boolean>>());
+
+    }
+
+    /**
+     * 获取权益包列表
+     */
+    public static Observable<ResponseData<List<RightsAndInterestsBean>>> getRightsAndInterestsList(){
+
+            return OkGo.<ResponseData<List<RightsAndInterestsBean>>>get(RIGHTSANDINTERESTS)
+                    .converter(new JsonConvert<ResponseData<List<RightsAndInterestsBean>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<List<RightsAndInterestsBean>>>());
+
+    }
+
+    /**
+     * 获取权益包详情
+     */
+    public static Observable<ResponseData<RightsAndInterestsBean>> getRightsAndInterests(String id){
+
+            return OkGo.<ResponseData<RightsAndInterestsBean>>get(RIGHTSANDINTERESTSDETAIL+id)
+                    .converter(new JsonConvert<ResponseData<RightsAndInterestsBean>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<RightsAndInterestsBean>>());
 
     }
 

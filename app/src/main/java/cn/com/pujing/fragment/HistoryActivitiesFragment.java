@@ -18,6 +18,7 @@ import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.HistoryActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HistoryActivitiesPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.UToast;
@@ -57,7 +58,7 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, Urls.EVENTDETAILS + historyActivitiesBean.getRecords().get(position).id);
+                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + historyActivitiesBean.getRecords().get(position).id);
                 startActivity(intent);
             }
         });

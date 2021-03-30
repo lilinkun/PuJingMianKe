@@ -89,7 +89,7 @@ public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailP
 
         Glide.with(this)
                 .load(PujingService.PREFIX + Urls.IMG + restDetailBean.coverPic)
-                .error(R.mipmap.ic_default_rest)
+                .error(R.drawable.ic_no_pic)
                 .into(ivRestDetail);
 
         if (type == 2) {

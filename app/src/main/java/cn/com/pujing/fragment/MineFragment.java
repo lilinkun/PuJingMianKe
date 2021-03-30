@@ -161,7 +161,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
             if (requestCode == 0x121){
-                    String avatar = Methods.getValueByKey(Constants.AVATAR, getContext());
+
+                mPresenter.getMyInfo();
+                   /* String avatar = Methods.getValueByKey(Constants.AVATAR, getContext());
                     if (!TextUtils.isEmpty(avatar)) {
                         avatar = avatar;
                         Glide.with(getContext())
@@ -169,7 +171,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                                 .into(headImageView);
 
-                }
+                }*/
             }
         }
     }

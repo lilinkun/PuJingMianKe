@@ -52,6 +52,8 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     RecyclerView rvRestDay;
     @BindView(R.id.tv_rest_meal_choose)
     TextView tvRestMealChoose;
+    @BindView(R.id.tv_no_food)
+    TextView tvNoFood;
 
     private List<SetMealBean> setMealBeans;
     List<RestTypeBean> restTypeBeans;
@@ -198,6 +200,12 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         checkId = 0;
 
         this.setMealBeans = setMealBeans;
+
+        if (setMealBeans.size() == 0){
+            tvNoFood.setVisibility(View.VISIBLE);
+        }else {
+            tvNoFood.setVisibility(View.GONE);
+        }
 
         for (int j = 0;j<setMealBeans.size();j++){
 

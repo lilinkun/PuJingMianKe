@@ -33,6 +33,7 @@ import cn.com.pujing.entity.PhotoWall;
 import cn.com.pujing.entity.section.ItemNode;
 import cn.com.pujing.entity.section.RootFooterNode;
 import cn.com.pujing.entity.section.RootNode;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
 public class PhotoWallActivity extends BaseActivity implements View.OnClickListener {
@@ -89,7 +90,7 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                             break;
                         case R.id.iv_collect:
 
-                            OkGo.put(Urls.PHOTOWALLCOLLECT + photoWall.data.records.get(pos.getPos()).id).execute(new JsonCallback<>(ActivityDateAdd.class, PhotoWallActivity.this));
+                            OkGo.put(PujingService.PHOTOWALLCOLLECT + photoWall.data.records.get(pos.getPos()).id).execute(new JsonCallback<>(ActivityDateAdd.class, PhotoWallActivity.this));
 
                             pos.isCollect = !pos.isCollect;
                             nodeSectionAdapter.notifyDataSetChanged();
@@ -104,14 +105,14 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                OkGo.get(Urls.PHOTOWALL)
+                OkGo.get(PujingService.PHOTOWALL)
                         .tag(this)
                         .execute(new JsonCallback<>(PhotoWall.class, PhotoWallActivity.this));
             }
         });
 
 
-        OkGo.get(Urls.PHOTOWALL)
+        OkGo.get(PujingService.PHOTOWALL)
                 .tag(this)
                 .execute(new JsonCallback<>(PhotoWall.class, this));
     }

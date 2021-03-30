@@ -55,6 +55,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@null"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@_#."
         app:layout_constraintBottom_toBottomOf="@id/tv_user_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_user_name"
@@ -71,6 +72,96 @@
         app:layout_constraintTop_toBottomOf="@id/et_user_name" />
 
     <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/username"
+        android:textColor="@color/text_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_user_name" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLength="20"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@id/tv_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_username"
+        app:layout_constraintTop_toTopOf="@id/tv_username" />
+
+    <View
+        android:id="@+id/v_username"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/common_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_username" />
+
+    <TextView
+        android:id="@+id/tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/sex"
+        android:textColor="@color/text_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_username" />
+
+    <RadioGroup
+        android:id="@+id/rg_sex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLength="20"
+        android:background="@null"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_sex"
+        app:layout_constraintTop_toTopOf="@id/tv_sex" >
+
+        <RadioButton
+            android:id="@+id/rb_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="男"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            />
+
+
+    </RadioGroup>
+
+
+
+    <View
+        android:id="@+id/v_sex"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/common_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sex" />
+
+
+    <TextView
         android:id="@+id/tv_cell_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +170,7 @@
         android:textColor="@color/text_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_user_name" />
+        app:layout_constraintTop_toBottomOf="@id/v_sex" />
 
     <EditText
         android:id="@+id/et_cell_phone_number"
@@ -88,6 +179,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@null"
+        android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="@id/tv_cell_phone_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_cell_phone_number"
@@ -102,6 +194,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_cell_phone_number" />
+
 
     <TextView
         android:id="@+id/tv_pwd_key"

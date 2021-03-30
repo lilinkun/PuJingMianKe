@@ -75,7 +75,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getDataError(errorMessage);
+                        if (!errorMessage.contains("null")) {
+                            getView().getDataError(errorMessage);
+                        }
                     }
                 });
     }

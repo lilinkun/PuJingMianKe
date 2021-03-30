@@ -7,6 +7,8 @@ public class Constants {
 
     public static final String PHONE = "phone";
     public static final String USERNAME = "username";
+    public static final String SEX = "sex";
+    public static final String ACCOUNT = "account";
     public static final String NEWPASSWORD = "newPassword";
     public static final String SMSVALIDCODE = "smsValidCode";
     public static final String VALIDCODE = "validCode";

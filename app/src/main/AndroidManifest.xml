@@ -85,5 +85,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.RightsAndInterestsActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.RightsAndInterestsDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

@@ -40,8 +40,8 @@ public class UploadFile {
 
         QCloudCredentialProvider myCredentialProvider = new MySessionCredentialProvider();
 
-        // 存储桶所在地域简称，例如广州地区是 ap-guangzhou
-        String region = "ap-chengdu";
+        // 存储桶所在地域简称，例如上海地区是 ap-guangzhou
+        String region = "ap-shanghai";
         // 创建 CosXmlServiceConfig 对象，根据需要修改默认的配置参数
         CosXmlServiceConfig serviceConfig = new CosXmlServiceConfig.Builder()
                 .setRegion(region)

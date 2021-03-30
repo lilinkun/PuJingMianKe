@@ -37,9 +37,9 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     }
 
     //注册
-    public void register(String userName,String phone,String pwd,String captcha){
+    public void register(String userName,String phone,String pwd,String captcha,String name,String sex){
 
-        PujingService.register(userName,phone,pwd,captcha)
+        PujingService.register(userName,phone,pwd,captcha,name,sex)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<Boolean>() {

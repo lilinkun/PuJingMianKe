@@ -188,7 +188,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             @Override
             public void OnBannerClick(Object data, int position) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, Urls.NOTICE);
+                intent.putExtra(Constants.URL, PujingService.NOTICE);
                 startActivity(intent);
             }
         });
@@ -390,7 +390,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 startActivity(new Intent(getContext(), FeedbackActivity.class));
             }else if ("问卷调查".equals(gridItem.title)) {
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, Urls.SURVEYLIST);
+                intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                 startActivity(intent);
             }else if ("健管中心".equals(gridItem.title)) {
                 Intent intent = new Intent(getContext(), HealthCenterActivity.class);

@@ -1,6 +1,5 @@
 package cn.com.pujing.activity;
 
-import android.os.Bundle;
 import android.view.View;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -17,7 +16,7 @@ import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.MyMessageBean;
-import cn.com.pujing.util.Urls;
+import cn.com.pujing.http.PujingService;
 
 public class MyMsgActivity extends BaseActivity implements View.OnClickListener {
 
@@ -44,7 +43,7 @@ public class MyMsgActivity extends BaseActivity implements View.OnClickListener 
         msgAdapter = new MsgAdapter(R.layout.item_msg, null);
         recyclerView.setAdapter(msgAdapter);
 
-        OkGo.get(Urls.MSG)
+        OkGo.get(PujingService.MSG)
                 .tag(this)
                 .execute(new JsonCallback<>(MyMessageBean.class,this));
 

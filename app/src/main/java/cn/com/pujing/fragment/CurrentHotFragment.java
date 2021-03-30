@@ -26,6 +26,7 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Urls;
 
@@ -71,7 +72,7 @@ public class CurrentHotFragment extends BaseFragment {
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, Urls.EVENTDETAILS + record.id);
+                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + record.id);
                 startActivityForResult(intent,WEB_RESULT);
             }
         });
@@ -139,7 +140,11 @@ public class CurrentHotFragment extends BaseFragment {
                 exerciseAdapter.setNewInstance(list);
 
                 if (exerciseAdapter.getLoadMoreModule().isLoading()){
-                    exerciseAdapter.getLoadMoreModule().loadMoreEnd();
+                 if (activityCalendar.data.records.size() == 10) {
+                     exerciseAdapter.getLoadMoreModule().loadMoreComplete();
+                 }else {
+                     exerciseAdapter.getLoadMoreModule().loadMoreEnd();
+                 }
                 }
             }
         }
