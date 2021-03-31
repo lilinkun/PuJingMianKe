@@ -12,6 +12,7 @@ import com.lzy.okrx2.adapter.ObservableBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,8 +51,8 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -154,6 +155,9 @@ public class PujingService {
     public static String RIGHTSANDINTERESTS = PREFIX + "/life-service/serviceRightsPackage/list";
     //权益包详情
     public static String RIGHTSANDINTERESTSDETAIL = PREFIX + "/life-service/serviceRightsPackage/";
+
+    //小标识
+    public static String IDENTIFICATION = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetFlag";
 
 
 
@@ -663,6 +667,18 @@ public class PujingService {
                     .converter(new JsonConvert<ResponseData<RightsAndInterestsBean>>() {
                     })
                     .adapt(new ObservableBody<ResponseData<RightsAndInterestsBean>>());
+
+    }
+
+    /**
+     * 小标识
+     */
+    public static Observable<ResponseData<ArrayList<String>>> identification(){
+
+            return OkGo.<ResponseData<ArrayList<String>>>post(IDENTIFICATION)
+                    .converter(new JsonConvert<ResponseData<ArrayList<String>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<ArrayList<String>>>());
 
     }
 

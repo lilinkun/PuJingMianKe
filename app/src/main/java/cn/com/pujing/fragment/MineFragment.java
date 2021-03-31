@@ -21,6 +21,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.activity.HealthCenterActivity;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.MyMsgActivity;
+import cn.com.pujing.activity.MyOrderActivity;
 import cn.com.pujing.activity.ProfileActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.MyInfoBean;
@@ -97,11 +98,11 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 startActivity(new Intent(getContext(), MyCalendarActivity.class));
             }
         } else if (v.getId() == R.id.my_order) {
-//            startActivity(new Intent(getContext(), MyOrderActivity.class));
+            startActivity(new Intent(getContext(), MyOrderActivity.class));
 
-            if (!PuJingUtils.isFastDoubleClick()) {
+            /*if (!PuJingUtils.isFastDoubleClick()) {
                 Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
-            }
+            }*/
         } else if (v.getId() == R.id.my_msg) {
 
             if (!PuJingUtils.isFastDoubleClick()) {

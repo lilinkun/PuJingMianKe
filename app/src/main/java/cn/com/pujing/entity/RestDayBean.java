@@ -12,5 +12,9 @@ public class RestDayBean implements Serializable {
     public String weekDay;
     public String dateDay;
     public String monthDay;
+    /**
+     * 0 为否 1为是
+     */
+    public String flag = "0";
 
 }

@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +88,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
         currentDay = nextWeek.get(0).dateDay;
 
+
         LinearLayoutManager dayLinearLayoutManager = new LinearLayoutManager(this);
         dayLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
@@ -95,6 +98,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
         restDayAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                mPresenter.identification();
                 restDayAdapter.setPositionView(position);
                 currentDateItem = position;
                 currentDay = nextWeek.get(currentDateItem).dateDay;
@@ -108,6 +112,8 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
             }
         });
 
+
+        mPresenter.identification();
 
         LinearLayoutManager typeLinearLayoutManager = new LinearLayoutManager(this);
         typeLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -168,6 +174,7 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
 
             case R.id.tv_next_day:
 
+                mPresenter.identification();
                 if (currentDateItem < 6){
                     currentDateItem++;
                     restDayAdapter.setPositionView(currentDateItem);
@@ -263,6 +270,17 @@ public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRouti
     @Override
     public void submitSuccess(boolean b) {
 
+    }
+
+    @Override
+    public void getIdentification(ArrayList<String> strings) {
+//        identification
+        for(int i = 0;i<strings.size();i++){
+            if (nextWeek.size() >= i){
+                nextWeek.get(i).flag = strings.get(i);
+            }
+        }
+        restDayAdapter.notifyDataSetChanged();
     }
 
     @Override

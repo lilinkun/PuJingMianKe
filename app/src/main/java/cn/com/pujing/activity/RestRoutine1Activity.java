@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -172,6 +173,9 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
                 }
 
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -234,6 +238,11 @@ public class RestRoutine1Activity extends BaseActivity<RestRoutineView, RestRout
 
     @Override
     public void submitSuccess(boolean b) {
+
+    }
+
+    @Override
+    public void getIdentification(ArrayList<String> strings) {
 
     }
 

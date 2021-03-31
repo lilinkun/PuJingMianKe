@@ -49,7 +49,8 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, SetMealBean setMealBean) {
         baseViewHolder.setText(R.id.tv_content_name,setMealBean.getMealName());
-        baseViewHolder.setText(R.id.tv_setmeal_name,context.getResources().getString(R.string.meal)+ PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
+        baseViewHolder.setText(R.id.tv_setmeal_name,setMealBean.getMealNikeName());
+//        baseViewHolder.setText(R.id.tv_setmeal_name,context.getResources().getString(R.string.meal)+ PuJingUtils.numberToLetter(baseViewHolder.getAdapterPosition()+1));
         ImageView imageView = baseViewHolder.getView(R.id.iv_restroutine);
         ImageView ivRestArrow = baseViewHolder.getView(R.id.iv_rest_arrow);
 
@@ -122,7 +123,7 @@ public class RestRoutineAdapter extends BaseQuickAdapter<SetMealBean, BaseViewHo
             Glide.with(getContext())
                     .load(PujingService.PREFIX + PujingService.IMG + coverPic)
                     .apply(PuJingUtils.setGlideCircle(10))
-                    .error(R.color.gray_line)
+                    .error(R.drawable.ic_no_pic)
                     .skipMemoryCache(true)
                     .into(imageView);
         }

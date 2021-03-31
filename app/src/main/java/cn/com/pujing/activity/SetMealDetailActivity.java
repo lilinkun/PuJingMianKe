@@ -129,6 +129,8 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
             } else {
                 strings.add(restMealBean.coverPic);
             }
+        }else {
+            strings.add(restMealBean.coverPic);
         }
 
         mealPicAdapter.setNewInstance(strings);

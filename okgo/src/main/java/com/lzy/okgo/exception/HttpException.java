@@ -40,7 +40,7 @@ public class HttpException extends RuntimeException {
     }
 
     public static HttpException NET_ERROR() {
-        return new HttpException("network error! http response code is 404 or 5xx!");
+        return new HttpException("network error!");
     }
 
     public static HttpException COMMON(String message) {

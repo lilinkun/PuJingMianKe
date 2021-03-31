@@ -1,5 +1,6 @@
 package cn.com.pujing.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.pujing.entity.AddRestBean;
@@ -25,6 +26,8 @@ public interface RestRoutineView {
     public void saveDataSuccess(boolean b);
 
     public void submitSuccess(boolean b);
+
+    public void getIdentification(ArrayList<String> strings);
 
     public void getRestClickData(RoutineRecordBean addRestBean);
 

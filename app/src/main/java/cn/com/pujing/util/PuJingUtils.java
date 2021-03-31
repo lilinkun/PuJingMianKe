@@ -265,4 +265,5 @@ public class PuJingUtils {
 
         return new BigDecimal(strMoney);
     }
+
 }

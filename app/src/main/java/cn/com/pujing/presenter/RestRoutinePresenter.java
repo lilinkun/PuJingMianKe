@@ -45,8 +45,6 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
                         getView().getDataFail(errorMessage);
                     }
                 });
-
-
     }
 
     /**
@@ -139,6 +137,28 @@ public class RestRoutinePresenter extends BasePresenter<RestRoutineView> {
                     @Override
                     public void _onNext(Boolean aBoolean) {
                         getView().submitSuccess(aBoolean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+                });
+
+    }
+
+    /**
+     * 小标识
+     */
+    public void identification(){
+
+        PujingService.identification()
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<ArrayList<String>>() {
+                    @Override
+                    public void _onNext(ArrayList<String> strings) {
+                        getView().getIdentification(strings);
                     }
 
                     @Override

@@ -38,6 +38,12 @@ public class RestDayAdapter extends BaseQuickAdapter<RestDayBean, BaseViewHolder
         baseViewHolder.setText(R.id.tv_week_day,restDayBean.weekDay);
         baseViewHolder.setText(R.id.tv_date_day,restDayBean.monthDay);
 
+        if (restDayBean.flag.equals("1")){
+            baseViewHolder.setVisible(R.id.view_circle,true);
+        }else {
+            baseViewHolder.setVisible(R.id.view_circle,false);
+        }
+
         if (itemPosition == baseViewHolder.getAdapterPosition()){
             baseViewHolder.setVisible(R.id.view_day_line,true);
             baseViewHolder.setTextColor(R.id.tv_week_day,context.getResources().getColor(R.color.main_color));
@@ -54,7 +60,6 @@ public class RestDayAdapter extends BaseQuickAdapter<RestDayBean, BaseViewHolder
         }
 
     }
-
 
 
     public void setPositionView(int position){
