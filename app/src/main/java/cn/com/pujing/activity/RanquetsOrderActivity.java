@@ -32,7 +32,7 @@ import cn.com.pujing.view.RanquetsOrderView;
 /**
  * author : liguo
  * date : 2021/3/10 18:33
- * description :
+ * description : 宴会餐和零点餐订单
  */
 public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, RanquetsOrderPresenter> implements RanquetsOrderView{
 

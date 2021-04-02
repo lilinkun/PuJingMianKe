@@ -21,6 +21,9 @@ import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.ForgetPwdView;
 
+/**
+ * 忘记密码
+ */
 public class ForgetPwdFragment extends BaseFragment<ForgetPwdView, ForgetPwdPresenter> implements View.OnClickListener,ForgetPwdView {
 
     @BindView(R.id.tv_get_captcha)

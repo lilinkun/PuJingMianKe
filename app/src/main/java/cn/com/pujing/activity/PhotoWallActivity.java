@@ -36,6 +36,9 @@ import cn.com.pujing.entity.section.RootNode;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
+/**
+ * 照片墙
+ */
 public class PhotoWallActivity extends BaseActivity implements View.OnClickListener {
     private NodeSectionAdapter nodeSectionAdapter;
 

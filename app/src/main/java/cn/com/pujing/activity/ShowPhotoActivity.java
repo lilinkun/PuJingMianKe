@@ -32,6 +32,9 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.FileUtils;
 
+/**
+ * 显示图片
+ */
 public class ShowPhotoActivity extends BaseActivity {
 
     @BindView(R.id.rv_show_photo)

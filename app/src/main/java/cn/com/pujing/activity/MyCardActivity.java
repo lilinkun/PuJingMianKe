@@ -13,7 +13,7 @@ import cn.com.pujing.view.MyCardView;
 /**
  * author : liguo
  * date : 2021/3/29 11:04
- * description :
+ * description :我的卡包
  */
 public class MyCardActivity extends BaseActivity<MyCardView, MyCardPresenter> implements MyCardView{
 

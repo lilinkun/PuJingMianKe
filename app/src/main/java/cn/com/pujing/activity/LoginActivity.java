@@ -17,6 +17,9 @@ import cn.com.pujing.fragment.ForgetPwdFragment;
 import cn.com.pujing.fragment.LoginFragment;
 import cn.com.pujing.fragment.RegisterFragment;
 
+/**
+ * 登录界面
+ */
 public class LoginActivity extends BaseActivity {
     public static final int LOGIN = 0;
     public static final int REGISTER = 1;
@@ -47,6 +50,10 @@ public class LoginActivity extends BaseActivity {
         return null;
     }
 
+    /**
+     * 显示
+     * @param type
+     */
     public void showFragment(int type) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -91,6 +98,9 @@ public class LoginActivity extends BaseActivity {
                     fragmentTransaction.show(forgetPwdFragment);
                 }
                 break;
+
+            default:
+                break;
         }
         fragmentTransaction.commit();
         current = type;
@@ -106,6 +116,10 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 点击事件
+     * @param view
+     */
     @OnClick({R.id.iv_back})
     public void onClick(View view){
         switch (view.getId()){

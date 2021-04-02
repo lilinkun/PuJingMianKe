@@ -45,6 +45,9 @@ import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.view.ProfileView;
 
+/**
+ * 我的个人信息列表
+ */
 public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter> implements View.OnClickListener, ProfileView, UploadFile.UploadListener {
 
     private String avatar;

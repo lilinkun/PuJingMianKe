@@ -21,6 +21,7 @@ import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.ChangeDataBean;
+import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.entity.LoginToken;
@@ -29,6 +30,7 @@ import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.PhotoBean;
 import cn.com.pujing.entity.PublicKey;
 import cn.com.pujing.entity.QuerySelectDayBean;
+import cn.com.pujing.entity.ReserveDeviceBean;
 import cn.com.pujing.entity.ResponseData;
 import cn.com.pujing.entity.RestBanquetsBean;
 import cn.com.pujing.entity.RestDetailBean;
@@ -39,6 +41,7 @@ import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
+import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
@@ -51,7 +54,7 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
 //    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
@@ -59,7 +62,7 @@ public class PujingService {
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
-//    public static final String PREFIX = "http://172.18.19.251"; // 勇
+    public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
@@ -160,6 +163,12 @@ public class PujingService {
 
     //小标识
     public static String IDENTIFICATION = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetFlag";
+    //获取所有的场馆名
+    public static String VENUETYPE = PREFIX + "/life-service/serviceVenueManage/selectAllVenueName";
+    //获取所有的设备名
+    public static String DEVICELIST = PREFIX + "/life-service/serviceVenueManage/selectAllDeviceName";
+    //预约设备
+    public static String RESERVEDEVICE = PREFIX + "/life-service/serviceVenueOrder/queryReserveTime";
 
 
 
@@ -681,6 +690,47 @@ public class PujingService {
                     .converter(new JsonConvert<ResponseData<ArrayList<String>>>() {
                     })
                     .adapt(new ObservableBody<ResponseData<ArrayList<String>>>());
+
+    }
+
+
+    /**
+     * 所有的场馆名
+     */
+    public static Observable<ResponseData<ArrayList<VenueBean>>> getVenueType(){
+
+            return OkGo.<ResponseData<ArrayList<VenueBean>>>get(VENUETYPE)
+                    .converter(new JsonConvert<ResponseData<ArrayList<VenueBean>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<ArrayList<VenueBean>>>());
+
+    }
+
+    /**
+     * 所有的场馆名
+     */
+    public static Observable<ResponseData<ArrayList<DeviceBean>>> getDevice(String venueId){
+
+            return OkGo.<ResponseData<ArrayList<DeviceBean>>>get(DEVICELIST)
+                    .params("venueId",venueId)
+                    .converter(new JsonConvert<ResponseData<ArrayList<DeviceBean>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<ArrayList<DeviceBean>>>());
+
+    }
+
+    /**
+     * 所有的场馆名
+     */
+    public static Observable<ResponseData<ReserveDeviceBean>> reserveDevice(String venueId, String deviceId, String reserveDate){
+
+            return OkGo.<ResponseData<ReserveDeviceBean>>get(RESERVEDEVICE)
+                    .params("venueId",venueId)
+                    .params("deviceId",deviceId)
+                    .params("reserveDate",reserveDate)
+                    .converter(new JsonConvert<ResponseData<ReserveDeviceBean>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<ReserveDeviceBean>>());
 
     }
 

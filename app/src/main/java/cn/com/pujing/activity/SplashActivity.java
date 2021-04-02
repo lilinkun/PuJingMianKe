@@ -16,6 +16,9 @@ import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
 
+/**
+ * 初始app界面
+ */
 public class SplashActivity extends BaseActivity {
     private static final long DURATION = 3000;
 

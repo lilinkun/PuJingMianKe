@@ -24,6 +24,9 @@ import cn.com.pujing.presenter.CommunityCalendarPresenter;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.view.CommunityCalendarView;
 
+/**
+ * 社区日历
+ */
 public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarView, CommunityCalendarPresenter> implements View.OnClickListener,CommunityCalendarView {
     @BindView(R.id.calendarView)
     CalendarView calendarView;

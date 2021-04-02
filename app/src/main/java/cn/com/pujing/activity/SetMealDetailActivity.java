@@ -30,7 +30,7 @@ import cn.com.pujing.view.SetMealDetailView;
 /**
  * author : liguo
  * date : 2021/3/7 15:27
- * description :
+ * description : 套餐详情
  */
 public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMealDetailPresenter> implements SetMealDetailView {
 

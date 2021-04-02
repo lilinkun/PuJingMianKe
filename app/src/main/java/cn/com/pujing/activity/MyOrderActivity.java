@@ -19,6 +19,9 @@ import cn.com.pujing.presenter.MyOrderPresenter;
 import cn.com.pujing.view.MyOrderView;
 import cn.com.pujing.widget.MyOrderPopup;
 
+/**
+ * 我的订单
+ */
 public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter> implements MyOrderView {
 
     @BindView(R.id.iv_order_filter)

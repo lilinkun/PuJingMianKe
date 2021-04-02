@@ -34,6 +34,7 @@ import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.ShowPhotoActivity;
+import cn.com.pujing.activity.VenueActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
@@ -383,6 +384,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             } else if (getString(R.string.restaurant).equals(gridItem.title)) {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.setCurPos(1);
+            } else if ("场馆预约".equals(gridItem.title)) {
+                startActivity(new Intent(getContext(), VenueActivity.class));
             } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
                 startActivity(new Intent(getContext(), PhotoWallActivity.class));
             }else if (getString(R.string.feedback).equals(gridItem.title)) {

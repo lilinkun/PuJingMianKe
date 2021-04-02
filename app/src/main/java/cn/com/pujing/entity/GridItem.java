@@ -10,6 +10,9 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Unique;
 
 @Entity
+/**
+ * 首页item
+ */
 public class GridItem implements Comparable<GridItem>{
     public Integer imageRes;
     public String imageUrl;

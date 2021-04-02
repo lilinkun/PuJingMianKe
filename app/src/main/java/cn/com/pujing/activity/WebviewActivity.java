@@ -21,6 +21,9 @@ import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.UToast;
 
+/**
+ * webview
+ */
 public class WebviewActivity extends BaseActivity {
     private WebView webView;
 

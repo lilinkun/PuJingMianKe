@@ -23,7 +23,7 @@ import cn.com.pujing.view.RestDetailView;
 /**
  * author : liguo
  * date : 2021/3/9 17:09
- * description :
+ * description :菜品详情
  */
 public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailPresenter> implements RestDetailView {
 

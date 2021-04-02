@@ -34,8 +34,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setForceDarkAllowed(true);
         setContentView(getLayoutId());
-
         //判断是否使用MVP模式
         mPresenter = createPresenter();
         if (mPresenter != null) {

@@ -26,6 +26,9 @@ import java.util.Random;
 import cn.com.pujing.entity.RestDayBean;
 import cn.com.pujing.widget.GlideRoundTransform;
 
+/**
+ * 璞境工具类
+ */
 public class PuJingUtils {
 
     /**

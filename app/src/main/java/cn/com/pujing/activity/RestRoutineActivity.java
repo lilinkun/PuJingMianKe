@@ -40,7 +40,7 @@ import cn.com.pujing.view.RestRoutineView;
 /**
  * author : liguo
  * date : 2021/3/1 18:02
- * description :
+ * description :常规餐点餐
  */
 public class RestRoutineActivity extends BaseActivity<RestRoutineView, RestRoutinePresenter> implements RestRoutineView {
 

@@ -16,6 +16,9 @@ import javax.crypto.Cipher;
 import cn.com.pujing.util.Base64Utils;
 import cn.com.pujing.util.Constants;
 
+/**
+ * 保存方法
+ */
 public class Methods {
 
     public static boolean logined(Context context) {
