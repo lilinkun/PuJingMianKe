@@ -29,8 +29,6 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         ImmersionBar.with(this)
-                .statusBarColor(R.color.white)
-                .fitsSystemWindows(true)
                 .statusBarDarkFont(true)
                 .init();
 

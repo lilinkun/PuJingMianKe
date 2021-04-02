@@ -30,7 +30,7 @@ public class ShowPhotoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
         ImageView ivShowPhoto = baseViewHolder.getView(R.id.iv_show_photo);
         Glide.with(context)
-                .load(PujingService.PREFIX + Urls.IMG + s)
+                .load(PujingService.PREFIX + PujingService.IMG + s)
                 .apply(new RequestOptions().override(100, 100))
                 .into(ivShowPhoto);
     }

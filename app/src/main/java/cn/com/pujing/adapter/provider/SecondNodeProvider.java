@@ -34,7 +34,7 @@ public class SecondNodeProvider extends BaseNodeProvider {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         Glide.with(getContext())
-                .load(PujingService.PREFIX + Urls.IMG + ((ItemNode) data).imgUrl)
+                .load(PujingService.PREFIX + PujingService.IMG + ((ItemNode) data).imgUrl)
                 .into(imageView);
         baseViewHolder.setVisible(R.id.tv, itemNode.showMore);
     }

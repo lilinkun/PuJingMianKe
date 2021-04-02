@@ -54,6 +54,8 @@ public class MyOrderPopup  extends PopupWindow {
         RelativeLayout rlEndDate = conentView.findViewById(R.id.rl_end_date);
         TextView tvStartDate = conentView.findViewById(R.id.tv_start_date);
         TextView tvEndDate = conentView.findViewById(R.id.tv_end_date);
+        TextView tvCancelPop = conentView.findViewById(R.id.tv_cancel_pop);
+        TextView tvSurePop = conentView.findViewById(R.id.tv_sure_pop);
 
         startDate = System.currentTimeMillis();
         endDate = System.currentTimeMillis();
@@ -74,6 +76,13 @@ public class MyOrderPopup  extends PopupWindow {
             @Override
             public void onClick(View v) {
                 setDailog(tvEndDate,1);
+            }
+        });
+
+        tvCancelPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
 

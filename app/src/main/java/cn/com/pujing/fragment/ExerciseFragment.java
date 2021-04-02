@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.flyco.tablayout.SlidingTabLayout;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -28,17 +27,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.http.PujingService;
-import cn.com.pujing.util.Constants;
 import cn.com.pujing.R;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.ExerciseAdapter;
 import cn.com.pujing.base.BaseFragment;
+import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
 import cn.com.pujing.entity.GetAllCategory;
+import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.Constants;
 
 public class ExerciseFragment extends BaseFragment implements View.OnClickListener, DatePickerDialogFragment.OnDialogListener {
 
@@ -80,7 +78,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
                 if (data != null) {
                     selectedId = data.id;
 
-                    OkGo.get(Urls.ACTIVITYCALENDAR)
+                    OkGo.get(PujingService.ACTIVITYCALENDAR)
                             .tag(this)
                             .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
                             .params(Constants.CATEGORYID, selectedId)
@@ -113,7 +111,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
-        OkGo.get(Urls.GETALLCATEGORY)
+        OkGo.get(PujingService.GETALLCATEGORY)
                 .tag(this)
                 .execute(new JsonCallback<>(GetAllCategory.class, this));
     }
@@ -132,7 +130,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onDialogClick(String string) {
         dateTextView.setText(string);
-        OkGo.get(Urls.ACTIVITYCALENDAR)
+        OkGo.get(PujingService.ACTIVITYCALENDAR)
                 .tag(this)
                 .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
                 .params(Constants.CATEGORYID, selectedId)
@@ -153,7 +151,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
                 if (list != null && list.size() > 0) {
                     niceSpinner.setClickable(true);
                     selectedId = list.get(0).id;
-                    OkGo.get(Urls.ACTIVITYCALENDAR)
+                    OkGo.get(PujingService.ACTIVITYCALENDAR)
                             .tag(this)
 //                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
 //                            .params(Constants.CATEGORYID, selectedId)

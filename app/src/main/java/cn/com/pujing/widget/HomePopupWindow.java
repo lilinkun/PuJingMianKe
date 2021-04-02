@@ -132,11 +132,11 @@ public class HomePopupWindow extends PopupWindow {
                     context.startActivity(new Intent(context, PhotoWallActivity.class));
                 }else if (context.getString(R.string.feedback).equals(gridItem.title)) {
                     context.startActivity(new Intent(context, FeedbackActivity.class));
-                }else if ("问卷调查".equals(gridItem.title)) {
+                }else if (context.getString(R.string.question_investigation).equals(gridItem.title)) {
                     Intent intent = new Intent(context, WebviewActivity.class);
                     intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                     context.startActivity(intent);
-                }else if ("健管中心".equals(gridItem.title)) {
+                }else if (context.getString(R.string.health_manager).equals(gridItem.title)) {
                     Intent intent = new Intent(context, HealthCenterActivity.class);
                     context.startActivity(intent);
                 }

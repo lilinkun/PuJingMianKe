@@ -5,9 +5,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.gyf.immersionbar.ImmersionBar;
-
-import java.lang.annotation.ElementType;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +18,6 @@ import cn.com.pujing.presenter.RestDetailPresenter;
 import cn.com.pujing.util.Eyes;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.RestDetailView;
 
 /**
@@ -88,7 +84,7 @@ public class RestDetailActivity extends BaseActivity<RestDetailView, RestDetailP
     public void getRestDetail(RestDetailBean restDetailBean) {
 
         Glide.with(this)
-                .load(PujingService.PREFIX + Urls.IMG + restDetailBean.coverPic)
+                .load(PujingService.PREFIX + PujingService.IMG + restDetailBean.coverPic)
                 .error(R.drawable.ic_no_pic)
                 .into(ivRestDetail);
 

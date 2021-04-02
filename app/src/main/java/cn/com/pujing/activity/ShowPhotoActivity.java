@@ -31,7 +31,6 @@ import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.FileUtils;
-import cn.com.pujing.util.Urls;
 
 public class ShowPhotoActivity extends BaseActivity {
 
@@ -111,7 +110,7 @@ public class ShowPhotoActivity extends BaseActivity {
                 currentPic = showPhoto[vpShowPhoto.getCurrentItem()];
                 Glide.with(this)
                      .asBitmap()
-                     .load(PujingService.PREFIX + Urls.IMG + currentPic).into(new SimpleTarget<Bitmap>() {
+                     .load(PujingService.PREFIX + PujingService.IMG + currentPic).into(new SimpleTarget<Bitmap>() {
                       @Override
                       public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

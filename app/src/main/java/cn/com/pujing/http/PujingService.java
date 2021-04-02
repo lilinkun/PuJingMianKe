@@ -121,6 +121,8 @@ public class PujingService {
     public static String ACTIVITYDATE_ANOTHER = PREFIX + "/life-service/userNotes/queryActivityDateList";
     public static String QUERYSELECTDAY = PREFIX + "/life-service/activityCalendar/querySelectDay";
     public static String QUERYSELECTDAY_ANOTHER = PREFIX + "/life-service/userNotes/querySelectDay";
+    public static String GETALLCATEGORY = PREFIX + "/life-service/activityCategory/getAllCategory";
+    public static String ACTIVITYCALENDAR = PREFIX + "/life-service/activityCalendar/currentHotActivity";
     public static String QUERYSELECTDAY_ADD = PREFIX + "/life-service/userNotes/add";
 
     public static String FEEDBACKSAVE = PREFIX + "/content-service/feedback/save";

@@ -66,7 +66,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
                         Toast.makeText(MoreActivity.this, getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
                     } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
                         startActivity(new Intent(MoreActivity.this, PhotoWallActivity.class));
-                    } else if ("问卷调查".equals(gridItem.title)) {
+                    } else if (getString(R.string.question_investigation).equals(gridItem.title)) {
                         Intent intent = new Intent(MoreActivity.this, WebviewActivity.class);
                         intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                         startActivity(intent);

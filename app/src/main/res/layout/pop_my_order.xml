@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@drawable/bg_myorder_pop"
+        android:padding="16dp"
         >
 
     <TextView
@@ -18,15 +19,12 @@
         android:text="订单类型"
         android:textColor="#ff000000"
         android:textSize="14sp"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
         />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         >
 
@@ -76,9 +74,7 @@
         android:id="@+id/rl_start_date"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
         >
 
 
@@ -115,9 +111,7 @@
         android:id="@+id/rl_end_date"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
         >
 
 
@@ -150,9 +144,50 @@
 
     </RelativeLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="16sp"
+        >
+
+        <TextView
+            android:id="@+id/tv_sure_pop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/sure"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/shape_add_rest"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_cancel_pop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/dp_10"
+            android:textColor="@color/main_color"
+            android:background="@drawable/shape_rest_exit"
+            />
+
+
+
+
+
     </LinearLayout>
 
 
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -25,7 +25,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.internal.Utils;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
@@ -38,7 +37,6 @@ import cn.com.pujing.activity.ShowPhotoActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
-import cn.com.pujing.adapter.MsgAdapter;
 import cn.com.pujing.adapter.TopLineAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.db.DBManager;
@@ -247,7 +245,8 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 startActivity(new Intent(getContext(), PhotoWallActivity.class));
 
                 break;
-
+            default:
+                break;
 
         }
 
@@ -311,27 +310,27 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 switch (i) {
                     case 0:
                         Glide.with(getContext())
-                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + PujingService.IMG + strings[i])
                                 .into(ivPhotoWall1);
                         break;
                     case 1:
                         Glide.with(getContext())
-                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + PujingService.IMG + strings[i])
                                 .into(ivPhotoWall2);
                         break;
                     case 2:
                         Glide.with(getContext())
-                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + PujingService.IMG + strings[i])
                                 .into(ivPhotoWall3);
                         break;
                     case 3:
                         Glide.with(getContext())
-                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + PujingService.IMG + strings[i])
                                 .into(ivPhotoWall4);
                         break;
                     case 4:
                         Glide.with(getContext())
-                                .load(PujingService.PREFIX + Urls.IMG + strings[i])
+                                .load(PujingService.PREFIX + PujingService.IMG + strings[i])
                                 .into(ivPhotoWall5);
                         break;
                     default:
@@ -388,11 +387,11 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 startActivity(new Intent(getContext(), PhotoWallActivity.class));
             }else if (getString(R.string.feedback).equals(gridItem.title)) {
                 startActivity(new Intent(getContext(), FeedbackActivity.class));
-            }else if ("问卷调查".equals(gridItem.title)) {
+            }else if (getString(R.string.question_investigation).equals(gridItem.title)) {
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, PujingService.SURVEYLIST);
                 startActivity(intent);
-            }else if ("健管中心".equals(gridItem.title)) {
+            }else if (getString(R.string.health_manager).equals(gridItem.title)) {
                 Intent intent = new Intent(getContext(), HealthCenterActivity.class);
                 startActivity(intent);
             } else if (getString(R.string.more_services).equals(gridItem.title)) {

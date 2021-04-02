@@ -26,7 +26,7 @@ public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         Glide.with(getContext())
-                .load(PujingService.PREFIX + Urls.IMG + s)
+                .load(PujingService.PREFIX + PujingService.IMG + s)
                 .into(imageView);
     }
 }

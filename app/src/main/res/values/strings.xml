@@ -100,6 +100,9 @@
     <string name="trade_info">交易信息</string>
     <string name="bill_info">账单详情</string>
 
+    <string name="health_manager">健管中心</string>
+    <string name="question_investigation">问卷调查</string>
+
     <string name="sun">日</string>
     <string name="mon">一</string>
     <string name="tue">二</string>

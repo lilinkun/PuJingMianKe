@@ -28,7 +28,6 @@ import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Urls;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -84,7 +83,7 @@ public class CurrentHotFragment extends BaseFragment {
                 if (list != null){
                     list.clear();
                 }
-                OkGo.get(Urls.ACTIVITYCALENDAR)
+                OkGo.get(PujingService.ACTIVITYCALENDAR)
                         .tag(this)
                         .params("page", page+"")
                         .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
@@ -96,7 +95,7 @@ public class CurrentHotFragment extends BaseFragment {
             public void onLoadMore() {
 
                 page++;
-                OkGo.get(Urls.ACTIVITYCALENDAR)
+                OkGo.get(PujingService.ACTIVITYCALENDAR)
                         .tag(this)
 //                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
                         .params("page", page+"")
@@ -104,7 +103,7 @@ public class CurrentHotFragment extends BaseFragment {
             }
         });
 
-        OkGo.get(Urls.ACTIVITYCALENDAR)
+        OkGo.get(PujingService.ACTIVITYCALENDAR)
                 .tag(this)
 //                            .params(Constants.CALENDARTIME, dateTextView.getText().toString().trim())
                             .params("page", page+"")
@@ -159,7 +158,7 @@ public class CurrentHotFragment extends BaseFragment {
                 if (list != null){
                     list.clear();
                 }
-                OkGo.get(Urls.ACTIVITYCALENDAR)
+                OkGo.get(PujingService.ACTIVITYCALENDAR)
                         .tag(this)
                         .params("page", page+"")
                         .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));

@@ -37,6 +37,6 @@ public class MealPicAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_meal_pic);
 
-        Glide.with(context).load(PujingService.PREFIX + Urls.IMG + pic).error(R.drawable.ic_no_pic).into(imageView);
+        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + pic).error(R.drawable.ic_no_pic).into(imageView);
     }
 }

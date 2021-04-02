@@ -99,7 +99,7 @@ public class RestDetailAdapter extends BaseMultiItemQuickAdapter<RestSortDetailB
                     }
                 }
 
-                String imgUrl = PujingService.PREFIX + Urls.IMG + categoryList.getImgsrc();
+                String imgUrl = PujingService.PREFIX + PujingService.IMG + categoryList.getImgsrc();
 
                 if (ivGoodsImg.getTag() == null || !(imgUrl+baseViewHolder.getAdapterPosition()).equals(ivGoodsImg.getTag())) {
                     ivGoodsImg.setTag(imgUrl+baseViewHolder.getAdapterPosition());

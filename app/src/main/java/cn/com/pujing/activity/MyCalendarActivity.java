@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.QuerySelectDayBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.CommunityCalendarPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
@@ -226,7 +227,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
         params.put(Constants.CONTENT, content);
         JSONObject jsonObject = new JSONObject(params);
 
-        OkGo.post(Urls.QUERYSELECTDAY_ADD)
+        OkGo.post(PujingService.QUERYSELECTDAY_ADD)
                 .tag(this)
                 .upJson(jsonObject)
                 .execute(new JsonCallback<>(ActivityDateAdd.class, this));

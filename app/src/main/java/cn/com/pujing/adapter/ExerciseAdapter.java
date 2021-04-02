@@ -33,7 +33,7 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
             case -1:
                 ImageView ivHeader = baseViewHolder.getView(R.id.iv_header_exercise);
                 Glide.with(getContext())
-                        .load(PujingService.PREFIX + Urls.IMG + record.photo)
+                        .load(PujingService.PREFIX + PujingService.IMG + record.photo)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(ivHeader);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);
@@ -46,7 +46,7 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
             case 0:
                 ImageView iv = baseViewHolder.getView(R.id.iv_item_exercise);
                 Glide.with(getContext())
-                        .load(PujingService.PREFIX + Urls.IMG + record.photo)
+                        .load(PujingService.PREFIX + PujingService.IMG + record.photo)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(iv);
                 baseViewHolder.setText(R.id.tv_title, record.activityName);

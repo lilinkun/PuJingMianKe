@@ -16,7 +16,6 @@ import cn.com.pujing.R;
 import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.PuJingUtils;
-import cn.com.pujing.util.Urls;
 
 /**
  * author : liguo
@@ -41,7 +40,7 @@ public class RestBanquetsReserveAdapter extends BaseQuickAdapter<ChangeDataBean.
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_reserve_head);
 
-        Glide.with(context).load(PujingService.PREFIX + Urls.IMG + detailList.coverPic).error(R.color.gray_line).into(imageView);
+        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + detailList.coverPic).error(R.color.gray_line).into(imageView);
 
     }
 }

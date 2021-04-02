@@ -46,13 +46,19 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
         return new MyOrderPresenter();
     }
 
-    @OnClick({R.id.iv_order_filter})
+    @OnClick({R.id.iv_order_filter,R.id.iv_myorder})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_order_filter:
 
                 MyOrderPopup myOrderPopup = new MyOrderPopup(this);
                 myOrderPopup.showAsDropDown(findViewById(R.id.v_title_bar));
+
+                break;
+
+            case R.id.iv_myorder:
+
+                finish();
 
                 break;
 
