@@ -6,4 +6,6 @@ package cn.com.pujing.view;
  * description :
  */
 public interface LifeServiceView {
+
+    public void getDataFail(String msg);
 }

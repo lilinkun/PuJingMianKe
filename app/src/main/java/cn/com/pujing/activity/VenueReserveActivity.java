@@ -1,9 +1,11 @@
 package cn.com.pujing.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,8 +31,10 @@ import cn.com.pujing.entity.ReserveDeviceBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.VenueReservePresenter;
+import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueReserveView;
+import cn.com.pujing.widget.ShowTimePopup;
 
 /**
  * author : liguo
@@ -47,13 +51,28 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
     ImageView ivVenuePic;
     @BindView(R.id.tv_reserve_date)
     TextView tvReserveDate;
+    @BindView(R.id.tv_reserve_time)
+    TextView tvReserveTime;
+    @BindView(R.id.tv_size)
+    TextView tvSize;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_contain_num)
+    TextView tvContainNum;
 
-    VenueBean venueBean;
+    VenueBean.Records venueBean;
     DeviceAdapter deviceAdapter;
+    ReserveDeviceBean reserveDeviceBean;
     DeviceBean deviceBean;
     List<DeviceBean> deviceBeans;
 
+    public static int ClickPos = -1;
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    private int mYear = 0;
+    private int mMonth = 0;
+    private int mDay = 0;
 
     @Override
     public int getLayoutId() {
@@ -63,13 +82,14 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
     @Override
     public void initView() {
 
+        ActivityUtil.addHomeActivity(this);
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-        venueBean = (VenueBean) getIntent().getSerializableExtra("venue");
+        venueBean = (VenueBean.Records) getIntent().getSerializableExtra("venue");
 
-        tvVenue.setText(venueBean.venueName);
+        tvVenue.setText(venueBean.name);
 
-        mPresenter.getDevice(venueBean.venueId);
+        mPresenter.getDevice(venueBean.id);
 
         deviceAdapter = new DeviceAdapter(R.layout.adapter_device,null);
 
@@ -84,7 +104,9 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 deviceBean = deviceBeans.get(position);
-
+                deviceAdapter.setClickPos(position);
+                ClickPos = -1;
+                mPresenter.reserveDevice(venueBean.id,deviceBean.deviceId,simpleDateFormat.format(System.currentTimeMillis()));
             }
         });
 
@@ -95,7 +117,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         return new VenueReservePresenter();
     }
 
-    @OnClick({R.id.iv_back,R.id.ll_reserve_order_time})
+    @OnClick({R.id.iv_back,R.id.rl_reserve_date,R.id.rl_reserve_time,R.id.tv_reserve})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_back:
@@ -104,16 +126,18 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
 
                 break;
 
-            case R.id.ll_reserve_order_time:
-                Calendar
-                c = Calendar.getInstance();
+            case R.id.rl_reserve_date:
+                Calendar c = Calendar.getInstance();
                 DatePickerDialog dialog = new DatePickerDialog(
                         this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
+                                mYear = year;
+                                mMonth = month;
+                                mDay = dayOfMonth;
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
-                                mPresenter.reserveDevice(venueBean.venueId,deviceBean.deviceId,tvReserveDate.getText().toString());
+                                mPresenter.reserveDevice(venueBean.id,deviceBean.deviceId,tvReserveDate.getText().toString());
                             }
                         },
                         // 传入年份
@@ -124,13 +148,53 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
                         c.get(Calendar.DAY_OF_MONTH)
                 );
 
+                if (mYear > 0 && mMonth > 0 && mDay > 0) {
+                    dialog.updateDate(mYear, mMonth, mDay);
+                }
+
                 dialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 dialog.show();
 
                 break;
 
+            case R.id.rl_reserve_time:
+
+                onClickTime();
+
+                break;
+
+            case R.id.tv_reserve:
+                if (tvReserveTime.getText().toString().trim().length() > 0) {
+                    Intent intent = new Intent(this, VenueReserveSureActivity.class);
+                    intent.putExtra("date", tvReserveDate.getText().toString());
+                    intent.putExtra("time", tvReserveTime.getText().toString());
+                    intent.putExtra("device", deviceBean);
+                    intent.putExtra("reserveDeviceBean", reserveDeviceBean);
+                    intent.putExtra("venueBean", venueBean);
+                    startActivity(intent);
+                }else {
+                    onClickTime();
+                }
+                break;
+
             default:
                 break;
+        }
+    }
+
+    private void onClickTime(){
+        if (reserveDeviceBean != null && reserveDeviceBean.timesReserveNumList != null) {
+            ShowTimePopup showTimePopup = new ShowTimePopup(this, reserveDeviceBean);
+
+            showTimePopup.showAsDropDown(tvVenue);
+            showTimePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    tvReserveTime.setText(reserveDeviceBean.timesReserveNumList.get(ClickPos).startEndTime);
+                }
+            });
+        }else {
+            UToast.show(this,"不好意思，今天不能预约");
         }
     }
 
@@ -139,7 +203,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         deviceAdapter.setNewInstance(deviceBeans);
         this.deviceBeans = deviceBeans;
         deviceBean = deviceBeans.get(0);
-        mPresenter.reserveDevice(venueBean.venueId,deviceBeans.get(0).deviceId,simpleDateFormat.format(System.currentTimeMillis()));
+        mPresenter.reserveDevice(venueBean.id,deviceBeans.get(0).deviceId,simpleDateFormat.format(System.currentTimeMillis()));
     }
 
     @Override
@@ -150,8 +214,29 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
     @Override
     public void getReserveDevice(ReserveDeviceBean reserveDeviceBean) {
 
+        this.reserveDeviceBean = reserveDeviceBean;
+
+        tvReserveTime.setText("");
+        ClickPos = -1;
+
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG+reserveDeviceBean.venueManage.topic).into(ivVenuePic);
 
+        tvSize.setText(reserveDeviceBean.venueManage.area + "平方米");
+        tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "人");
+        tvAddress.setText(reserveDeviceBean.venueManage.address + "楼");
 
+    }
+
+    @Override
+    public void getReserveDeviceFail(String msg) {
+        this.reserveDeviceBean = null;
+        ClickPos = -1;
+        tvReserveTime.setText("");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ClickPos = -1;
     }
 }

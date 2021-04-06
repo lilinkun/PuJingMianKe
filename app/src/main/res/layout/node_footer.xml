@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/iv_download"
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:src="@mipmap/ic_ungive_likes"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/iv_collect"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

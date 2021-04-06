@@ -41,7 +41,7 @@ public class VenueReservePresenter extends BasePresenter<VenueReserveView> {
                 });
     }
     /**
-     * 预约
+     * 预约时间
      * @param venueId
      */
     public void reserveDevice(String venueId,String deviceId,String reserveDate){
@@ -57,7 +57,7 @@ public class VenueReservePresenter extends BasePresenter<VenueReserveView> {
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getDeviceFail(errorMessage);
+                        getView().getReserveDeviceFail(errorMessage);
                     }
 
                 });

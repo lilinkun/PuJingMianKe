@@ -34,11 +34,7 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
     @Override
     public void initView() {
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.main_color)
-                .fitsSystemWindows(true)
-                .init();
-
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         ArrayList<HealthCenterBean> healthCenterBeans = new ArrayList<>();
 
@@ -63,10 +59,18 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
         rvLifeService.setLayoutManager(linearLayoutManager);
         HealthCenterAdapter healthCenterAdapter = new HealthCenterAdapter(healthCenterBeans);
         rvLifeService.setAdapter(healthCenterAdapter);
+
+        mPresenter.getService();
+
     }
 
     @Override
     protected LifeServicePresenter createPresenter() {
         return new LifeServicePresenter();
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+
     }
 }

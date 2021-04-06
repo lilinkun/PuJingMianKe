@@ -18,12 +18,29 @@ import cn.com.pujing.entity.DeviceBean;
  */
 public class DeviceAdapter extends BaseQuickAdapter<DeviceBean, BaseViewHolder> {
 
+    private int mClickPos = 0;
+
     public DeviceAdapter(int layoutResId, @Nullable List<DeviceBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, DeviceBean deviceBean) {
+
         baseViewHolder.setText(R.id.tv_device_name,deviceBean.deviceName);
+
+        if (mClickPos == baseViewHolder.getAdapterPosition()){
+            baseViewHolder.setBackgroundResource(R.id.tv_device_name,R.drawable.bg_venue_line);
+        }else {
+            baseViewHolder.setBackgroundResource(R.id.tv_device_name,R.drawable.bg_input_text);
+        }
+
     }
+
+
+    public void setClickPos(int position){
+        mClickPos = position;
+        notifyDataSetChanged();
+    }
+
 }

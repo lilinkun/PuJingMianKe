@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -38,6 +40,7 @@ import cn.com.pujing.util.Urls;
 
 /**
  * 照片墙
+ * @author liguo
  */
 public class PhotoWallActivity extends BaseActivity implements View.OnClickListener {
     private NodeSectionAdapter nodeSectionAdapter;
@@ -63,8 +66,6 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.iv_back).setOnClickListener(this);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-//        recyclerView.addItemDecoration(new DividerItemDecoration(getBaseContext(), DividerItemDecoration.VERTICAL));
         nodeSectionAdapter = new NodeSectionAdapter();
         recyclerView.setAdapter(nodeSectionAdapter);
         nodeSectionAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
@@ -138,7 +139,7 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                 baseNodes = getEntity(photoWall.data.records);
                 nodeSectionAdapter.setNewInstance(baseNodes);
             }else if (response.body() instanceof ActivityDateAdd){
-                Toast.makeText(this,R.string.collect_success_tip,Toast.LENGTH_LONG).show();
+//                Toast.makeText(this,R.string.collect_success_tip,Toast.LENGTH_LONG).show();
             }
         }
     }

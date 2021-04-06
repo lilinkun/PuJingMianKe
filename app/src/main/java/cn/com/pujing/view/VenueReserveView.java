@@ -12,7 +12,10 @@ import cn.com.pujing.entity.ReserveDeviceBean;
  */
 public interface VenueReserveView {
     public void getDeviceListSuccess(List<DeviceBean> deviceBeans);
+
     public void getDeviceFail(String msg);
 
     public void getReserveDevice(ReserveDeviceBean reserveDeviceBean);
+
+    public void getReserveDeviceFail(String msg);
 }

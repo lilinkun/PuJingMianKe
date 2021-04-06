@@ -69,7 +69,7 @@ public class RightsAndInterestsActivity extends BaseActivity<RightsAndInterestsV
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(RightsAndInterestsActivity.this,RightsAndInterestsDetailActivity.class);
-                intent.putExtra("id",rightsAndInterestsBeans.get(position).id);
+                intent.putExtra("rightsandinterestsbean",rightsAndInterestsBeans.get(position));
                 startActivity(intent);
             }
         });

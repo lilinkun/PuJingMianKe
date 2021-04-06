@@ -1,6 +1,7 @@
 package cn.com.pujing.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.RestMealBean;
@@ -22,9 +23,9 @@ public class VenuePresenter extends BasePresenter<VenueView> {
         PujingService.getVenueType()
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<ArrayList<VenueBean>>() {
+                .subscribe(new RxObserver<VenueBean>() {
                     @Override
-                    public void _onNext(ArrayList<VenueBean> venueBeans) {
+                    public void _onNext(VenueBean venueBeans) {
                         getView().getVenueType(venueBeans);
                     }
 

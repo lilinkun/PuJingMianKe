@@ -1,6 +1,7 @@
 package cn.com.pujing.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * author : liguo
@@ -8,6 +9,12 @@ import java.io.Serializable;
  * description :
  */
 public class VenueBean implements Serializable {
-    public String venueId;
-    public String venueName;
+
+    public List<Records> records;
+
+    public class Records implements Serializable{
+
+        public String id;
+        public String name;
+    }
 }

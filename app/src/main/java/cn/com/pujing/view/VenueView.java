@@ -11,7 +11,7 @@ import cn.com.pujing.entity.VenueBean;
  */
 public interface VenueView {
 
-    public void getVenueType(ArrayList<VenueBean> venueBeans);
+    public void getVenueType(VenueBean venueBeans);
 
     public void getVenueFail(String msg);
 

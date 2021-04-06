@@ -46,13 +46,13 @@ public class RestSortAdapter extends BaseQuickAdapter<BanquetBean.CategoryList, 
         if (baseViewHolder.getAdapterPosition() == checkedPosition) {
             mView.setBackgroundColor(context.getResources().getColor(R.color.white));
             tvName.setTextColor(context.getResources().getColor(R.color.black));
-            tvName.setTextSize(16);
+            tvName.setTextSize(20);
             tp.setFakeBoldText(true);
             baseViewHolder.setVisible(R.id.view_rest_line, true);
         } else {
             mView.setBackgroundColor(context.getResources().getColor(R.color.gray_line));
             tvName.setTextColor(context.getResources().getColor(R.color.text_black));
-            tvName.setTextSize(14);
+            tvName.setTextSize(16);
             tp.setFakeBoldText(false);
             baseViewHolder.setVisible(R.id.view_rest_line, false);
         }

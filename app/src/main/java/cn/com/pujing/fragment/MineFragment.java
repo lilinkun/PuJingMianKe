@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.HealthCenterActivity;
+import cn.com.pujing.activity.MyBillActivity;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.MyMsgActivity;
 import cn.com.pujing.activity.MyOrderActivity;
@@ -110,10 +111,10 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             }
 //            Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.my_bill) {
-//            startActivity(new Intent(getContext(), MyBillActivity.class));
 
             if (!PuJingUtils.isFastDoubleClick()) {
-                Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), MyBillActivity.class));
+//                Toast.makeText(getContext(), R.string.comming_soon, Toast.LENGTH_SHORT).show();
             }
         }
     }

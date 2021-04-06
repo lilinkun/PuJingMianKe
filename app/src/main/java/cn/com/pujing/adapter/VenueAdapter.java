@@ -18,14 +18,14 @@ import cn.com.pujing.entity.VenueBean;
  * date : 2021/4/2 14:11
  * description :
  */
-public class VenueAdapter extends BaseQuickAdapter<VenueBean, BaseViewHolder> {
+public class VenueAdapter extends BaseQuickAdapter<VenueBean.Records, BaseViewHolder> {
 
-    public VenueAdapter(int layoutResId, @Nullable List<VenueBean> data) {
+    public VenueAdapter(int layoutResId, @Nullable List<VenueBean.Records> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, VenueBean venueBean) {
-        baseViewHolder.setText(R.id.tv_venue_name,venueBean.venueName);
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, VenueBean.Records venueBean) {
+        baseViewHolder.setText(R.id.tv_venue_name,venueBean.name);
     }
 }

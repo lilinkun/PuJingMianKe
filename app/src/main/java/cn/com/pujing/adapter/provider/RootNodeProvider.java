@@ -26,6 +26,11 @@ public class RootNodeProvider extends BaseNodeProvider {
     public void convert(@NotNull BaseViewHolder helper, @Nullable BaseNode data) {
         RootNode rootNode = (RootNode) data;
         helper.setText(R.id.tv_title, rootNode.title);
-        helper.setText(R.id.tv_content, rootNode.content);
+        if (rootNode.content == null || rootNode.content.trim().toString().length() == 0){
+            helper.setVisible(R.id.tv_content,false);
+        }else {
+            helper.setText(R.id.tv_content, rootNode.content);
+            helper.setVisible(R.id.tv_content,true);
+        }
     }
 }

@@ -16,11 +16,13 @@ import com.gyf.immersionbar.ImmersionBar;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.VenueAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.presenter.VenuePresenter;
+import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueView;
 
@@ -35,7 +37,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     RecyclerView rvVenue;
 
     private VenueAdapter venueAdapter;
-    private ArrayList<VenueBean> venueBeans;
+    private VenueBean venueBeans;
 
     @Override
     public int getLayoutId() {
@@ -46,6 +48,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     public void initView() {
         mPresenter.getVenueType();
 
+        ActivityUtil.addHomeActivity(this);
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
@@ -63,7 +66,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
 
                 Intent intent = new Intent();
                 intent.setClass(VenueActivity.this,VenueReserveActivity.class);
-                intent.putExtra("venue",venueBeans.get(position));
+                intent.putExtra("venue",venueBeans.records.get(position));
                 startActivity(intent);
 
 
@@ -78,13 +81,27 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     }
 
     @Override
-    public void getVenueType(ArrayList<VenueBean> venueBeans) {
+    public void getVenueType(VenueBean venueBeans) {
         this.venueBeans = venueBeans;
-        venueAdapter.setNewInstance(venueBeans);
+        venueAdapter.setNewInstance(venueBeans.records);
     }
 
     @Override
     public void getVenueFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @OnClick({R.id.iv_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iv_back:
+
+                finish();
+
+                break;
+
+            default:
+                break;
+        }
     }
 }

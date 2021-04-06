@@ -39,6 +39,7 @@ import cn.com.pujing.entity.RestMealTypeBean;
 import cn.com.pujing.entity.RestOrderBean;
 import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.RightsAndInterestsBean;
+import cn.com.pujing.entity.RightsVoucherVoBean;
 import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.entity.VenueBean;
@@ -55,14 +56,14 @@ import io.reactivex.Observable;
 public class PujingService {
 
 //    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
-    public static final String PREFIX = "http://172.18.9.214"; // 勇
+//    public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
@@ -164,11 +165,15 @@ public class PujingService {
     //小标识
     public static String IDENTIFICATION = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetFlag";
     //获取所有的场馆名
-    public static String VENUETYPE = PREFIX + "/life-service/serviceVenueManage/selectAllVenueName";
+    public static String VENUETYPE = PREFIX + "/life-service/serviceVenueManage/page";
     //获取所有的设备名
     public static String DEVICELIST = PREFIX + "/life-service/serviceVenueManage/selectAllDeviceName";
     //预约设备
     public static String RESERVEDEVICE = PREFIX + "/life-service/serviceVenueOrder/queryReserveTime";
+    //预约场馆
+    public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder";
+    //服务
+    public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage";
 
 
 
@@ -672,12 +677,12 @@ public class PujingService {
     /**
      * 获取权益包详情
      */
-    public static Observable<ResponseData<RightsAndInterestsBean>> getRightsAndInterests(String id){
+    public static Observable<ResponseData<RightsAndInterestsBean<List<RightsVoucherVoBean>>>> getRightsAndInterests(String id){
 
-            return OkGo.<ResponseData<RightsAndInterestsBean>>get(RIGHTSANDINTERESTSDETAIL+id)
-                    .converter(new JsonConvert<ResponseData<RightsAndInterestsBean>>() {
+            return OkGo.<ResponseData<RightsAndInterestsBean<List<RightsVoucherVoBean>>>>get(RIGHTSANDINTERESTSDETAIL+id)
+                    .converter(new JsonConvert<ResponseData<RightsAndInterestsBean<List<RightsVoucherVoBean>>>>() {
                     })
-                    .adapt(new ObservableBody<ResponseData<RightsAndInterestsBean>>());
+                    .adapt(new ObservableBody<ResponseData<RightsAndInterestsBean<List<RightsVoucherVoBean>>>>());
 
     }
 
@@ -697,12 +702,12 @@ public class PujingService {
     /**
      * 所有的场馆名
      */
-    public static Observable<ResponseData<ArrayList<VenueBean>>> getVenueType(){
+    public static Observable<ResponseData<VenueBean>> getVenueType(){
 
-            return OkGo.<ResponseData<ArrayList<VenueBean>>>get(VENUETYPE)
-                    .converter(new JsonConvert<ResponseData<ArrayList<VenueBean>>>() {
+            return OkGo.<ResponseData<VenueBean>>get(VENUETYPE)
+                    .converter(new JsonConvert<ResponseData<VenueBean>>() {
                     })
-                    .adapt(new ObservableBody<ResponseData<ArrayList<VenueBean>>>());
+                    .adapt(new ObservableBody<ResponseData<VenueBean>>());
 
     }
 
@@ -720,7 +725,7 @@ public class PujingService {
     }
 
     /**
-     * 所有的场馆名
+     * 预约设备
      */
     public static Observable<ResponseData<ReserveDeviceBean>> reserveDevice(String venueId, String deviceId, String reserveDate){
 
@@ -732,6 +737,38 @@ public class PujingService {
                     })
                     .adapt(new ObservableBody<ResponseData<ReserveDeviceBean>>());
 
+    }
+
+    /**
+     * 预约场馆
+     */
+    public static Observable<ResponseData<Boolean>> reserveSure(String venueId, String deviceId, String reserveDate,String reserveTime){
+
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("deviceId", deviceId+"");
+        params.put("reserveDate", reserveDate+"");
+        params.put("reserveTime",reserveTime+"");
+        params.put("venueId",venueId+"");
+
+        JSONObject jsonObject = new JSONObject(params);
+
+        return OkGo.<ResponseData<Boolean>>post(SERVICEVENUEORDER)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<Boolean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Boolean>>());
+    }
+
+    /**
+     * 服务
+     */
+    public static Observable<ResponseData<Object>> getService(){
+
+        return OkGo.<ResponseData<Object>>get(SERVICE)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
     }
 
 }

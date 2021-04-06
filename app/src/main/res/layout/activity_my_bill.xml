@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <View
-        android:id="@+id/v_title_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@color/main_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:background="@color/main_color"
+       >
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,64 +18,164 @@
         android:text="@string/my_bill"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
-        app:layout_constraintEnd_toEndOf="@id/v_title_bar"
-        app:layout_constraintStart_toStartOf="@id/v_title_bar"
-        app:layout_constraintTop_toTopOf="@id/v_title_bar" />
+        android:layout_centerInParent="true"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
         android:src="@mipmap/ic_back"
-        app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
-        app:layout_constraintStart_toStartOf="@id/v_title_bar"
-        app:layout_constraintTop_toTopOf="@id/v_title_bar" />
+        android:layout_centerVertical="true"
+         />
+   </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_type"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_spinner"
-        android:drawableRight="@mipmap/ic_arrow_down"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/paied_bill"
-        android:textColor="@color/text_gray"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        >
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/iv_pujing_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_pujing_user"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_pujing_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尊敬的璞境用户"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_pujing_user"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史账单"
+            android:textColor="#ff999999"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/iv_go_bill"
+            android:layout_marginEnd="@dimen/dp_10"
+            />
+
+        <ImageView
+            android:id="@+id/iv_go_bill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_go_bill"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/shape_spinner"
-        android:drawableRight="@mipmap/ic_calendar_another"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="1dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="1dp"
-        android:text="2016/05/11-2016/06/11"
-        android:textColor="@color/text_gray"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_title_bar" />
+        android:orientation="horizontal"
+        >
 
-    <FrameLayout
-        android:id="@+id/fl"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_type" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="当期账单\n（02/01-02/28）"
+            android:gravity="center"
+            android:textColor="@color/main_color"
+            android:textSize="14sp"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/bg_venue_line"
+            android:layout_margin="20dp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未出账单\n（03/01-至今）"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/shape_health_frame"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:layout_margin="20dp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@drawable/bg_bill_title"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本月已结清"
+            android:textColor="#ffffffff"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/dp_10"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本月无需再还"
+            android:textColor="#ffffffff"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#eeeeee"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

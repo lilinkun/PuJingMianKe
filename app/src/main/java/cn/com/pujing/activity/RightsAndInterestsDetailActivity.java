@@ -1,7 +1,11 @@
 package cn.com.pujing.activity;
 
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.List;
 
@@ -12,6 +16,7 @@ import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RightsVoucherVoBean;
 import cn.com.pujing.presenter.RightsAndInterestsDetailPresenter;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RightsAndInterestsDetailView;
 
@@ -24,6 +29,12 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
 
     @BindView(R.id.rv_rights_and_interests_details)
     RecyclerView rvRightsAndInterestsDetails;
+    @BindView(R.id.tv_coupon_name)
+    TextView tvCouponName;
+    @BindView(R.id.tv_coupon_content)
+    TextView tvCouponContent;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
 
     private RightsAndInterestsDetailAdapter rightsAndInterestsDetailAdapter;
 
@@ -35,9 +46,12 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
     @Override
     public void initView() {
 
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
+
+
         rightsAndInterestsDetailAdapter = new RightsAndInterestsDetailAdapter(R.layout.adapter_rights_and_interests_detail,null);
 
-        String id = getIntent().getStringExtra("id");
+        RightsAndInterestsBean rightsandinterestsbean = (RightsAndInterestsBean) getIntent().getSerializableExtra("rightsandinterestsbean");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -46,7 +60,11 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
 
         rvRightsAndInterestsDetails.setAdapter(rightsAndInterestsDetailAdapter);
 
-        mPresenter.getRightsAndInterestsData(id);
+        mPresenter.getRightsAndInterestsData(rightsandinterestsbean.id+"");
+
+        tvCouponName.setText(rightsandinterestsbean.name);
+        tvCouponContent.setText("心动体验价，限购" + rightsandinterestsbean.quotaNumber + "次");
+        tvPrice.setText("￥" + PuJingUtils.removeAmtLastZero(rightsandinterestsbean.price));
     }
 
     @Override

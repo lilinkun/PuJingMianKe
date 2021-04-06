@@ -1,6 +1,9 @@
 package cn.com.pujing.view;
 
+import java.util.List;
+
 import cn.com.pujing.entity.RightsAndInterestsBean;
+import cn.com.pujing.entity.RightsVoucherVoBean;
 
 /**
  * author : liguo
@@ -10,7 +13,7 @@ import cn.com.pujing.entity.RightsAndInterestsBean;
 public interface RightsAndInterestsDetailView {
 
 
-    public void getRightsAndInterestsListSuccess(RightsAndInterestsBean rightsAndInterestsBean);
+    public void getRightsAndInterestsListSuccess(RightsAndInterestsBean<List<RightsVoucherVoBean>> rightsAndInterestsBean);
 
     public void getDataFail(String msg);
 

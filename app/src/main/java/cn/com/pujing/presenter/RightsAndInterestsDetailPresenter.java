@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.RightsAndInterestsBean;
+import cn.com.pujing.entity.RightsVoucherVoBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
@@ -24,9 +25,9 @@ public class RightsAndInterestsDetailPresenter extends BasePresenter<RightsAndIn
         PujingService.getRightsAndInterests(id)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<RightsAndInterestsBean>() {
+                .subscribe(new RxObserver<RightsAndInterestsBean<List<RightsVoucherVoBean>>>() {
                     @Override
-                    public void _onNext(RightsAndInterestsBean rightsAndInterestsBeans) {
+                    public void _onNext(RightsAndInterestsBean<List<RightsVoucherVoBean>> rightsAndInterestsBeans) {
                         getView().getRightsAndInterestsListSuccess(rightsAndInterestsBeans);
                     }
 
