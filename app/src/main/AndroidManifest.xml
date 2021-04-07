@@ -93,5 +93,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.VenueReserveSureActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.InvalidCouponActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

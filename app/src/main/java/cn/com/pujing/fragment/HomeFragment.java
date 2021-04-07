@@ -275,7 +275,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             imageNetAdapter.setDatas(bannerBeans);
             imageNetAdapter.notifyDataSetChanged();
         }else {
-            banner.setVisibility(View.GONE);
+//            banner.setVisibility(View.GONE);
         }
     }
 

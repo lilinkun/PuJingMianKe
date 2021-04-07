@@ -1,7 +1,10 @@
 package cn.com.pujing.presenter;
 
+import java.util.List;
+
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.RestDetailBean;
+import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
@@ -22,9 +25,10 @@ public class LifeServicePresenter extends BasePresenter<LifeServiceView> {
         PujingService.getService()
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<Object>() {
+                .subscribe(new RxObserver<List<ServiceBean>>() {
                     @Override
-                    public void _onNext(Object restDetailBean) {
+                    public void _onNext(List<ServiceBean> serviceBeans) {
+                        getView().getServiceDataSuccess(serviceBeans);
                     }
 
                     @Override

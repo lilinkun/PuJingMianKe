@@ -147,6 +147,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_upload_prompt" />
 
     <TextView
+        android:id="@+id/tv_upload_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加/更改"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:background="@drawable/shape_add_rest"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_upload"
+        app:layout_constraintStart_toStartOf="@+id/iv_upload"
+        app:layout_constraintEnd_toEndOf="@+id/iv_upload"
+        />
+
+    <TextView
         android:id="@+id/tv_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

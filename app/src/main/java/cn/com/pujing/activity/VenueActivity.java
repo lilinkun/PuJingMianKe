@@ -2,8 +2,6 @@ package cn.com.pujing.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,17 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
-
-import java.util.ArrayList;
+import com.youth.banner.Banner;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.listener.OnBannerListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.VenueAdapter;
+import cn.com.pujing.adapter.VenueImageNetAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.VenueBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.VenuePresenter;
 import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueView;
 
@@ -35,9 +39,12 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
 
     @BindView(R.id.rv_venue)
     RecyclerView rvVenue;
+    @BindView(R.id.banner_venue)
+    Banner bannerVenue;
 
     private VenueAdapter venueAdapter;
     private VenueBean venueBeans;
+    private VenueImageNetAdapter imageNetAdapter;
 
     @Override
     public int getLayoutId() {
@@ -60,13 +67,32 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
         rvVenue.setLayoutManager(linearLayoutManager);
         rvVenue.setAdapter(venueAdapter);
 
+
+        imageNetAdapter = new VenueImageNetAdapter(null);
+        bannerVenue.setAdapter(imageNetAdapter);
+        bannerVenue.setIndicator(new CircleIndicator(this));
+        bannerVenue.setIndicatorSelectedColor(getResources().getColor(R.color.white));
+        bannerVenue.setIndicatorSelectedColor(getResources().getColor(R.color.banner_normal));
+        bannerVenue.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+
+                Intent intent = new Intent();
+                intent.setClass(VenueActivity.this,VenueReserveActivity.class);
+                intent.putExtra("venue",venueBeans.serviceVenueManageList.get(position));
+                startActivity(intent);
+
+            }
+        });
+
+
         venueAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
                 Intent intent = new Intent();
                 intent.setClass(VenueActivity.this,VenueReserveActivity.class);
-                intent.putExtra("venue",venueBeans.records.get(position));
+                intent.putExtra("venue",venueBeans.serviceVenueManageList.get(position));
                 startActivity(intent);
 
 
@@ -83,7 +109,9 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     @Override
     public void getVenueType(VenueBean venueBeans) {
         this.venueBeans = venueBeans;
-        venueAdapter.setNewInstance(venueBeans.records);
+        venueAdapter.setNewInstance(venueBeans.serviceVenueManageList);
+        imageNetAdapter.setDatas(venueBeans.serviceVenueManageList);
+        imageNetAdapter.notifyDataSetChanged();
     }
 
     @Override

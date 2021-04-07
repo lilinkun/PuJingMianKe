@@ -22,6 +22,7 @@ import com.gyf.immersionbar.ImmersionBar;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ import cn.com.pujing.util.UploadFile;
 import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
+import cn.com.pujing.widget.ShowImagesDialog;
 
 public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener {
 
@@ -86,15 +88,27 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
 
     @Override
-    @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type})
+    @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type,R.id.tv_upload_image})
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.iv_back) {
             finish();
         } else if (id == R.id.iv_upload) {
+            if (filePath != null && filePath.trim().length() > 0){
+                List<String> strings = new ArrayList<>();
+                strings.add(filePath);
+                new ShowImagesDialog(this,strings,0,1).show();
+            }else {
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/* video/*");
+                startActivityForResult(intent, 110);
+            }
+        } else if (id == R.id.tv_upload_image) {
             Intent intent = new Intent(Intent.ACTION_PICK, null);
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/* video/*");
             startActivityForResult(intent, 110);
 
         } else if (id == R.id.tv_submit) {
@@ -140,9 +154,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                     Uri uri = data.getData();
                     filePath = FileUtils.getFilePathByUri(this, uri);
 
-                    Glide.with(this)
-                            .load(filePath)
-                            .into(uploadImageView);
+                    Glide.with(this).load(filePath).into(uploadImageView);
                 }
 
                 break;

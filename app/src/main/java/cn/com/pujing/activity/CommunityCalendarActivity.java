@@ -1,11 +1,15 @@
 package cn.com.pujing.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
@@ -20,7 +24,9 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.QuerySelectDayBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.CommunityCalendarPresenter;
+import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.view.CommunityCalendarView;
 
@@ -39,6 +45,7 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
     private int curYear;
     private int curMonth;
     private AnotherExerciseAdapter anotherExerciseAdapter;
+    private List<QuerySelectDayBean> querySelectDayBeans;
 
     @Override
     public int getLayoutId() {
@@ -95,6 +102,15 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
         rvCommunityCalendar.setAdapter(anotherExerciseAdapter);
         anotherExerciseAdapter.setEmptyView(R.layout.empty_view);
+
+        anotherExerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(CommunityCalendarActivity.this, WebviewActivity.class);
+                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + querySelectDayBeans.get(position).activityId);
+                startActivity(intent);
+            }
+        });
 
 
         mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),1);
@@ -162,7 +178,7 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
 
     @Override
     public void getDaySuccess(List<QuerySelectDayBean> querySelectDayBeans) {
-
+        this.querySelectDayBeans = querySelectDayBeans;
         anotherExerciseAdapter.setNewInstance(querySelectDayBeans);
     }
 }

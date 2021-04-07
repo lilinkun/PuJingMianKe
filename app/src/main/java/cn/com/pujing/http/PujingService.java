@@ -25,6 +25,7 @@ import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
 import cn.com.pujing.entity.LoginToken;
+import cn.com.pujing.entity.MyCardBean;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.PhotoBean;
@@ -41,6 +42,7 @@ import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RightsVoucherVoBean;
 import cn.com.pujing.entity.RoutineRecordBean;
+import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.http.convert.JsonConvert;
@@ -56,14 +58,15 @@ import io.reactivex.Observable;
 public class PujingService {
 
 //    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
-//                public static final String PREFIX = "http://172.18.9.235"; // 君
+                public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
 //    public static final String PREFIX = "http://172.18.9.214"; // 勇
+//    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
 //    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
@@ -165,7 +168,7 @@ public class PujingService {
     //小标识
     public static String IDENTIFICATION = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetFlag";
     //获取所有的场馆名
-    public static String VENUETYPE = PREFIX + "/life-service/serviceVenueManage/page";
+    public static String VENUETYPE = PREFIX + "/life-service/serviceVenueManage/findAllManageInfo";
     //获取所有的设备名
     public static String DEVICELIST = PREFIX + "/life-service/serviceVenueManage/selectAllDeviceName";
     //预约设备
@@ -174,6 +177,10 @@ public class PujingService {
     public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder";
     //服务
     public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage";
+    //我的卡包
+    public static String MYCARD = PREFIX + "/life-service/serviceCustomerVoucher/getMyVoucherList";
+    //失效券
+    public static String INVALIDCOUPON = PREFIX + "/life-service/serviceCustomerVoucher/getMyInvalidVoucherList";
 
 
 
@@ -763,12 +770,30 @@ public class PujingService {
     /**
      * 服务
      */
-    public static Observable<ResponseData<Object>> getService(){
+    public static Observable<ResponseData<List<ServiceBean>>> getService(){
 
-        return OkGo.<ResponseData<Object>>get(SERVICE)
-                .converter(new JsonConvert<ResponseData<Object>>() {
+        return OkGo.<ResponseData<List<ServiceBean>>>get(SERVICE)
+                .converter(new JsonConvert<ResponseData<List<ServiceBean>>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<Object>>());
+                .adapt(new ObservableBody<ResponseData<List<ServiceBean>>>());
+    }
+
+    /**
+     * 我的卡包
+     */
+    public static Observable<ResponseData<List<MyCardBean>>> getMycard(int type){
+
+        String url = "";
+        if(type == 0){
+            url = MYCARD;
+        }else {
+            url = INVALIDCOUPON;
+        }
+
+        return OkGo.<ResponseData<List<MyCardBean>>>get(url)
+                .converter(new JsonConvert<ResponseData<List<MyCardBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<MyCardBean>>>());
     }
 
 }

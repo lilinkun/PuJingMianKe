@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -18,7 +17,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
-import cn.com.pujing.activity.HealthCenterActivity;
 import cn.com.pujing.activity.MyBillActivity;
 import cn.com.pujing.activity.MyCalendarActivity;
 import cn.com.pujing.activity.MyMsgActivity;
@@ -57,6 +55,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             Glide.with(getContext())
                     .load(avatar)
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                    .error(R.mipmap.ic_login_head)
                     .into(headImageView);
         }
 
@@ -74,6 +73,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 Glide.with(getContext())
                         .load(avatar)
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                        .error(R.mipmap.ic_login_head)
                         .into(headImageView);
             }
         }
@@ -147,6 +147,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             Glide.with(getContext())
                     .load(myInfoBean.getAvatar())
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                    .error(R.mipmap.ic_login_head)
                     .into(headImageView);
             Methods.saveKeyValue(Constants.AVATAR, myInfoBean.getAvatar(), getContext());
         }

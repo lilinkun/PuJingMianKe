@@ -1,14 +1,16 @@
 package cn.com.pujing.activity;
 
-import android.os.Looper;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
@@ -23,22 +25,20 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.Base;
-import cn.com.pujing.entity.QuerySelectDayBean;
-import cn.com.pujing.http.PujingService;
-import cn.com.pujing.presenter.CommunityCalendarPresenter;
-import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Methods;
 import cn.com.pujing.R;
-import cn.com.pujing.util.Urls;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityDate;
 import cn.com.pujing.entity.ActivityDateAdd;
+import cn.com.pujing.entity.Base;
 import cn.com.pujing.entity.QuerySelectDay;
+import cn.com.pujing.entity.QuerySelectDayBean;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
+import cn.com.pujing.http.PujingService;
+import cn.com.pujing.presenter.CommunityCalendarPresenter;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.Methods;
 import cn.com.pujing.view.CommunityCalendarView;
 
 /**
@@ -61,6 +61,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
     private int selectedDay;
     private String selectDay;
     private AnotherExerciseAdapter anotherExerciseAdapter;
+    private List<QuerySelectDayBean> querySelectDayBeans;
 
     @Override
     public int getLayoutId() {
@@ -124,6 +125,16 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 //        AnotherExerciseAdapter anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, AnotherExerciseItem.getTestData());
         anotherExerciseAdapter = new AnotherExerciseAdapter(R.layout.item_exercise_another, null);
+
+
+        anotherExerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(MyCalendarActivity.this, WebviewActivity.class);
+                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + querySelectDayBeans.get(position).activityId);
+                startActivity(intent);
+            }
+        });
 
 
         recyclerView.setAdapter(anotherExerciseAdapter);
@@ -263,6 +274,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
     @Override
     public void getDaySuccess(List<QuerySelectDayBean> querySelectDayBeans) {
-                anotherExerciseAdapter.setNewInstance(querySelectDayBeans);
+        this.querySelectDayBeans = querySelectDayBeans;
+        anotherExerciseAdapter.setNewInstance(querySelectDayBeans);
     }
 }

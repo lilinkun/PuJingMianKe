@@ -54,8 +54,6 @@ public class FeedbackPopup extends PopupWindow {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        strings = Arrays.asList(conentView.getResources().getStringArray(R.array.feedback_type));
-
         FeedbackPopAdapter feedbackPopAdapter = new FeedbackPopAdapter(R.layout.adapter_popup_feedback, opinionTypeBeans);
 
         recyclerView.setAdapter(feedbackPopAdapter);
@@ -63,7 +61,7 @@ public class FeedbackPopup extends PopupWindow {
         feedbackPopAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                feedbackTypeClickListener.setItemValue(strings.get(position),position);
+                feedbackTypeClickListener.setItemValue(opinionTypeBeans.get(position).label,position);
                 dismiss();
             }
         });

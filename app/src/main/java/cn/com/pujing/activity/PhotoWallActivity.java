@@ -21,6 +21,7 @@ import com.lzy.okgo.model.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ import cn.com.pujing.entity.section.RootFooterNode;
 import cn.com.pujing.entity.section.RootNode;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
+import cn.com.pujing.widget.ShowImagesDialog;
 
 /**
  * 照片墙
@@ -80,10 +82,18 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                         if (strings != null) {
 //                            ImgViewDialogFragment imgViewDialogFragment = new ImgViewDialogFragment(itemNode.pos, strings);
 //                            imgViewDialogFragment.show(getSupportFragmentManager(), "");
-                            Intent intent = new Intent(PhotoWallActivity.this,ShowPhotoActivity.class);
+                            /*Intent intent = new Intent(PhotoWallActivity.this,ShowPhotoActivity.class);
                             intent.putExtra("showphoto",strings);
                             intent.putExtra("pos",itemNode.pos);
-                            startActivity(intent);
+                            startActivity(intent);*/
+                            if (strings.length > 9){
+                                Intent intent = new Intent(PhotoWallActivity.this,ShowPhotoActivity.class);
+                                intent.putExtra("showphoto",strings);
+                                intent.putExtra("pos",itemNode.pos);
+                                startActivity(intent);
+                            }else {
+                                new ShowImagesDialog(PhotoWallActivity.this, Arrays.asList(strings), itemNode.pos, 0).show();
+                            }
                         }
                     }
                 }else {

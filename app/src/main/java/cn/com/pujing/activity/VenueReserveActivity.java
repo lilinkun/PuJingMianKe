@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
+import com.youth.banner.util.BannerUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -90,6 +92,11 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         tvVenue.setText(venueBean.name);
 
         mPresenter.getDevice(venueBean.id);
+
+        //通过裁剪实现圆角
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            BannerUtils.setBannerRound(ivVenuePic, 15);
+        }
 
         deviceAdapter = new DeviceAdapter(R.layout.adapter_device,null);
 
@@ -219,8 +226,10 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         tvReserveTime.setText("");
         ClickPos = -1;
 
-        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG+reserveDeviceBean.venueManage.topic).into(ivVenuePic);
-
+        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG+reserveDeviceBean.venueManage.topic)
+                .thumbnail(Glide.with(this).load(R.drawable.loading)).error(R.drawable.ic_no_pic)
+//                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                .into(ivVenuePic);
         tvSize.setText(reserveDeviceBean.venueManage.area + "平方米");
         tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "人");
         tvAddress.setText(reserveDeviceBean.venueManage.address + "楼");

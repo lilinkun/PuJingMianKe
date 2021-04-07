@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.RightsAndInterestsDetailAdapter;
 import cn.com.pujing.base.BaseActivity;
@@ -35,6 +37,8 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
     TextView tvCouponContent;
     @BindView(R.id.tv_price)
     TextView tvPrice;
+    @BindView(R.id.tv_rightsDescription)
+    TextView tvRightsDescription;
 
     private RightsAndInterestsDetailAdapter rightsAndInterestsDetailAdapter;
 
@@ -75,10 +79,18 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
     @Override
     public void getRightsAndInterestsListSuccess(RightsAndInterestsBean rightsAndInterestsBean) {
         rightsAndInterestsDetailAdapter.setNewInstance((List<RightsVoucherVoBean>) rightsAndInterestsBean.rightsVoucherVoList);
+        tvRightsDescription.setText(rightsAndInterestsBean.rightsDescription);
     }
 
     @Override
     public void getDataFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @OnClick({R.id.iv_back})
+    public void onClick(View view){
+        if (view.getId() == R.id.iv_back){
+            finish();
+        }
     }
 }

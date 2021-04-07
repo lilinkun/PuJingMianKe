@@ -82,6 +82,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
             Glide.with(this)
                     .load(avatar)
                     .apply(PuJingUtils.setGlideCircle(10))
+                    .error(R.mipmap.ic_login_head)
                     .into(headImageView);
         }
 
@@ -144,7 +145,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
             case R.id.rl_personal_birthday:
 //                modifyInfo(3);
                 Calendar c = Calendar.getInstance();
-                Dialog dialog = new DatePickerDialog(
+                DatePickerDialog dialog = new DatePickerDialog(
                         this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -161,6 +162,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                         // 传入天数
                         c.get(Calendar.DAY_OF_MONTH)
                 );
+                dialog.updateDate(1950,00,01);
 
                 dialog.show();
                 break;
@@ -274,6 +276,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
         Glide.with(ProfileActivity.this)
                 .load(avatar)
                 .apply(PuJingUtils.setGlideCircle(10))
+                .error(R.mipmap.ic_login_head)
                 .into(headImageView);
         Methods.saveKeyValue(Constants.AVATAR, String.valueOf(avatar), this);
         setResult(RESULT_OK);
@@ -288,6 +291,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
         Glide.with(ProfileActivity.this)
                 .load(accessUrl)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                .error(R.mipmap.ic_login_head)
                 .into(headImageView);
 
         mPresenter.modifyHeadImg(jsonObject);

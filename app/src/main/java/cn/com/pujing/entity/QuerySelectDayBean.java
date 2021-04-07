@@ -8,4 +8,5 @@ package cn.com.pujing.entity;
 public class QuerySelectDayBean {
     public String content;
     public String timeSlot;
+    public String activityId;
 }

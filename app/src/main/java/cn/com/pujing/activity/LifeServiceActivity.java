@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.HealthCenterAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.HealthCenterBean;
+import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.presenter.LifeServicePresenter;
 import cn.com.pujing.view.LifeServiceView;
 
@@ -72,5 +76,25 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
     @Override
     public void getDataFail(String msg) {
 
+    }
+
+    @Override
+    public void getServiceDataSuccess(List<ServiceBean> serviceBeans) {
+
+    }
+
+    @OnClick({R.id.iv_lifeservice_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iv_lifeservice_back:
+
+                finish();
+
+                break;
+
+            default:
+
+                break;
+        }
     }
 }

@@ -16,6 +16,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:src="@mipmap/ic_back"
             android:layout_centerVertical="true"
             />
@@ -55,12 +57,9 @@
         />
 
     <TextView
+        android:id="@+id/tv_rightsDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1、绑卡即享商城价值498元优惠券活动：
-活动对象：成功申请浦发库支票信用卡的客户（下称“持卡人”）
-活动内容：即日起至2017年12月31日，浦发库支票信用卡持卡人首次在APP完成分期支付功能绑定，可获得价值1000元寺库商城优惠券（共三张，分别为满1000元减150元、满3000元减300元、满5000元减550元）。其中，2017年7月1日至2017年7月12日完成库支票分期支付功能首次绑定的持卡人可叠加获得满3000元减800元寺库商城优惠券。
-、"
         android:textColor="#ff000000"
         android:textSize="14sp"
         android:layout_margin="@dimen/dp_10"
