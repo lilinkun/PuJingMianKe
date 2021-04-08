@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,15 +12,11 @@ import java.util.List;
  * date : 2021/4/7 16:15
  * description :
  */
-public class BasicServiceVoListBean extends BaseNode {
+public class BasicServiceVoListBean implements Serializable {
     public int id;
     public String name;
     public int type;
     public String content;
+    public String themePic;
 
-    @Nullable
-    @Override
-    public List<BaseNode> getChildNode() {
-        return null;
-    }
 }

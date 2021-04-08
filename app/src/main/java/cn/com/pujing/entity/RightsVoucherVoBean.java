@@ -11,4 +11,9 @@ public class RightsVoucherVoBean implements Serializable {
     public String quantity;
     public String rightsVoucherId;
     public String voucherName;
+    public int deductMethod;
+    // 1 满减  0 直接抵扣
+    public int fullReductionFlag;
+    public double fullReductionThreshold;
+    public double deductAmount;
 }

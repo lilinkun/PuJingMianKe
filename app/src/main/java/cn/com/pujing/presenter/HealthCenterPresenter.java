@@ -1,6 +1,13 @@
 package cn.com.pujing.presenter;
 
+import java.util.List;
+
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.ServiceBean;
+import cn.com.pujing.http.PujingService;
+import cn.com.pujing.http.rxjavahelper.RxObserver;
+import cn.com.pujing.http.rxjavahelper.RxResultHelper;
+import cn.com.pujing.http.rxjavahelper.RxSchedulersHelper;
 import cn.com.pujing.view.HealthCenterView;
 
 /**
@@ -9,4 +16,26 @@ import cn.com.pujing.view.HealthCenterView;
  * description :
  */
 public class HealthCenterPresenter extends BasePresenter<HealthCenterView> {
+
+
+    //健管中心
+    public void getService(){
+
+        PujingService.getService(2)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<List<ServiceBean>>() {
+                    @Override
+                    public void _onNext(List<ServiceBean> serviceBeans) {
+                        getView().getServiceDataSuccess(serviceBeans);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+
+    }
 }

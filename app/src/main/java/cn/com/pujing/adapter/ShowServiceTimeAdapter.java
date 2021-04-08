@@ -12,28 +12,29 @@ import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.activity.LifeTypeActivity;
-import cn.com.pujing.entity.ReserveDeviceBean;
+import cn.com.pujing.entity.ServicePutawayManageTimeBean;
+
 
 /**
  * author : liguo
- * date : 2021/4/6 11:38
+ * date : 2021/4/8 15:32
  * description :
  */
-public class ShowReserveTimeAdapter extends BaseQuickAdapter<ReserveDeviceBean.TimesReserveNumList, BaseViewHolder> {
+public class ShowServiceTimeAdapter extends BaseQuickAdapter<ServicePutawayManageTimeBean, BaseViewHolder> {
 
     private int mClickPos = -1;
 
-    public ShowReserveTimeAdapter(int layoutResId, @Nullable List<ReserveDeviceBean.TimesReserveNumList> data) {
+    public ShowServiceTimeAdapter(int layoutResId, @Nullable List<ServicePutawayManageTimeBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, ReserveDeviceBean.TimesReserveNumList timesReserveNumList) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, ServicePutawayManageTimeBean servicePutawayManageTimeBean) {
 
         RadioButton radioButton = baseViewHolder.getView(R.id.rb_show_reserve_time);
 
-        if (Integer.valueOf(timesReserveNumList.reserveNum) != 0) {
-            baseViewHolder.setText(R.id.tv_limit_person, "(剩余" + timesReserveNumList.reserveNum + ")");
+        if (Integer.valueOf(servicePutawayManageTimeBean.number) != 0) {
+            baseViewHolder.setText(R.id.tv_limit_person, "(剩余" + servicePutawayManageTimeBean.number + ")");
             baseViewHolder.setTextColorRes(R.id.tv_show_reserve_time,R.color.black);
             baseViewHolder.setEnabled(R.id.rb_show_reserve_time,true);
         }else {
@@ -50,7 +51,7 @@ public class ShowReserveTimeAdapter extends BaseQuickAdapter<ReserveDeviceBean.T
         }
 
 
-        baseViewHolder.setText(R.id.tv_show_reserve_time, timesReserveNumList.startEndTime);
+        baseViewHolder.setText(R.id.tv_show_reserve_time, servicePutawayManageTimeBean.timeQuantum);
 
     }
 

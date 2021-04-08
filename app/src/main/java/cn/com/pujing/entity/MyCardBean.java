@@ -32,19 +32,19 @@ public class MyCardBean implements Serializable {
     /**
      *优惠劵抵扣方式 1按次 2按费用
      */
-    public String deductMethod;
+    public int deductMethod;
     /**
      *抵扣费用
      */
-    public String deductAmount;
+    public double deductAmount;
     /**
      *1启用满减
      */
-    public String fullReductionFlag;
+    public int fullReductionFlag;
     /**
      *满减值
      */
-    public String fullReductionThreshold;
+    public double fullReductionThreshold;
 
 
 

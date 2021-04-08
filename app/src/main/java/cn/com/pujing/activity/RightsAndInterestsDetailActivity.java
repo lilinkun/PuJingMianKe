@@ -52,7 +52,6 @@ public class RightsAndInterestsDetailActivity extends BaseActivity<RightsAndInte
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-
         rightsAndInterestsDetailAdapter = new RightsAndInterestsDetailAdapter(R.layout.adapter_rights_and_interests_detail,null);
 
         RightsAndInterestsBean rightsandinterestsbean = (RightsAndInterestsBean) getIntent().getSerializableExtra("rightsandinterestsbean");

@@ -18,11 +18,13 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.ChooseRightAndInterestsAdapter;
 import cn.com.pujing.entity.ChooseRightsAndInterestsBean;
+import cn.com.pujing.entity.MyCardBean;
 
 /**
  * author : liguo
@@ -34,12 +36,16 @@ public class RightAndInterestsDialog extends Dialog {
     private Context context;
     private RecyclerView rvChooseRightAndInterests;
     private ChooseRightAndInterestsAdapter chooseRightAndInterestsAdapter;
-    private ArrayList<ChooseRightsAndInterestsBean> chooseRightsAndInterestsBeans;
-    private TextView tvNoUse;
+    private TextView tvNoUseCoupon,tvUseCoupon;
+    private List<MyCardBean> myCardBeans;
+    private OnChooseItemsListener onChooseItemsListener;
+    private int posId = -1;
 
-    public RightAndInterestsDialog(@NonNull Context context) {
+    public RightAndInterestsDialog(@NonNull Context context, List<MyCardBean> myCardBeans,OnChooseItemsListener onChooseItemsListener) {
         super(context);
         this.context = context;
+        this.myCardBeans = myCardBeans;
+        this.onChooseItemsListener = onChooseItemsListener;
     }
 
     @Override
@@ -49,12 +55,22 @@ public class RightAndInterestsDialog extends Dialog {
 
         rvChooseRightAndInterests = findViewById(R.id.rv_choose_right_and_interests);
 
-        tvNoUse = findViewById(R.id.tv_no_use);
+        tvNoUseCoupon = findViewById(R.id.tv_no_use_coupon);
+        tvUseCoupon = findViewById(R.id.tv_use_coupon);
 
-        tvNoUse.setOnClickListener(new View.OnClickListener() {
+        tvNoUseCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onChange(-1);
+                posId = -1;
                 dismiss();
+            }
+        });
+
+        tvUseCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChooseItemsListener.onChooseItems(posId);
             }
         });
 
@@ -63,15 +79,7 @@ public class RightAndInterestsDialog extends Dialog {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
 
-        chooseRightsAndInterestsBeans = new ArrayList<>();
-
-        for (int i = 0;i<4;i++) {
-            ChooseRightsAndInterestsBean chooseRightsAndInterestsBean = new ChooseRightsAndInterestsBean("中医理疗兑换券", "抵扣单次服务费用", "2021-04-17", false);
-
-            chooseRightsAndInterestsBeans.add(chooseRightsAndInterestsBean);
-        }
-
-        chooseRightAndInterestsAdapter = new ChooseRightAndInterestsAdapter(R.layout.adapter_choose_rights_and_interests,chooseRightsAndInterestsBeans);
+        chooseRightAndInterestsAdapter = new ChooseRightAndInterestsAdapter(R.layout.adapter_choose_rights_and_interests,myCardBeans);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -84,18 +92,17 @@ public class RightAndInterestsDialog extends Dialog {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 onChange(position);
+                posId = position;
             }
         });
     }
 
     public void onChange(int pos) {
-        for (int i = 0;i < chooseRightsAndInterestsBeans.size();i++){
-            if (i == pos){
-                chooseRightsAndInterestsBeans.get(i).isChoose = true;
-            }else {
-                chooseRightsAndInterestsBeans.get(i).isChoose = false;
-            }
-        }
+        chooseRightAndInterestsAdapter.setPos(pos);
         chooseRightAndInterestsAdapter.notifyDataSetChanged();
+    }
+
+    public interface OnChooseItemsListener{
+        public void onChooseItems(int pos);
     }
 }

@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.youth.banner.Banner;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +19,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.HealthCenterAdapter;
+import cn.com.pujing.adapter.ServiceImageNetAdapter;
+import cn.com.pujing.adapter.ServiceTitleAdapter;
+import cn.com.pujing.adapter.VenueImageNetAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.BasicServiceVoListBean;
 import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.presenter.LifeServicePresenter;
+import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.LifeServiceView;
 
 /**
@@ -30,6 +40,11 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
     @BindView(R.id.rv_life_service)
     RecyclerView rvLifeService;
+    @BindView(R.id.banner_life_service)
+    Banner bannerLifeService;
+
+    private ServiceTitleAdapter healthCenterAdapter;
+    private ServiceImageNetAdapter imageNetAdapter;
 
     @Override
     public int getLayoutId() {
@@ -40,32 +55,36 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
     public void initView() {
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-        ArrayList<HealthCenterBean> healthCenterBeans = new ArrayList<>();
-
-        for (int i = 0; i < 20; i++){
-            HealthCenterBean healthCenterBean = new HealthCenterBean();
-            if (i%2 == 0) {
-                healthCenterBean.setTitle(true);
-            }else {
-                healthCenterBean.setTitle(false);
-            }
-
-            healthCenterBean.setProjectTypeTitle("按摩理疗");
-            healthCenterBean.setProjectTitleName("推拿");
-            healthCenterBean.setProjectContent("颈肩/腰部推拿  168元/60分钟");
-            healthCenterBeans.add(healthCenterBean);
-        }
-
+        ActivityUtil.addHomeActivity(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
         rvLifeService.setLayoutManager(linearLayoutManager);
-        HealthCenterAdapter healthCenterAdapter = new HealthCenterAdapter(healthCenterBeans);
+        healthCenterAdapter = new ServiceTitleAdapter(R.layout.adapter_health_center_title,null,1);
         rvLifeService.setAdapter(healthCenterAdapter);
 
         mPresenter.getService();
 
+        imageNetAdapter = new ServiceImageNetAdapter(null);
+        bannerLifeService.setAdapter(imageNetAdapter);
+        bannerLifeService.setIndicator(new CircleIndicator(this));
+        bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
+        bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.banner_normal));
+
+        bannerLifeService.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+
+
+                Intent intent = new Intent();
+                intent.setClass(LifeServiceActivity.this, LifeTypeActivity.class);
+                intent.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
+                intent.putExtra("category",1);
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -75,11 +94,23 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
     @Override
     public void getDataFail(String msg) {
-
+        UToast.show(this,msg);
     }
 
     @Override
     public void getServiceDataSuccess(List<ServiceBean> serviceBeans) {
+        healthCenterAdapter.setNewInstance(serviceBeans);
+
+        List<BasicServiceVoListBean> strings = new ArrayList<>();
+        for (int i = 0;i<serviceBeans.size();i++){
+            for (int j = 0;j<serviceBeans.get(i).getBasicServiceVoList().size();j++){
+                strings.add(serviceBeans.get(i).getBasicServiceVoList().get(j));
+            }
+        }
+
+        imageNetAdapter.setDatas(strings);
+
+
 
     }
 

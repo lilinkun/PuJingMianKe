@@ -40,4 +40,11 @@
         <item>@string/complaint</item>
     </string-array>
 
+    <string-array name="service_type">
+        <item>@string/service_content</item>
+        <item>@string/service_description</item>
+        <item>@string/service_personal</item>
+        <item>@string/service_address</item>
+    </string-array>
+
 </resources>

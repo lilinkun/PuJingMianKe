@@ -112,11 +112,24 @@
                 android:id="@+id/banner_another"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_top_line"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_top_line"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_top_line" />
+
+            <TextView
+                android:id="@+id/tv_more_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_top_line"
+                app:layout_constraintBottom_toBottomOf="@id/iv_top_line"
+                android:layout_marginEnd="15dp"
+                />
+
 
             <TextView
                 android:id="@+id/d_top_line"

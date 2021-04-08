@@ -197,7 +197,9 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
             showTimePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    tvReserveTime.setText(reserveDeviceBean.timesReserveNumList.get(ClickPos).startEndTime);
+                    if (ClickPos != -1) {
+                        tvReserveTime.setText(reserveDeviceBean.timesReserveNumList.get(ClickPos).startEndTime);
+                    }
                 }
             });
         }else {

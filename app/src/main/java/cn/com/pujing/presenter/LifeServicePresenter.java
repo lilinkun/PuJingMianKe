@@ -22,7 +22,7 @@ public class LifeServicePresenter extends BasePresenter<LifeServiceView> {
     //服务
     public void getService(){
 
-        PujingService.getService()
+        PujingService.getService(1)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<List<ServiceBean>>() {

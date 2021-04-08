@@ -24,6 +24,7 @@ import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.LifeTypeBean;
 import cn.com.pujing.entity.LoginToken;
 import cn.com.pujing.entity.MyCardBean;
 import cn.com.pujing.entity.MyInfoBean;
@@ -43,6 +44,7 @@ import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RightsVoucherVoBean;
 import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.ServiceBean;
+import cn.com.pujing.entity.ServicePutawayManageTimeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.http.convert.JsonConvert;
@@ -61,14 +63,14 @@ public class PujingService {
 //    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
-                public static final String PREFIX = "http://172.18.9.235"; // 君
+//                public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
-//    public static final String PREFIX = "http://172.18.9.214"; // 勇
+//      public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-//    public static final String PREFIX = "http://172.18.7.21";
+    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
 
@@ -175,12 +177,20 @@ public class PujingService {
     public static String RESERVEDEVICE = PREFIX + "/life-service/serviceVenueOrder/queryReserveTime";
     //预约场馆
     public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder";
-    //服务
-    public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage";
+    //服务 1 建管 2
+    public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage/";
+    //服务详情
+    public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetById/";
+    //服务时间
+    public static String SERVICETIME = PREFIX + "/life-service/serviceBasicService/APPGetTimeList";
+    //服务预约
+    public static String SERVICERESERVE = PREFIX + "/life-service/serviceOrderManage";
     //我的卡包
     public static String MYCARD = PREFIX + "/life-service/serviceCustomerVoucher/getMyVoucherList";
     //失效券
     public static String INVALIDCOUPON = PREFIX + "/life-service/serviceCustomerVoucher/getMyInvalidVoucherList";
+    //使用优惠券
+    public static String USECOUPON = PREFIX + "/life-service/serviceCustomerVoucher/getVoucherListByServiceId";
 
 
 
@@ -768,14 +778,66 @@ public class PujingService {
     }
 
     /**
+     * 预约服务
+     */
+    public static Observable<ResponseData<Object>> reserveService(String orderingDate, String orderingTime, String basicServiceItemsId,String basicServiceItemsName
+            , String serviceBasicId,String category,String customerVoucherId){
+
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("orderingDate", orderingDate);
+        params.put("orderingTime", orderingTime);
+        params.put("basicServiceItemsId", basicServiceItemsId);
+        params.put("basicServiceItemsName",basicServiceItemsName);
+        params.put("serviceBasicId",serviceBasicId);
+        params.put("category",category);
+        if(!customerVoucherId.equals("0")) {
+            params.put("customerVoucherId", customerVoucherId);
+        }
+
+        JSONObject jsonObject = new JSONObject(params);
+
+        return OkGo.<ResponseData<Object>>post(SERVICERESERVE)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
      * 服务
      */
-    public static Observable<ResponseData<List<ServiceBean>>> getService(){
+    public static Observable<ResponseData<List<ServiceBean>>> getService(int id){
 
-        return OkGo.<ResponseData<List<ServiceBean>>>get(SERVICE)
+        return OkGo.<ResponseData<List<ServiceBean>>>get(SERVICE+id)
                 .converter(new JsonConvert<ResponseData<List<ServiceBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<ServiceBean>>>());
+    }
+
+    /**
+     * 服务详情
+     */
+    public static Observable<ResponseData<LifeTypeBean>> getLifeType(int id){
+
+        return OkGo.<ResponseData<LifeTypeBean>>get(SERVICEDETAIL + id)
+                .converter(new JsonConvert<ResponseData<LifeTypeBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<LifeTypeBean>>());
+    }
+
+    /**
+     * 服务时间
+     */
+    public static Observable<ResponseData<List<ServicePutawayManageTimeBean>>> getLifeTime(String id,String itemsId,String date){
+
+        return OkGo.<ResponseData<List<ServicePutawayManageTimeBean>>>get(SERVICETIME)
+                .params("id",id)
+                .params("itemsId",itemsId)
+                .params("date",date)
+                .converter(new JsonConvert<ResponseData<List<ServicePutawayManageTimeBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<ServicePutawayManageTimeBean>>>());
     }
 
     /**
@@ -791,6 +853,19 @@ public class PujingService {
         }
 
         return OkGo.<ResponseData<List<MyCardBean>>>get(url)
+                .converter(new JsonConvert<ResponseData<List<MyCardBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<MyCardBean>>>());
+    }
+
+    /**
+     * 使用优惠券
+     */
+    public static Observable<ResponseData<List<MyCardBean>>> useCoupon(String date,String serviceItemId){
+
+        return OkGo.<ResponseData<List<MyCardBean>>>get(USECOUPON)
+                .params("date",date)
+                .params("serviceItemId",serviceItemId)
                 .converter(new JsonConvert<ResponseData<List<MyCardBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<MyCardBean>>>());

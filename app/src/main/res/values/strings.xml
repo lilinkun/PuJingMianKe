@@ -196,4 +196,9 @@
     <string name="invalid_coupon">失效券</string>
     <string name="rights_and_interests">权益券</string>
 
+    <string name="service_content">服务内容</string>
+    <string name="service_description">费用说明</string>
+    <string name="service_personal">提供人</string>
+    <string name="service_address">服务场地</string>
+
 </resources>
