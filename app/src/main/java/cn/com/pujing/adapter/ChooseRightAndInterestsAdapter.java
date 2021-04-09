@@ -50,9 +50,9 @@ public class ChooseRightAndInterestsAdapter extends BaseQuickAdapter<MyCardBean,
         RadioButton cbCoupon = baseViewHolder.getView(R.id.cb_coupon);
 
         if (baseViewHolder.getAdapterPosition() == pos){
-            cbCoupon.setSelected(true);
+            cbCoupon.setChecked(true);
         }else {
-            cbCoupon.setSelected(false);
+            cbCoupon.setChecked(false);
         }
 
 

@@ -187,7 +187,11 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                             @Override
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
-                                mPresenter.getLifeTime(basicServiceVoListBean.id+"",lifeTypeBeans.serviceItemsList.get(pos).id+"",tvReserveDate.getText().toString());
+                                if (lifeTypeBeans != null ) {
+                                    if (lifeTypeBeans.serviceItemsList != null && lifeTypeBeans.serviceItemsList.size() >= pos) {
+                                        mPresenter.getLifeTime(basicServiceVoListBean.id + "", lifeTypeBeans.serviceItemsList.get(pos).id + "", tvReserveDate.getText().toString());
+                                    }
+                                }
                             }
                         },
                         // 传入年份

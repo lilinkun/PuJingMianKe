@@ -29,6 +29,8 @@ import cn.com.pujing.entity.LoginToken;
 import cn.com.pujing.entity.MyCardBean;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.NotifyInfoBean;
+import cn.com.pujing.entity.OrderDetailBean;
+import cn.com.pujing.entity.OrderItemBean;
 import cn.com.pujing.entity.PhotoBean;
 import cn.com.pujing.entity.PublicKey;
 import cn.com.pujing.entity.QuerySelectDayBean;
@@ -47,6 +49,7 @@ import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.ServicePutawayManageTimeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.entity.VenueBean;
+import cn.com.pujing.entity.VipBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
@@ -185,12 +188,18 @@ public class PujingService {
     public static String SERVICETIME = PREFIX + "/life-service/serviceBasicService/APPGetTimeList";
     //服务预约
     public static String SERVICERESERVE = PREFIX + "/life-service/serviceOrderManage";
+    //服务预约订单查询
+    public static String SERVICERESERVEID = PREFIX + "/life-service/serviceOrderManage/";
     //我的卡包
     public static String MYCARD = PREFIX + "/life-service/serviceCustomerVoucher/getMyVoucherList";
     //失效券
     public static String INVALIDCOUPON = PREFIX + "/life-service/serviceCustomerVoucher/getMyInvalidVoucherList";
     //使用优惠券
     public static String USECOUPON = PREFIX + "/life-service/serviceCustomerVoucher/getVoucherListByServiceId";
+    //我的订单
+    public static String MYORDER = PREFIX + "/life-service/myOrder/page";
+    //是否vip
+    public static String VIPEXPIREANDDISCOUNT = PREFIX + "/life-service/vipRightsSetting/getHealthVipExpireAndDiscount";
 
 
 
@@ -805,6 +814,18 @@ public class PujingService {
     }
 
     /**
+     * 预约服务订单查询
+     */
+    public static Observable<ResponseData<OrderDetailBean>> queryReserveServiceOrder(String orderNumber){
+
+
+        return OkGo.<ResponseData<OrderDetailBean>>get(SERVICERESERVEID + orderNumber)
+                .converter(new JsonConvert<ResponseData<OrderDetailBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<OrderDetailBean>>());
+    }
+
+    /**
      * 服务
      */
     public static Observable<ResponseData<List<ServiceBean>>> getService(int id){
@@ -870,5 +891,46 @@ public class PujingService {
                 })
                 .adapt(new ObservableBody<ResponseData<List<MyCardBean>>>());
     }
+
+    /**
+     * 是否vip
+     */
+    public static Observable<ResponseData<VipBean>> vipExpireandDiscount(){
+
+        return OkGo.<ResponseData<VipBean>>get(VIPEXPIREANDDISCOUNT)
+                .converter(new JsonConvert<ResponseData<VipBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<VipBean>>());
+    }
+
+
+    /**
+     * 我的订单
+     */
+    public static Observable<ResponseData<OrderItemBean>> getMyOrder(int page,int ordertypeId, String startDate, String endDate){
+        String orderCategory = "";
+        if (ordertypeId != 0){
+            orderCategory = ordertypeId+"";
+        }else {
+            orderCategory = null;
+        }
+
+        if (startDate.trim().length() == 0){
+            startDate = null;
+        }
+        if (endDate.trim().length() == 0){
+            endDate = null;
+        }
+
+        return OkGo.<ResponseData<OrderItemBean>>get(MYORDER)
+                .params("page",page)
+                .params("orderCategory",orderCategory)
+                .params("createTimeBegin",startDate)
+                .params("createTimeEnd",endDate)
+                .converter(new JsonConvert<ResponseData<OrderItemBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<OrderItemBean>>());
+    }
+
 
 }

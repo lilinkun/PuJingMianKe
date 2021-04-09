@@ -21,14 +21,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_signed"
         app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_signed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_venue_line"
+        android:text="已报名"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/main_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_title"
+        />
+
 
 
     <TextView
@@ -37,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:textColor="#666666"
+        android:textColor="@color/grey_common"
         android:layout_marginEnd="20dp"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"

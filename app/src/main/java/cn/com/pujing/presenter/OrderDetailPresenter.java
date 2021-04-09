@@ -1,39 +1,41 @@
 package cn.com.pujing.presenter;
 
-import java.util.List;
-
 import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.OrderItemBean;
+import cn.com.pujing.entity.OrderDetailBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
 import cn.com.pujing.http.rxjavahelper.RxSchedulersHelper;
-import cn.com.pujing.view.MyOrderView;
+import cn.com.pujing.view.OrderDetailView;
 
 /**
  * author : liguo
- * date : 2021/3/19 15:13
+ * date : 2021/4/9 15:55
  * description :
  */
-public class MyOrderPresenter extends BasePresenter<MyOrderView> {
+public class OrderDetailPresenter extends BasePresenter<OrderDetailView> {
 
-    public void getMyOrder(int page,int ordertypeId, String startDate, String endDate){
-        PujingService.getMyOrder(page,ordertypeId,startDate,endDate)
+
+    /**
+     * 预约服务订单查询
+     */
+    public void queryReserveServiceOrder(String orderNumber){
+        PujingService.queryReserveServiceOrder(orderNumber)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<OrderItemBean>() {
+                .subscribe(new RxObserver<OrderDetailBean>() {
+
                     @Override
-                    public void _onNext(OrderItemBean orderItemBean) {
-                        getView().getMyOrderSuccess(orderItemBean);
+                    public void _onNext(OrderDetailBean orderDetailBean) {
+                        getView().querySuccess(orderDetailBean);
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getDataFail(errorMessage);
+                        getView().queryFail(errorMessage);
                     }
 
                 });
     }
-
 
 }

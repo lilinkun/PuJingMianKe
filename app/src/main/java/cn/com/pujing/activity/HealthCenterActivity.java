@@ -26,7 +26,11 @@ import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
+import cn.com.pujing.entity.VipBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HealthCenterPresenter;
+import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.view.HealthCenterView;
 import cn.com.pujing.widget.RightAndInterestsDialog;
 
@@ -43,6 +47,10 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
     RecyclerView rvHealthCenter;
     @BindView(R.id.tv_vip_tip)
     TextView tvVipTip;
+    @BindView(R.id.tv_vip)
+    TextView tvVip;
+    @BindView(R.id.tv_content_tip)
+    TextView tvContentTip;
 
     ServiceTitleAdapter healthCenterAdapter;
 
@@ -56,6 +64,8 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
+        ActivityUtil.addHomeActivity(this);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
@@ -64,6 +74,8 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
         rvHealthCenter.setAdapter(healthCenterAdapter);
 
         mPresenter.getService();
+
+        mPresenter.getVip();
 
     }
 
@@ -128,5 +140,22 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
     @Override
     public void getServiceDataSuccess(List<ServiceBean> serviceBeans) {
         healthCenterAdapter.setNewInstance(serviceBeans);
+    }
+
+    @Override
+    public void getVip(VipBean vipBean) {
+        if (vipBean.healthVip){
+            tvVip.setText("VIP会员-有效期至：" + vipBean.expires);
+            tvContentTip.setVisibility(View.GONE);
+            tvVipTip.setText("续费");
+        }else {
+            tvContentTip.setVisibility(View.VISIBLE);
+            tvVip.setText("暂未开通会员");
+            tvVipTip.setText(vipBean.vipCost + "开通会员");
+            if (vipBean.incrementServiceDiscount != 0) {
+                tvContentTip.setText("开通会员尊享基础服务免费增值服务"+
+                        PuJingUtils.removeAmtLastZero(vipBean.incrementServiceDiscount/100)+"折");
+            }
+        }
     }
 }

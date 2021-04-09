@@ -10,11 +10,21 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import cn.com.pujing.R;
+import cn.com.pujing.adapter.GridOrderAdapter;
+import cn.com.pujing.entity.OrderTpeBean;
+import cn.com.pujing.util.UToast;
 
 /**
  * author : liguo
@@ -29,9 +39,10 @@ public class MyOrderPopup  extends PopupWindow {
     private long startDate;
     private long endDate;
     private SimpleDateFormat simpleDateFormat;
+    private int ClickPos = 0;
 
-    public MyOrderPopup(Context context){
-
+    public MyOrderPopup(Context context,MyOrderClickListener myOrderClickListener){
+        this.myOrderClickListener = myOrderClickListener;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,14 +68,33 @@ public class MyOrderPopup  extends PopupWindow {
         TextView tvCancelPop = conentView.findViewById(R.id.tv_cancel_pop);
         TextView tvSurePop = conentView.findViewById(R.id.tv_sure_pop);
 
-        startDate = System.currentTimeMillis();
-        endDate = System.currentTimeMillis();
+        RecyclerView rvOrderType = conentView.findViewById(R.id.rv_order_type);
+
+        View viewOrder = conentView.findViewById(R.id.view_order);
+
+        startDate = 0;
+        endDate = 0;
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDay = simpleDateFormat.format(System.currentTimeMillis());
 
-        tvStartDate.setText(currentDay);
-        tvEndDate.setText(currentDay);
+//        tvStartDate.setText(currentDay);
+//        tvEndDate.setText(currentDay);
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3);
+
+        GridOrderAdapter gridOrderAdapter = new GridOrderAdapter(R.layout.adapter_grid_order, OrderTpeBean.orderTpeBeans());
+
+        rvOrderType.setLayoutManager(gridLayoutManager);
+        rvOrderType.setAdapter(gridOrderAdapter);
+        gridOrderAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                gridOrderAdapter.setTypePos(position);
+                ClickPos = position;
+            }
+        });
 
         rlStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +110,30 @@ public class MyOrderPopup  extends PopupWindow {
         });
 
         tvCancelPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        tvSurePop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (startDate != 0 && endDate != 0) {
+                    if (startDate <= endDate) {
+                        myOrderClickListener.setItemValue(OrderTpeBean.orderTpeBeans().get(ClickPos),tvStartDate.getText().toString(),tvEndDate.getText().toString());
+                        dismiss();
+                    }else {
+                        UToast.show(context,"开始时间不能大于截止时间");
+                    }
+                }else {
+                    myOrderClickListener.setItemValue(OrderTpeBean.orderTpeBeans().get(ClickPos),tvStartDate.getText().toString(),tvEndDate.getText().toString());
+                    dismiss();
+                }
+            }
+        });
+
+        viewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
@@ -131,7 +185,7 @@ public class MyOrderPopup  extends PopupWindow {
 
 
     public interface MyOrderClickListener{
-        public void setItemValue(String value,int position);
+        public void setItemValue(OrderTpeBean orderTpeBean,String startDate,String endDate);
     }
 
 }

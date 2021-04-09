@@ -22,6 +22,7 @@ public class ActivityCalendar extends Base {
             public String calendarStatus;
             public String summary;
             public String calendarStatus_label;
+            public int isReport;
 
             @Override
             public int getItemType() {

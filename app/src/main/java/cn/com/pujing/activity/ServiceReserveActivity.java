@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
@@ -41,6 +42,8 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
     TextView tvServiceContent;
     @BindView(R.id.tv_usecoupon)
     TextView tvUseCoupon;
+    @BindView(R.id.rl_rights_and_interests)
+    RelativeLayout rlRightsAndInterests;
 
     private String time;
     private String date;
@@ -70,7 +73,11 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
         tvDate.setText(date + " " + time);
         tvServiceName.setText(serviceitemsbean.name);
         tvServiceContent.setText(content);
-        tvDescription.setText(serviceitemsbean.name);
+//        tvDescription.setText(serviceitemsbean.name);
+
+        if(category == 1){
+            rlRightsAndInterests.setVisibility(View.GONE);
+        }
     }
 
     @Override

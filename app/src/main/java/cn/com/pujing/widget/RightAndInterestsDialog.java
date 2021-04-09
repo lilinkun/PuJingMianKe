@@ -71,6 +71,7 @@ public class RightAndInterestsDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 onChooseItemsListener.onChooseItems(posId);
+                dismiss();
             }
         });
 
@@ -99,7 +100,6 @@ public class RightAndInterestsDialog extends Dialog {
 
     public void onChange(int pos) {
         chooseRightAndInterestsAdapter.setPos(pos);
-        chooseRightAndInterestsAdapter.notifyDataSetChanged();
     }
 
     public interface OnChooseItemsListener{

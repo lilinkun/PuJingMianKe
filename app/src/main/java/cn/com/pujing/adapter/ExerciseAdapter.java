@@ -42,6 +42,11 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));
                 baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
+                if (record.isReport == 1){
+                    baseViewHolder.setVisible(R.id.tv_signed, true);
+                }else {
+                    baseViewHolder.setVisible(R.id.tv_signed, false);
+                }
                 break;
             case 0:
                 ImageView iv = baseViewHolder.getView(R.id.iv_item_exercise);
@@ -55,6 +60,14 @@ public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.
                 baseViewHolder.setText(R.id.tv_cost, String.format(getContext().getString(R.string.format_fee), record.price));
                 baseViewHolder.setText(R.id.tv_remaining_enrollment, String.format(getContext().getString(R.string.format_remaining), record.stayUserNum));
                 baseViewHolder.setText(R.id.tv_time, record.activityStartDate);
+                if (record.isReport == 1){
+                    baseViewHolder.setVisible(R.id.tv_signed, true);
+                }else {
+                    baseViewHolder.setVisible(R.id.tv_signed, false);
+                }
+                break;
+
+            default:
                 break;
         }
     }

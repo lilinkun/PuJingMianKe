@@ -22,12 +22,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="欢庆双“蛋”！园区企业交流会开启报名"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_header_exercise" />
+
+    <TextView
+        android:id="@+id/tv_signed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_venue_line"
+        android:text="已报名"
+        android:layout_marginTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone"
+        android:textSize="13sp"
+        android:textColor="@color/main_color"
+        app:layout_constraintTop_toBottomOf="@id/iv_header_exercise"
+        app:layout_constraintStart_toEndOf="@+id/tv_title"
+        />
 
     <TextView
         android:id="@+id/tv_status"
@@ -35,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/red_1d"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
     />
@@ -47,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="1小时前"
-        android:textColor="#666666"
+        android:textColor="@color/grey_common"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />

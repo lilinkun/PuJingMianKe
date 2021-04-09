@@ -1,9 +1,12 @@
 package cn.com.pujing.adapter;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
@@ -12,35 +15,31 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
-import cn.com.pujing.entity.OrderItem;
+import cn.com.pujing.entity.OrderItemBean;
+import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.PuJingUtils;
 
-public class OrderAdapter extends BaseQuickAdapter<OrderItem, BaseViewHolder> {
+public class OrderAdapter extends BaseQuickAdapter<OrderItemBean.MyOrder, BaseViewHolder> implements LoadMoreModule {
 
     public OrderAdapter(int layoutResId) {
         super(layoutResId);
     }
 
-    public OrderAdapter(int layoutResId, @Nullable List<OrderItem> data) {
+    public OrderAdapter(int layoutResId, @Nullable List<OrderItemBean.MyOrder> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, OrderItem orderItem) {
-        baseViewHolder.setImageResource(R.id.iv, orderItem.imgRes);
-        baseViewHolder.setText(R.id.tv_name, orderItem.name);
-        baseViewHolder.setText(R.id.tv_type, orderItem.type);
-        baseViewHolder.setText(R.id.tv_date, orderItem.date);
-        baseViewHolder.setText(R.id.tv_price, orderItem.price);
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, OrderItemBean.MyOrder orderItem) {
+        baseViewHolder.setText(R.id.tv_name, orderItem.orderName);
+        baseViewHolder.setText(R.id.tv_type, orderItem.orderType_label);
+        baseViewHolder.setText(R.id.tv_date, orderItem.createTime);
+        baseViewHolder.setText(R.id.tv_status, orderItem.orderStatus_label);
+        baseViewHolder.setText(R.id.tv_price, PuJingUtils.removeAmtLastZero(orderItem.realMoney)+"");
 
-        TextView statusTextView = baseViewHolder.getView(R.id.tv_status);
-        TextView cancelTextView = baseViewHolder.getView(R.id.tv_cancel);
-        if (getContext().getString(R.string.cancel).equals(orderItem.status)) {
-            statusTextView.setVisibility(View.GONE);
-            cancelTextView.setVisibility(View.VISIBLE);
-        } else {
-            cancelTextView.setVisibility(View.GONE);
-            statusTextView.setVisibility(View.VISIBLE);
-            statusTextView.setText(orderItem.status);
-        }
+        ImageView imageView = baseViewHolder.getView(R.id.iv);
+        String url =  PujingService.PREFIX+PujingService.IMG+orderItem.orderPic;
+        Glide.with(baseViewHolder.itemView.getContext()).load(url).error(R.drawable.ic_no_pic).into(imageView);
+
     }
 }
