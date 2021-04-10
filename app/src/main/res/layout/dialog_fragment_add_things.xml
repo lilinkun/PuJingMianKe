@@ -158,7 +158,7 @@
         android:background="@color/common_gray"
         app:layout_constraintEnd_toEndOf="@id/v_content"
         app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_limit_time_key" />
+        app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
 
 
     <TextView
@@ -203,20 +203,19 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:background="@color/common_gray"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
+    app:layout_constraintEnd_toEndOf="@id/v_content"
+    app:layout_constraintStart_toStartOf="@id/v_content"
+    app:layout_constraintTop_toBottomOf="@id/tv_limit_time_key" />
 
     <EditText
         android:id="@+id/et_add_thing"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/shape_calendar"
         android:gravity="top"
-        android:hint="美甲预约"
         android:padding="10dp"
         android:textColor="@color/text_gray"
         android:textSize="14sp"
@@ -247,5 +246,6 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/et_add_thing"
-        app:layout_constraintStart_toStartOf="@id/v_content" />
+        app:layout_constraintStart_toStartOf="@id/v_content"
+        app:layout_constraintTop_toBottomOf="@+id/v_limit_time"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

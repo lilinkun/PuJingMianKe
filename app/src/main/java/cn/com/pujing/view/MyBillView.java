@@ -6,4 +6,6 @@ package cn.com.pujing.view;
  * description :
  */
 public interface MyBillView {
+    public void getMyCurrentBillsSuccess(Object o);
+    public void getDataFail(String msg);
 }

@@ -1,5 +1,7 @@
 package cn.com.pujing.fragment;
 
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.TabPageAdapter;
 import cn.com.pujing.base.BaseFragment;
@@ -18,12 +21,13 @@ import cn.com.pujing.base.BasePresenter;
 
 public class ActivitiesFragment extends BaseFragment{
 
-    @BindView(R.id.tv_my_enroll)
-    TextView tvMyEnroll;
     @BindView(R.id.stl_list_activities)
     SlidingTabLayout stlListActivities;
     @BindView(R.id.vp_list_exerciset)
     ViewPager vpListExerciset;
+    @BindView(R.id.iv_activity_filter)
+    ImageView ivActivityFilter;
+
     MyActivitiesFragment myActivitiesFragment = new MyActivitiesFragment();
 
     @Override
@@ -58,6 +62,13 @@ public class ActivitiesFragment extends BaseFragment{
                 if (position == 2){
                     myActivitiesFragment.getData();
                 }
+
+                if (position == 0){
+                    ivActivityFilter.setVisibility(View.VISIBLE);
+                }else {
+                    ivActivityFilter.setVisibility(View.GONE);
+                }
+
             }
 
             @Override
@@ -81,6 +92,18 @@ public class ActivitiesFragment extends BaseFragment{
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick({R.id.iv_activity_filter})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iv_activity_filter:
+
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

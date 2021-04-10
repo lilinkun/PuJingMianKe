@@ -104,10 +104,10 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
         exerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + record.id);
-                startActivity(intent);
+//                ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
+//                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+//                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + record.id);
+//                startActivity(intent);
             }
         });
 
@@ -165,7 +165,7 @@ public class ExerciseFragment extends BaseFragment implements View.OnClickListen
                     ActivityCalendar.Data.Record record = list.get(0);
                     record.itemType = -1;
                 }
-                exerciseAdapter.setNewInstance(list);
+//                exerciseAdapter.setNewInstance(list);
             }
         }
     }

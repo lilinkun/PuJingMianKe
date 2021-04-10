@@ -1,11 +1,22 @@
 package cn.com.pujing.activity;
 
+import android.Manifest;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.net.Uri;
+import android.provider.CalendarContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,9 +30,12 @@ import com.lzy.okgo.model.Response;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,14 +43,13 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.AnotherExerciseAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.callback.JsonCallback;
-import cn.com.pujing.entity.ActivityDate;
 import cn.com.pujing.entity.ActivityDateAdd;
 import cn.com.pujing.entity.Base;
-import cn.com.pujing.entity.QuerySelectDay;
 import cn.com.pujing.entity.QuerySelectDayBean;
 import cn.com.pujing.fragment.AddThingsDialogFragment;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.CommunityCalendarPresenter;
+import cn.com.pujing.util.CalendarUtil;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.view.CommunityCalendarView;
@@ -62,6 +75,13 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
     private String selectDay;
     private AnotherExerciseAdapter anotherExerciseAdapter;
     private List<QuerySelectDayBean> querySelectDayBeans;
+    private long startTime;
+    private long endTime;
+    private long remainTime;
+    private int remain = 0;
+    private String content;
+
+    private static final int REQUEST_CALENDAR = 0x1234;
 
     @Override
     public int getLayoutId() {
@@ -71,10 +91,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
     @Override
     public void initView() {
 
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.main_color)
-                .fitsSystemWindows(true)
-                .init();
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         curYear = cal.get(java.util.Calendar.YEAR);
@@ -150,44 +167,62 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
         if (response != null) {
 
-            if (response.body() instanceof ActivityDate) {
-                ActivityDate activityDate = (ActivityDate) response.body();
-                List<Long> list = activityDate.data;
-
-                if (list != null && list.size() > 0) {
-                    Map<String, Calendar> map = new HashMap<>();
-
-                    for (Long l : list) {
-                        java.util.Calendar calendar = java.util.Calendar.getInstance();
-                        calendar.setTimeInMillis(l);
-                        int year = calendar.get(java.util.Calendar.YEAR);
-                        int month = calendar.get(java.util.Calendar.MONTH) + 1;
-                        int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-
-                        map.put(getSchemeCalendar(year, month, day, 0xFFe69138, "事").toString(),
-                                getSchemeCalendar(year, month, day, 0xFFe69138, "事"));
-                    }
-                    calendarView.setSchemeDate(map);
-                    calendarView.update();
-                }
-
-            } else if (response.body() instanceof QuerySelectDay) {
-                QuerySelectDay querySelectDay = (QuerySelectDay) response.body();
-//                anotherExerciseAdapter.setNewInstance(querySelectDay.data);
-            } else if (response.body() instanceof ActivityDateAdd) {
+             if (response.body() instanceof ActivityDateAdd) {
                 ActivityDateAdd activityDateAdd = (ActivityDateAdd) response.body();
                 if (activityDateAdd.data) {
                     String selectDay = Methods.getDate(selectedYear, selectedMonth, selectedDay);
 
+                    mPresenter.getCommunityData(Methods.getStartDayofMonth(curYear, curMonth),Methods.getEndDayofMonth(curYear, curMonth),2);
+
                     mPresenter.querySelectDay(selectDay,2);
-//                    OkGo.get(Urls.QUERYSELECTDAY_ANOTHER)
-//                            .tag(this)
-//                            .params(Constants.SELECTDAY, selectDay)
-//                            .execute(new JsonCallback<>(QuerySelectDay.class, MyCalendarActivity.this));
+
+                    fetchPermission(REQUEST_CALENDAR);
+
                 }
             }
         }
     }
+
+    public void fetchPermission(int requestCode) {
+        int checkSelfPermission;
+        try {
+            checkSelfPermission = ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_CALENDAR);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return;
+        }
+
+
+        // 如果有授权，走正常插入日历逻辑
+        if (checkSelfPermission == PackageManager.PERMISSION_GRANTED) {
+            CalendarUtil.insertCalendarEvent(this,content,content,startTime,endTime,getResources().getString(R.string.app_name),remain); // 该方法的实现在文章的后面
+            return;
+        } else {
+            // 如果没有授权，就请求用户授权
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_CALENDAR,
+                    Manifest.permission.READ_CALENDAR}, requestCode);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALENDAR) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 用户同意的授权请求
+                CalendarUtil.insertCalendarEvent(this,content,content,startTime,endTime,getResources().getString(R.string.app_name),remain); // 该方法的实现在文章的后面
+            } else {
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_CALENDAR)) {
+                    // 如果用户不是点击了拒绝就跳转到系统设置页
+//                    gotoSettings();
+                }
+            }
+        }
+    }
+
+
+
 
     @Override
     public void onFail(Base base) {
@@ -230,7 +265,25 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
 
     @Override
-    public void onDialogClick(String startTime, String endTime, String content) {
+    public void onDialogClick(String startTime, String endTime, String content,String remainTime) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        try {
+            this.startTime = simpleDateFormat.parse(selectDay+" " + startTime).getTime();
+            this.endTime = simpleDateFormat.parse(selectDay+" " + endTime).getTime();
+            if (!remainTime.equals("")){
+                this.remainTime = simpleDateFormat.parse(selectDay+" " + remainTime).getTime();
+
+                remain = (int)((this.startTime - this.remainTime)/60000);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        this.content = content;
+
         HashMap<String, String> params = new HashMap<>();
         params.put(Constants.ACTIVITYDATE, selectDay);
         params.put(Constants.BEGINTIME, startTime);

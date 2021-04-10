@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment;
 
 import cn.com.pujing.R;
 import cn.com.pujing.util.PuJingUtils;
+import cn.com.pujing.util.UToast;
 
 public class AddThingsDialogFragment extends DialogFragment implements View.OnClickListener {
     private OnDialogListener onDialogListener;
@@ -28,6 +29,9 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     private TextView limitTextView;
     private EditText editText;
     private static final int MAX_NUM = 50;
+    private String startTime;
+    private String endTime;
+    private String remainTime;
 
     public AddThingsDialogFragment(OnDialogListener onDialogListener) {
         this.onDialogListener = onDialogListener;
@@ -52,7 +56,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
 //        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 //        window.setAttributes(lp);
 
-        View view = inflater.inflate(R.layout.dialog_fragment_add_things, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_add_things1, container, false);
         init(view);
         return view;
     }
@@ -64,9 +68,9 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
         endTimeTextView = view.findViewById(R.id.tv_end_time_value);
         limitTimeTextView = view.findViewById(R.id.tv_limit_time_value);
         editText = view.findViewById(R.id.et_add_thing);
-        view.findViewById(R.id.iv_start_time).setOnClickListener(this);
-        view.findViewById(R.id.iv_end_time).setOnClickListener(this);
-        view.findViewById(R.id.iv_limit_time).setOnClickListener(this);
+        view.findViewById(R.id.rl_start_date).setOnClickListener(this);
+        view.findViewById(R.id.rl_end_date).setOnClickListener(this);
+        view.findViewById(R.id.rl_remain_date).setOnClickListener(this);
         limitTextView = view.findViewById(R.id.tv_add_limit_text);
         editText.addTextChangedListener(watcher);
     }
@@ -84,7 +88,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
                 if (PuJingUtils.checkTimeRange(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), "HH:mm")) {
 
                     if (onDialogListener != null) {
-                        onDialogListener.onDialogClick(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), editText.getText().toString());
+                        onDialogListener.onDialogClick(startTimeTextView.getText().toString(), endTimeTextView.getText().toString(), editText.getText().toString(),limitTimeTextView.getText().toString());
                     }
                     dismiss();
                 } else {
@@ -95,33 +99,42 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
             }
 
 
-        } else if (id == R.id.iv_start_time) {
+        } else if (id == R.id.rl_start_date) {
             TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
 
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String startTime = String.format("%02d:%02d", hourOfDay, minute);
+                    startTime = String.format("%02d:%02d", hourOfDay, minute);
                     startTimeTextView.setText(startTime);
+                    if (endTimeTextView.getText().toString().trim().length() > 0) {
+                        if (!PuJingUtils.checkTimeRange(startTime, endTimeTextView.getText().toString(), "HH:mm")) {
+                            endTimeTextView.setText("");
+                        }
+                    }
                 }
             }, 0, 0, true);
             timePickerDialog.show();
-        } else if (id == R.id.iv_end_time) {
+        } else if (id == R.id.rl_end_date) {
             TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
 
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String startTime = String.format("%02d:%02d", hourOfDay, minute);
-                    endTimeTextView.setText(startTime);
+                    endTime = String.format("%02d:%02d", hourOfDay, minute);
+                    if (PuJingUtils.checkTimeRange(startTime, endTime, "HH:mm")) {
+                        endTimeTextView.setText(endTime);
+                    }else {
+                        UToast.show(getActivity(),"结束事件必须大于开始时间");
+                    }
                 }
             }, 0, 0, true);
             timePickerDialog.show();
-        } else if (id == R.id.iv_limit_time){
+        } else if (id == R.id.rl_remain_date){
             TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
 
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String startTime = String.format("%02d:%02d", hourOfDay, minute);
-                    limitTimeTextView.setText(startTime);
+                    remainTime = String.format("%02d:%02d", hourOfDay, minute);
+                    limitTimeTextView.setText(remainTime);
                 }
             }, 0, 0, true);
             timePickerDialog.show();
@@ -129,7 +142,7 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     }
 
     public interface OnDialogListener {
-        void onDialogClick(String startTime, String endTime, String content);
+        void onDialogClick(String startTime, String endTime, String content,String remainTime);
     }
 
     TextWatcher watcher = new TextWatcher() {

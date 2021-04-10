@@ -26,22 +26,26 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.callback.JsonCallback;
 import cn.com.pujing.entity.ActivityCalendar;
+import cn.com.pujing.entity.HotActivityBean;
 import cn.com.pujing.http.PujingService;
+import cn.com.pujing.presenter.CurrentHotPresenter;
 import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.UToast;
+import cn.com.pujing.view.CurrentHotView;
 
 import static android.app.Activity.RESULT_OK;
 
 /**
  * 热门活动
  */
-public class CurrentHotFragment extends BaseFragment {
+public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotPresenter> implements CurrentHotView{
 
     @BindView(R.id.rv_exercise1)
     RecyclerView rvExercise1;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ExerciseAdapter exerciseAdapter;
-    private List<ActivityCalendar.Data.Record> list;
+    private List<HotActivityBean.Record> list;
     int page  = 1;
     private static final int WEB_RESULT = 0x232;
 
@@ -67,7 +71,7 @@ public class CurrentHotFragment extends BaseFragment {
         exerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                ActivityCalendar.Data.Record record = exerciseAdapter.getItem(position);
+                HotActivityBean.Record record = exerciseAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + record.id);
                 startActivityForResult(intent,WEB_RESULT);
@@ -80,8 +84,9 @@ public class CurrentHotFragment extends BaseFragment {
                 if (list != null){
                     list.clear();
                 }
-                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
+//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+                mPresenter.getHotActivitiy(page);
             }
         });
 
@@ -89,24 +94,28 @@ public class CurrentHotFragment extends BaseFragment {
             @Override
             public void onLoadMore() {
                 page++;
-                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
+//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+
+                mPresenter.getHotActivitiy(page);
             }
         });
+//
+//        OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
+//                .execute(new JsonCallback<>(ActivityCalendar.class, this));
+        mPresenter.getHotActivitiy(page);
 
-        OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-                .execute(new JsonCallback<>(ActivityCalendar.class, this));
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected CurrentHotPresenter createPresenter() {
+        return new CurrentHotPresenter();
     }
 
     @Override
     public void onSuccess(Response response) {
         if (response != null) {
-            if (response.body() instanceof ActivityCalendar) {
+            /*if (response.body() instanceof ActivityCalendar) {
                 ActivityCalendar activityCalendar = (ActivityCalendar) response.body();
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
@@ -128,7 +137,7 @@ public class CurrentHotFragment extends BaseFragment {
                      exerciseAdapter.getLoadMoreModule().loadMoreEnd();
                  }
                 }
-            }
+            }*/
         }
     }
 
@@ -141,10 +150,39 @@ public class CurrentHotFragment extends BaseFragment {
                 if (list != null){
                     list.clear();
                 }
-                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
+//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
+                mPresenter.getHotActivitiy(page);
             }
         }
     }
 
+    @Override
+    public void getHotActivitiySuccess(HotActivityBean hotActivityBean) {
+        if (swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        if (list != null && list.size() > 0){
+            list.addAll(hotActivityBean.records);
+        }else {
+            list = hotActivityBean.records;
+        }
+        if (list != null && list.size() > 0) {
+            HotActivityBean.Record record = list.get(0);
+            record.itemType = -1;
+        }
+        exerciseAdapter.setNewInstance(list);
+        if (exerciseAdapter.getLoadMoreModule().isLoading()){
+            if (hotActivityBean.records.size() == 10) {
+                exerciseAdapter.getLoadMoreModule().loadMoreComplete();
+            }else {
+                exerciseAdapter.getLoadMoreModule().loadMoreEnd();
+            }
+        }
+    }
+
+    @Override
+    public void getHotActivitiyFail(String msg) {
+        UToast.show(getActivity(),msg);
+    }
 }

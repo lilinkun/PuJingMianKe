@@ -89,7 +89,7 @@
     <string name="notice_time">提醒时间</string>
     <string name="matter">事项</string>
     <string name="new_matter">新建事项</string>
-    <string name="add">添加</string>
+    <string name="add">确定</string>
     <string name="add_matter">+添加事项</string>
 
     <string name="paied_bill">已支付账单</string>

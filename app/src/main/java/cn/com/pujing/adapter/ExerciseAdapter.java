@@ -15,20 +15,21 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
+import cn.com.pujing.entity.HotActivityBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.entity.ActivityCalendar;
 
-public class ExerciseAdapter extends BaseMultiItemQuickAdapter<ActivityCalendar.Data.Record, BaseViewHolder> implements LoadMoreModule {
+public class ExerciseAdapter extends BaseMultiItemQuickAdapter<HotActivityBean.Record, BaseViewHolder> implements LoadMoreModule {
 
-    public ExerciseAdapter(@Nullable List<ActivityCalendar.Data.Record> data) {
+    public ExerciseAdapter(@Nullable List<HotActivityBean.Record> data) {
         super(data);
         addItemType(-1, R.layout.header_exercise);
         addItemType(0, R.layout.item_exercise);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, ActivityCalendar.Data.Record record) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, HotActivityBean.Record record) {
         switch (baseViewHolder.getItemViewType()) {
             case -1:
                 ImageView ivHeader = baseViewHolder.getView(R.id.iv_header_exercise);

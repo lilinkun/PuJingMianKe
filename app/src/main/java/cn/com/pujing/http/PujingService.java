@@ -24,6 +24,7 @@ import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.HotActivityBean;
 import cn.com.pujing.entity.LifeTypeBean;
 import cn.com.pujing.entity.LoginToken;
 import cn.com.pujing.entity.MyCardBean;
@@ -63,7 +64,7 @@ import io.reactivex.Observable;
 public class PujingService {
 
 //    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -73,7 +74,7 @@ public class PujingService {
 //      public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-    public static final String PREFIX = "http://172.18.7.21";
+//    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
 
@@ -200,6 +201,8 @@ public class PujingService {
     public static String MYORDER = PREFIX + "/life-service/myOrder/page";
     //是否vip
     public static String VIPEXPIREANDDISCOUNT = PREFIX + "/life-service/vipRightsSetting/getHealthVipExpireAndDiscount";
+    //获取我的当期账单(上个月和这个月的)
+    public static String MYCURRENTBILLS = PREFIX + "/restaurant-service/bill/myCurrentBills";
 
 
 
@@ -384,6 +387,18 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<HistoryActivitiesBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<HistoryActivitiesBean>>());
+    }
+
+
+    /**
+     * 获取热门活动
+     */
+    public static Observable<ResponseData<HotActivityBean>> getHotActivitiy(int page) {
+        return OkGo.<ResponseData<HotActivityBean>>get(ACTIVITYCALENDAR)
+                .params("page", page+"")
+                .converter(new JsonConvert<ResponseData<HotActivityBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<HotActivityBean>>());
     }
 
 
@@ -901,6 +916,18 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<VipBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<VipBean>>());
+    }
+
+
+    /**
+     * 是否vip
+     */
+    public static Observable<ResponseData<Object>> myCurrentBills(){
+
+        return OkGo.<ResponseData<Object>>get(MYCURRENTBILLS)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
     }
 
 

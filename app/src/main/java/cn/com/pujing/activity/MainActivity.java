@@ -58,12 +58,12 @@ public class MainActivity extends BaseActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();
-        ActivitiesFragment exerciseFragment = new ActivitiesFragment();
+        ActivitiesFragment activitiesFragment = new ActivitiesFragment();
         MineFragment mineFragment = new MineFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(homeFragment);
         fragmentList.add(restaurantFragment);
-        fragmentList.add(exerciseFragment);
+        fragmentList.add(activitiesFragment);
         fragmentList.add(mineFragment);
         VpAdapter vpAdapter = new VpAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(vpAdapter);

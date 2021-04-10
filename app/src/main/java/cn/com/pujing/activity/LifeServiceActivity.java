@@ -103,8 +103,10 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
         List<BasicServiceVoListBean> strings = new ArrayList<>();
         for (int i = 0;i<serviceBeans.size();i++){
-            for (int j = 0;j<serviceBeans.get(i).getBasicServiceVoList().size();j++){
-                strings.add(serviceBeans.get(i).getBasicServiceVoList().get(j));
+            if (serviceBeans.get(i).getBasicServiceVoList() != null && serviceBeans.get(i).getBasicServiceVoList().size() > 0) {
+                for (int j = 0; j < serviceBeans.get(i).getBasicServiceVoList().size(); j++) {
+                    strings.add(serviceBeans.get(i).getBasicServiceVoList().get(j));
+                }
             }
         }
 
