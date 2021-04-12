@@ -56,7 +56,11 @@ public class LifeTypePresenter extends BasePresenter<LifeTypeView> {
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().getLifeTimeFail(errorMessage);
+                        if (errorMessage.contains("The item is null")){
+                            getView().getLifeTimeSuccess(null);
+                        }else {
+                            getView().getLifeTimeFail(errorMessage);
+                        }
                     }
 
                 });

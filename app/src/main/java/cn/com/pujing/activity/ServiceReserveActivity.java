@@ -131,7 +131,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
             rightAndInterestsDialog.show();
 
         }else {
-            UToast.show(this,"您没有消费券");
+            UToast.show(this,"您没有权益券");
         }
     }
 

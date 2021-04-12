@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/bg_input_text">
+
+    <TextView
+        android:id="@+id/tv_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_999"
+        android:textSize="16sp"
+        android:padding="@dimen/dp_10"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/common_gray"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        >
+
+        <TextView
+            android:id="@+id/tv_bills_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="零点餐"
+            android:textColor="#ff060606"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_bills_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="餐饮服务"
+            android:textColor="@color/gray_999"
+            android:textSize="14sp"
+            android:layout_below="@+id/tv_bills_name"
+            android:layout_marginTop="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/tv_bills_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="688"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="#ff060606"
+            android:textSize="14sp"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

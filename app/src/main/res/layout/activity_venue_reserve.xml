@@ -28,11 +28,13 @@
 
         <TextView
             android:id="@+id/tv_venue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffffff"
             android:textSize="18sp"
+            android:layout_toEndOf="@+id/iv_back"
             android:layout_centerInParent="true"
+            android:gravity="center"
             />
 
     </RelativeLayout>
@@ -101,7 +103,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#eeeeee"
+            android:background="@color/gray_eee"
             android:layout_alignParentBottom="true"
             />
 
@@ -154,7 +156,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#eeeeee"
+            android:background="@color/gray_eee"
             android:layout_alignParentBottom="true"
             />
 

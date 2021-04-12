@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="意见反馈成功！请耐心等待"
-        android:textColor="#ff999999"
+        android:textColor="@color/gray_999"
         android:textSize="14sp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"

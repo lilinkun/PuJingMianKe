@@ -1,47 +1,19 @@
 package cn.com.pujing.presenter;
 
-import java.util.List;
-
 import cn.com.pujing.base.BasePresenter;
-import cn.com.pujing.entity.BillsBean;
-import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.MyBillBean;
-import cn.com.pujing.entity.MyInfoBean;
-import cn.com.pujing.entity.OrderItemBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
 import cn.com.pujing.http.rxjavahelper.RxSchedulersHelper;
-import cn.com.pujing.view.MyBillView;
+import cn.com.pujing.view.BillHistoryDetailView;
 
 /**
  * author : liguo
- * date : 2021/4/6 20:37
+ * date : 2021/4/12 18:41
  * description :
  */
-public class MyBillPresenter extends BasePresenter<MyBillView> {
-
-
-    /**
-     * 获取上月和这月账单
-     */
-    public void getMyCurrentBills(){
-        PujingService.myCurrentBills()
-                .compose(RxSchedulersHelper.io_main())
-                .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<List<BillsBean>>() {
-                    @Override
-                    public void _onNext(List<BillsBean> billsBeans) {
-                        getView().getMyCurrentBillsSuccess(billsBeans);
-                    }
-
-                    @Override
-                    public void _onError(String errorMessage) {
-                        getView().getDataFail(errorMessage);
-                    }
-
-                });
-    }
+public class BillHistoryDetailPresenter extends BasePresenter<BillHistoryDetailView> {
 
 
     /**
@@ -64,5 +36,4 @@ public class MyBillPresenter extends BasePresenter<MyBillView> {
 
                 });
     }
-
 }

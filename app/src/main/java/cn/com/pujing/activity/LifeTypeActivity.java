@@ -115,6 +115,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
         serviceTypeAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                tvReserveTime.setText("");
                 serviceTypeAdapter.setClickPos(position);
                 serviceItemsBean = lifeTypeBeans.serviceItemsList.get(position);
                 serviceTypeAdapter.setClickPos(position);
@@ -186,6 +187,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
+                                tvReserveTime.setText("");
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
                                 if (lifeTypeBeans != null ) {
                                     if (lifeTypeBeans.serviceItemsList != null && lifeTypeBeans.serviceItemsList.size() >= pos) {
@@ -230,7 +232,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
     }
 
     private void onClickTime(){
-        if (lifeTypeBeans != null && lifeTypeBeans.servicePutawayManageTimeList != null) {
+        if (servicePutawayManageTimeBeans != null && lifeTypeBeans != null && lifeTypeBeans.servicePutawayManageTimeList != null) {
             ShowServiceTimePopup showTimePopup = new ShowServiceTimePopup(this, servicePutawayManageTimeBeans);
 
             showTimePopup.showAsDropDown(tvTitleName);

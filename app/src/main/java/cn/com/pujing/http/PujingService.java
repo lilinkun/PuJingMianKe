@@ -20,13 +20,17 @@ import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BanquetBean;
+import cn.com.pujing.entity.BillsBean;
+import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.HistoryBillsBean;
 import cn.com.pujing.entity.HotActivityBean;
 import cn.com.pujing.entity.LifeTypeBean;
 import cn.com.pujing.entity.LoginToken;
+import cn.com.pujing.entity.MyBillBean;
 import cn.com.pujing.entity.MyCardBean;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.NotifyInfoBean;
@@ -63,8 +67,8 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -203,6 +207,10 @@ public class PujingService {
     public static String VIPEXPIREANDDISCOUNT = PREFIX + "/life-service/vipRightsSetting/getHealthVipExpireAndDiscount";
     //获取我的当期账单(上个月和这个月的)
     public static String MYCURRENTBILLS = PREFIX + "/restaurant-service/bill/myCurrentBills";
+    //获取我的历史账单
+    public static String HISTORYBILLS = PREFIX + "/restaurant-service/bill/myHistoryBills";
+    //根据账单id分页查订单
+    public static String QUERYBILLS = PREFIX + "/restaurant-service/bill/orderPage/";
 
 
 
@@ -920,14 +928,36 @@ public class PujingService {
 
 
     /**
-     * 是否vip
+     * 我的账单
      */
-    public static Observable<ResponseData<Object>> myCurrentBills(){
+    public static Observable<ResponseData<List<BillsBean>>> myCurrentBills(){
 
-        return OkGo.<ResponseData<Object>>get(MYCURRENTBILLS)
-                .converter(new JsonConvert<ResponseData<Object>>() {
+        return OkGo.<ResponseData<List<BillsBean>>>get(MYCURRENTBILLS)
+                .converter(new JsonConvert<ResponseData<List<BillsBean>>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<Object>>());
+                .adapt(new ObservableBody<ResponseData<List<BillsBean>>>());
+    }
+
+    /**
+     * 我的账单
+     */
+    public static Observable<ResponseData<List<HistoryBillsBean>>> getBillData(){
+
+        return OkGo.<ResponseData<List<HistoryBillsBean>>>get(HISTORYBILLS)
+                .converter(new JsonConvert<ResponseData<List<HistoryBillsBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<HistoryBillsBean>>>());
+    }
+
+    /**
+     * 我的账单详情
+     */
+    public static Observable<ResponseData<MyBillBean>> queryBills(String billId){
+
+        return OkGo.<ResponseData<MyBillBean>>get(QUERYBILLS + billId)
+                .converter(new JsonConvert<ResponseData<MyBillBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<MyBillBean>>());
     }
 
 

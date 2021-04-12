@@ -11,6 +11,8 @@ import java.util.List;
 import cn.com.pujing.R;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.ServiceItemsBean;
+import cn.com.pujing.http.PujingService;
+import cn.com.pujing.util.PuJingUtils;
 
 /**
  * author : liguo
@@ -32,7 +34,7 @@ public class ServiceTypeAdapter extends BaseQuickAdapter<ServiceItemsBean, BaseV
         String content = "";
 
         if (serviceItemsBean.groupName == null || serviceItemsBean.groupName.trim().length() == 0){
-            content = serviceItemsBean.price + "/" + serviceItemsBean.unit;
+            content = PuJingUtils.removeAmtLastZero(serviceItemsBean.price) + "元/" + serviceItemsBean.unit;
             baseViewHolder.setTextColorRes(R.id.tv_device_name,R.color.black);
         }else {
             content = serviceItemsBean.groupName;

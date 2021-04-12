@@ -152,8 +152,8 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
             tvContentTip.setVisibility(View.VISIBLE);
             tvVip.setText("暂未开通会员");
             tvVipTip.setText(vipBean.vipCost + "开通会员");
-            if (vipBean.incrementServiceDiscount != 0) {
-                tvContentTip.setText("开通会员尊享基础服务免费增值服务"+
+            if (vipBean.incrementServiceDiscount != 0 && vipBean.incrementServiceDiscount != 100) {
+                tvContentTip.setText("开通会员尊享基础服务免费,增值服务"+
                         PuJingUtils.removeAmtLastZero(vipBean.incrementServiceDiscount/10)+"折");
             }
         }

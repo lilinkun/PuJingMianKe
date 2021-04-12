@@ -55,10 +55,7 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
     @Override
     public void initView() {
 
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.main_color)
-                .fitsSystemWindows(true)
-                .init();
+        ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
         curYear = cal.get(java.util.Calendar.YEAR);

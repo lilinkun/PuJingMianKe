@@ -19,7 +19,7 @@
         android:id="@+id/tv_setmeal_detail_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ff999999"
+        android:textColor="@color/gray_999"
         android:textSize="12sp"
         />
 

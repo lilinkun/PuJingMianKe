@@ -228,13 +228,16 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         tvReserveTime.setText("");
         ClickPos = -1;
 
-        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG+reserveDeviceBean.venueManage.topic)
-                .thumbnail(Glide.with(this).load(R.drawable.loading)).error(R.drawable.ic_no_pic)
+        if (reserveDeviceBean.venueManage != null) {
+            Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + reserveDeviceBean.venueManage.topic)
+                    .thumbnail(Glide.with(this).load(R.drawable.loading)).error(R.drawable.ic_no_pic)
 //                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
-                .into(ivVenuePic);
-        tvSize.setText(reserveDeviceBean.venueManage.area + "平方米");
-        tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "人");
-        tvAddress.setText(reserveDeviceBean.venueManage.address + "楼");
+                    .into(ivVenuePic);
+
+            tvSize.setText(reserveDeviceBean.venueManage.area + "");
+            tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "");
+            tvAddress.setText(reserveDeviceBean.venueManage.address + "");
+        }
 
     }
 

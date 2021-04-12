@@ -58,7 +58,7 @@
             android:layout_width="72dp"
             android:layout_height="25dp"
             android:text="@string/no_msg_tip"
-            android:textColor="#ff999999"
+            android:textColor="@color/gray_999"
             android:textSize="16sp"
             android:layout_marginTop="@dimen/dp_10"
             />

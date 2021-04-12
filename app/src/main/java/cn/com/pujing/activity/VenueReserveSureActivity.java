@@ -73,6 +73,7 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
 
     @Override
     public void venueReserveSuccess(Boolean aBoolean) {
+
         if (aBoolean) {
 
             ActivityUtil.finishHomeAll();

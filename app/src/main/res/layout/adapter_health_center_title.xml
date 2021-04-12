@@ -8,7 +8,7 @@
         android:id="@+id/view_title"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="#EEEEEE"/>
+        android:background="@color/gray_eee"/>
     
     <TextView
         android:id="@+id/tv_type_name"

@@ -339,6 +339,10 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 }
             }
         }
+
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
@@ -353,6 +357,10 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             }
         }else {
             UToast.show(getActivity(),message);
+        }
+
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -418,5 +426,11 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 });
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 }

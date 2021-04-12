@@ -201,4 +201,6 @@
     <string name="service_personal">提供人</string>
     <string name="service_address">服务场地</string>
 
+    <string name="history_bill">历史账单</string>
+
 </resources>

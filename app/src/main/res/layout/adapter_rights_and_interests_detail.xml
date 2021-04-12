@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
         >
     <TextView
         android:id="@+id/tv_coupon_card"
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffffff"
         android:textSize="14sp"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="@dimen/dp_10"
         />
 
