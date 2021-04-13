@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,8 +46,12 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ExerciseAdapter exerciseAdapter;
-    private List<HotActivityBean.Record> list;
+    private List<HotActivityBean.Record> list = new ArrayList<>();
     int page  = 1;
+    String endTime;
+    String startTime;
+    String status;
+    String type;
     private static final int WEB_RESULT = 0x232;
 
     @Override
@@ -84,9 +89,7 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
                 if (list != null){
                     list.clear();
                 }
-//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
-                mPresenter.getHotActivitiy(page);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
             }
         });
 
@@ -94,51 +97,20 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
             @Override
             public void onLoadMore() {
                 page++;
-//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
-
-                mPresenter.getHotActivitiy(page);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
             }
         });
-//
-//        OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-//                .execute(new JsonCallback<>(ActivityCalendar.class, this));
-        mPresenter.getHotActivitiy(page);
+        mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+    }
 
+    public void setHotPresenter(String endTime,String startTime,String status,String type){
+        page = 1;
+        mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
     }
 
     @Override
     protected CurrentHotPresenter createPresenter() {
         return new CurrentHotPresenter();
-    }
-
-    @Override
-    public void onSuccess(Response response) {
-        if (response != null) {
-            /*if (response.body() instanceof ActivityCalendar) {
-                ActivityCalendar activityCalendar = (ActivityCalendar) response.body();
-                if (swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-                if (list != null && list.size() > 0){
-                    list.addAll(activityCalendar.data.records);
-                }else {
-                    list = activityCalendar.data.records;
-                }
-                if (list != null && list.size() > 0) {
-                    ActivityCalendar.Data.Record record = list.get(0);
-                    record.itemType = -1;
-                }
-                exerciseAdapter.setNewInstance(list);
-                if (exerciseAdapter.getLoadMoreModule().isLoading()){
-                 if (activityCalendar.data.records.size() == 10) {
-                     exerciseAdapter.getLoadMoreModule().loadMoreComplete();
-                 }else {
-                     exerciseAdapter.getLoadMoreModule().loadMoreEnd();
-                 }
-                }
-            }*/
-        }
     }
 
     @Override
@@ -150,35 +122,35 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
                 if (list != null){
                     list.clear();
                 }
-//                OkGo.get(PujingService.ACTIVITYCALENDAR).tag(this).params("page", page+"")
-//                        .execute(new JsonCallback<>(ActivityCalendar.class, CurrentHotFragment.this));
-                mPresenter.getHotActivitiy(page);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
             }
         }
     }
 
     @Override
     public void getHotActivitiySuccess(HotActivityBean hotActivityBean) {
+
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }
-        if (list != null && list.size() > 0){
+
+        if (hotActivityBean.records != null && hotActivityBean.records.size() > 0){
             list.addAll(hotActivityBean.records);
         }else {
             list = hotActivityBean.records;
         }
-        if (list != null && list.size() > 0) {
+        if (hotActivityBean.records != null && hotActivityBean.records.size() > 0){
             HotActivityBean.Record record = list.get(0);
             record.itemType = -1;
         }
         exerciseAdapter.setNewInstance(list);
-        if (exerciseAdapter.getLoadMoreModule().isLoading()){
-            if (hotActivityBean.records.size() == 10) {
+
+            if (hotActivityBean.size == hotActivityBean.total) {
                 exerciseAdapter.getLoadMoreModule().loadMoreComplete();
             }else {
                 exerciseAdapter.getLoadMoreModule().loadMoreEnd();
             }
-        }
+
     }
 
     @Override

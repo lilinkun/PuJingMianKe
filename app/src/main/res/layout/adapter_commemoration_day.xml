@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_commemoration_day_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:orientation="vertical"
+        >
+
+
+    <TextView
+        android:id="@+id/tv_commemoration_day_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#177CFF"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_commemoration_day_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_commemoration_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_commemoration_day_edit"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_commemoration_day_delete"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ll_commemoration_day"
+        android:layout_alignTop="@+id/ll_commemoration_day_left"
+        android:layout_alignBottom="@+id/ll_commemoration_day_left"
+        android:background="@color/common_gray"
+        />
+
+
+</RelativeLayout>

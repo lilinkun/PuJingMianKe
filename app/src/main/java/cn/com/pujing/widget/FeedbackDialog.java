@@ -15,8 +15,13 @@ import cn.com.pujing.R;
 
 public class FeedbackDialog extends Dialog {
 
-    public FeedbackDialog(@NonNull Context context) {
+    private int type = 0;
+    private String timeTip;
+
+    public FeedbackDialog(@NonNull Context context,int type,String timeTip) {
         super(context);
+        this.type = type;
+        this.timeTip = timeTip;
     }
 
     @Override
@@ -26,10 +31,20 @@ public class FeedbackDialog extends Dialog {
 
         TextView tvFeedbackSuccessTime = (TextView) findViewById(R.id.tv_feedback_success_time);
         TextView tvKnow = (TextView) findViewById(R.id.tv_know);
+        TextView tvContentTip = (TextView) findViewById(R.id.tv_content_tip);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        if (type == 0) {
+            tvContentTip.setText("意见反馈成功！请耐心等待");
+            tvFeedbackSuccessTime.setText(simpleDateFormat.format(new Date()));
+        }else {
+            tvContentTip.setText("场馆预订成功！");
+            tvFeedbackSuccessTime.setText("使用时间：" + timeTip);
+        }
 
-        tvFeedbackSuccessTime.setText(simpleDateFormat.format(new Date()));
+
+
+
 
         tvKnow.setOnClickListener(new View.OnClickListener() {
             @Override

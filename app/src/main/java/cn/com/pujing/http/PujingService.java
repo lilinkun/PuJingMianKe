@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.com.pujing.entity.ActivityTypeBean;
 import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.BannerBean;
@@ -23,6 +24,7 @@ import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.BillsBean;
 import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.ChangeDataBean;
+import cn.com.pujing.entity.CommemorationDayBean;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
 import cn.com.pujing.entity.HistoryActivitiesBean;
@@ -211,6 +213,12 @@ public class PujingService {
     public static String HISTORYBILLS = PREFIX + "/restaurant-service/bill/myHistoryBills";
     //根据账单id分页查订单
     public static String QUERYBILLS = PREFIX + "/restaurant-service/bill/orderPage/";
+    //分页查询用户纪念日
+    public static String COMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/page";
+    //增加纪念日
+    public static String ADDCOMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/saverOrUpdate";
+    //获取活动分类
+    public static String ACTIVITYCATEGORY = PREFIX + "/life-service/activityCategory/categoryTree";
 
 
 
@@ -401,9 +409,14 @@ public class PujingService {
     /**
      * 获取热门活动
      */
-    public static Observable<ResponseData<HotActivityBean>> getHotActivitiy(int page) {
+    public static Observable<ResponseData<HotActivityBean>> getHotActivitiy(int page,String endTime,String startTime,String status,String type) {
+
         return OkGo.<ResponseData<HotActivityBean>>get(ACTIVITYCALENDAR)
                 .params("page", page+"")
+                .params("startTime",startTime)
+                .params("endTime",endTime)
+                .params("status",status)
+                .params("type",type)
                 .converter(new JsonConvert<ResponseData<HotActivityBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<HotActivityBean>>());
@@ -962,6 +975,38 @@ public class PujingService {
 
 
     /**
+     * 我的纪念日
+     */
+    public static Observable<ResponseData<CommemorationDayBean>> getCommemorationDay(int page){
+
+        return OkGo.<ResponseData<CommemorationDayBean>>get(COMMEMORATIONDAY)
+                .params("page",page+"")
+                .converter(new JsonConvert<ResponseData<CommemorationDayBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<CommemorationDayBean>>());
+    }
+
+    /**
+     * 增加纪念日
+     */
+    public static Observable<ResponseData<CommemorationDayBean>> addCommemorationDay(String commemorationDay,String commemorationName){
+
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("commemorationDay", commemorationDay);
+        params.put("commemorationName", commemorationName);
+
+        JSONObject jsonObject = new JSONObject(params);
+
+        return OkGo.<ResponseData<CommemorationDayBean>>post(ADDCOMMEMORATIONDAY)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<CommemorationDayBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<CommemorationDayBean>>());
+    }
+
+
+    /**
      * 我的订单
      */
     public static Observable<ResponseData<OrderItemBean>> getMyOrder(int page,int ordertypeId, String startDate, String endDate){
@@ -989,5 +1034,18 @@ public class PujingService {
                 .adapt(new ObservableBody<ResponseData<OrderItemBean>>());
     }
 
+
+
+
+    /**
+     * 我的纪念日
+     */
+    public static Observable<ResponseData<List<ActivityTypeBean>>> getActivityType(){
+
+        return OkGo.<ResponseData<List<ActivityTypeBean>>>get(ACTIVITYCATEGORY)
+                .converter(new JsonConvert<ResponseData<List<ActivityTypeBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<List<ActivityTypeBean>>>());
+    }
 
 }

@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class HotActivityBean implements Serializable {
     public List<Record> records;
+    public int total;
+    public int size;
+    public int pages;
 
     public class Record implements MultiItemEntity {
         public String id;

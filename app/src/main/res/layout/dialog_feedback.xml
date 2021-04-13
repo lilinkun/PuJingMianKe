@@ -14,6 +14,7 @@
 
 
     <TextView
+        android:id="@+id/tv_content_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="意见反馈成功！请耐心等待"
@@ -30,6 +31,8 @@
         android:layout_height="wrap_content"
         android:textColor="#fff75a47"
         android:textSize="12sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="16dp"
         />
 

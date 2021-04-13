@@ -7,6 +7,9 @@
     <string name="plz_input_pwd">请输入您的密码</string>
     <string name="forget_pwd">忘记密码?</string>
 
+    <string name="please_input_username">请输入用户名</string>
+    <string name="please_input_name">请输入真实姓名</string>
+
     <string name="user_name">用\t户\t名 ：</string>
     <string name="cell_phone_number">手\t机\t号 ：</string>
     <string name="pwd">密\t\t\t\t码 ：</string>
@@ -47,6 +50,7 @@
     <string name="my_msg">我的消息</string>
     <string name="my_album">我的相册</string>
     <string name="my_activity">我的活动</string>
+    <string name="my_commemoration_day">我的纪念日</string>
 
     <string name="more">更多</string>
 

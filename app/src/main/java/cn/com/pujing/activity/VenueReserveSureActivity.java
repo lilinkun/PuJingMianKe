@@ -1,5 +1,6 @@
 package cn.com.pujing.activity;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import cn.com.pujing.presenter.VenueReserveSurePresenter;
 import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueReserveSureView;
+import cn.com.pujing.widget.FeedbackDialog;
 
 /**
  * author : liguo
@@ -76,7 +78,14 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
 
         if (aBoolean) {
 
-            ActivityUtil.finishHomeAll();
+            FeedbackDialog feedbackDialog = new FeedbackDialog(this,1,date + "  " + time);
+            feedbackDialog.show();
+            feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ActivityUtil.finishHomeAll();
+                }
+            });
         }
     }
 

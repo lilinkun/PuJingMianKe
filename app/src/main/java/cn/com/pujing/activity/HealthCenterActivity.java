@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
+import com.youth.banner.Banner;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +24,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.HealthCenterAdapter;
+import cn.com.pujing.adapter.ServiceImageNetAdapter;
 import cn.com.pujing.adapter.ServiceTitleAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.BasicServiceVoListBean;
 import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.VipBean;
@@ -51,8 +56,11 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
     TextView tvVip;
     @BindView(R.id.tv_content_tip)
     TextView tvContentTip;
+    @BindView(R.id.banner_life_service)
+    Banner bannerLifeService;
 
     ServiceTitleAdapter healthCenterAdapter;
+    private ServiceImageNetAdapter imageNetAdapter;
 
     @Override
     public int getLayoutId() {
@@ -76,6 +84,26 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
         mPresenter.getService();
 
         mPresenter.getVip();
+
+        imageNetAdapter = new ServiceImageNetAdapter(null);
+        bannerLifeService.setAdapter(imageNetAdapter);
+        bannerLifeService.setIndicator(new CircleIndicator(this));
+        bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
+        bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.banner_normal));
+
+        bannerLifeService.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+
+
+                Intent intent = new Intent();
+                intent.setClass(HealthCenterActivity.this, LifeTypeActivity.class);
+                intent.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
+                intent.putExtra("category",2);
+                startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -140,6 +168,18 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
     @Override
     public void getServiceDataSuccess(List<ServiceBean> serviceBeans) {
         healthCenterAdapter.setNewInstance(serviceBeans);
+
+
+        List<BasicServiceVoListBean> strings = new ArrayList<>();
+        for (int i = 0;i<serviceBeans.size();i++){
+            if (serviceBeans.get(i).getBasicServiceVoList() != null && serviceBeans.get(i).getBasicServiceVoList().size() > 0) {
+                for (int j = 0; j < serviceBeans.get(i).getBasicServiceVoList().size(); j++) {
+                    strings.add(serviceBeans.get(i).getBasicServiceVoList().get(j));
+                }
+            }
+        }
+
+        imageNetAdapter.setDatas(strings);
     }
 
     @Override

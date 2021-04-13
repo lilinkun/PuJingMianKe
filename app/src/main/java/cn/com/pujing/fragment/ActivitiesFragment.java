@@ -2,6 +2,7 @@ package cn.com.pujing.fragment;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
@@ -18,8 +19,15 @@ import cn.com.pujing.R;
 import cn.com.pujing.adapter.TabPageAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.ActivityTypeBean;
+import cn.com.pujing.entity.OrderTpeBean;
+import cn.com.pujing.presenter.ActivitiesPresenter;
+import cn.com.pujing.util.UToast;
+import cn.com.pujing.view.ActivitiesView;
+import cn.com.pujing.widget.MyActivityPopup;
+import cn.com.pujing.widget.MyOrderPopup;
 
-public class ActivitiesFragment extends BaseFragment{
+public class ActivitiesFragment extends BaseFragment<ActivitiesView, ActivitiesPresenter> implements ActivitiesView,MyActivityPopup.MyOrderClickListener {
 
     @BindView(R.id.stl_list_activities)
     SlidingTabLayout stlListActivities;
@@ -29,6 +37,9 @@ public class ActivitiesFragment extends BaseFragment{
     ImageView ivActivityFilter;
 
     MyActivitiesFragment myActivitiesFragment = new MyActivitiesFragment();
+    CurrentHotFragment currentHotFragment = new CurrentHotFragment();
+
+    private List<ActivityTypeBean> activityTypeBeans;
 
     @Override
     public int getlayoutId() {
@@ -39,13 +50,15 @@ public class ActivitiesFragment extends BaseFragment{
     public void initEventAndData() {
 
         List<BaseFragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new CurrentHotFragment());
+        fragmentList.add(currentHotFragment);
         fragmentList.add(new HistoryActivitiesFragment());
         fragmentList.add(myActivitiesFragment);
         List<String> strings = new ArrayList<>();
         strings.add(getContext().getString(R.string.cur_hot_activities));
         strings.add(getContext().getString(R.string.cur_history_activities));
         strings.add(getContext().getString(R.string.cur_my_activities));
+
+        mPresenter.getActivityType();
 
         TabPageAdapter tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList,strings);
         vpListExerciset.setAdapter(tabPageAdapter);
@@ -90,14 +103,17 @@ public class ActivitiesFragment extends BaseFragment{
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected ActivitiesPresenter createPresenter() {
+        return new ActivitiesPresenter();
     }
 
     @OnClick({R.id.iv_activity_filter})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_activity_filter:
+
+                MyActivityPopup myOrderPopup = new MyActivityPopup(getActivity(),this,activityTypeBeans);
+                myOrderPopup.showAsDropDown(getActivity().findViewById(R.id.v_title_bar));
 
                 break;
 
@@ -106,4 +122,28 @@ public class ActivitiesFragment extends BaseFragment{
         }
     }
 
+    @Override
+    public void getActivityTypeSuccess(List<ActivityTypeBean> activityTypeBeans) {
+        this.activityTypeBeans = activityTypeBeans;
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void setItemValue(OrderTpeBean orderTpeBean, OrderTpeBean orderTpeBean1, String startDate, String endDate) {
+        String orderType = "";
+        String orderScale = "";
+        if (orderTpeBean != null){
+            orderType = orderTpeBean.typeId+"";
+        }
+
+        if (orderTpeBean1 != null){
+            orderScale = orderTpeBean1.typeId + "";
+        }
+
+        currentHotFragment.setHotPresenter(endDate,startDate,orderType,orderScale);
+    }
 }

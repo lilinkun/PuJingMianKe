@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,13 +29,16 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     private TextView limitTimeTextView;
     private TextView limitTextView;
     private EditText editText;
+    private RelativeLayout rlRemainDate;
     private static final int MAX_NUM = 50;
     private String startTime;
     private String endTime;
     private String remainTime;
+    private int type = 0;
 
-    public AddThingsDialogFragment(OnDialogListener onDialogListener) {
+    public AddThingsDialogFragment(OnDialogListener onDialogListener,int type) {
         this.onDialogListener = onDialogListener;
+        this.type = type;
     }
 
     @Override
@@ -46,17 +50,8 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        //去掉dialog的标题
-//        this.getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        Window window = this.getDialog().getWindow();
-//        //去掉dialog默认的padding
-//        window.getDecorView().setPadding(0, 0, 0, 0);
-//        WindowManager.LayoutParams lp = window.getAttributes();
-//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-//        window.setAttributes(lp);
 
-        View view = inflater.inflate(R.layout.dialog_fragment_add_things1, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_add_things, container, false);
         init(view);
         return view;
     }
@@ -67,12 +62,18 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
         startTimeTextView = view.findViewById(R.id.tv_start_time_value);
         endTimeTextView = view.findViewById(R.id.tv_end_time_value);
         limitTimeTextView = view.findViewById(R.id.tv_limit_time_value);
+        rlRemainDate = view.findViewById(R.id.rl_remain_date);
         editText = view.findViewById(R.id.et_add_thing);
         view.findViewById(R.id.rl_start_date).setOnClickListener(this);
         view.findViewById(R.id.rl_end_date).setOnClickListener(this);
-        view.findViewById(R.id.rl_remain_date).setOnClickListener(this);
+        rlRemainDate.setOnClickListener(this);
         limitTextView = view.findViewById(R.id.tv_add_limit_text);
         editText.addTextChangedListener(watcher);
+
+        if (type == 1){
+            rlRemainDate.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

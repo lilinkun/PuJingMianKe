@@ -10,6 +10,10 @@ import java.io.Serializable;
 public class MyCardBean implements Serializable {
 
     /**
+     *权益劵id
+     */
+    public String id;
+    /**
      *权益劵名称
      */
     public String name;

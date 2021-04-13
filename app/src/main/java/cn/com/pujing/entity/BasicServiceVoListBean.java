@@ -18,5 +18,6 @@ public class BasicServiceVoListBean implements Serializable {
     public int type;
     public String content;
     public String themePic;
+    public String thumbnailPic;
 
 }

@@ -103,5 +103,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.BillHistoryDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.CommemorationDayActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

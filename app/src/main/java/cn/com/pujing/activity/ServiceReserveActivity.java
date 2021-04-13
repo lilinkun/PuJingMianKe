@@ -23,6 +23,7 @@ import cn.com.pujing.presenter.ServiceReservePresenter;
 import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.ServiceReserveView;
+import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.RightAndInterestsDialog;
 
 /**
@@ -51,6 +52,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
     private ServiceItemsBean serviceitemsbean;
     private int category;
     private String customerVoucherId = "0";
+    private List<MyCardBean> myCardBeans;
 
     @Override
     public int getLayoutId() {
@@ -73,7 +75,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
         tvDate.setText(date + " " + time);
         tvServiceName.setText(serviceitemsbean.name);
         tvServiceContent.setText(content);
-//        tvDescription.setText(serviceitemsbean.name);
+        tvDescription.setText(serviceitemsbean.serviceNeed);
 
         if(category == 1){
             rlRightsAndInterests.setVisibility(View.GONE);
@@ -125,7 +127,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
 
     @Override
     public void getCardDataSuccess(List<MyCardBean> myCardBeans) {
-
+        this.myCardBeans = myCardBeans;
         if (myCardBeans != null  && myCardBeans.size() > 0) {
             RightAndInterestsDialog rightAndInterestsDialog = new RightAndInterestsDialog(this, myCardBeans,this);
             rightAndInterestsDialog.show();
@@ -146,7 +148,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
             customerVoucherId = "0";
             tvUseCoupon.setText("");
         }else {
-            customerVoucherId = pos + "";
+            customerVoucherId = myCardBeans.get(pos).id + "";
             tvUseCoupon.setText("已选择1张权益券");
         }
     }

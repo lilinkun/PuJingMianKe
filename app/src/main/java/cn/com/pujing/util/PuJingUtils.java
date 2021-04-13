@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -309,6 +311,23 @@ public class PuJingUtils {
 
 
         return "当期账单\n"+"("+ firstDay + "-至今)";
+    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本号
+     */
+    public static String getVersion(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "无法获取到版本号";
+        }
     }
 
 

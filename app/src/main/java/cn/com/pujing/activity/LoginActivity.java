@@ -39,9 +39,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        ImmersionBar.with(this)
-                .statusBarDarkFont(true)
-                .init();
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
         showFragment(LOGIN);
     }
 

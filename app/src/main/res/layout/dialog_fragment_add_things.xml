@@ -1,251 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical">
 
-    <View
-        android:id="@+id/v_up"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/v_down"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/v_down"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_up" />
-
-    <View
-        android:id="@+id/v_content"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/shape_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/v_down"
-        app:layout_constraintEnd_toEndOf="@id/v_down"
-        app:layout_constraintStart_toStartOf="@id/v_down"
-        app:layout_constraintTop_toTopOf="@id/v_down" />
-
-    <TextView
-        android:id="@+id/tv_cancel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/cancel"
-        android:textColor="@color/text_gray"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/v_content" />
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_new_matter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_matter"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/tv_cancel" />
+        <LinearLayout
+            android:id="@+id/v_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/shape_calendar"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="@string/add"
-        android:textColor="#F75A47"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/tv_cancel" />
+            <RelativeLayout
+                android:id="@+id/rl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_start_time_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/start_time"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_cancel" />
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cancel"
+                    android:textColor="@color/text_gray"
+                    android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/iv_start_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@mipmap/ic_forward"
-        android:paddingLeft="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_start_time_key"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/tv_start_time_key" />
+                <TextView
+                    android:id="@+id/tv_new_matter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/new_matter"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_start_time_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:textColor="@color/text_gray"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_start_time_key"
-        app:layout_constraintEnd_toStartOf="@id/iv_start_time"
-        app:layout_constraintTop_toTopOf="@id/tv_start_time_key" />
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/add"
+                    android:textColor="#F75A47"
+                    android:textSize="16sp" />
 
-    <View
-        android:id="@+id/v_start_time"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/common_gray"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_time_key" />
+            </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_end_time_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/end_time"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_time_key" />
+            <RelativeLayout
+                android:id="@+id/rl_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp">
 
-    <ImageView
-        android:id="@+id/iv_end_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:paddingLeft="20dp"
-        android:src="@mipmap/ic_forward"
-        app:layout_constraintBottom_toBottomOf="@id/tv_end_time_key"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/tv_end_time_key" />
+                <TextView
+                    android:id="@+id/tv_start_time_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/start_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_end_time_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:textColor="@color/text_gray"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_end_time_key"
-        app:layout_constraintEnd_toStartOf="@id/iv_end_time"
-        app:layout_constraintTop_toTopOf="@id/tv_end_time_key" />
+                <ImageView
+                    android:id="@+id/iv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_start_time_key"
+                    android:layout_alignBottom="@+id/tv_start_time_key"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:paddingLeft="20dp"
+                    android:src="@mipmap/ic_forward" />
 
-    <View
-        android:id="@+id/v_end_time"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/common_gray"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
+                <TextView
+                    android:id="@+id/tv_start_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/iv_start_time"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
 
+                <View
+                    android:id="@+id/v_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/common_gray" />
 
-    <TextView
-        android:id="@+id/tv_limit_time_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/notice_time"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_end_time_key" />
+            </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv_limit_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:paddingLeft="20dp"
-        android:src="@mipmap/ic_forward"
-        app:layout_constraintBottom_toBottomOf="@id/tv_limit_time_key"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintTop_toTopOf="@id/tv_limit_time_key" />
+            <RelativeLayout
+                android:id="@+id/rl_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                >
 
-    <TextView
-        android:id="@+id/tv_limit_time_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:textColor="@color/text_gray"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_limit_time_key"
-        app:layout_constraintEnd_toStartOf="@id/iv_limit_time"
-        app:layout_constraintTop_toTopOf="@id/tv_limit_time_key" />
+                <TextView
+                    android:id="@+id/tv_end_time_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/end_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-    <View
-        android:id="@+id/v_limit_time"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/common_gray"
-    app:layout_constraintEnd_toEndOf="@id/v_content"
-    app:layout_constraintStart_toStartOf="@id/v_content"
-    app:layout_constraintTop_toBottomOf="@id/tv_limit_time_key" />
+                <ImageView
+                    android:id="@+id/iv_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:paddingLeft="20dp"
+                    android:src="@mipmap/ic_forward" />
 
-    <EditText
-        android:id="@+id/et_add_thing"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/shape_calendar"
-        android:gravity="top"
-        android:padding="10dp"
-        android:textColor="@color/text_gray"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/v_content"
-        app:layout_constraintEnd_toEndOf="@id/v_content"
-        app:layout_constraintStart_toStartOf="@id/v_content" />
+                <TextView
+                    android:id="@+id/tv_end_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/iv_end_time"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/tv_add_limit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/et_add_thing"
-        app:layout_constraintEnd_toEndOf="@+id/et_add_thing"
-        android:text="50"
-        android:textSize="@dimen/sp_14"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        />
+                <View
+                    android:id="@+id/v_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/common_gray" />
+
+            </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/tv_matter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/matter"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/et_add_thing"
-        app:layout_constraintStart_toStartOf="@id/v_content"
-        app:layout_constraintTop_toBottomOf="@+id/v_limit_time"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/rl_remain_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                >
+
+
+                <TextView
+                    android:id="@+id/tv_limit_time_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/notice_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_limit_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:paddingLeft="20dp"
+                    android:src="@mipmap/ic_forward" />
+
+                <TextView
+                    android:id="@+id/tv_limit_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/iv_limit_time"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/v_limit_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/common_gray" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_matter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/matter"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <EditText
+                    android:id="@+id/et_add_thing"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/shape_calendar"
+                    android:gravity="top"
+                    android:padding="10dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_add_limit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/et_add_thing"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="end"
+                    android:text="50"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

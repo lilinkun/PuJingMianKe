@@ -20,9 +20,9 @@ public class CurrentHotPresenter extends BasePresenter<CurrentHotView> {
 
 
     //热门活动
-    public void getHotActivitiy(int page){
+    public void getHotActivitiy(int page,String endTime,String startTime,String status,String type){
 
-        PujingService.getHotActivitiy(page)
+        PujingService.getHotActivitiy(page,endTime,startTime,status,type)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<HotActivityBean>() {

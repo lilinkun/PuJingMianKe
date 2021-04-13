@@ -1,6 +1,7 @@
 package cn.com.pujing.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -50,6 +51,7 @@ import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HomePresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.util.Urls;
 import cn.com.pujing.view.HomeView;
@@ -143,6 +145,16 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 }
             }
         });
+
+        if (Methods.getValueByKey("green",getActivity()) != null && Methods.getValueByKey("green",getActivity()).length() != 0) {
+            if (Double.valueOf(Methods.getValueByKey("green",getActivity())) < Double.valueOf(PuJingUtils.getVersion(getActivity()))){
+                DBManager.getInstance(getActivity()).deleteHomeTitle();
+                Methods.saveKeyValue("green", PuJingUtils.getVersion(getActivity()), getActivity());
+            }
+        }else {
+            Methods.saveKeyValue("green", PuJingUtils.getVersion(getActivity()), getActivity());
+        }
+
 
         if (DBManager.getInstance(getActivity()).queryHomeTitle().size() == 0){
             for (GridItem gridItem : GridItem.getTestData()) {

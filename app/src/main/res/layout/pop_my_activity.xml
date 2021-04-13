@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#cc000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_myorder_pop"
+        android:padding="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单类型"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单类型"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_activity_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始日期"
+                android:textColor="#ff4a4a4a"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_999"
+                android:hint="请选择开始日期"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="14sp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/common_gray"
+                android:layout_alignParentBottom="true"
+
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/dp_10"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="截止日期"
+                android:textColor="#ff4a4a4a"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_999"
+                android:hint="请选择截止日期"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="14sp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_alignParentBottom="true"
+
+                />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="16sp"
+            >
+
+            <TextView
+                android:id="@+id/tv_sure_pop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/sure"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@drawable/shape_add_rest"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_cancel_pop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_marginStart="@dimen/dp_10"
+                android:textColor="@color/main_color"
+                android:background="@drawable/shape_rest_exit"
+                />
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+</LinearLayout>

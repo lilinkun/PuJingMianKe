@@ -225,7 +225,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     public void saveFeedback(boolean b) {
         loading(false);
         if (b) {
-            FeedbackDialog feedbackDialog = new FeedbackDialog(this);
+            FeedbackDialog feedbackDialog = new FeedbackDialog(this,0,"");
             feedbackDialog.show();
             feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override

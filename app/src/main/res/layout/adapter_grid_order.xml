@@ -12,8 +12,6 @@
         android:gravity="center"
         android:background="@drawable/bg_btn_myorder_click"
         android:layout_margin="10dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
         android:textSize="14sp"

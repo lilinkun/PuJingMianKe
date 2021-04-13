@@ -11,39 +11,62 @@
         android:layout_height="93dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toStartOf="@id/rl_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_title"
+    <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_signed"
+        android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_signed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_venue_line"
-        android:text="已报名"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="gone"
-        android:textSize="@dimen/sp_14"
-        android:textColor="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        />
+        >
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:layout_toStartOf="@+id/ll_signed"
+            android:layout_alignParentStart="true"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_signed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            >
+
+        <TextView
+            android:id="@+id/tv_signed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_venue_line"
+            android:text="已报名"
+            android:layout_marginTop="15dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:visibility="gone"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/main_color"
+            android:layout_marginEnd="20dp"
+            />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 
 
@@ -57,7 +80,7 @@
         android:layout_marginEnd="20dp"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/rl_title" />
 
     <TextView
         android:id="@+id/tv_status"
@@ -69,21 +92,22 @@
         android:layout_marginEnd="20dp"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/rl_title" />
 
 
     <TextView
-        android:lineSpacingExtra="2dp"
         android:id="@+id/tv_content"
+        android:lineSpacingExtra="2dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ellipsize="end"
+        android:layout_marginStart="10dp"
         android:maxLines="2"
         android:textColor="@color/text_black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
         app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
     <TextView
@@ -91,9 +115,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:textColor="@color/text_black"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintStart_toEndOf="@id/iv_item_exercise"
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
 

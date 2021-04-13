@@ -147,9 +147,11 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
         anotherExerciseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                Intent intent = new Intent(MyCalendarActivity.this, WebviewActivity.class);
-                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + querySelectDayBeans.get(position).activityId);
-                startActivity(intent);
+                if (querySelectDayBeans.get(position).activityId != null) {
+                    Intent intent = new Intent(MyCalendarActivity.this, WebviewActivity.class);
+                    intent.putExtra(Constants.URL, PujingService.h5_myinfo + querySelectDayBeans.get(position).activityId);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -258,7 +260,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
         } else if (id == R.id.iv_next) {
             calendarView.scrollToNext();
         } else if (id == R.id.tv_add) {
-            AddThingsDialogFragment addThingsDialogFragment = new AddThingsDialogFragment(this);
+            AddThingsDialogFragment addThingsDialogFragment = new AddThingsDialogFragment(this,0);
             addThingsDialogFragment.show(getSupportFragmentManager(), "");
         }
     }
