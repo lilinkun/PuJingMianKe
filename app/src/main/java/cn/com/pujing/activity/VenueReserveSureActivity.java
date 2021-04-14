@@ -39,7 +39,8 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
     ImageView ivVenuePic;
 
     private DeviceBean device;
-    private VenueBean.Records venueBean;
+    private int id;
+//    private VenueBean.Records venueBean;
     private String time;
     private String date;
     private ReserveDeviceBean reserveDeviceBean;
@@ -58,7 +59,8 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
         date = getIntent().getStringExtra("date");
         time = getIntent().getStringExtra("time");
         device = (DeviceBean)getIntent().getSerializableExtra("device");
-        venueBean = (VenueBean.Records)getIntent().getSerializableExtra("venueBean");
+        id = getIntent().getIntExtra("id",0);
+//        venueBean = (VenueBean.Records)getIntent().getSerializableExtra("venueBean");
         reserveDeviceBean = (ReserveDeviceBean)getIntent().getSerializableExtra("reserveDeviceBean");
         tvDate.setText(date + " " + time);
         tvDeviceName.setText(device.deviceName);
@@ -105,7 +107,7 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
 
             case R.id.tv_sumbit_venue_reserve:
 
-                mPresenter.reserveSure(venueBean.id,device.deviceId,date,time);
+                mPresenter.reserveSure(id+"",device.deviceId,date,time);
 
                 break;
 

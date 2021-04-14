@@ -19,10 +19,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.HealthCenterAdapter;
+import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.ServiceImageNetAdapter;
 import cn.com.pujing.adapter.ServiceTitleAdapter;
 import cn.com.pujing.adapter.VenueImageNetAdapter;
 import cn.com.pujing.base.BaseActivity;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BasicServiceVoListBean;
 import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
@@ -44,7 +46,8 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
     Banner bannerLifeService;
 
     private ServiceTitleAdapter healthCenterAdapter;
-    private ServiceImageNetAdapter imageNetAdapter;
+    private ImageNetAdapter imageNetAdapter;
+    private List<BannerBean> bannerBeans;
 
     @Override
     public int getLayoutId() {
@@ -66,7 +69,7 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
         mPresenter.getService();
 
-        imageNetAdapter = new ServiceImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null);
         bannerLifeService.setAdapter(imageNetAdapter);
         bannerLifeService.setIndicator(new CircleIndicator(this));
         bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -79,7 +82,7 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
                 Intent intent = new Intent();
                 intent.setClass(LifeServiceActivity.this, LifeTypeActivity.class);
-                intent.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
+                intent.putExtra("id",((List<BannerBean>)data).get(position).getLinkAddress());
                 intent.putExtra("category",1);
                 startActivity(intent);
 
@@ -110,9 +113,17 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
             }
         }
 
-        imageNetAdapter.setDatas(strings);
 
+    }
 
+    @Override
+    public void getBannerDataSuccess(List<BannerBean> data) {
+        this.bannerBeans = data;
+        imageNetAdapter.setDatas(data);
+    }
+
+    @Override
+    public void getBannerDataFail(String msg) {
 
     }
 

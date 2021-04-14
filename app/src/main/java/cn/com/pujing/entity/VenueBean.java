@@ -10,12 +10,11 @@ import java.util.List;
  */
 public class VenueBean implements Serializable {
 
-    public List<Records> serviceVenueManageList;
-    public String topicPicture;
+    public List<Records> records;
 
     public class Records implements Serializable{
 
-        public String id;
+        public int id;
         public String name;
         public String topic;
         public String thumbnail;

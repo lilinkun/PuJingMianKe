@@ -10,4 +10,5 @@ import java.io.Serializable;
 public class DeviceBean implements Serializable {
     public String deviceId;
     public String deviceName;
+    public String venueName;
 }

@@ -103,7 +103,7 @@ public class CommemorationDayActivity extends BaseActivity<CommemorationDayView,
 
             case R.id.tv_add_commemoration_day:
 
-                CommemorationDayDialog commemorationDayDialog = new CommemorationDayDialog(this,this);
+                CommemorationDayDialog commemorationDayDialog = new CommemorationDayDialog(this,this,0);
                 commemorationDayDialog.setView(new EditText(this));
                 commemorationDayDialog.show();
 
@@ -116,8 +116,8 @@ public class CommemorationDayActivity extends BaseActivity<CommemorationDayView,
     }
 
     @Override
-    public void onDialogClick(String date, String content) {
-        mPresenter.addCommemorationDay(date,content);
+    public void onDialogClick(String date, String content,int type) {
+        mPresenter.addCommemorationDay(date,content,type);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class CommemorationDayActivity extends BaseActivity<CommemorationDayView,
     @Override
     public void setEdit(int position) {
 
-        CommemorationDayDialog commemorationDayDialog = new CommemorationDayDialog(this,this);
+        CommemorationDayDialog commemorationDayDialog = new CommemorationDayDialog(this,this,commemorationDayBean.records.get(position).id);
         commemorationDayDialog.setView(new EditText(this));
         commemorationDayDialog.setEdit(commemorationDayBean.records.get(position));
         commemorationDayDialog.show();

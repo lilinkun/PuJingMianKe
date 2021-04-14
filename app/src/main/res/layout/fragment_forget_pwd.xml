@@ -71,7 +71,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/get_captcha"
-        android:textColor="#177CFF"
+        android:textColor="@color/blue"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_captcha_key"
         app:layout_constraintEnd_toEndOf="parent"

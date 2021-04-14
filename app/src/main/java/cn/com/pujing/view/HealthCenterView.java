@@ -2,6 +2,7 @@ package cn.com.pujing.view;
 
 import java.util.List;
 
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.VipBean;
 
@@ -17,5 +18,10 @@ public interface HealthCenterView {
     public void getServiceDataSuccess(List<ServiceBean> serviceBeans);
 
     public void getVip(VipBean vipBean);
+
+
+    void getBannerDataSuccess(List<BannerBean> data);
+
+    void getBannerDataFail(String msg);
 
 }

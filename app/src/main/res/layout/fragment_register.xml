@@ -70,9 +70,9 @@
         android:id="@+id/et_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@null"
+        android:textSize="15sp"
         android:hint="@string/please_input_username"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@_#."
         app:layout_constraintBottom_toBottomOf="@id/tv_user_name"
@@ -109,6 +109,7 @@
         android:layout_marginRight="10dp"
         android:maxLength="20"
         android:background="@null"
+        android:textSize="15sp"
         android:hint="@string/please_input_name"
         app:layout_constraintBottom_toBottomOf="@id/tv_username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,38 +137,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_username" />
 
-    <RadioGroup
-        android:id="@+id/rg_sex"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:maxLength="20"
-        android:background="@null"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/tv_sex"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_sex"
-        app:layout_constraintTop_toTopOf="@id/tv_sex" >
 
-        <RadioButton
-            android:id="@+id/rb_man"
+        <TextView
+            android:id="@+id/tv_sex_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@null"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sex"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_sex"
+            app:layout_constraintTop_toTopOf="@id/tv_sex" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="男"
+            android:src="@mipmap/ic_next_another"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sex"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_sex"
+            android:layout_marginEnd="@dimen/dp_10"
             />
-
-        <RadioButton
-            android:id="@+id/rb_woman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="女"
-            />
-
-
-    </RadioGroup>
-
 
 
     <View
@@ -317,7 +312,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/get_captcha"
-        android:textColor="#177CFF"
+        android:textColor="@color/blue"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_captcha_key"
         app:layout_constraintEnd_toEndOf="parent"

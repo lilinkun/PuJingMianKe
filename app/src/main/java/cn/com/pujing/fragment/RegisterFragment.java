@@ -1,13 +1,16 @@
 package cn.com.pujing.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.internal.Utils;
 import cn.com.pujing.R;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.base.BaseFragment;
@@ -16,8 +19,9 @@ import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RegisterView;
+import cn.com.pujing.widget.RegeisterPopup;
 
-public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresenter> implements View.OnClickListener,RegisterView {
+public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresenter> implements View.OnClickListener, RegisterView, RegeisterPopup.OnListener {
     @BindView(R.id.et_cell_phone_number)
     EditText etCellPhoneNumber;
     @BindView(R.id.et_user_name)
@@ -30,10 +34,10 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     EditText etCaptcha;
     @BindView(R.id.et_username)
     EditText etName;
-    @BindView(R.id.rb_man)
-    RadioButton rbMan;
-    @BindView(R.id.rb_woman)
-    RadioButton rbWoman;
+    @BindView(R.id.tv_sex_value)
+    TextView tvSexValue;
+
+    private int sex = 0;
 
     @Override
     public int getlayoutId() {
@@ -50,7 +54,7 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     }
 
     @Override
-    @OnClick({R.id.tv_login,R.id.tv_get_captcha,R.id.btn_register})
+    @OnClick({R.id.tv_login,R.id.tv_get_captcha,R.id.btn_register,R.id.tv_sex_value})
     public void onClick(View v) {
         int id = v.getId();
 
@@ -86,18 +90,18 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
                 UToast.show(getActivity(),R.string.psd_no_identical);
             }else if( pwd.length() < 6 || pwd.length() > 20){
                 UToast.show(getActivity(),R.string.psw_null_tip);
-            }else {
+            }else if (sex == 0) {
+                UToast.show(getActivity(),"请选择性别");
+            } else {
 
-                String sex = "";
-                if (rbMan.isChecked()){
-                    sex = "1";
-                }else {
-                    sex = "2";
-                }
-
-                mPresenter.register(userName,phone,pwd,captcha,name,sex);
+                mPresenter.register(userName,phone,pwd,captcha,name,sex+"");
 
             }
+        }else if (id == R.id.tv_sex_value){
+
+            RegeisterPopup regeisterPopup = new RegeisterPopup(getActivity(),this);
+            regeisterPopup.showAsDropDown(etUserName);
+
         }
     }
 
@@ -125,5 +129,15 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(),msg);
+    }
+
+    @Override
+    public void getSex(int sex) {
+        this.sex = sex;
+        if (sex == 1){
+            tvSexValue.setText("男");
+        }else {
+            tvSexValue.setText("女");
+        }
     }
 }

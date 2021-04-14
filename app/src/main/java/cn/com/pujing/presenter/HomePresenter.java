@@ -23,7 +23,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     //获取轮播图数据
     public void getBannerData() {
 
-        PujingService.getBannerData()
+        PujingService.getBannerData(1)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<List<BannerBean>>() {

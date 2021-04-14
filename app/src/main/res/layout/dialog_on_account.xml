@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/see_order"
-            android:textColor="#ff177cff"
+            android:textColor="@color/blue"
             android:textSize="16sp"
             />
 

@@ -52,7 +52,7 @@
         android:layout_marginEnd="16dp"
         android:text="使用中"
         android:gravity="right"
-        android:textColor="#177CFF"
+        android:textColor="@color/blue"
         android:textSize="16sp"
         />
 

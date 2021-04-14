@@ -71,13 +71,14 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
     private ServiceTypeAdapter serviceTypeAdapter;
     private ServiceTipAdapter serviceTipAdapter;
-    private BasicServiceVoListBean basicServiceVoListBean;
+//    private BasicServiceVoListBean basicServiceVoListBean;
     private LifeTypeBean lifeTypeBeans;
     private ServiceItemsBean serviceItemsBean;
     private List<ServicePutawayManageTimeBean> servicePutawayManageTimeBeans;
     public static int ClickServicePos = -1;
     private int pos = 0;
     private int category = 0;
+    private int id = 0;
 
     @Override
     public int getLayoutId() {
@@ -91,13 +92,14 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-        basicServiceVoListBean = (BasicServiceVoListBean)getIntent().getSerializableExtra("basicservicevolistbean");
+//        basicServiceVoListBean = (BasicServiceVoListBean)getIntent().getSerializableExtra("basicservicevolistbean");
 
         category = getIntent().getIntExtra("category",0);
+        id = getIntent().getIntExtra("id",0);
 
-        mPresenter.getLifeType(basicServiceVoListBean.id);
+        mPresenter.getLifeType(id);
 
-        tvTitleName.setText(basicServiceVoListBean.name);
+//        tvTitleName.setText(basicServiceVoListBean.name);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -121,7 +123,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                 serviceTypeAdapter.setClickPos(position);
                 ClickServicePos = -1;
                 pos = position;
-                mPresenter.getLifeTime(basicServiceVoListBean.id+"",lifeTypeBeans.serviceItemsList.get(position).id+"",tvReserveDate.getText().toString());
+                mPresenter.getLifeTime(id+"",lifeTypeBeans.serviceItemsList.get(position).id+"",tvReserveDate.getText().toString());
 
             }
         });
@@ -169,7 +171,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                     Intent intent = new Intent(this, ServiceReserveActivity.class);
                     intent.putExtra("date", tvReserveDate.getText().toString());
                     intent.putExtra("time", tvReserveTime.getText().toString());
-                    intent.putExtra("basicservicevolistbean", basicServiceVoListBean);
+                    intent.putExtra("id", id);
                     intent.putExtra("category", category);
                     intent.putExtra("serviceitemsbean", serviceItemsBean);
                     intent.putExtra("content", lifeTypeBeans.content);
@@ -191,7 +193,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
                                 if (lifeTypeBeans != null ) {
                                     if (lifeTypeBeans.serviceItemsList != null && lifeTypeBeans.serviceItemsList.size() >= pos) {
-                                        mPresenter.getLifeTime(basicServiceVoListBean.id + "", lifeTypeBeans.serviceItemsList.get(pos).id + "", tvReserveDate.getText().toString());
+                                        mPresenter.getLifeTime(id + "", lifeTypeBeans.serviceItemsList.get(pos).id + "", tvReserveDate.getText().toString());
                                     }
                                 }
                             }
@@ -252,6 +254,8 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
     @Override
     public void getLifeType(LifeTypeBean lifeTypeBeans) {
+        tvTitleName.setText(lifeTypeBeans.name);
+
         this.lifeTypeBeans = lifeTypeBeans;
         serviceTypeAdapter.setNewInstance(lifeTypeBeans.serviceItemsList);
         tvServiceTip.setText(lifeTypeBeans.content);
@@ -260,7 +264,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + lifeTypeBeans.themePic)
                 .apply(PuJingUtils.setGlideCircle(10)).into(ivTopPic);
 
-        mPresenter.getLifeTime(basicServiceVoListBean.id+"",lifeTypeBeans.serviceItemsList.get(0).id+"",tvReserveDate.getText().toString());
+        mPresenter.getLifeTime(id+"",lifeTypeBeans.serviceItemsList.get(0).id+"",tvReserveDate.getText().toString());
 
     }
 

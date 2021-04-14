@@ -88,7 +88,7 @@ public class PujingService {
     public static String GETFILEPATHKEY = PREFIX + "/basic-service/attachment/cos/getFilePathKey";
 
     public static String TOKEN = PREFIX + "/upms-service/oauth/token";
-    public static String BANNER = PREFIX + "/content-service/banner/getAppBanner";
+    public static String BANNER = PREFIX + "/content-service/banner/getAppBanner/";
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
     public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
     public static String SENDSMS = PREFIX + "/upms-service/oauth/sendSms";
@@ -253,8 +253,8 @@ public class PujingService {
     /**
      * 首页Banner
      */
-    public static Observable<ResponseData<List<BannerBean>>> getBannerData() {
-        return OkGo.<ResponseData<List<BannerBean>>>get(BANNER)
+    public static Observable<ResponseData<List<BannerBean>>> getBannerData(int type) {
+        return OkGo.<ResponseData<List<BannerBean>>>get(BANNER + type)
                 .converter(new JsonConvert<ResponseData<List<BannerBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<BannerBean>>>());
@@ -984,12 +984,17 @@ public class PujingService {
     /**
      * 增加纪念日
      */
-    public static Observable<ResponseData<Object>> addCommemorationDay(String commemorationDay,String commemorationName){
+    public static Observable<ResponseData<Object>> addCommemorationDay(String commemorationDay,String commemorationName,int type){
 
         HashMap<String, String> params = new HashMap<>();
 
         params.put("commemorationDay", commemorationDay);
         params.put("commemorationName", commemorationName);
+
+        if (type != 0){
+            params.put("id",type+"");
+        }
+
 
         JSONObject jsonObject = new JSONObject(params);
 

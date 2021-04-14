@@ -19,7 +19,7 @@
         android:id="@+id/tv_commemoration_day_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#177CFF"
+        android:textColor="@color/blue"
         android:textSize="16sp"
         />
 

@@ -51,7 +51,7 @@ public class ServiceTitleAdapter extends BaseQuickAdapter<ServiceBean, BaseViewH
                 public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                     Intent intent = new Intent();
                     intent.setClass(baseViewHolder.itemView.getContext(), LifeTypeActivity.class);
-                    intent.putExtra("basicservicevolistbean",serviceBean.getBasicServiceVoList().get(position));
+                    intent.putExtra("id",serviceBean.getBasicServiceVoList().get(position).id);
                     intent.putExtra("category",category);
                     baseViewHolder.itemView.getContext().startActivity(intent);
                 }

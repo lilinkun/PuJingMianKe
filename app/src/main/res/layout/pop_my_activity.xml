@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="订单类型"
+            android:text="活动分类"
             android:textColor="#ff000000"
             android:textSize="14sp"
             android:textStyle="bold"

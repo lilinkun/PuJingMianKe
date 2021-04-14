@@ -48,8 +48,9 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
 
     private String time;
     private String date;
-    private BasicServiceVoListBean basicServiceVoListBean;
+//    private BasicServiceVoListBean basicServiceVoListBean;
     private ServiceItemsBean serviceitemsbean;
+    private int id;
     private int category;
     private String customerVoucherId = "0";
     private List<MyCardBean> myCardBeans;
@@ -69,8 +70,9 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
         date = getIntent().getStringExtra("date");
         time = getIntent().getStringExtra("time");
         String content = getIntent().getStringExtra("content");
-        basicServiceVoListBean = (BasicServiceVoListBean)getIntent().getSerializableExtra("basicservicevolistbean");
+//        basicServiceVoListBean = (BasicServiceVoListBean)getIntent().getSerializableExtra("basicservicevolistbean");
         category = getIntent().getIntExtra("category",0);
+        id = getIntent().getIntExtra("id",0);
         serviceitemsbean = (ServiceItemsBean)getIntent().getSerializableExtra("serviceitemsbean");
         tvDate.setText(date + " " + time);
         tvServiceName.setText(serviceitemsbean.name);
@@ -105,7 +107,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
 
             case R.id.tv_reserve_order:
 
-                mPresenter.reserveService(date,time,serviceitemsbean.id+"",serviceitemsbean.name,basicServiceVoListBean.id+"",category+"",customerVoucherId);
+                mPresenter.reserveService(date,time,serviceitemsbean.id+"",serviceitemsbean.name,id+"",category+"",customerVoucherId);
 
                 break;
 

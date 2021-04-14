@@ -42,8 +42,8 @@ public class CommemorationDayPresenter extends BasePresenter<CommemorationDayVie
     /**
      * 增加纪念日
      */
-    public void addCommemorationDay(String commemorationDay,String commemorationName){
-        PujingService.addCommemorationDay(commemorationDay,commemorationName)
+    public void addCommemorationDay(String commemorationDay,String commemorationName,int type){
+        PujingService.addCommemorationDay(commemorationDay,commemorationName,type)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<Object>() {

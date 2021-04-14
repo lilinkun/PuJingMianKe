@@ -14,19 +14,18 @@ import com.youth.banner.Banner;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.VenueAdapter;
-import cn.com.pujing.adapter.VenueImageNetAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.VenueBean;
-import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.VenuePresenter;
 import cn.com.pujing.util.ActivityUtil;
-import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueView;
 
@@ -44,7 +43,8 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
 
     private VenueAdapter venueAdapter;
     private VenueBean venueBeans;
-    private VenueImageNetAdapter imageNetAdapter;
+    private ImageNetAdapter imageNetAdapter;
+    private List<BannerBean> bannerBeans;
 
     @Override
     public int getLayoutId() {
@@ -68,7 +68,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
         rvVenue.setAdapter(venueAdapter);
 
 
-        imageNetAdapter = new VenueImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null);
         bannerVenue.setAdapter(imageNetAdapter);
         bannerVenue.setIndicator(new CircleIndicator(this));
         bannerVenue.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -79,7 +79,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
 
                 Intent intent = new Intent();
                 intent.setClass(VenueActivity.this,VenueReserveActivity.class);
-                intent.putExtra("venue",venueBeans.serviceVenueManageList.get(position));
+                intent.putExtra("id",bannerBeans.get(position).getLinkAddress());
                 startActivity(intent);
 
             }
@@ -92,7 +92,8 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
 
                 Intent intent = new Intent();
                 intent.setClass(VenueActivity.this,VenueReserveActivity.class);
-                intent.putExtra("venue",venueBeans.serviceVenueManageList.get(position));
+                intent.putExtra("venue",venueBeans.records.get(position));
+                intent.putExtra("id",venueBeans.records.get(position).id);
                 startActivity(intent);
 
 
@@ -109,14 +110,24 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     @Override
     public void getVenueType(VenueBean venueBeans) {
         this.venueBeans = venueBeans;
-        venueAdapter.setNewInstance(venueBeans.serviceVenueManageList);
-        imageNetAdapter.setDatas(venueBeans.serviceVenueManageList);
-        imageNetAdapter.notifyDataSetChanged();
+        venueAdapter.setNewInstance(venueBeans.records);
     }
 
     @Override
     public void getVenueFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @Override
+    public void getBannerDataSuccess(List<BannerBean> data) {
+        bannerBeans = data;
+        imageNetAdapter.setDatas(data);
+        imageNetAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getBannerDataFail(String msg) {
+
     }
 
     @OnClick({R.id.iv_back})

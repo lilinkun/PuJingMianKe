@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,17 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     TextView tvFeedbackType;
     @BindView(R.id.tv_length_limit)
     TextView tvLengthLimit;
+    @BindView(R.id.rb_feedback)
+    RadioButton rbFeedback;
+    @BindView(R.id.rb_complaint)
+    RadioButton rbComplaint;
+    @BindView(R.id.rb_opinion)
+    RadioButton rbOpinion;
+    @BindView(R.id.rb_praise)
+    RadioButton rbPraise;
+    @BindView(R.id.rg_feedback_type)
+    RadioGroup rgFeedbackType;
+
     private int id = 0;
     private ImageView uploadImageView;
     private int checkedId;

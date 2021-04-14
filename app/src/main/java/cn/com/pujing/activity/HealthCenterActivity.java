@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.youth.banner.Banner;
 import com.youth.banner.indicator.CircleIndicator;
@@ -23,21 +20,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
-import cn.com.pujing.adapter.HealthCenterAdapter;
-import cn.com.pujing.adapter.ServiceImageNetAdapter;
+import cn.com.pujing.adapter.ImageNetAdapter;
 import cn.com.pujing.adapter.ServiceTitleAdapter;
 import cn.com.pujing.base.BaseActivity;
-import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BasicServiceVoListBean;
-import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.VipBean;
-import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HealthCenterPresenter;
 import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.PuJingUtils;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.HealthCenterView;
-import cn.com.pujing.widget.RightAndInterestsDialog;
 
 /**
  * author : liguo
@@ -60,7 +54,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
     Banner bannerLifeService;
 
     ServiceTitleAdapter healthCenterAdapter;
-    private ServiceImageNetAdapter imageNetAdapter;
+    private ImageNetAdapter imageNetAdapter;
 
     @Override
     public int getLayoutId() {
@@ -85,7 +79,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
         mPresenter.getVip();
 
-        imageNetAdapter = new ServiceImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null);
         bannerLifeService.setAdapter(imageNetAdapter);
         bannerLifeService.setIndicator(new CircleIndicator(this));
         bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -169,7 +163,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
         healthCenterAdapter.setNewInstance(serviceBeans);
 
 
-        List<BasicServiceVoListBean> strings = new ArrayList<>();
+        /*List<BasicServiceVoListBean> strings = new ArrayList<>();
         for (int i = 0;i<serviceBeans.size();i++){
             if (serviceBeans.get(i).getBasicServiceVoList() != null && serviceBeans.get(i).getBasicServiceVoList().size() > 0) {
                 for (int j = 0; j < serviceBeans.get(i).getBasicServiceVoList().size(); j++) {
@@ -178,7 +172,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
             }
         }
 
-        imageNetAdapter.setDatas(strings);
+        imageNetAdapter.setDatas(strings);*/
     }
 
     @Override
@@ -196,5 +190,16 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
                         PuJingUtils.removeAmtLastZero(vipBean.incrementServiceDiscount/10)+"折");
             }
         }
+    }
+
+    @Override
+    public void getBannerDataSuccess(List<BannerBean> data) {
+        imageNetAdapter.setDatas(data);
+        imageNetAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getBannerDataFail(String msg) {
+        UToast.show(this,msg);
     }
 }

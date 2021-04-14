@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.RestMealBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.http.PujingService;
@@ -36,4 +37,25 @@ public class VenuePresenter extends BasePresenter<VenueView> {
 
                 });
     }
+
+    //获取轮播图数据
+    public void getBannerData() {
+
+        PujingService.getBannerData(3)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<List<BannerBean>>() {
+                    @Override
+                    public void _onNext(List<BannerBean> bannerBeans) {
+                        getView().getBannerDataSuccess(bannerBeans);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getBannerDataFail(errorMessage);
+                    }
+
+                });
+    }
+
 }

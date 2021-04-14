@@ -62,7 +62,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
     @BindView(R.id.tv_contain_num)
     TextView tvContainNum;
 
-    VenueBean.Records venueBean;
+//    VenueBean.Records venueBean;
     DeviceAdapter deviceAdapter;
     ReserveDeviceBean reserveDeviceBean;
     DeviceBean deviceBean;
@@ -75,6 +75,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
     private int mYear = 0;
     private int mMonth = 0;
     private int mDay = 0;
+    private int id = 0;
 
     @Override
     public int getLayoutId() {
@@ -87,11 +88,11 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         ActivityUtil.addHomeActivity(this);
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-        venueBean = (VenueBean.Records) getIntent().getSerializableExtra("venue");
+//        venueBean = (VenueBean.Records) getIntent().getSerializableExtra("venue");
+        id =  getIntent().getIntExtra("id",0);
 
-        tvVenue.setText(venueBean.name);
 
-        mPresenter.getDevice(venueBean.id);
+        mPresenter.getDevice(id+"");
 
         //通过裁剪实现圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -113,7 +114,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
                 deviceBean = deviceBeans.get(position);
                 deviceAdapter.setClickPos(position);
                 ClickPos = -1;
-                mPresenter.reserveDevice(venueBean.id,deviceBean.deviceId,simpleDateFormat.format(System.currentTimeMillis()));
+                mPresenter.reserveDevice(id+"",deviceBean.deviceId,simpleDateFormat.format(System.currentTimeMillis()));
             }
         });
 
@@ -144,7 +145,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
                                 mMonth = month;
                                 mDay = dayOfMonth;
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
-                                mPresenter.reserveDevice(venueBean.id,deviceBean.deviceId,tvReserveDate.getText().toString());
+                                mPresenter.reserveDevice(id+"",deviceBean.deviceId,tvReserveDate.getText().toString());
                             }
                         },
                         // 传入年份
@@ -177,7 +178,7 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
                     intent.putExtra("time", tvReserveTime.getText().toString());
                     intent.putExtra("device", deviceBean);
                     intent.putExtra("reserveDeviceBean", reserveDeviceBean);
-                    intent.putExtra("venueBean", venueBean);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 }else {
                     onClickTime();
@@ -212,7 +213,8 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
         deviceAdapter.setNewInstance(deviceBeans);
         this.deviceBeans = deviceBeans;
         deviceBean = deviceBeans.get(0);
-        mPresenter.reserveDevice(venueBean.id,deviceBeans.get(0).deviceId,simpleDateFormat.format(System.currentTimeMillis()));
+        tvVenue.setText(deviceBean.venueName);
+        mPresenter.reserveDevice(id+"",deviceBeans.get(0).deviceId,simpleDateFormat.format(System.currentTimeMillis()));
     }
 
     @Override

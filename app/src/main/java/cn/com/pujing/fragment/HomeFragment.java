@@ -31,6 +31,7 @@ import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
 import cn.com.pujing.activity.HealthCenterActivity;
 import cn.com.pujing.activity.LifeServiceActivity;
+import cn.com.pujing.activity.LifeTypeActivity;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
@@ -44,6 +45,7 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.db.DBManager;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.Base;
+import cn.com.pujing.entity.BasicServiceVoListBean;
 import cn.com.pujing.entity.GridItem;
 import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.PhotoBean;
@@ -124,25 +126,46 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
                 BannerBean bannerBean = bannerBeans.get(position);
 
-                if(bannerBean.getType() == 3){
-                    String photoId = bannerBean.getLinkAddress();
-
-                    if (photoId.contains("/")){
-                        photoId = photoId.substring(photoId.lastIndexOf("/")+1,photoId.length());
-                    }
-
-                    mPresenter.queryPhotoWall(photoId);
-
-//                    startActivity(new Intent(getContext(), PhotoWallActivity.class));
-                }else {
-
-                    Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                    if (bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
-                        intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
+                switch (bannerBean.getType()){
+                    case 1:
+                    case 2:
+                    case 4:
+                        Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                        if (bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
+                            intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
 //                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
-                        startActivity(intent);
-                    }
+                            startActivity(intent);
+                        }
+                        break;
+
+                    case 3:
+
+                        String photoId = bannerBean.getLinkAddress();
+
+                        if (photoId.contains("/")){
+                            photoId = photoId.substring(photoId.lastIndexOf("/")+1,photoId.length());
+                        }
+
+                        mPresenter.queryPhotoWall(photoId);
+                        break;
+
+                    case 5:
+
+
+                        Intent intent1 = new Intent();
+                        intent1.setClass(getActivity(), LifeTypeActivity.class);
+                        intent1.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
+                        intent1.putExtra("category",2);
+                        intent1.putExtra("id",bannerBean.getLinkAddress());
+                        startActivity(intent1);
+
+                        break;
+
+                    default:
+                        break;
+
                 }
+
             }
         });
 
