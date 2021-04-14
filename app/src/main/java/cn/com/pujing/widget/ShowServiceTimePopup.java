@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +64,7 @@ public class ShowServiceTimePopup  extends PopupWindow {
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(showReserveTimeAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(context,DividerItemDecoration.VERTICAL));
 
         showReserveTimeAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

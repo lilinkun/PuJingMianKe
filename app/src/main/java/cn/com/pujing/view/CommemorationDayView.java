@@ -9,6 +9,8 @@ import cn.com.pujing.entity.CommemorationDayBean;
  */
 public interface CommemorationDayView {
     public void getCommemorationDaySuccess(CommemorationDayBean commemorationDayBean);
+    public void saveCommemorationDaySuccess(Object commemorationDayBean);
+    public void deleteCommemorationDaySuccess(Object commemorationDayBean);
     public void getDataFail(String msg);
 
 }

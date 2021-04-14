@@ -143,7 +143,6 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
                 TextView chooserView = vipView.findViewById(R.id.tv_choose);
 
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(vipView);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();

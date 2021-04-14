@@ -20,7 +20,7 @@ public class RestaurantPresenter extends BasePresenter<RestaurantView> {
     //检查用户是否点击完常规餐
     public void getRoutineData(){
 
-        PujingService.getRoutineData("")
+        PujingService.getRoutineData(0)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<RoutineRecordBean>() {

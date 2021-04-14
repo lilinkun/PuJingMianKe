@@ -78,7 +78,7 @@ public class MealOrderActivity extends BaseActivity<MealOrderView, MealOrderPres
         rvPreview.setLayoutManager(linearLayoutManager);
         rvPreview.setAdapter(mealOrderAdapter);
 
-        mPresenter.getRoutineData();
+        mPresenter.getRoutineData(status);
     }
 
     @Override

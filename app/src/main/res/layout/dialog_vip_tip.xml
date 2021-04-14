@@ -7,8 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="暂不支持线上购买，请前往前台支付，
-感谢您的理解。"
+        android:text="暂不支持线上购买，请前往前台支付，感谢您的理解。"
         android:gravity="center"
         android:padding="30dp"
         android:textColor="#ff000000"

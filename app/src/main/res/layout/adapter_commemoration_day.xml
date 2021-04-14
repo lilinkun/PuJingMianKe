@@ -8,8 +8,10 @@
         android:id="@+id/ll_commemoration_day_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         >
 
 
@@ -18,7 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#177CFF"
-        android:layout_marginTop="15dp"
         android:textSize="16sp"
         />
 
@@ -45,17 +46,19 @@
         >
 
         <ImageView
+            android:id="@+id/iv_commemoration_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_commemoration_day_edit"
+            android:padding="@dimen/dp_10"
             />
 
         <ImageView
+            android:id="@+id/iv_commemoration_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_commemoration_day_delete"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
             />
 
     </LinearLayout>
@@ -67,6 +70,7 @@
         android:layout_alignTop="@+id/ll_commemoration_day_left"
         android:layout_alignBottom="@+id/ll_commemoration_day_left"
         android:background="@color/common_gray"
+        android:layout_marginEnd="@dimen/dp_10"
         />
 
 

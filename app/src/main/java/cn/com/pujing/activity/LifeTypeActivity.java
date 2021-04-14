@@ -232,7 +232,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
     }
 
     private void onClickTime(){
-        if (servicePutawayManageTimeBeans != null && lifeTypeBeans != null && lifeTypeBeans.servicePutawayManageTimeList != null) {
+        if (servicePutawayManageTimeBeans != null && lifeTypeBeans != null) {
             ShowServiceTimePopup showTimePopup = new ShowServiceTimePopup(this, servicePutawayManageTimeBeans);
 
             showTimePopup.showAsDropDown(tvTitleName);
@@ -240,12 +240,12 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                 @Override
                 public void onDismiss() {
                     if (ClickServicePos != -1) {
-                        tvReserveTime.setText(lifeTypeBeans.servicePutawayManageTimeList.get(ClickServicePos).timeQuantum);
+                        tvReserveTime.setText(servicePutawayManageTimeBeans.get(ClickServicePos).timeQuantum);
                     }
                 }
             });
         }else {
-            UToast.show(this,"不好意思，今天不能预约");
+            UToast.show(this,"没有可供预约时间选择，无法预约");
         }
     }
 

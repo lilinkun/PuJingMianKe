@@ -83,6 +83,7 @@ public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter>
                     .load(avatar)
                     .apply(PuJingUtils.setGlideCircle(10))
                     .error(R.mipmap.ic_login_head)
+                    .placeholder(R.mipmap.ic_login_head)
                     .into(headImageView);
         }
 

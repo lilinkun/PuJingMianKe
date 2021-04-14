@@ -105,6 +105,10 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
 
     public void setHotPresenter(String endTime,String startTime,String status,String type){
         page = 1;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+        this.type = type;
         mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
     }
 
@@ -134,15 +138,22 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
             swipeRefreshLayout.setRefreshing(false);
         }
 
-        if (hotActivityBean.records != null && hotActivityBean.records.size() > 0){
-            list.addAll(hotActivityBean.records);
+
+        if (hotActivityBean.pages != 1) {
+
+            if (hotActivityBean.records != null && hotActivityBean.records.size() > 0) {
+                list.addAll(hotActivityBean.records);
+            } else {
+                list = hotActivityBean.records;
+            }
         }else {
             list = hotActivityBean.records;
         }
-        if (hotActivityBean.records != null && hotActivityBean.records.size() > 0){
-            HotActivityBean.Record record = list.get(0);
-            record.itemType = -1;
-        }
+
+            if (hotActivityBean.records != null && hotActivityBean.records.size() > 0) {
+                HotActivityBean.Record record = list.get(0);
+                record.itemType = -1;
+            }
         exerciseAdapter.setNewInstance(list);
 
             if (hotActivityBean.size == hotActivityBean.total) {

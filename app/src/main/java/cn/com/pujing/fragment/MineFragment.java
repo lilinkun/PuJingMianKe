@@ -57,6 +57,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                     .load(avatar)
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                     .error(R.mipmap.ic_login_head)
+                    .placeholder(R.mipmap.ic_login_head)
                     .into(headImageView);
         }
 
@@ -75,6 +76,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                         .load(avatar)
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                         .error(R.mipmap.ic_login_head)
+                        .placeholder(R.mipmap.ic_login_head)
                         .into(headImageView);
             }
         }
@@ -154,6 +156,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                     .load(myInfoBean.getAvatar())
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                     .error(R.mipmap.ic_login_head)
+                    .placeholder(R.mipmap.ic_login_head)
                     .into(headImageView);
             Methods.saveKeyValue(Constants.AVATAR, myInfoBean.getAvatar(), getContext());
         }
@@ -172,15 +175,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             if (requestCode == 0x121){
 
                 mPresenter.getMyInfo();
-                   /* String avatar = Methods.getValueByKey(Constants.AVATAR, getContext());
-                    if (!TextUtils.isEmpty(avatar)) {
-                        avatar = avatar;
-                        Glide.with(getContext())
-                                .load(avatar)
-                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                                .into(headImageView);
 
-                }*/
             }
         }
     }

@@ -19,9 +19,9 @@ import cn.com.pujing.view.MealOrderView;
 public class MealOrderPresenter extends BasePresenter<MealOrderView> {
 
     //检查用户是否点击完常规餐
-    public void getRoutineData(){
+    public void getRoutineData(int status){
 
-        PujingService.getRoutineData("")
+        PujingService.getRoutineData(status)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<RoutineRecordBean>() {

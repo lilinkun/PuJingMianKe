@@ -46,10 +46,32 @@ public class CommemorationDayPresenter extends BasePresenter<CommemorationDayVie
         PujingService.addCommemorationDay(commemorationDay,commemorationName)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<CommemorationDayBean>() {
+                .subscribe(new RxObserver<Object>() {
                     @Override
-                    public void _onNext(CommemorationDayBean commemorationDayBean) {
-                        getView().getCommemorationDaySuccess(commemorationDayBean);
+                    public void _onNext(Object o) {
+                        getView().saveCommemorationDaySuccess(o);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+    }
+
+
+    /**
+     * 增加纪念日
+     */
+    public void deleteCommemorationDay(String commemorationDayId){
+        PujingService.deleteCommemorationDay(commemorationDayId)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().deleteCommemorationDaySuccess(o);
                     }
 
                     @Override

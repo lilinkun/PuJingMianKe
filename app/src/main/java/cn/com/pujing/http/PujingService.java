@@ -217,6 +217,8 @@ public class PujingService {
     public static String COMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/page";
     //增加纪念日
     public static String ADDCOMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/saverOrUpdate";
+    //删除纪念日
+    public static String DELETECOMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/";
     //获取活动分类
     public static String ACTIVITYCATEGORY = PREFIX + "/life-service/activityCategory/categoryTree";
 
@@ -695,21 +697,14 @@ public class PujingService {
      *
      * @return
      */
-    public static Observable<ResponseData<RoutineRecordBean>> getRoutineData(String curDate){
+    public static Observable<ResponseData<RoutineRecordBean>> getRoutineData(int status){
 
-        if (curDate.equals("")){
+        return OkGo.<ResponseData<RoutineRecordBean>>get(GETROUTINEDATA)
+                .params("flag",status == 3 ? "1" : "")
+                .converter(new JsonConvert<ResponseData<RoutineRecordBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<RoutineRecordBean>>());
 
-            return OkGo.<ResponseData<RoutineRecordBean>>get(GETROUTINEDATA)
-                    .converter(new JsonConvert<ResponseData<RoutineRecordBean>>() {
-                    })
-                    .adapt(new ObservableBody<ResponseData<RoutineRecordBean>>());
-        }else {
-            return OkGo.<ResponseData<RoutineRecordBean>>get(GETROUTINEDATA)
-                    .params("cycleTime",curDate)
-                    .converter(new JsonConvert<ResponseData<RoutineRecordBean>>() {
-                    })
-                    .adapt(new ObservableBody<ResponseData<RoutineRecordBean>>());
-        }
     }
 
     /**
@@ -989,7 +984,7 @@ public class PujingService {
     /**
      * 增加纪念日
      */
-    public static Observable<ResponseData<CommemorationDayBean>> addCommemorationDay(String commemorationDay,String commemorationName){
+    public static Observable<ResponseData<Object>> addCommemorationDay(String commemorationDay,String commemorationName){
 
         HashMap<String, String> params = new HashMap<>();
 
@@ -998,11 +993,23 @@ public class PujingService {
 
         JSONObject jsonObject = new JSONObject(params);
 
-        return OkGo.<ResponseData<CommemorationDayBean>>post(ADDCOMMEMORATIONDAY)
+        return OkGo.<ResponseData<Object>>post(ADDCOMMEMORATIONDAY)
                 .upJson(jsonObject)
-                .converter(new JsonConvert<ResponseData<CommemorationDayBean>>() {
+                .converter(new JsonConvert<ResponseData<Object>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<CommemorationDayBean>>());
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+
+    /**
+     * 删除纪念日
+     */
+    public static Observable<ResponseData<Object>> deleteCommemorationDay(String commemorationDayId){
+
+        return OkGo.<ResponseData<Object>>delete(DELETECOMMEMORATIONDAY + commemorationDayId)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
     }
 
 

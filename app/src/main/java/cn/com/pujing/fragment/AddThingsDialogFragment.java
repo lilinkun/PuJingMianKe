@@ -123,9 +123,16 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
                     endTime = String.format("%02d:%02d", hourOfDay, minute);
                     if (PuJingUtils.checkTimeRange(startTime, endTime, "HH:mm")) {
                         endTimeTextView.setText(endTime);
+
+                        if (limitTimeTextView.getText().toString().trim().length() > 0) {
+                            if (!PuJingUtils.checkTimeRange(limitTimeTextView.getText().toString(),endTime , "HH:mm")) {
+                                limitTimeTextView.setText("");
+                            }
+                        }
                     }else {
                         UToast.show(getActivity(),"结束事件必须大于开始时间");
                     }
+
                 }
             }, 0, 0, true);
             timePickerDialog.show();
@@ -135,7 +142,11 @@ public class AddThingsDialogFragment extends DialogFragment implements View.OnCl
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     remainTime = String.format("%02d:%02d", hourOfDay, minute);
-                    limitTimeTextView.setText(remainTime);
+                    if (PuJingUtils.checkTimeRange(remainTime,endTime, "HH:mm")) {
+                        limitTimeTextView.setText(remainTime);
+                    }else {
+                        UToast.show(getActivity(),"提醒时间必须小于结束事件");
+                    }
                 }
             }, 0, 0, true);
             timePickerDialog.show();

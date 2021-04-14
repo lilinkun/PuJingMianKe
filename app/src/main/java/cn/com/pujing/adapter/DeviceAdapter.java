@@ -35,6 +35,7 @@ public class DeviceAdapter extends BaseQuickAdapter<DeviceBean, BaseViewHolder> 
             baseViewHolder.setBackgroundResource(R.id.tv_device_name,R.drawable.bg_input_text);
         }
 
+
     }
 
 

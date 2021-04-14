@@ -95,6 +95,7 @@
     <string name="new_matter">新建事项</string>
     <string name="add">确定</string>
     <string name="add_matter">+添加事项</string>
+    <string name="add_commemoration_day">添加纪念日</string>
 
     <string name="paied_bill">已支付账单</string>
     <string name="to_pay">待支付</string>
