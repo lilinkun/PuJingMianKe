@@ -70,6 +70,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
         date = getIntent().getStringExtra("date");
         time = getIntent().getStringExtra("time");
         String content = getIntent().getStringExtra("content");
+        String serviceneed = getIntent().getStringExtra("serviceneed");
 //        basicServiceVoListBean = (BasicServiceVoListBean)getIntent().getSerializableExtra("basicservicevolistbean");
         category = getIntent().getIntExtra("category",0);
         id = getIntent().getIntExtra("id",0);
@@ -77,7 +78,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
         tvDate.setText(date + " " + time);
         tvServiceName.setText(serviceitemsbean.name);
         tvServiceContent.setText(content);
-        tvDescription.setText(serviceitemsbean.serviceNeed);
+        tvDescription.setText(serviceneed);
 
         if(category == 1){
             rlRightsAndInterests.setVisibility(View.GONE);

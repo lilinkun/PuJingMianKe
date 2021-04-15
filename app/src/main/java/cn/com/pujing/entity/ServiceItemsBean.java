@@ -13,5 +13,4 @@ public class ServiceItemsBean implements Serializable {
     public double price;
     public String groupName;
     public String unit;
-    public String serviceNeed;
 }

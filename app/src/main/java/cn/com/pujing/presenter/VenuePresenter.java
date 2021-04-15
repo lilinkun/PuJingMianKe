@@ -41,7 +41,7 @@ public class VenuePresenter extends BasePresenter<VenueView> {
     //获取轮播图数据
     public void getBannerData() {
 
-        PujingService.getBannerData(3)
+        PujingService.getBannerData(4)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<List<BannerBean>>() {

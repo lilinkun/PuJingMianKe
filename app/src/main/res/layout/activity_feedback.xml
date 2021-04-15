@@ -34,6 +34,22 @@
         app:layout_constraintTop_toTopOf="@id/v_title_bar" />
 
     <TextView
+        android:id="@+id/tv_my_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_feedback"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="@id/v_title_bar"
+        app:layout_constraintTop_toTopOf="@id/v_title_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <TextView
         android:id="@+id/tv_feedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,6 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_feedback"
         android:background="@drawable/bg_input_text"
+        android:visibility="gone"
         android:elevation="3dp"
         >
 
@@ -103,7 +120,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_feedback"
         >
@@ -113,7 +129,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/feedback"
+            android:checked="true"
+            android:text="@string/opinion"
+            android:tag="1"
             />
 
         <RadioButton
@@ -121,7 +139,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/opinion"
+            android:text="@string/proposal"
+            android:tag="2"
             />
 
         <RadioButton
@@ -130,6 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/praise"
+            android:tag="3"
             />
 
         <RadioButton
@@ -138,6 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/complaint"
+            android:tag="4"
             />
 
 
@@ -159,7 +180,7 @@
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_feedback_type" />
+        app:layout_constraintTop_toBottomOf="@id/rg_feedback_type" />
 
     <TextView
         android:id="@+id/tv_length_limit"

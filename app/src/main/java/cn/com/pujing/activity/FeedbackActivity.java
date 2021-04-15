@@ -101,7 +101,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
 
     @Override
-    @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type,R.id.tv_upload_image})
+    @OnClick({R.id.iv_back,R.id.iv_upload,R.id.tv_submit,R.id.rl_feedback_type,R.id.tv_upload_image,R.id.tv_my_feedback})
     public void onClick(View v) {
         int id = v.getId();
 
@@ -148,13 +148,15 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                 submitData();
             }
 
-
-
         } else if (id == R.id.rl_feedback_type){
             FeedbackPopup feedbackPopup = new FeedbackPopup(this,feedbackBeans);
             feedbackPopup.setListener(this);
             feedbackPopup.showAsDropDown(rlFeedbackType);
-            }
+        }else if (id == R.id.tv_my_feedback){
+            Intent intent = new Intent();
+            intent.setClass(this,MyFeedBackActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -189,7 +191,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
      */
     private void submitData(){
 
-        mPresenter.saveFeedBack(content,String.valueOf(this.id),String.valueOf(type));
+        mPresenter.saveFeedBack(content,String.valueOf(this.id),String.valueOf(findViewById(rgFeedbackType.getCheckedRadioButtonId()).getTag()));
     }
 
     @Override

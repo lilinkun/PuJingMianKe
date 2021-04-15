@@ -175,6 +175,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                     intent.putExtra("category", category);
                     intent.putExtra("serviceitemsbean", serviceItemsBean);
                     intent.putExtra("content", lifeTypeBeans.content);
+                    intent.putExtra("serviceneed", lifeTypeBeans.serviceNeed);
                     startActivity(intent);
                 }else {
                     onClickTime();
@@ -208,10 +209,10 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
                 dialog.getDatePicker().setMinDate(System.currentTimeMillis());
 
-                c.set(Calendar.DATE,1);
+                /*c.set(Calendar.DATE,1);
                 c.roll(Calendar.DATE,-1);
 
-                dialog.getDatePicker().setMaxDate(c.getTime().getTime());
+                dialog.getDatePicker().setMaxDate(c.getTime().getTime());*/
                 dialog.show();
 
                 break;
@@ -234,7 +235,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
     }
 
     private void onClickTime(){
-        if (servicePutawayManageTimeBeans != null && lifeTypeBeans != null) {
+        if (servicePutawayManageTimeBeans != null && lifeTypeBeans != null && servicePutawayManageTimeBeans.size() > 0) {
             ShowServiceTimePopup showTimePopup = new ShowServiceTimePopup(this, servicePutawayManageTimeBeans);
 
             showTimePopup.showAsDropDown(tvTitleName);

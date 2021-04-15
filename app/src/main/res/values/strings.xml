@@ -69,6 +69,8 @@
     <string name="praise">表扬</string>
     <string name="complaint">投诉</string>
     <string name="feedback_content">反馈内容...</string>
+    <string name="my_feedback">我的反馈</string>
+    <string name="my_feedback_detail">反馈详情</string>
     <string name="length_limit">0/500字</string>
     <string name="upload_prompt">上传图片：</string>
 <!--    <string name="upload_prompt">上传图片/视频：</string>-->

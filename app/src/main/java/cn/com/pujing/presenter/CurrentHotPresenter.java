@@ -20,7 +20,7 @@ public class CurrentHotPresenter extends BasePresenter<CurrentHotView> {
 
 
     //热门活动
-    public void getHotActivitiy(int page,String endTime,String startTime,String status,String type){
+    public void getHotActivitiy(int page,String endTime,String startTime,String status,String type,int where){
 
         if (status != null && status.equals("0")){
             status = null;
@@ -32,7 +32,7 @@ public class CurrentHotPresenter extends BasePresenter<CurrentHotView> {
                 .subscribe(new RxObserver<HotActivityBean>() {
                     @Override
                     public void _onNext(HotActivityBean hotActivityBean) {
-                        getView().getHotActivitiySuccess(hotActivityBean);
+                        getView().getHotActivitiySuccess(hotActivityBean,where);
                     }
 
                     @Override

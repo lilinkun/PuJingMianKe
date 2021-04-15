@@ -7,6 +7,8 @@ import android.webkit.WebView;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.WebviewActivity;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AndroidJavascriptInterface {
     private WebviewActivity webviewActivity;
 
@@ -35,6 +37,7 @@ public class AndroidJavascriptInterface {
                     WebView webView = webviewActivity.getWebView();
 
                     if (webView != null) {
+                        webviewActivity.setResult(RESULT_OK);
                         webviewActivity.finish();
                     }
                 }

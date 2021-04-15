@@ -9,7 +9,7 @@ import cn.com.pujing.entity.HotActivityBean;
  */
 public interface CurrentHotView {
 
-    public void getHotActivitiySuccess(HotActivityBean hotActivityBean);
+    public void getHotActivitiySuccess(HotActivityBean hotActivityBean,int where);
 
     public void getHotActivitiyFail(String msg);
 

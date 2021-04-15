@@ -89,7 +89,7 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
                 if (list != null){
                     list.clear();
                 }
-                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type,0);
             }
         });
 
@@ -97,10 +97,10 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
             @Override
             public void onLoadMore() {
                 page++;
-                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type,0);
             }
         });
-        mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+        mPresenter.getHotActivitiy(page,endTime,startTime,status,type,0);
     }
 
     public void setHotPresenter(String endTime,String startTime,String status,String type){
@@ -109,7 +109,7 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
         this.endTime = endTime;
         this.status = status;
         this.type = type;
-        mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+        mPresenter.getHotActivitiy(page,endTime,startTime,status,type,0);
     }
 
     @Override
@@ -126,13 +126,13 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
                 if (list != null){
                     list.clear();
                 }
-                mPresenter.getHotActivitiy(page,endTime,startTime,status,type);
+                mPresenter.getHotActivitiy(page,endTime,startTime,status,type,1);
             }
         }
     }
 
     @Override
-    public void getHotActivitiySuccess(HotActivityBean hotActivityBean) {
+    public void getHotActivitiySuccess(HotActivityBean hotActivityBean,int where) {
 
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
@@ -154,8 +154,11 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
                 HotActivityBean.Record record = list.get(0);
                 record.itemType = -1;
             }
-        exerciseAdapter.setNewInstance(list);
-
+            if (where == 0) {
+                exerciseAdapter.setNewInstance(list);
+            }else {
+                exerciseAdapter.setDatas(list);
+            }
             if (hotActivityBean.size == hotActivityBean.total) {
                 exerciseAdapter.getLoadMoreModule().loadMoreComplete();
             }else {

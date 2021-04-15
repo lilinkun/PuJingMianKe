@@ -163,6 +163,10 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
     @Override
     public void getDataFail(String msg) {
         UToast.show(this,msg);
+
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

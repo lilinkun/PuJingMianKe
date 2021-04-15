@@ -106,7 +106,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_content_tip"
+            android:id="@+id/tv_content_base_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_vip"
@@ -115,7 +115,15 @@
             android:layout_marginTop="10dp"
             />
 
-
+        <TextView
+            android:id="@+id/tv_content_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_content_base_tip"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            />
 
     </RelativeLayout>
 

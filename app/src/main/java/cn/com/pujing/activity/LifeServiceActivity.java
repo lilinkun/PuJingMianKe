@@ -69,6 +69,8 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
         mPresenter.getService();
 
+        mPresenter.getBannerData();
+
         imageNetAdapter = new ImageNetAdapter(null);
         bannerLifeService.setAdapter(imageNetAdapter);
         bannerLifeService.setIndicator(new CircleIndicator(this));
@@ -119,7 +121,8 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
     @Override
     public void getBannerDataSuccess(List<BannerBean> data) {
         this.bannerBeans = data;
-        imageNetAdapter.setDatas(data);
+        imageNetAdapter.setDatas(bannerBeans);
+        imageNetAdapter.notifyDataSetChanged();
     }
 
     @Override

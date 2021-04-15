@@ -35,6 +35,7 @@ import cn.com.pujing.activity.LifeTypeActivity;
 import cn.com.pujing.activity.LoginActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
+import cn.com.pujing.activity.PictureWallActivity;
 import cn.com.pujing.activity.ShowPhotoActivity;
 import cn.com.pujing.activity.VenueActivity;
 import cn.com.pujing.activity.WebviewActivity;
@@ -278,7 +279,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             case R.id.iv_photo_wall_4:
             case R.id.iv_photo_wall_5:
 
-                startActivity(new Intent(getContext(), PhotoWallActivity.class));
+                startActivity(new Intent(getContext(), PictureWallActivity.class));
 
                 break;
             default:
@@ -430,7 +431,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             } else if ("场馆预约".equals(gridItem.title)) {
                 startActivity(new Intent(getContext(), VenueActivity.class));
             } else if (getString(R.string.photo_wall).equals(gridItem.title)) {
-                startActivity(new Intent(getContext(), PhotoWallActivity.class));
+                startActivity(new Intent(getContext(), PictureWallActivity.class));
             }else if (getString(R.string.feedback).equals(gridItem.title)) {
                 startActivity(new Intent(getContext(), FeedbackActivity.class));
             }else if (getString(R.string.question_investigation).equals(gridItem.title)) {

@@ -6,6 +6,16 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="@dimen/dp_10">
 
+    <TextView
+        android:id="@+id/tv_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+
     <ImageView
         android:id="@+id/iv_download"
         android:layout_width="wrap_content"

@@ -22,10 +22,17 @@ import cn.com.pujing.entity.ActivityCalendar;
 
 public class ExerciseAdapter extends BaseMultiItemQuickAdapter<HotActivityBean.Record, BaseViewHolder> implements LoadMoreModule {
 
+    private List<HotActivityBean.Record> data;
+
     public ExerciseAdapter(@Nullable List<HotActivityBean.Record> data) {
         super(data);
         addItemType(-1, R.layout.header_exercise);
         addItemType(0, R.layout.item_exercise);
+    }
+
+    public void setDatas(List<HotActivityBean.Record> data){
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override

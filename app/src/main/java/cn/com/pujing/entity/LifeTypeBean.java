@@ -15,6 +15,7 @@ public class LifeTypeBean {
     public String costExplain;
     public String providePeopleId;
     public String themePic;
+    public String serviceNeed;
 
     public List<ServicePutawayManageTimeBean> servicePutawayManageTimeList;
 

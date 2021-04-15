@@ -38,6 +38,12 @@
             android:textSize="18sp"
             />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:background="@color/common_gray"
+            />
+
 
         <TextView
             android:id="@+id/tv_choose"

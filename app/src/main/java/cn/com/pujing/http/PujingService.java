@@ -34,11 +34,14 @@ import cn.com.pujing.entity.LifeTypeBean;
 import cn.com.pujing.entity.LoginToken;
 import cn.com.pujing.entity.MyBillBean;
 import cn.com.pujing.entity.MyCardBean;
+import cn.com.pujing.entity.MyFeedbackBean;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.NotifyInfoBean;
 import cn.com.pujing.entity.OrderDetailBean;
 import cn.com.pujing.entity.OrderItemBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.entity.PhotoBean;
+import cn.com.pujing.entity.PictureWallBean;
 import cn.com.pujing.entity.PublicKey;
 import cn.com.pujing.entity.QuerySelectDayBean;
 import cn.com.pujing.entity.ReserveDeviceBean;
@@ -69,7 +72,7 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
 //    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
@@ -80,7 +83,7 @@ public class PujingService {
 //      public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-//    public static final String PREFIX = "http://172.18.7.21";
+    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
 
@@ -221,6 +224,10 @@ public class PujingService {
     public static String DELETECOMMEMORATIONDAY = PREFIX + "/life-service/userAnniversary/";
     //获取活动分类
     public static String ACTIVITYCATEGORY = PREFIX + "/life-service/activityCategory/categoryTree";
+    //获取意见反馈列表
+    public static String GETFEEDBACKLIST = PREFIX + "/content-service/feedback/page";
+    //根据id查询意见反馈
+    public static String GETFEEDBACKDETAIL = PREFIX + "/content-service/feedback/";
 
 
 
@@ -970,6 +977,20 @@ public class PujingService {
 
 
     /**
+     * 照片墙
+     */
+    public static Observable<ResponseData<PagesBean<PictureWallBean>>> showPicInfoList(int page){
+
+        return OkGo.<ResponseData<PagesBean<PictureWallBean>>>get(PHOTOWALL)
+                .params("page",page+"")
+                .converter(new JsonConvert<ResponseData<PagesBean<PictureWallBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<PagesBean<PictureWallBean>>>());
+    }
+
+
+
+    /**
      * 我的纪念日
      */
     public static Observable<ResponseData<CommemorationDayBean>> getCommemorationDay(int page){
@@ -1047,8 +1068,6 @@ public class PujingService {
     }
 
 
-
-
     /**
      * 我的纪念日
      */
@@ -1058,6 +1077,30 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<List<ActivityTypeBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<ActivityTypeBean>>>());
+    }
+
+
+    /**
+     * 获取意见反馈列表
+     */
+    public static Observable<ResponseData<PagesBean<MyFeedbackBean>>> getFeedbakList(int page){
+
+        return OkGo.<ResponseData<PagesBean<MyFeedbackBean>>>get(GETFEEDBACKLIST)
+                .converter(new JsonConvert<ResponseData<PagesBean<MyFeedbackBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<PagesBean<MyFeedbackBean>>>());
+    }
+
+
+    /**
+     * 根据id查询意见反馈
+     */
+    public static Observable<ResponseData<MyFeedbackBean>> getFeedbakDetail(int id){
+
+        return OkGo.<ResponseData<MyFeedbackBean>>get(GETFEEDBACKDETAIL+id)
+                .converter(new JsonConvert<ResponseData<MyFeedbackBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<MyFeedbackBean>>());
     }
 
 }

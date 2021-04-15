@@ -111,6 +111,9 @@ public class PhotoWallActivity extends BaseActivity implements View.OnClickListe
                             break;
                         case R.id.iv_share:
                             break;
+
+                        default:
+                            break;
                     }
                 }
             }

@@ -44,7 +44,7 @@ public class LifeServicePresenter extends BasePresenter<LifeServiceView> {
     //获取轮播图数据
     public void getBannerData() {
 
-        PujingService.getBannerData(3)
+        PujingService.getBannerData(2)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<List<BannerBean>>() {
