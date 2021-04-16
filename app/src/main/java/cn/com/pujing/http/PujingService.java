@@ -24,6 +24,7 @@ import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.BillsBean;
 import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.ChangeDataBean;
+import cn.com.pujing.entity.CollectBean;
 import cn.com.pujing.entity.CommemorationDayBean;
 import cn.com.pujing.entity.DeviceBean;
 import cn.com.pujing.entity.FeedbackBean;
@@ -137,7 +138,14 @@ public class PujingService {
     public static String MEAL_TIMES = PREFIX + "/restaurant-service/restaurantCycleRecord/appGetMealType";
 
     public static String PHOTOWALL = PREFIX + "/content-service/photoWall/page";
+    //添加收藏
     public static String PHOTOWALLCOLLECT = PREFIX + "/content-service/photoWall/collectStatistics/";
+    //取消收藏
+    public static String CANCELCOLLECT = PREFIX + "/content-service/photoWall/cancelCollect/";
+    //点赞
+    public static String DOLIKE = PREFIX + "/content-service/photoWall/like/";
+    //取消点赞
+    public static String UNDOLIKE = PREFIX + "/content-service/photoWall/cancellike/";
 
     public static String ACTIVITYDATE = PREFIX + "/life-service/activityCalendar/queryActivityDateList";
     public static String ACTIVITYDATE_ANOTHER = PREFIX + "/life-service/userNotes/queryActivityDateList";
@@ -193,7 +201,7 @@ public class PujingService {
     //服务 1 建管 2
     public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage/";
     //服务详情
-    public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetById/";
+    public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetById";
     //服务时间
     public static String SERVICETIME = PREFIX + "/life-service/serviceBasicService/APPGetTimeList";
     //服务预约
@@ -228,6 +236,8 @@ public class PujingService {
     public static String GETFEEDBACKLIST = PREFIX + "/content-service/feedback/page";
     //根据id查询意见反馈
     public static String GETFEEDBACKDETAIL = PREFIX + "/content-service/feedback/";
+    //获取用户收藏
+    public static String GETUSECOLLECT = PREFIX + "/content-service/userCollect/page";
 
 
 
@@ -828,7 +838,7 @@ public class PujingService {
      * 预约服务
      */
     public static Observable<ResponseData<Object>> reserveService(String orderingDate, String orderingTime, String basicServiceItemsId,String basicServiceItemsName
-            , String serviceBasicId,String category,String customerVoucherId){
+            , String serviceBasicId,String category,String customerVoucherId,String customerVoucherName){
 
         HashMap<String, String> params = new HashMap<>();
 
@@ -837,6 +847,7 @@ public class PujingService {
         params.put("basicServiceItemsId", basicServiceItemsId);
         params.put("basicServiceItemsName",basicServiceItemsName);
         params.put("serviceBasicId",serviceBasicId);
+        params.put("customerVoucherName",customerVoucherName);
         params.put("category",category);
         if(!customerVoucherId.equals("0")) {
             params.put("customerVoucherId", customerVoucherId);
@@ -875,11 +886,13 @@ public class PujingService {
     }
 
     /**
-     * 服务详情
+     * 服务个数
      */
-    public static Observable<ResponseData<LifeTypeBean>> getLifeType(int id){
+    public static Observable<ResponseData<LifeTypeBean>> getLifeType(int id,String date){
 
-        return OkGo.<ResponseData<LifeTypeBean>>get(SERVICEDETAIL + id)
+        return OkGo.<ResponseData<LifeTypeBean>>get(SERVICEDETAIL)
+                .params("id",id+"")
+                .params("date",date)
                 .converter(new JsonConvert<ResponseData<LifeTypeBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<LifeTypeBean>>());
@@ -989,6 +1002,51 @@ public class PujingService {
     }
 
 
+    /**
+     * 添加收藏
+     */
+    public static Observable<ResponseData<Object>> addCollect(int id){
+
+        return OkGo.<ResponseData<Object>>put(PHOTOWALLCOLLECT + id)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 取消收藏
+     */
+    public static Observable<ResponseData<Object>> cancelCollect(int id){
+
+        return OkGo.<ResponseData<Object>>put(CANCELCOLLECT + id)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 添加收藏
+     */
+    public static Observable<ResponseData<Object>> doLike(int id){
+
+        return OkGo.<ResponseData<Object>>put(DOLIKE + id)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 取消收藏
+     */
+    public static Observable<ResponseData<Object>> unDoLike(int id){
+
+        return OkGo.<ResponseData<Object>>put(UNDOLIKE + id)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+
 
     /**
      * 我的纪念日
@@ -1069,7 +1127,7 @@ public class PujingService {
 
 
     /**
-     * 我的纪念日
+     * 获取活动分类
      */
     public static Observable<ResponseData<List<ActivityTypeBean>>> getActivityType(){
 
@@ -1101,6 +1159,34 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<MyFeedbackBean>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<MyFeedbackBean>>());
+    }
+
+    /**
+     * 获取用户收藏
+     */
+    public static Observable<ResponseData<PagesBean<CollectBean>>> getMyCollect(int page,int ordertypeId, String startDate, String endDate){
+        String type = "";
+        if (ordertypeId != 0){
+            type = ordertypeId+"";
+        }else {
+            type = null;
+        }
+
+        if (startDate.trim().length() == 0){
+            startDate = null;
+        }
+        if (endDate.trim().length() == 0){
+            endDate = null;
+        }
+
+        return OkGo.<ResponseData<PagesBean<CollectBean>>>get(GETUSECOLLECT)
+                .params("page",page)
+                .params("type",type)
+                .params("startTime",startDate)
+                .params("endTime",endDate)
+                .converter(new JsonConvert<ResponseData<PagesBean<CollectBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<PagesBean<CollectBean>>>());
     }
 
 }

@@ -22,8 +22,8 @@ public class LifeTypePresenter extends BasePresenter<LifeTypeView> {
     /**
      * 获取生活服务类型
      */
-    public void getLifeType(int id){
-        PujingService.getLifeType(id)
+    public void getLifeType(int id,String date){
+        PujingService.getLifeType(id,date)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<LifeTypeBean>() {

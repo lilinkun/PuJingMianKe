@@ -21,6 +21,8 @@ import cn.com.pujing.util.PuJingUtils;
 
 public class OrderAdapter extends BaseQuickAdapter<OrderItemBean.MyOrder, BaseViewHolder> implements LoadMoreModule {
 
+    private List<OrderItemBean.MyOrder> orderItem;
+
     public OrderAdapter(int layoutResId) {
         super(layoutResId);
     }
@@ -29,13 +31,18 @@ public class OrderAdapter extends BaseQuickAdapter<OrderItemBean.MyOrder, BaseVi
         super(layoutResId, data);
     }
 
+    public void setData(List<OrderItemBean.MyOrder> data){
+        this.orderItem = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, OrderItemBean.MyOrder orderItem) {
         baseViewHolder.setText(R.id.tv_name, orderItem.orderName);
         baseViewHolder.setText(R.id.tv_type, orderItem.orderType_label);
         baseViewHolder.setText(R.id.tv_date, orderItem.createTime);
         baseViewHolder.setText(R.id.tv_status, orderItem.orderStatus_label);
-        baseViewHolder.setText(R.id.tv_price, PuJingUtils.removeAmtLastZero(orderItem.realMoney)+"");
+        baseViewHolder.setText(R.id.tv_price, PuJingUtils.removeAmtLastZero(orderItem.orderMoney)+"");
 
         ImageView imageView = baseViewHolder.getView(R.id.iv);
         String url =  PujingService.PREFIX+PujingService.IMG+orderItem.orderPic;

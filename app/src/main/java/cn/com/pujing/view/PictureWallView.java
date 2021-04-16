@@ -15,4 +15,9 @@ public interface PictureWallView {
     public void showPicInfoListSuccess(PagesBean<PictureWallBean> activityTypeBeans);
 
     public void getDataFail(String msg);
+
+    public void addCollectSuccess(Object o);
+    public void cancelCollectSuccess(Object o);
+    public void doLikeSuccess(Object o);
+    public void unDoLikeSuccess(Object o);
 }

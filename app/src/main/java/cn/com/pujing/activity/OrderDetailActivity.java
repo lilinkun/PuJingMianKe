@@ -1,8 +1,11 @@
 package cn.com.pujing.activity;
 
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
@@ -10,6 +13,7 @@ import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.OrderDetailBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.OrderDetailPresenter;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
@@ -38,6 +42,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
     TextView tvReserveDate;
     @BindView(R.id.tv_reserve_time)
     TextView tvReserveTime;
+    @BindView(R.id.tv_total_coupon)
+    TextView tvTotalCoupon;
+    @BindView(R.id.iv_reserve_head)
+    ImageView ivReserveHead;
+    @BindView(R.id.rl_coupon)
+    RelativeLayout rlCoupon;
 
     @Override
     public int getLayoutId() {
@@ -71,6 +81,15 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
         tvReserveName.setText(orderDetailBean.basicServiceItemsName);
         tvReserveDate.setText(orderDetailBean.orderingDate);
         tvReserveTime.setText(orderDetailBean.orderingTime);
+
+        if (orderDetailBean.customerVoucherId != null && orderDetailBean.customerVoucherId.toString().length() > 0){
+            rlCoupon.setVisibility(View.VISIBLE);
+            tvTotalCoupon.setText(orderDetailBean.customerVoucherName + "  x1");
+        }
+        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + orderDetailBean.themePic)
+                .apply(PuJingUtils.setGlideCircle(10)).error(R.drawable.ic_no_pic).into(ivReserveHead);
+
+
     }
 
     @Override

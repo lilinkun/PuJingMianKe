@@ -2,6 +2,7 @@ package cn.com.pujing.adapter;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,15 +34,23 @@ import cn.com.pujing.widget.ShowImagesDialog;
  */
 public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseViewHolder> implements LoadMoreModule {
 
-    public PictureWallAdapter(int layoutResId, @Nullable List<PictureWallBean> data) {
+    OnClickListener onClickListener;
+
+    public PictureWallAdapter(int layoutResId, @Nullable List<PictureWallBean> data,OnClickListener onClickListener) {
         super(layoutResId, data);
+        this.onClickListener = onClickListener;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, PictureWallBean pictureWallBean) {
 
+        ImageView ivShare = baseViewHolder.getView(R.id.iv_share);
+        ImageView ivCollect = baseViewHolder.getView(R.id.iv_collect);
+
         baseViewHolder.setText(R.id.tv_title, pictureWallBean.title);
         baseViewHolder.setText(R.id.tv_create_time, pictureWallBean.createTime);
+        baseViewHolder.setText(R.id.tv_collect_num, pictureWallBean.favoriteNumber+"");
+        baseViewHolder.setText(R.id.tv_give_like_num, pictureWallBean.likeNumber+"");
         if (pictureWallBean.content == null || pictureWallBean.content.trim().toString().length() == 0){
             baseViewHolder.setVisible(R.id.tv_content,false);
         }else {
@@ -49,6 +58,7 @@ public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseVi
             baseViewHolder.setVisible(R.id.tv_content,true);
         }
         baseViewHolder.setImageResource(R.id.iv_collect,pictureWallBean.isCollent == 1 ? R.mipmap.ic_collect : R.mipmap.ic_uncollect);
+        baseViewHolder.setImageResource(R.id.iv_share,pictureWallBean.islike == 1 ? R.mipmap.ic_give_likes : R.mipmap.ic_ungive_likes);
 
         RecyclerView recyclerView = baseViewHolder.getView(R.id.rv_pic_wall);
 
@@ -71,5 +81,40 @@ public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseVi
             }
         });
 
+        ivCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (pictureWallBean.isCollent == 0) {
+                    onClickListener.getCollect(pictureWallBean.id);
+                }else {
+                    onClickListener.getUnCollect(pictureWallBean.id);
+                }
+            }
+        });
+
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (pictureWallBean.islike == 0) {
+                    onClickListener.getLike(pictureWallBean.id);
+                }else {
+                    onClickListener.getUnLike(pictureWallBean.id);
+                }
+            }
+        });
+
     }
+
+    public interface OnClickListener{
+        public void getCollect(int id);
+
+        public void getUnCollect(int id);
+
+        public void getLike(int id);
+
+        public void getUnLike(int id);
+    }
+
 }

@@ -32,6 +32,19 @@ public class OrderTpeBean implements Serializable {
         return orderTpeBeans;
     }
 
+    public static List<OrderTpeBean> collectBeans(){
+        List<OrderTpeBean> orderTpeBeans = new ArrayList<>();
+
+        String[] orderStrs = {"全部","活动","照片墙"};
+
+        for (int i = 0;i<orderStrs.length;i++) {
+            OrderTpeBean orderTpeBean = new OrderTpeBean(i-1, orderStrs[i]);
+            orderTpeBeans.add(orderTpeBean);
+        }
+
+        return orderTpeBeans;
+    }
+
     public static List<OrderTpeBean> activityTpeBeans(){
         List<OrderTpeBean> orderTpeBeans = new ArrayList<>();
 

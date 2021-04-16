@@ -19,7 +19,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.GridOrderAdapter;
@@ -40,8 +42,9 @@ public class MyOrderPopup  extends PopupWindow {
     private long endDate;
     private SimpleDateFormat simpleDateFormat;
     private int ClickPos = 0;
+    private int type = 0;
 
-    public MyOrderPopup(Context context,MyOrderClickListener myOrderClickListener){
+    public MyOrderPopup(Context context,MyOrderClickListener myOrderClickListener,int type){
         this.myOrderClickListener = myOrderClickListener;
 
         LayoutInflater inflater = (LayoutInflater) context
@@ -54,6 +57,8 @@ public class MyOrderPopup  extends PopupWindow {
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
+
+        this.type = type;
 
         initData();
 
@@ -84,7 +89,16 @@ public class MyOrderPopup  extends PopupWindow {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3);
 
-        GridOrderAdapter gridOrderAdapter = new GridOrderAdapter(R.layout.adapter_grid_order, OrderTpeBean.orderTpeBeans());
+        List<OrderTpeBean> orderTpeBeans = new ArrayList<>();
+
+        if (type == 0) {
+            orderTpeBeans = OrderTpeBean.orderTpeBeans();
+        }else {
+            orderTpeBeans = OrderTpeBean.collectBeans();
+        }
+
+        GridOrderAdapter gridOrderAdapter = new GridOrderAdapter(R.layout.adapter_grid_order, orderTpeBeans);
+
 
         rvOrderType.setLayoutManager(gridLayoutManager);
         rvOrderType.setAdapter(gridOrderAdapter);

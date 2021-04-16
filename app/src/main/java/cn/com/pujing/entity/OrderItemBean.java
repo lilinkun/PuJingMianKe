@@ -59,6 +59,10 @@ public class OrderItemBean {
          * 实收金额
          */
         public double realMoney;
+        /**
+         * 实收金额
+         */
+        public double orderMoney;
 
     }
 

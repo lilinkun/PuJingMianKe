@@ -16,4 +16,6 @@ public class PictureWallBean implements Serializable {
     public int id;
     public int isCollent;
     public int favoriteNumber;
+    public int likeNumber;
+    public int islike;
 }

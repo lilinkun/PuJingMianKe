@@ -111,5 +111,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyFeedbackDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyCollectActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

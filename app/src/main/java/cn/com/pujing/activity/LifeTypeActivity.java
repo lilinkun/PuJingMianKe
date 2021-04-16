@@ -97,7 +97,6 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
         category = getIntent().getIntExtra("category",0);
         id = getIntent().getIntExtra("id",0);
 
-        mPresenter.getLifeType(id);
 
 //        tvTitleName.setText(basicServiceVoListBean.name);
 
@@ -106,6 +105,8 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
         String cDay = simpleDateFormat.format(System.currentTimeMillis());
 
         tvReserveDate.setText(cDay);
+
+        mPresenter.getLifeType(id,cDay);
 
         serviceTypeAdapter = new ServiceTypeAdapter(R.layout.adapter_service_type,null);
 
@@ -192,11 +193,12 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
                                 tvReserveTime.setText("");
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
-                                if (lifeTypeBeans != null ) {
+                                mPresenter.getLifeType(id,tvReserveDate.getText().toString());
+                                /*if (lifeTypeBeans != null ) {
                                     if (lifeTypeBeans.serviceItemsList != null && lifeTypeBeans.serviceItemsList.size() >= pos) {
                                         mPresenter.getLifeTime(id + "", lifeTypeBeans.serviceItemsList.get(pos).id + "", tvReserveDate.getText().toString());
                                     }
-                                }
+                                }*/
                             }
                         },
                         // 传入年份

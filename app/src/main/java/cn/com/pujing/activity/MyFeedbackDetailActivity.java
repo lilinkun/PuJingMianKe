@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,14 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
     TextView tvFeedbackStatus;
     @BindView(R.id.tv_details)
     TextView tvDetails;
+    @BindView(R.id.tv_reply_time)
+    TextView tvReplyTime;
+    @BindView(R.id.tv_reply_content)
+    TextView tvReplyContent;
+    @BindView(R.id.tv_reply_name)
+    TextView tvReplyName;
+    @BindView(R.id.ll_myfeedback_reply)
+    LinearLayout llMyfeedbackReply;
     @BindView(R.id.iv_feedback)
     ImageView ivFeedback;
 
@@ -61,6 +70,13 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         tvFeedbackTime.setText(myFeedbackBean.createTime);
         tvFeedbackStatus.setText(myFeedbackBean.acceptanceStatus_label);
         tvDetails.setText(myFeedbackBean.content);
+
+        if (myFeedbackBean.acceptanceStatus == 1) {
+            tvReplyTime.setText(myFeedbackBean.updateTime);
+            tvReplyContent.setText(myFeedbackBean.replyContent);
+            tvReplyName.setText(myFeedbackBean.accountName);
+            llMyfeedbackReply.setVisibility(View.VISIBLE);
+        }
 
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + myFeedbackBean.photo)
                 .placeholder(R.drawable.loading).error(R.drawable.ic_no_pic).into(ivFeedback);

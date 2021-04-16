@@ -16,6 +16,9 @@ public class MyFeedbackBean implements Serializable {
     public String userName;
     public String createTime;
     public int acceptanceStatus;
+    public String updateTime;
+    public String replyContent;
+    public String accountName;
     public int type;
     public int userId;
     public int id;

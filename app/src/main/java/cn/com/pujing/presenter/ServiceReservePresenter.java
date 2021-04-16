@@ -21,8 +21,8 @@ public class ServiceReservePresenter extends BasePresenter<ServiceReserveView> {
      * 确认预约服务
      */
     public void reserveService(String orderingDate, String orderingTime, String basicServiceItemsId,String basicServiceItemsName
-            , String serviceBasicId,String category,String customerVoucherId){
-        PujingService.reserveService(orderingDate, orderingTime, basicServiceItemsId,basicServiceItemsName,serviceBasicId,category,customerVoucherId)
+            , String serviceBasicId,String category,String customerVoucherId,String customerVoucherName){
+        PujingService.reserveService(orderingDate, orderingTime, basicServiceItemsId,basicServiceItemsName,serviceBasicId,category,customerVoucherId,customerVoucherName)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
                 .subscribe(new RxObserver<Object>() {

@@ -15,6 +15,7 @@ public class HotActivityBean implements Serializable {
     public int total;
     public int size;
     public int pages;
+    public int current;
 
     public class Record implements MultiItemEntity {
         public String id;

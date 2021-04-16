@@ -24,6 +24,7 @@ import cn.com.pujing.entity.PhotoWall;
 import cn.com.pujing.entity.PictureWallBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.PictureWallPresenter;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.PictureWallView;
 
 /**
@@ -31,7 +32,7 @@ import cn.com.pujing.view.PictureWallView;
  * date : 2021/4/15 15:35
  * description :
  */
-public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWallPresenter> implements PictureWallView {
+public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWallPresenter> implements PictureWallView, PictureWallAdapter.OnClickListener {
 
 
     @BindView(R.id.rv_photo_wall)
@@ -65,7 +66,7 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
-        pictureWallAdapter = new PictureWallAdapter(R.layout.adapter_picture_wall,null);
+        pictureWallAdapter = new PictureWallAdapter(R.layout.adapter_picture_wall,null,this);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(pictureWallAdapter);
@@ -107,7 +108,7 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
         if (pictureWallBeans == null){
             pictureWallBeans = pagesBean.records;
         }else {
-            if (pagesBean.pages > 1){
+            if (pagesBean.current > 1){
                 pictureWallBeans.addAll(pagesBean.records);
             }else {
                 pictureWallBeans = pagesBean.records;
@@ -130,8 +131,52 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
     @Override
     public void getDataFail(String msg) {
 
+        UToast.show(this,msg);
+
         if (swipeLayout != null && swipeLayout.isRefreshing()){
             swipeLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void addCollectSuccess(Object o) {
+        UToast.show(this,"收藏成功");
+        mPresenter.showPicInfoList(page);
+    }
+
+    @Override
+    public void cancelCollectSuccess(Object o) {
+        UToast.show(this,"取消收藏");
+        mPresenter.showPicInfoList(page);
+    }
+
+    @Override
+    public void doLikeSuccess(Object o) {
+        mPresenter.showPicInfoList(page);
+    }
+
+    @Override
+    public void unDoLikeSuccess(Object o) {
+        mPresenter.showPicInfoList(page);
+    }
+
+    @Override
+    public void getCollect(int id) {
+        mPresenter.addCollect(id);
+    }
+
+    @Override
+    public void getUnCollect(int id) {
+        mPresenter.cancelCollect(id);
+    }
+
+    @Override
+    public void getLike(int id) {
+        mPresenter.doLike(id);
+    }
+
+    @Override
+    public void getUnLike(int id) {
+        mPresenter.unDoLike(id);
     }
 }

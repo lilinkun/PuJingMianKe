@@ -43,6 +43,8 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
     ImageView ivOrderFilter;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.rv_order)
+    RecyclerView recyclerView;
 
     private OrderAdapter orderAdapter;
     private List<OrderItemBean.MyOrder> myOrders;
@@ -61,7 +63,6 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getBaseContext(), DividerItemDecoration.VERTICAL));
         orderAdapter = new OrderAdapter(R.layout.adapter_my_order, null);
@@ -116,7 +117,7 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
         switch (view.getId()){
             case R.id.iv_order_filter:
 
-                MyOrderPopup myOrderPopup = new MyOrderPopup(this,this);
+                MyOrderPopup myOrderPopup = new MyOrderPopup(this,this,0);
                 myOrderPopup.showAsDropDown(findViewById(R.id.v_title_bar));
 
                 break;
@@ -139,7 +140,7 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
         if (myOrders == null){
             myOrders = orderItemBean.records;
         }else {
-            if (orderItemBean.pages > 1){
+            if (page > 1){
                 myOrders.addAll(orderItemBean.records);
             }else {
                 myOrders = orderItemBean.records;

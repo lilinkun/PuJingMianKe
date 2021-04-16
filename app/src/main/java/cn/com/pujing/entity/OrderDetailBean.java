@@ -15,4 +15,7 @@ public class OrderDetailBean implements Serializable {
     public String basicServiceItemsName;
     public String orderingTime;
     public String orderingDate;
+    public String customerVoucherId;
+    public String customerVoucherName;
+    public String themePic;
 }

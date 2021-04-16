@@ -40,4 +40,87 @@ public class PictureWallPresenter extends BasePresenter<PictureWallView> {
                 });
     }
 
+    /**
+     * 添加收藏
+     */
+    public void addCollect(int id){
+        PujingService.addCollect(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().addCollectSuccess(o);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+    }
+    /**
+     * 取消收藏
+     */
+    public void cancelCollect(int id){
+        PujingService.cancelCollect(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().cancelCollectSuccess(o);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+    }
+
+    /**
+     * 取消收藏
+     */
+    public void doLike(int id){
+        PujingService.doLike(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().doLikeSuccess(o);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+    }
+
+    /**
+     * 取消收藏
+     */
+    public void unDoLike(int id){
+        PujingService.unDoLike(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().unDoLikeSuccess(o);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().getDataFail(errorMessage);
+                    }
+
+                });
+    }
+
 }

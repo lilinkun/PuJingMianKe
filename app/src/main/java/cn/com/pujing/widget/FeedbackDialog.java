@@ -38,7 +38,7 @@ public class FeedbackDialog extends Dialog {
             tvContentTip.setText("意见反馈成功！请耐心等待");
             tvFeedbackSuccessTime.setText(simpleDateFormat.format(new Date()));
         }else {
-            tvContentTip.setText("场馆预订成功！");
+            tvContentTip.setText("预订成功！");
             tvFeedbackSuccessTime.setText("使用时间：" + timeTip);
         }
 

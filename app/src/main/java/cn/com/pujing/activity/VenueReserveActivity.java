@@ -236,8 +236,8 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
 //                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                     .into(ivVenuePic);
 
-            tvSize.setText(reserveDeviceBean.venueManage.area + "");
-            tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "");
+            tvSize.setText(reserveDeviceBean.venueManage.area + "平方米");
+            tvContainNum.setText(reserveDeviceBean.venueManage.peopleNum + "人");
             tvAddress.setText(reserveDeviceBean.venueManage.address + "");
         }
 

@@ -139,7 +139,7 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
         }
 
 
-        if (hotActivityBean.pages != 1) {
+        if (hotActivityBean.current != 1) {
 
             if (hotActivityBean.records != null && hotActivityBean.records.size() > 0) {
                 list.addAll(hotActivityBean.records);

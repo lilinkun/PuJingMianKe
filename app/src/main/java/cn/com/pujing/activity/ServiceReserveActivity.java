@@ -53,6 +53,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
     private int id;
     private int category;
     private String customerVoucherId = "0";
+    private String customerVoucherName = "";
     private List<MyCardBean> myCardBeans;
 
     @Override
@@ -108,7 +109,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
 
             case R.id.tv_reserve_order:
 
-                mPresenter.reserveService(date,time,serviceitemsbean.id+"",serviceitemsbean.name,id+"",category+"",customerVoucherId);
+                mPresenter.reserveService(date,time,serviceitemsbean.id+"",serviceitemsbean.name,id+"",category+"",customerVoucherId,customerVoucherName);
 
                 break;
 
@@ -120,7 +121,14 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
 
     @Override
     public void serviceReserveSuccess() {
-        ActivityUtil.finishHomeAll();
+        FeedbackDialog feedbackDialog = new FeedbackDialog(this,1,date + "  " + time);
+        feedbackDialog.show();
+        feedbackDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ActivityUtil.finishHomeAll();
+            }
+        });
     }
 
     @Override
@@ -152,6 +160,7 @@ public class ServiceReserveActivity extends BaseActivity<ServiceReserveView, Ser
             tvUseCoupon.setText("");
         }else {
             customerVoucherId = myCardBeans.get(pos).id + "";
+            customerVoucherName = myCardBeans.get(pos).name;
             tvUseCoupon.setText("已选择1张权益券");
         }
     }

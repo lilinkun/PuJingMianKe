@@ -20,6 +20,7 @@ import cn.com.pujing.R;
 import cn.com.pujing.activity.CommemorationDayActivity;
 import cn.com.pujing.activity.MyBillActivity;
 import cn.com.pujing.activity.MyCalendarActivity;
+import cn.com.pujing.activity.MyCollectActivity;
 import cn.com.pujing.activity.MyMsgActivity;
 import cn.com.pujing.activity.MyOrderActivity;
 import cn.com.pujing.activity.ProfileActivity;
@@ -83,7 +84,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     }
 
     @Override
-    @OnClick({R.id.tv_name,R.id.iv_next,R.id.tv_my_calendar,R.id.my_order,R.id.my_msg,R.id.my_bill,R.id.iv_head,R.id.my_commemoration_day})
+    @OnClick({R.id.tv_name,R.id.iv_next,R.id.tv_my_calendar,R.id.my_order,R.id.my_msg,R.id.my_bill,R.id.my_album,R.id.iv_head,R.id.my_commemoration_day})
     public void onClick(View v) {
 
         if (v.getId() == R.id.iv_head || v.getId() == R.id.tv_name || v.getId() == R.id.iv_next) {
@@ -123,6 +124,11 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
 
             if (!PuJingUtils.isFastDoubleClick()) {
                 startActivity(new Intent(getContext(), CommemorationDayActivity.class));
+            }
+        }else if(v.getId() == R.id.my_album){
+
+            if (!PuJingUtils.isFastDoubleClick()) {
+                startActivity(new Intent(getContext(), MyCollectActivity.class));
             }
         }
     }

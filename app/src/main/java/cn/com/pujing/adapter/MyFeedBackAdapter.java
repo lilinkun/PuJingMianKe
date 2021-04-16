@@ -29,6 +29,12 @@ public class MyFeedBackAdapter extends BaseQuickAdapter<MyFeedbackBean, BaseView
         baseViewHolder.setText(R.id.tv_acceptanceStatus_label,myFeedbackBean.acceptanceStatus_label);
         baseViewHolder.setText(R.id.tv_type_label,myFeedbackBean.type_label);
 
+        if (myFeedbackBean.acceptanceStatus == 0){
+            baseViewHolder.setTextColorRes(R.id.tv_acceptanceStatus_label,R.color.orange_1c);
+        }else {
+            baseViewHolder.setTextColorRes(R.id.tv_acceptanceStatus_label,R.color.grey_common);
+        }
+
         switch (myFeedbackBean.type){
             case 1:
             case 2:

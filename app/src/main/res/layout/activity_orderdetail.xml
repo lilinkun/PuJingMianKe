@@ -202,6 +202,41 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingLeft="@dimen/margin8"
+            android:paddingRight="@dimen/margin8"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/dp_10"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用券"
+                android:textColor="@color/text_gray"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_total_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="#ffff2d1d"
+                android:textSize="16sp"
+                />
+
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>
@@ -234,7 +269,8 @@
                 android:id="@+id/iv_reserve_head"
                 android:layout_width="66dp"
                 android:layout_height="66dp"
-                android:background="@color/gray_line"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_no_pic"
                 />
 
             <TextView
