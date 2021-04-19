@@ -109,18 +109,20 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
             pictureWallBeans = pagesBean.records;
         }else {
             if (pagesBean.current > 1){
-                pictureWallBeans.addAll(pagesBean.records);
+                if (pagesBean.records != null && pagesBean.records.size() > 0) {
+                    pictureWallBeans.addAll(pagesBean.records);
+                }
             }else {
                 pictureWallBeans = pagesBean.records;
             }
         }
 
-        pictureWallAdapter.setNewInstance(pagesBean.records);
+        pictureWallAdapter.setNewInstance(pictureWallBeans);
 
         if (pagesBean.size == pagesBean.total) {
-            pictureWallAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
             pictureWallAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            pictureWallAdapter.getLoadMoreModule().loadMoreComplete();
         }
 
         if (swipeLayout != null && swipeLayout.isRefreshing()){

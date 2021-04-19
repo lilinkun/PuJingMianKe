@@ -116,11 +116,12 @@ public class MyActivitiesActivity extends BaseActivity<MyActivitiesView, MyActiv
 
         myActivitiesAdapter.setNewInstance(historyActivitiesBeans);
 
-        if (historyActivitiesBean.size == historyActivitiesBean.total) {
-            myActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
+        if (historyActivitiesBeans.size() == historyActivitiesBean.total) {
             myActivitiesAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            myActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
         }
+
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);

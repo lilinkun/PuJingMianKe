@@ -159,10 +159,10 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
             }else {
                 exerciseAdapter.setDatas(list);
             }
-            if (hotActivityBean.size == hotActivityBean.total) {
-                exerciseAdapter.getLoadMoreModule().loadMoreComplete();
-            }else {
+            if (list.size() == hotActivityBean.total) {
                 exerciseAdapter.getLoadMoreModule().loadMoreEnd();
+            }else {
+                exerciseAdapter.getLoadMoreModule().loadMoreComplete();
             }
 
     }

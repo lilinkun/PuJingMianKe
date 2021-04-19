@@ -163,9 +163,9 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
         orderAdapter.setNewInstance(myOrders);
 
         if (orderItemBean.size == orderItemBean.total) {
-            orderAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
             orderAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            orderAdapter.getLoadMoreModule().loadMoreComplete();
         }
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){

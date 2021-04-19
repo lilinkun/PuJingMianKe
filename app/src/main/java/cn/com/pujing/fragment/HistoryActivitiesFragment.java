@@ -111,10 +111,10 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
 
         historyActivitiesAdapter.setNewInstance(historyActivitiesBeans);
 
-        if (historyActivitiesBean.size == historyActivitiesBean.total) {
-            historyActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
+        if (historyActivitiesBeans.size() == historyActivitiesBean.total) {
             historyActivitiesAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            historyActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
         }
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){

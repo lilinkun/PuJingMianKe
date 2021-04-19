@@ -92,9 +92,11 @@ public class MessageFragment extends BaseFragment<MessageView, MessagePresenter>
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
-                mPresenter.getMessageList(messageBeans.get(position).id+"");
+                if (messageBeans.get(position).status == 0) {
+                    mPresenter.getMessageList(messageBeans.get(position).id + "");
+                }
 
-                new AlertDialog.Builder(getActivity()).setTitle(messageBeans.get(position).messageContent).setPositiveButton("已读", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getActivity()).setTitle("消息详情").setMessage(messageBeans.get(position).messageContent).setPositiveButton("已读", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -127,9 +129,9 @@ public class MessageFragment extends BaseFragment<MessageView, MessagePresenter>
         messageAdapter.setNewInstance(this.messageBeans);
 
         if (messageBeans.size == messageBeans.total) {
-            messageAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
             messageAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            messageAdapter.getLoadMoreModule().loadMoreComplete();
         }
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){

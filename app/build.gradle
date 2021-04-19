@@ -38,6 +38,7 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
 }
 
 
@@ -94,4 +95,5 @@ dependencies {
     }
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }

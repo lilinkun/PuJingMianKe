@@ -72,20 +72,21 @@ public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseVi
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
-                if (pictureWallBean.type.equals("图片")){
-                    if (pictureWallBean.photo.split(",").length > 9) {
-                        Intent intent = new Intent(baseViewHolder.itemView.getContext(), ShowPhotoActivity.class);
-                        intent.putExtra("showphoto", pictureWallBean.photo.split(","));
-                        intent.putExtra("pos", position);
-                        baseViewHolder.itemView.getContext().startActivity(intent);
-                    }else {
-                        new ShowImagesDialog(baseViewHolder.itemView.getContext(), strings, position, 0).show();
+                if (pictureWallBean.type != null) {
+                    if (pictureWallBean.type.equals("图片")) {
+                        if (pictureWallBean.photo.split(",").length > 9) {
+                            Intent intent = new Intent(baseViewHolder.itemView.getContext(), ShowPhotoActivity.class);
+                            intent.putExtra("showphoto", pictureWallBean.photo.split(","));
+                            intent.putExtra("pos", position);
+                            baseViewHolder.itemView.getContext().startActivity(intent);
+                        } else {
+                            new ShowImagesDialog(baseViewHolder.itemView.getContext(), strings, position, 0).show();
+                        }
+                    } else if (pictureWallBean.type.equals("视频")) {
+
+                        new ShowVideoDialog(baseViewHolder.itemView.getContext(), pictureWallBean.photo).show();
+
                     }
-                }else if (pictureWallBean.type.equals("视频")){
-
-
-                    new ShowVideoDialog(baseViewHolder.itemView.getContext(),pictureWallBean.photo).show();
-
                 }
 
             }

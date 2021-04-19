@@ -75,8 +75,8 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -243,7 +243,7 @@ public class PujingService {
     //系统消息
     public static String MESSAGELIST = PREFIX + "/content-service/appMessage/myUnread/page";
     //读取消息
-    public static String READMESSAGE = PREFIX + "/content-service/appMessage/read";
+    public static String READMESSAGE = PREFIX + "/content-service/appMessage/read/";
 
 
 
@@ -1229,8 +1229,12 @@ public class PujingService {
      */
     public static Observable<ResponseData<Object>> getReadMessage(String ids){
 
-        return OkGo.<ResponseData<Object>>post(READMESSAGE)
-                .params("ids",ids)
+        HashMap<String, String> params = new HashMap<>();
+        params.put("ids", ids);
+        JSONObject jsonObject = new JSONObject(params);
+
+
+        return OkGo.<ResponseData<Object>>get(READMESSAGE + ids)
                 .converter(new JsonConvert<ResponseData<Object>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Object>>());

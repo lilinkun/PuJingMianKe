@@ -128,10 +128,10 @@ public class MyCollectActivity extends BaseActivity<MyCollectView, MyCollectPres
 
         myCollectAdapter.setNewInstance(pagesBean.records);
 
-        if (pagesBean.size == pagesBean.total) {
-            myCollectAdapter.getLoadMoreModule().loadMoreComplete();
-        }else {
+        if (collectBeans.size() == pagesBean.total) {
             myCollectAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            myCollectAdapter.getLoadMoreModule().loadMoreComplete();
         }
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
