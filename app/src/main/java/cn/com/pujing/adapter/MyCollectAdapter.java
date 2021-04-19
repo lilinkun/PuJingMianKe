@@ -28,7 +28,7 @@ public class MyCollectAdapter extends BaseQuickAdapter<CollectBean, BaseViewHold
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, CollectBean collectBean) {
-        baseViewHolder.setText(R.id.tv_collect_time,collectBean.userId+"");
+        baseViewHolder.setText(R.id.tv_collect_time,collectBean.createTime+"");
         baseViewHolder.setText(R.id.tv_title,collectBean.title);
         ImageView ivMyCollect = baseViewHolder.getView(R.id.iv_mycollect);
 

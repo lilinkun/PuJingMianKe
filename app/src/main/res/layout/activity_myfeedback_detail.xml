@@ -5,34 +5,42 @@
     android:background="@color/gray_line"
     android:orientation="vertical">
 
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/main_color"
-    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-    <ImageView
-        android:id="@+id/iv_my_feedback_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:src="@mipmap/ic_back"
-        android:layout_centerVertical="true"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_feedback_detail"
-        android:textColor="#ffffffff"
-        android:textSize="18sp"
-        android:layout_centerInParent="true"
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/main_color">
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_my_feedback_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:src="@mipmap/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/my_feedback_detail"
+                android:textColor="#ffffffff"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
 
 
     <LinearLayout
@@ -306,6 +314,8 @@
 
     </LinearLayout>
 
+    </LinearLayout>
 
+    </ScrollView>
 
 </LinearLayout>

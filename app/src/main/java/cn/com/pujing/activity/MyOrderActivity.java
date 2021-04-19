@@ -97,10 +97,23 @@ public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter>
                     intent.putExtra("ordernumber",myOrders.get(position).orderNumber);
                     intent.putExtra("type",myOrders.get(position).orderType);
                     startActivity(intent);
-                }else if (myOrders.get(position).orderCategory == 2){
+                }else if (myOrders.get(position).orderCategory == 2 ){
 
                     Intent intent = new Intent(MyOrderActivity.this,OrderDetailActivity.class);
                     intent.putExtra("ordernumber",myOrders.get(position).id);
+                    intent.putExtra("type",myOrders.get(position).orderCategory);
+                    startActivity(intent);
+                }else if (myOrders.get(position).orderCategory == 3){
+
+                    Intent intent = new Intent(MyOrderActivity.this,OrderDetailActivity.class);
+                    intent.putExtra("ordernumber",myOrders.get(position).id);
+                    intent.putExtra("type",myOrders.get(position).orderCategory);
+                    startActivity(intent);
+                }else if (myOrders.get(position).orderCategory == 4){
+
+                    Intent intent = new Intent(MyOrderActivity.this,OrderDetailActivity.class);
+                    intent.putExtra("ordernumber",myOrders.get(position).id);
+                    intent.putExtra("type",myOrders.get(position).orderCategory);
                     startActivity(intent);
                 }
             }

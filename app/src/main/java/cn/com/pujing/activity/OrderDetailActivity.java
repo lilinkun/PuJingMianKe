@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.OrderDetailBean;
+import cn.com.pujing.entity.VenueDetailBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.OrderDetailPresenter;
 import cn.com.pujing.util.PuJingUtils;
@@ -48,6 +50,10 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
     ImageView ivReserveHead;
     @BindView(R.id.rl_coupon)
     RelativeLayout rlCoupon;
+    @BindView(R.id.ll_order_detail_date)
+    LinearLayout llOrderDetailDate;
+
+    private int type = 0;
 
     @Override
     public int getLayoutId() {
@@ -60,8 +66,17 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();
 
         String ordernumber = getIntent().getStringExtra("ordernumber");
+        type = getIntent().getIntExtra("type",0);
 
-        mPresenter.queryReserveServiceOrder(ordernumber);
+        if (type == 4){
+            mPresenter.searchVenueDetail(ordernumber);
+        }else {
+            mPresenter.queryReserveServiceOrder(ordernumber);
+        }
+
+        if (type == 3){
+            llOrderDetailDate.setVisibility(View.GONE);
+        }
 
     }
 
@@ -82,6 +97,10 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
         tvReserveDate.setText(orderDetailBean.orderingDate);
         tvReserveTime.setText(orderDetailBean.orderingTime);
 
+        if (orderDetailBean.orderingDate == null || orderDetailBean.orderingDate.toString().length() == 0){
+            llOrderDetailDate.setVisibility(View.GONE);
+        }
+
         if (orderDetailBean.customerVoucherId != null && orderDetailBean.customerVoucherId.toString().length() > 0){
             rlCoupon.setVisibility(View.VISIBLE);
             tvTotalCoupon.setText(orderDetailBean.customerVoucherName + "  x1");
@@ -90,6 +109,29 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
                 .apply(PuJingUtils.setGlideCircle(10)).error(R.drawable.ic_no_pic).into(ivReserveHead);
 
 
+    }
+
+    @Override
+    public void queryVenueSuccess(VenueDetailBean venueDetailBean) {
+        tvOrderTime.setText(venueDetailBean.orderTime);
+        if (venueDetailBean.status == 1){
+            tvOrderStatus.setText("待确认");
+        }else if (venueDetailBean.status == 2){
+            tvOrderStatus.setText("已确认");
+        }else if (venueDetailBean.status == 2){
+            tvOrderStatus.setText("已取消");
+        }
+        tvOrderNumber.setText(venueDetailBean.orderNum);
+        tvTotalPrice.setText("￥" + 0);
+        tvReservePrice.setText("￥" + 0);
+        tvReserveName.setText(venueDetailBean.deviceName);
+        tvReserveDate.setText(venueDetailBean.reserveDate);
+        tvReserveTime.setText(venueDetailBean.reserveTime);
+
+        llOrderDetailDate.setVisibility(View.GONE);
+
+        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + venueDetailBean.topic)
+                .apply(PuJingUtils.setGlideCircle(10)).error(R.drawable.ic_no_pic).into(ivReserveHead);
     }
 
     @Override

@@ -10,25 +10,14 @@ import java.util.List;
  */
 public class HistoryActivitiesBean implements Serializable {
 
-    public List<Records> records;
+    public String id;
+    public String photo;
+    public String activityName;
+    public String name;
+    public String content;
+    public String price;
+    public String calendarStatus_label;
+    public String summary;
+    public String activityStartDate;
 
-    public class Records implements Serializable {
-        public String id;
-        public String photo;
-        public String activityName;
-        public String name;
-        public String content;
-        public String price;
-        public String calendarStatus_label;
-        public String summary;
-        public String activityStartDate;
-    }
-
-    public List<Records> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<Records> records) {
-        this.records = records;
-    }
 }

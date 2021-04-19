@@ -26,16 +26,22 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.ImgViewAdapter;
+import cn.com.pujing.adapter.MsgAdapter;
 import cn.com.pujing.adapter.ShowPhotoAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.MessageBean;
+import cn.com.pujing.entity.PhotoBean;
 import cn.com.pujing.http.PujingService;
+import cn.com.pujing.presenter.ShowPhotoPresenter;
 import cn.com.pujing.util.FileUtils;
+import cn.com.pujing.util.UToast;
+import cn.com.pujing.view.ShowPhotoView;
 
 /**
  * 显示图片
  */
-public class ShowPhotoActivity extends BaseActivity {
+public class ShowPhotoActivity extends BaseActivity<ShowPhotoView, ShowPhotoPresenter> implements ShowPhotoView{
 
     @BindView(R.id.rv_show_photo)
     RecyclerView rvShowPhoto;
@@ -45,6 +51,8 @@ public class ShowPhotoActivity extends BaseActivity {
     String currentPic = "";
     String[] showPhoto;
     int pos = 0;
+    private ShowPhotoAdapter showPhotoAdapter;
+    private int id;
 
     @Override
     public int getLayoutId() {
@@ -54,32 +62,25 @@ public class ShowPhotoActivity extends BaseActivity {
     @Override
     public void initView() {
 
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.blue_bg)
-                .fitsSystemWindows(true)
-                .init();
+        ImmersionBar.with(this).statusBarColor(R.color.blue_bg).fitsSystemWindows(true).init();
 
-        showPhoto = getIntent().getStringArrayExtra("showphoto");
-        pos = getIntent().getIntExtra("pos",0);
+//        showPhoto = getIntent().getStringArrayExtra("showphoto");
+//        pos = getIntent().getIntExtra("pos",0);
+
+
+        id = getIntent().getIntExtra("id",0);
+
+        mPresenter.queryPhotoWall(id+"");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        ShowPhotoAdapter showPhotoAdapter = new ShowPhotoAdapter(R.layout.adapter_show_photo, Arrays.asList(showPhoto),this);
+        showPhotoAdapter = new ShowPhotoAdapter(R.layout.adapter_show_photo, null,this);
 
         rvShowPhoto.addItemDecoration(new DividerItemDecoration(getBaseContext(), DividerItemDecoration.HORIZONTAL));
         rvShowPhoto.setLayoutManager(linearLayoutManager);
         rvShowPhoto.setAdapter(showPhotoAdapter);
 
-        ImgViewAdapter imgViewAdapter = new ImgViewAdapter(showPhoto, this);
-        vpShowPhoto.setAdapter(imgViewAdapter);
-        currentPic = showPhoto[pos];
-        vpShowPhoto.setCurrentItem(pos);
-        showPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                vpShowPhoto.setCurrentItem(position,false);
-            }
-        });
+
     }
 
     @Override
@@ -96,8 +97,8 @@ public class ShowPhotoActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected ShowPhotoPresenter createPresenter() {
+        return new ShowPhotoPresenter();
     }
 
     @OnClick({R.id.iv_back,R.id.tv_show_photo_save})
@@ -129,5 +130,29 @@ public class ShowPhotoActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void queryPhotoWall(PhotoBean photoBean) {
 
+        String photo = photoBean.getPhoto();
+        String[] photoStrings = photo.split(",");
+        showPhoto = photoStrings;
+
+        showPhotoAdapter.setNewInstance(Arrays.asList(showPhoto));
+
+        ImgViewAdapter imgViewAdapter = new ImgViewAdapter(showPhoto, this);
+        vpShowPhoto.setAdapter(imgViewAdapter);
+        currentPic = showPhoto[pos];
+        vpShowPhoto.setCurrentItem(pos);
+        showPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                vpShowPhoto.setCurrentItem(position,false);
+            }
+        });
+    }
+
+    @Override
+    public void getDataError(String message) {
+        UToast.show(this, message);
+    }
 }

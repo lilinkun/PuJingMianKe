@@ -35,9 +35,19 @@
                 android:paddingEnd="20dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:src="@mipmap/ic_order_filter"
                 android:layout_alignParentEnd="true"
+                android:src="@mipmap/ic_order_filter"
                 android:layout_centerVertical="true"/>
+
+
+            <ImageView
+                android:id="@+id/iv_activity_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:src="@mipmap/ic_back"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
     </LinearLayout>
 

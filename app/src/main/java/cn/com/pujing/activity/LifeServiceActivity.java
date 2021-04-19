@@ -28,8 +28,11 @@ import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BasicServiceVoListBean;
 import cn.com.pujing.entity.HealthCenterBean;
 import cn.com.pujing.entity.ServiceBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.LifeServicePresenter;
 import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.LifeServiceView;
 
@@ -71,7 +74,7 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
         mPresenter.getBannerData();
 
-        imageNetAdapter = new ImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null,1);
         bannerLifeService.setAdapter(imageNetAdapter);
         bannerLifeService.setIndicator(new CircleIndicator(this));
         bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -82,11 +85,9 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
             public void OnBannerClick(Object data, int position) {
 
 
-                Intent intent = new Intent();
-                intent.setClass(LifeServiceActivity.this, LifeTypeActivity.class);
-                intent.putExtra("id",((List<BannerBean>)data).get(position).getLinkAddress());
-                intent.putExtra("category",1);
-                startActivity(intent);
+                BannerBean bannerBean = bannerBeans.get(position);
+
+                PuJingUtils.bannerClick(LifeServiceActivity.this,bannerBean);
 
             }
         });

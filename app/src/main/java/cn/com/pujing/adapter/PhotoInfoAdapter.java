@@ -12,13 +12,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import cn.com.pujing.R;
+import cn.com.pujing.entity.PictureWallBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.Urls;
 
 public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public PhotoInfoAdapter(int layoutResId, @Nullable List<String> data) {
+    PictureWallBean pictureWallBean;
+
+    public PhotoInfoAdapter(int layoutResId, @Nullable List<String> data, PictureWallBean pictureWallBean) {
         super(layoutResId, data);
+        this.pictureWallBean = pictureWallBean;
     }
 
     @Override

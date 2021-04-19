@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
@@ -18,6 +21,7 @@ import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.MyActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.MyActivitiesPresenter;
 import cn.com.pujing.util.Constants;
@@ -36,6 +40,8 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
     private MyActivitiesAdapter myActivitiesAdapter;
     private HistoryActivitiesBean historyActivitiesBean;
     private int result_myactivity = 0x434;
+    private int page = 1;
+    private List<HistoryActivitiesBean> historyActivitiesBeans;
 
     @Override
     public int getlayoutId() {
@@ -57,23 +63,34 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, PujingService.h5_myinfo + historyActivitiesBean.getRecords().get(position).id);
+                intent.putExtra(Constants.URL, PujingService.h5_myinfo + historyActivitiesBeans.get(position).id);
                 startActivityForResult(intent,result_myactivity);
             }
         });
 
-        mPresenter.getMyActivitiesData();
+        mPresenter.getMyActivitiesData(page);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getMyActivitiesData();
+                page = 1;
+                mPresenter.getMyActivitiesData(page);
+            }
+        });
+
+
+        myActivitiesAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                page++;
+
+                mPresenter.getMyActivitiesData(page);
             }
         });
     }
 
     public void getData(){
-        mPresenter.getMyActivitiesData();
+        mPresenter.getMyActivitiesData(page);
     }
 
     @Override
@@ -83,28 +100,45 @@ public class MyActivitiesFragment extends BaseFragment<MyActivitiesView, MyActiv
 
 
     @Override
-    public void getHistoryDataSuccess(HistoryActivitiesBean historyActivitiesBean) {
-        if (historyActivitiesBean != null) {
-            this.historyActivitiesBean = historyActivitiesBean;
-            myActivitiesAdapter.setNewInstance(historyActivitiesBean.getRecords());
+    public void getHistoryDataSuccess(PagesBean<HistoryActivitiesBean> historyActivitiesBean) {
+
+        if (historyActivitiesBeans == null){
+            historyActivitiesBeans = historyActivitiesBean.records;
+        }else {
+            if (page > 1){
+                historyActivitiesBeans.addAll(historyActivitiesBean.records);
+            }else {
+                historyActivitiesBeans = historyActivitiesBean.records;
+            }
+        }
+
+        myActivitiesAdapter.setNewInstance(historyActivitiesBeans);
+
+        if (historyActivitiesBean.size == historyActivitiesBean.total) {
+            myActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
+        }else {
+            myActivitiesAdapter.getLoadMoreModule().loadMoreEnd();
         }
 
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }
-
     }
 
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(),msg);
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
-            mPresenter.getMyActivitiesData();
+            page = 1;
+            mPresenter.getMyActivitiesData(page);
         }
     }
 }

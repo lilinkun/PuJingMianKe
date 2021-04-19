@@ -14,7 +14,7 @@
     <string-array name="main_activity">
         <item>@string/home</item>
         <item>@string/restaurant</item>
-        <item>@string/exercise</item>
+        <item>@string/message</item>
         <item>@string/mine</item>
     </string-array>
 

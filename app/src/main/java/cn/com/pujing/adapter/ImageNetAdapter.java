@@ -20,13 +20,21 @@ import cn.com.pujing.viewholder.ImageHolder;
  */
 public class ImageNetAdapter extends BannerAdapter<BannerBean, ImageHolder> {
 
-    public ImageNetAdapter(List<BannerBean> mDatas) {
+    private int type = 0;
+    private ImageView imageView;
+
+    public ImageNetAdapter(List<BannerBean> mDatas,int type) {
         super(mDatas);
+        this.type = type;
     }
 
     @Override
     public ImageHolder onCreateHolder(ViewGroup parent, int viewType) {
-        ImageView imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image);
+        if (type == 0) {
+             imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image);
+        }else if (type == 1) {
+            imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image1);
+        }
         //通过裁剪实现圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             BannerUtils.setBannerRound(imageView, 15);

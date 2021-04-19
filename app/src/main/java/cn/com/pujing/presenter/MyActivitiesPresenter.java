@@ -2,6 +2,7 @@ package cn.com.pujing.presenter;
 
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
@@ -16,14 +17,14 @@ import cn.com.pujing.view.MyActivitiesView;
  */
 public class MyActivitiesPresenter extends BasePresenter<MyActivitiesView> {
 
-    public void getMyActivitiesData(){
+    public void getMyActivitiesData(int page){
 
-        PujingService.getMyActivitiy()
+        PujingService.getMyActivitiy(page)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<HistoryActivitiesBean>() {
+                .subscribe(new RxObserver<PagesBean<HistoryActivitiesBean>>() {
                     @Override
-                    public void _onNext(HistoryActivitiesBean historyActivitiesBean) {
+                    public void _onNext(PagesBean<HistoryActivitiesBean> historyActivitiesBean) {
                         getView().getHistoryDataSuccess(historyActivitiesBean);
                     }
 

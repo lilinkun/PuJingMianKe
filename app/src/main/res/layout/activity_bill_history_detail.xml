@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="账单金额"
-            android:textColor="#ff333333"
+            android:textColor="@color/gray_333"
             android:textSize="14sp"
             />
 
@@ -90,7 +90,7 @@
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ff333333"
+                android:textColor="@color/gray_333"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:layout_marginStart="@dimen/dp_10"

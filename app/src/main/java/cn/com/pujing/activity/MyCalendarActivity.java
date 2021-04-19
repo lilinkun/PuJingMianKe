@@ -52,6 +52,7 @@ import cn.com.pujing.presenter.CommunityCalendarPresenter;
 import cn.com.pujing.util.CalendarUtil;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.CommunityCalendarView;
 
 /**
@@ -324,7 +325,7 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
     @Override
     public void getDataFail(String msg) {
-
+        UToast.show(this,msg);
     }
 
     @Override

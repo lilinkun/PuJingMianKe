@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import cn.com.pujing.R;
@@ -18,6 +21,7 @@ import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.HistoryActivitiesAdapter;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.HistoryActivitiesPresenter;
 import cn.com.pujing.util.Constants;
@@ -29,10 +33,11 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
     @BindView(R.id.rv_history_activities)
     RecyclerView rvHistoryActivities;
     @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     HistoryActivitiesAdapter historyActivitiesAdapter;
-    private HistoryActivitiesBean historyActivitiesBean;
+    private int page = 1;
+    private List<HistoryActivitiesBean> historyActivitiesBeans;
 
     @Override
     public int getlayoutId() {
@@ -58,17 +63,27 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + historyActivitiesBean.getRecords().get(position).id);
+                intent.putExtra(Constants.URL, PujingService.EVENTDETAILS + historyActivitiesBeans.get(position).id);
                 startActivity(intent);
             }
         });
 
-        mPresenter.getActivitiesDataSuccess();
+        mPresenter.getActivitiesDataSuccess(page);
 
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getActivitiesDataSuccess();
+                page = 1;
+                mPresenter.getActivitiesDataSuccess(page);
+            }
+        });
+
+        historyActivitiesAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                page++;
+
+                mPresenter.getActivitiesDataSuccess(page);
             }
         });
 
@@ -82,19 +97,36 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
 
 
     @Override
-    public void getHistoryDataSuccess(HistoryActivitiesBean historyActivitiesBean) {
-        if (historyActivitiesBean != null){
-            this.historyActivitiesBean = historyActivitiesBean;
-            historyActivitiesAdapter.setNewInstance(historyActivitiesBean.getRecords());
+    public void getHistoryDataSuccess(PagesBean<HistoryActivitiesBean> historyActivitiesBean) {
+
+        if (historyActivitiesBeans == null){
+            historyActivitiesBeans = historyActivitiesBean.records;
+        }else {
+            if (page > 1){
+                historyActivitiesBeans.addAll(historyActivitiesBean.records);
+            }else {
+                historyActivitiesBeans = historyActivitiesBean.records;
+            }
         }
 
-        if (swipeLayout.isRefreshing()){
-            swipeLayout.setRefreshing(false);
+        historyActivitiesAdapter.setNewInstance(historyActivitiesBeans);
+
+        if (historyActivitiesBean.size == historyActivitiesBean.total) {
+            historyActivitiesAdapter.getLoadMoreModule().loadMoreComplete();
+        }else {
+            historyActivitiesAdapter.getLoadMoreModule().loadMoreEnd();
+        }
+
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
     @Override
     public void getDataFail(String msg) {
         UToast.show(getActivity(),msg);
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

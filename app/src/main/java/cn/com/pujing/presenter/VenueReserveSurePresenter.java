@@ -25,16 +25,20 @@ public class VenueReserveSurePresenter extends BasePresenter<VenueReserveSureVie
         PujingService.reserveSure(venueId, deviceId, reserveDate,reserveTime)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<Boolean>() {
+                .subscribe(new RxObserver<Object>() {
 
                     @Override
-                    public void _onNext(Boolean aBoolean) {
-                        getView().venueReserveSuccess(aBoolean);
+                    public void _onNext(Object o) {
+                        getView().venueReserveSuccess(o);
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
-                        getView().venueReserveFail(errorMessage);
+                        if (errorMessage.contains("The item is null")){
+                            getView().venueReserveSuccess(null);
+                        }else {
+                            getView().venueReserveFail(errorMessage);
+                        }
                     }
 
                 });

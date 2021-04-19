@@ -1,6 +1,7 @@
 package cn.com.pujing.view;
 
 import cn.com.pujing.entity.HistoryActivitiesBean;
+import cn.com.pujing.entity.PagesBean;
 
 /**
  * author : liguo
@@ -8,6 +9,6 @@ import cn.com.pujing.entity.HistoryActivitiesBean;
  * description :
  */
 public interface MyActivitiesView {
-    public void getHistoryDataSuccess(HistoryActivitiesBean historyActivitiesBean);
+    public void getHistoryDataSuccess(PagesBean<HistoryActivitiesBean> historyActivitiesBean);
     public void getDataFail(String msg);
 }

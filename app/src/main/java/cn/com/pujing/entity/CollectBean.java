@@ -31,4 +31,8 @@ public class CollectBean {
      *人员id
      */
     public int userId;
+
+    public String createTime;
+
+    public String updateTime;
 }

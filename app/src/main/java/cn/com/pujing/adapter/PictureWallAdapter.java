@@ -26,6 +26,7 @@ import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.ShowPhotoActivity;
 import cn.com.pujing.entity.PictureWallBean;
 import cn.com.pujing.widget.ShowImagesDialog;
+import cn.com.pujing.widget.ShowVideoDialog;
 
 /**
  * author : liguo
@@ -63,21 +64,30 @@ public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseVi
         RecyclerView recyclerView = baseViewHolder.getView(R.id.rv_pic_wall);
 
         List<String> strings = Arrays.asList(pictureWallBean.photo.split(","));
-        PhotoInfoAdapter photoInfoAdapter = new PhotoInfoAdapter(R.layout.item_section_content, strings);
+        PhotoInfoAdapter photoInfoAdapter = new PhotoInfoAdapter(R.layout.item_section_content, strings,pictureWallBean);
         recyclerView.setLayoutManager(new GridLayoutManager(baseViewHolder.itemView.getContext(), 3));
         recyclerView.setAdapter(photoInfoAdapter);
 
         photoInfoAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                if (pictureWallBean.photo.split(",").length > 9) {
-                    Intent intent = new Intent(baseViewHolder.itemView.getContext(), ShowPhotoActivity.class);
-                    intent.putExtra("showphoto", pictureWallBean.photo.split(","));
-                    intent.putExtra("pos", position);
-                    baseViewHolder.itemView.getContext().startActivity(intent);
-                }else {
-                    new ShowImagesDialog(baseViewHolder.itemView.getContext(), strings, position, 0).show();
+
+                if (pictureWallBean.type.equals("图片")){
+                    if (pictureWallBean.photo.split(",").length > 9) {
+                        Intent intent = new Intent(baseViewHolder.itemView.getContext(), ShowPhotoActivity.class);
+                        intent.putExtra("showphoto", pictureWallBean.photo.split(","));
+                        intent.putExtra("pos", position);
+                        baseViewHolder.itemView.getContext().startActivity(intent);
+                    }else {
+                        new ShowImagesDialog(baseViewHolder.itemView.getContext(), strings, position, 0).show();
+                    }
+                }else if (pictureWallBean.type.equals("视频")){
+
+
+                    new ShowVideoDialog(baseViewHolder.itemView.getContext(),pictureWallBean.photo).show();
+
                 }
+
             }
         });
 

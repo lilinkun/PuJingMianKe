@@ -20,8 +20,8 @@ import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.TabEntity;
-import cn.com.pujing.fragment.ActivitiesFragment;
 import cn.com.pujing.fragment.HomeFragment;
+import cn.com.pujing.fragment.MessageFragment;
 import cn.com.pujing.fragment.MineFragment;
 import cn.com.pujing.fragment.RestaurantFragment;
 import cn.com.pujing.util.ActivityUtil;
@@ -58,12 +58,12 @@ public class MainActivity extends BaseActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         RestaurantFragment restaurantFragment = new RestaurantFragment();
-        ActivitiesFragment activitiesFragment = new ActivitiesFragment();
+        MessageFragment messageFragment = new MessageFragment();
         MineFragment mineFragment = new MineFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(homeFragment);
         fragmentList.add(restaurantFragment);
-        fragmentList.add(activitiesFragment);
+        fragmentList.add(messageFragment);
         fragmentList.add(mineFragment);
         VpAdapter vpAdapter = new VpAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(vpAdapter);

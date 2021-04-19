@@ -7,7 +7,7 @@ package cn.com.pujing.view;
  */
 public interface VenueReserveSureView {
 
-    public void venueReserveSuccess(Boolean aBoolean);
+    public void venueReserveSuccess(Object o);
 
     public void venueReserveFail(String msg);
 

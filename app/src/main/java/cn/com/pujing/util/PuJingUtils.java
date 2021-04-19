@@ -25,7 +25,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import cn.com.pujing.activity.LifeTypeActivity;
+import cn.com.pujing.activity.ShowPhotoActivity;
+import cn.com.pujing.activity.VenueReserveActivity;
+import cn.com.pujing.activity.WebviewActivity;
+import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.RestDayBean;
+import cn.com.pujing.http.PujingService;
 import cn.com.pujing.widget.GlideRoundTransform;
 
 /**
@@ -327,6 +333,72 @@ public class PuJingUtils {
         } catch (Exception e) {
             e.printStackTrace();
             return "无法获取到版本号";
+        }
+    }
+
+    public static void bannerClick(Context context, BannerBean bannerBean){
+
+        switch (bannerBean.getType()){
+            case 1:
+            case 2:
+            case 4:
+                Intent intent = new Intent(context, WebviewActivity.class);
+                if (bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
+                    intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
+//                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
+                    context.startActivity(intent);
+                }
+                break;
+
+            case 3:
+
+                String photoId = bannerBean.getLinkAddress();
+
+                if (photoId.contains("/")){
+                    photoId = photoId.substring(photoId.lastIndexOf("/")+1,photoId.length());
+                }
+
+
+                Intent intent3 = new Intent(context, ShowPhotoActivity.class);
+                intent3.putExtra("id",Integer.valueOf(photoId));
+                context.startActivity(intent3);
+
+                break;
+
+            case 5: //跳健管中心详情
+
+
+                Intent intent1 = new Intent();
+                intent1.setClass(context, LifeTypeActivity.class);
+//                        intent1.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
+                intent1.putExtra("category",2);
+                intent1.putExtra("id",Integer.valueOf(bannerBean.getLinkAddress()));
+                context.startActivity(intent1);
+
+                break;
+
+            case 6://跳服务
+
+                Intent intent6 = new Intent();
+                intent6.setClass(context, LifeTypeActivity.class);
+                intent6.putExtra("category",1);
+                intent6.putExtra("id",Integer.valueOf(bannerBean.getLinkAddress()));
+                context.startActivity(intent6);
+
+                break;
+
+            case 7://跳场馆详情
+
+                Intent intent7 = new Intent();
+                intent7.setClass(context, VenueReserveActivity.class);
+                intent7.putExtra("id",Integer.valueOf(bannerBean.getLinkAddress()));
+                context.startActivity(intent7);
+
+                break;
+
+            default:
+                break;
+
         }
     }
 

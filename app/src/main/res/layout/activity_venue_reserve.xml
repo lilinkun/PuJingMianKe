@@ -233,7 +233,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-            android:layout_toStartOf="@+id/address"
+            android:layout_toEndOf="@+id/address"
             android:gravity="end"
             android:lines="1"
             android:ellipsize="end"

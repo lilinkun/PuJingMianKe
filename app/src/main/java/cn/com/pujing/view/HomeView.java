@@ -23,6 +23,4 @@ public interface HomeView {
 
     void getDataError(String message);
 
-    void queryPhotoWall(PhotoBean photoBean);
-
 }

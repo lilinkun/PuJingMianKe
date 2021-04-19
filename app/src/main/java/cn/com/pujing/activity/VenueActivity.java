@@ -26,6 +26,7 @@ import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.presenter.VenuePresenter;
 import cn.com.pujing.util.ActivityUtil;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.VenueView;
 
@@ -68,7 +69,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
         rvVenue.setAdapter(venueAdapter);
 
 
-        imageNetAdapter = new ImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null,1);
         bannerVenue.setAdapter(imageNetAdapter);
         bannerVenue.setIndicator(new CircleIndicator(this));
         bannerVenue.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -77,10 +78,14 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
             @Override
             public void OnBannerClick(Object data, int position) {
 
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 intent.setClass(VenueActivity.this,VenueReserveActivity.class);
                 intent.putExtra("id",bannerBeans.get(position).getLinkAddress());
-                startActivity(intent);
+                startActivity(intent);*/
+
+                BannerBean bannerBean = bannerBeans.get(position);
+
+                PuJingUtils.bannerClick(VenueActivity.this,bannerBean);
 
             }
         });

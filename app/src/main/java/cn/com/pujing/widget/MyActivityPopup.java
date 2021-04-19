@@ -135,7 +135,11 @@ public class MyActivityPopup extends PopupWindow {
         tvCancelPop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                tvStartDate.setText("");
+                tvEndDate.setText("");
+                orderTpeBean1 = null;
+                gridOrderAdapter1.setTypePos(-1);
+                gridOrderAdapter.setTypePos(0);
             }
         });
 

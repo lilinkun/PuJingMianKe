@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,15 +24,15 @@ import cn.com.pujing.util.Urls;
  * date : 2021/2/23 18:52
  * description :
  */
-public class MyActivitiesAdapter extends BaseQuickAdapter<HistoryActivitiesBean.Records, BaseViewHolder> {
+public class MyActivitiesAdapter extends BaseQuickAdapter<HistoryActivitiesBean, BaseViewHolder> implements LoadMoreModule {
 
 
-    public MyActivitiesAdapter(int layoutResId, @Nullable List<HistoryActivitiesBean.Records> data) {
+    public MyActivitiesAdapter(int layoutResId, @Nullable List<HistoryActivitiesBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, HistoryActivitiesBean.Records record) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, HistoryActivitiesBean record) {
 
         ImageView ivHeader = baseViewHolder.getView(R.id.iv_myactivities);
         Glide.with(getContext())

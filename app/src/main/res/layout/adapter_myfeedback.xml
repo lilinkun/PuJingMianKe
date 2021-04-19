@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         >
 
         <TextView
@@ -19,13 +20,15 @@
             android:textColor="@color/blue"
             android:textSize="10sp"
             android:padding="5dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
             />
 
         <TextView
             android:id="@+id/tv_feedback_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ff333333"
+            android:textColor="@color/gray_333"
             android:textSize="16sp"
             android:layout_marginStart="@dimen/dp_10"
             />

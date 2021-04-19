@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
@@ -17,6 +19,7 @@ import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.MyFeedbackDetailPresenter;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.MyFeedbackDetailView;
+import cn.com.pujing.widget.ShowImagesDialog;
 
 /**
  * author : liguo
@@ -57,6 +60,7 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         int id = getIntent().getIntExtra("id",0);
 
         mPresenter.getFeedbakDetail(id);
+
     }
 
     @Override
@@ -80,6 +84,10 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
 
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + myFeedbackBean.photo)
                 .placeholder(R.drawable.loading).error(R.drawable.ic_no_pic).into(ivFeedback);
+
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add(myFeedbackBean.photo);
+        new ShowImagesDialog(this,strings,0,1).show();
     }
 
     @Override

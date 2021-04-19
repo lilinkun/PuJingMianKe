@@ -76,9 +76,7 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
     }
 
     @Override
-    public void venueReserveSuccess(Boolean aBoolean) {
-
-        if (aBoolean) {
+    public void venueReserveSuccess(Object o) {
 
             FeedbackDialog feedbackDialog = new FeedbackDialog(this,1,date + "  " + time);
             feedbackDialog.show();
@@ -88,7 +86,6 @@ public class VenueReserveSureActivity extends BaseActivity<VenueReserveSureView,
                     ActivityUtil.finishHomeAll();
                 }
             });
-        }
     }
 
     @Override

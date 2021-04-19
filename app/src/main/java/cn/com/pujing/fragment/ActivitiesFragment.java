@@ -35,6 +35,8 @@ public class ActivitiesFragment extends BaseFragment<ActivitiesView, ActivitiesP
     ViewPager vpListExerciset;
     @BindView(R.id.iv_activity_filter)
     ImageView ivActivityFilter;
+    @BindView(R.id.iv_activity_back)
+    ImageView ivActivityBack;
 
     MyActivitiesFragment myActivitiesFragment = new MyActivitiesFragment();
     CurrentHotFragment currentHotFragment = new CurrentHotFragment();
@@ -57,6 +59,8 @@ public class ActivitiesFragment extends BaseFragment<ActivitiesView, ActivitiesP
         strings.add(getContext().getString(R.string.cur_hot_activities));
         strings.add(getContext().getString(R.string.cur_history_activities));
         strings.add(getContext().getString(R.string.cur_my_activities));
+
+        ivActivityBack.setVisibility(View.GONE);
 
         mPresenter.getActivityType();
 

@@ -2,6 +2,8 @@ package cn.com.pujing.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +26,8 @@ import cn.com.pujing.http.PujingService;
 import cn.com.pujing.util.UToast;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
+
+import static android.provider.MediaStore.Video.Thumbnails.MINI_KIND;
 
 
 /**
@@ -113,6 +117,7 @@ public class ShowImagesDialog extends Dialog {
                     .into(photoView);
             mViews.add(photoView);
             mTitles.add(i + "");
+
         }
 
         mAdapter = new ShowImagesAdapter(mViews, mImgUrls,mContext,type);

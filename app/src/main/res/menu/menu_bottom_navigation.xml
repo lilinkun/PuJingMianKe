@@ -12,7 +12,7 @@
     <item
         android:id="@+id/exercise"
         android:icon="@mipmap/ic_exercise"
-        android:title="@string/exercise" />
+        android:title="@string/message" />
     <item
         android:id="@+id/mine"
         android:icon="@mipmap/ic_mine"

@@ -57,6 +57,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
     ServiceTitleAdapter healthCenterAdapter;
     private ImageNetAdapter imageNetAdapter;
+    private List<BannerBean> bannerBeans;
 
     @Override
     public int getLayoutId() {
@@ -83,7 +84,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
         mPresenter.getVip();
 
-        imageNetAdapter = new ImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null,1);
         bannerLifeService.setAdapter(imageNetAdapter);
         bannerLifeService.setIndicator(new CircleIndicator(this));
         bannerLifeService.setIndicatorSelectedColor(getResources().getColor(R.color.white));
@@ -93,12 +94,9 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
             @Override
             public void OnBannerClick(Object data, int position) {
 
+                BannerBean bannerBean = bannerBeans.get(position);
 
-                Intent intent = new Intent();
-                intent.setClass(HealthCenterActivity.this, LifeTypeActivity.class);
-                intent.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
-                intent.putExtra("category",2);
-                startActivity(intent);
+                PuJingUtils.bannerClick(HealthCenterActivity.this,bannerBean);
 
             }
         });
@@ -213,6 +211,7 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
     @Override
     public void getBannerDataSuccess(List<BannerBean> data) {
+        bannerBeans = data;
         imageNetAdapter.setDatas(data);
         imageNetAdapter.notifyDataSetChanged();
     }

@@ -33,6 +33,7 @@ import cn.com.pujing.entity.HistoryBillsBean;
 import cn.com.pujing.entity.HotActivityBean;
 import cn.com.pujing.entity.LifeTypeBean;
 import cn.com.pujing.entity.LoginToken;
+import cn.com.pujing.entity.MessageBean;
 import cn.com.pujing.entity.MyBillBean;
 import cn.com.pujing.entity.MyCardBean;
 import cn.com.pujing.entity.MyFeedbackBean;
@@ -60,6 +61,7 @@ import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.ServicePutawayManageTimeBean;
 import cn.com.pujing.entity.SetMealBean;
 import cn.com.pujing.entity.VenueBean;
+import cn.com.pujing.entity.VenueDetailBean;
 import cn.com.pujing.entity.VipBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
@@ -74,7 +76,7 @@ import io.reactivex.Observable;
 public class PujingService {
 
 //    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -84,7 +86,7 @@ public class PujingService {
 //      public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-    public static final String PREFIX = "http://172.18.7.21";
+//    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
 
@@ -196,8 +198,8 @@ public class PujingService {
     public static String DEVICELIST = PREFIX + "/life-service/serviceVenueManage/selectAllDeviceName";
     //预约设备
     public static String RESERVEDEVICE = PREFIX + "/life-service/serviceVenueOrder/queryReserveTime";
-    //预约场馆
-    public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder";
+    //通过id查询预约场馆
+    public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder/";
     //服务 1 建管 2
     public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage/";
     //服务详情
@@ -238,6 +240,10 @@ public class PujingService {
     public static String GETFEEDBACKDETAIL = PREFIX + "/content-service/feedback/";
     //获取用户收藏
     public static String GETUSECOLLECT = PREFIX + "/content-service/userCollect/page";
+    //系统消息
+    public static String MESSAGELIST = PREFIX + "/content-service/appMessage/myUnread/page";
+    //读取消息
+    public static String READMESSAGE = PREFIX + "/content-service/appMessage/read";
 
 
 
@@ -407,21 +413,23 @@ public class PujingService {
     /**
      * 获取历史活动
      */
-    public static Observable<ResponseData<HistoryActivitiesBean>> getHistoryActivitiy() {
-        return OkGo.<ResponseData<HistoryActivitiesBean>>get(QUERY_HISTORY_ACTIVITY)
-                .converter(new JsonConvert<ResponseData<HistoryActivitiesBean>>() {
+    public static Observable<ResponseData<PagesBean<HistoryActivitiesBean>>> getHistoryActivitiy(int page) {
+        return OkGo.<ResponseData<PagesBean<HistoryActivitiesBean>>>get(QUERY_HISTORY_ACTIVITY)
+                .params("page",page+"")
+                .converter(new JsonConvert<ResponseData<PagesBean<HistoryActivitiesBean>>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<HistoryActivitiesBean>>());
+                .adapt(new ObservableBody<ResponseData<PagesBean<HistoryActivitiesBean>>>());
     }
 
     /**
      * 获取我的活动
      */
-    public static Observable<ResponseData<HistoryActivitiesBean>> getMyActivitiy() {
-        return OkGo.<ResponseData<HistoryActivitiesBean>>get(QUERY_MYACTIVITY)
-                .converter(new JsonConvert<ResponseData<HistoryActivitiesBean>>() {
+    public static Observable<ResponseData<PagesBean<HistoryActivitiesBean>>> getMyActivitiy(int page) {
+        return OkGo.<ResponseData<PagesBean<HistoryActivitiesBean>>>get(QUERY_MYACTIVITY)
+                .params("page",page+"")
+                .converter(new JsonConvert<ResponseData<PagesBean<HistoryActivitiesBean>>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<HistoryActivitiesBean>>());
+                .adapt(new ObservableBody<ResponseData<PagesBean<HistoryActivitiesBean>>>());
     }
 
 
@@ -816,7 +824,7 @@ public class PujingService {
     /**
      * 预约场馆
      */
-    public static Observable<ResponseData<Boolean>> reserveSure(String venueId, String deviceId, String reserveDate,String reserveTime){
+    public static Observable<ResponseData<Object>> reserveSure(String venueId, String deviceId, String reserveDate,String reserveTime){
 
         HashMap<String, String> params = new HashMap<>();
 
@@ -827,11 +835,11 @@ public class PujingService {
 
         JSONObject jsonObject = new JSONObject(params);
 
-        return OkGo.<ResponseData<Boolean>>post(SERVICEVENUEORDER)
+        return OkGo.<ResponseData<Object>>post(SERVICEVENUEORDER)
                 .upJson(jsonObject)
-                .converter(new JsonConvert<ResponseData<Boolean>>() {
+                .converter(new JsonConvert<ResponseData<Object>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<Boolean>>());
+                .adapt(new ObservableBody<ResponseData<Object>>());
     }
 
     /**
@@ -860,6 +868,18 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<Object>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 通过id查询预约场馆
+     */
+    public static Observable<ResponseData<VenueDetailBean>> searchVenueDetail(String id){
+
+
+        return OkGo.<ResponseData<VenueDetailBean>>get(SERVICEVENUEORDER + id)
+                .converter(new JsonConvert<ResponseData<VenueDetailBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<VenueDetailBean>>());
     }
 
     /**
@@ -1144,6 +1164,7 @@ public class PujingService {
     public static Observable<ResponseData<PagesBean<MyFeedbackBean>>> getFeedbakList(int page){
 
         return OkGo.<ResponseData<PagesBean<MyFeedbackBean>>>get(GETFEEDBACKLIST)
+                .params("page",page)
                 .converter(new JsonConvert<ResponseData<PagesBean<MyFeedbackBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<PagesBean<MyFeedbackBean>>>());
@@ -1187,6 +1208,32 @@ public class PujingService {
                 .converter(new JsonConvert<ResponseData<PagesBean<CollectBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<PagesBean<CollectBean>>>());
+    }
+
+
+
+    /**
+     * 消息
+     */
+    public static Observable<ResponseData<PagesBean<MessageBean>>> getMessageList(int page){
+
+        return OkGo.<ResponseData<PagesBean<MessageBean>>>get(MESSAGELIST)
+                .params("page",page)
+                .converter(new JsonConvert<ResponseData<PagesBean<MessageBean>>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<PagesBean<MessageBean>>>());
+    }
+
+    /**
+     * 读取消息
+     */
+    public static Observable<ResponseData<Object>> getReadMessage(String ids){
+
+        return OkGo.<ResponseData<Object>>post(READMESSAGE)
+                .params("ids",ids)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
     }
 
 }

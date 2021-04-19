@@ -1,5 +1,6 @@
 package cn.com.pujing.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.ActivitiesActivity;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
 import cn.com.pujing.activity.HealthCenterActivity;
@@ -38,6 +40,7 @@ import cn.com.pujing.activity.PhotoWallActivity;
 import cn.com.pujing.activity.PictureWallActivity;
 import cn.com.pujing.activity.ShowPhotoActivity;
 import cn.com.pujing.activity.VenueActivity;
+import cn.com.pujing.activity.VenueReserveActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
 import cn.com.pujing.adapter.ImageNetAdapter;
@@ -116,7 +119,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
             }
         });
 
-        imageNetAdapter = new ImageNetAdapter(null);
+        imageNetAdapter = new ImageNetAdapter(null,0);
         banner.setAdapter(imageNetAdapter);
         banner.setIndicator(new CircleIndicator(getContext()));
         banner.setIndicatorSelectedColor(getActivity().getResources().getColor(R.color.white));
@@ -127,45 +130,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
                 BannerBean bannerBean = bannerBeans.get(position);
 
-                switch (bannerBean.getType()){
-                    case 1:
-                    case 2:
-                    case 4:
-                        Intent intent = new Intent(getActivity(), WebviewActivity.class);
-                        if (bannerBean.getLinkAddress() != null && bannerBean.getLinkAddress().trim().length() > 0) {
-                            intent.putExtra(Constants.URL, PujingService.PREFIX + bannerBean.getLinkAddress());
-//                    intent.putExtra(Constants.URL, Urls.EVENTDETAILS + bannerBean.getLinkAddress());
-                            startActivity(intent);
-                        }
-                        break;
-
-                    case 3:
-
-                        String photoId = bannerBean.getLinkAddress();
-
-                        if (photoId.contains("/")){
-                            photoId = photoId.substring(photoId.lastIndexOf("/")+1,photoId.length());
-                        }
-
-                        mPresenter.queryPhotoWall(photoId);
-                        break;
-
-                    case 5:
-
-
-                        Intent intent1 = new Intent();
-                        intent1.setClass(getActivity(), LifeTypeActivity.class);
-                        intent1.putExtra("basicservicevolistbean",((List<BasicServiceVoListBean>)data).get(position));
-                        intent1.putExtra("category",2);
-                        intent1.putExtra("id",bannerBean.getLinkAddress());
-                        startActivity(intent1);
-
-                        break;
-
-                    default:
-                        break;
-
-                }
+                PuJingUtils.bannerClick(getActivity(),bannerBean);
 
             }
         });
@@ -401,16 +366,6 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     }
 
     @Override
-    public void queryPhotoWall(PhotoBean photoBean) {
-        String photo = photoBean.getPhoto();
-        String[] photoStrings = photo.split(",");
-        Intent intent = new Intent(getActivity(), ShowPhotoActivity.class);
-        intent.putExtra("showphoto",photoStrings);
-        intent.putExtra("pos",0);
-        startActivity(intent);
-    }
-
-    @Override
     public void onHomeClick(GridItem gridItem) {
         onClickItem(gridItem);
     }
@@ -421,8 +376,9 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
                 Intent intent = new Intent(getContext(), LifeServiceActivity.class);
                 startActivity(intent);
             } else if (getString(R.string.exercise).equals(gridItem.title)) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.setCurPos(2);
+                /*MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setCurPos(2);*/
+                startActivity(new Intent(getContext(), ActivitiesActivity.class));
             } else if (getString(R.string.community_calendar).equals(gridItem.title)) {
                 startActivity(new Intent(getContext(), CommunityCalendarActivity.class));
             } else if (getString(R.string.restaurant).equals(gridItem.title)) {
@@ -469,4 +425,6 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         super.onDestroyView();
 
     }
+
+
 }

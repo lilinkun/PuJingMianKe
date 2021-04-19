@@ -24,7 +24,7 @@ public class OrderItemBean {
          */
         public String id;
         /**
-         * 订单类型(1餐饮 2服务)
+         * 订单类型(1餐饮 2服务 3活动 4场馆预约)
          */
         public int orderCategory;
         /**

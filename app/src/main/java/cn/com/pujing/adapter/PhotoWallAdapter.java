@@ -33,6 +33,6 @@ public class PhotoWallAdapter extends BaseQuickAdapter<PhotoWall.Data.Record, Ba
         baseViewHolder.setText(R.id.tv_content, baseNode.content);
         RecyclerView recyclerView = baseViewHolder.getView(R.id.rv_adapter_photo_wall);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-        recyclerView.setAdapter(new PhotoInfoAdapter(R.layout.item_section_content, Arrays.asList(baseNode.photo.split(","))));
+        recyclerView.setAdapter(new PhotoInfoAdapter(R.layout.item_section_content, Arrays.asList(baseNode.photo.split(",")),null));
     }
 }

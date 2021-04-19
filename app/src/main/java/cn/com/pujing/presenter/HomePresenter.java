@@ -82,26 +82,5 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 });
     }
 
-    /**
-     * 通过id查询照片墙详情
-     */
-    public void queryPhotoWall(String id){
-
-        PujingService.queryPhotoWall(id)
-                .compose(RxSchedulersHelper.io_main())
-                .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<PhotoBean>() {
-                    @Override
-                    public void _onNext(PhotoBean photoBean) {
-                        getView().queryPhotoWall(photoBean);
-                    }
-
-                    @Override
-                    public void _onError(String errorMessage) {
-                        getView().getDataError(errorMessage);
-                    }
-                });
-    }
-
 
 }
