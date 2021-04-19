@@ -82,8 +82,8 @@ public class ShowVideoDialog extends Dialog {
         MediaController localMediaController = new MediaController(mContext);
         mVvShow.setMediaController(localMediaController);
 
-        mVvShow.setVideoPath("http://172.18.7.21/basic-service/attachment/cos/cosKey/leaseInfo/2021-04-15/c8bc879fb96c46198281f2102510acfb.mp4");
-//        mVvShow.setVideoPath(PujingService.PREFIX + PujingService.IMG + mImgUrls);
+//        mVvShow.setVideoPath("http://172.18.7.21/basic-service/attachment/cos/cosKey/leaseInfo/2021-04-15/c8bc879fb96c46198281f2102510acfb.mp4");
+        mVvShow.setVideoPath(PujingService.PREFIX + PujingService.IMG + mImgUrls);
 
         /**
          * 视频播放完成时回调
