@@ -85,9 +85,9 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + myFeedbackBean.photo)
                 .placeholder(R.drawable.loading).error(R.drawable.ic_no_pic).into(ivFeedback);
 
-        ArrayList<String> strings = new ArrayList<>();
+        /*ArrayList<String> strings = new ArrayList<>();
         strings.add(myFeedbackBean.photo);
-        new ShowImagesDialog(this,strings,0,1).show();
+        new ShowImagesDialog(this,strings,0,1).show();*/
     }
 
     @Override
@@ -95,11 +95,17 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         UToast.show(this,msg);
     }
 
-    @OnClick({R.id.iv_my_feedback_back})
+    @OnClick({R.id.iv_my_feedback_back,R.id.iv_feedback})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_my_feedback_back:
                 finish();
+                break;
+
+            case R.id.iv_feedback:
+
+//                if ()
+
                 break;
 
             default:

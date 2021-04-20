@@ -97,8 +97,8 @@ public class MyCollectActivity extends BaseActivity<MyCollectView, MyCollectPres
                 }else if (collectBeans.get(position).type == 1){
 
                     Intent intent = new Intent(MyCollectActivity.this, ShowPhotoActivity.class);
-                    intent.putExtra("showphoto", collectBeans.get(position).photo.split(","));
-                    intent.putExtra("pos", 0);
+//                    intent.putExtra("showphoto", collectBeans.get(position).photo.split(","));
+                    intent.putExtra("id", collectBeans.get(position).collectId);
                     startActivity(intent);
                 }
             }

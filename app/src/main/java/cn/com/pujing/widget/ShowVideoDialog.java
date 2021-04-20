@@ -41,9 +41,11 @@ public class ShowVideoDialog extends Dialog {
     private VideoView mVvShow;
     private String mImgUrls;
     private LinearLayout llVv;
+    private int type = 0;
 
-    public ShowVideoDialog(@NonNull Context context, String imgUrls) {
+    public ShowVideoDialog(@NonNull Context context, String imgUrls,int type) {
         super(context, R.style.transparentBgDialog);
+        this.type = type;
         this.mContext = context;
         this.mImgUrls = imgUrls;
         initView();
@@ -82,8 +84,12 @@ public class ShowVideoDialog extends Dialog {
         MediaController localMediaController = new MediaController(mContext);
         mVvShow.setMediaController(localMediaController);
 
-        mVvShow.setVideoPath("http://172.18.7.21/basic-service/attachment/cos/cosKey/leaseInfo/2021-04-15/c8bc879fb96c46198281f2102510acfb.mp4");
-//        mVvShow.setVideoPath(PujingService.PREFIX + PujingService.IMG + mImgUrls);
+//        mVvShow.setVideoPath("http://172.18.7.21/basic-service/attachment/cos/cosKey/leaseInfo/2021-04-15/c8bc879fb96c46198281f2102510acfb.mp4");
+        if (type == 0) {
+            mVvShow.setVideoPath(PujingService.PREFIX + PujingService.IMG + mImgUrls);
+        }else {
+            mVvShow.setVideoPath(mImgUrls);
+        }
 
         /**
          * 视频播放完成时回调

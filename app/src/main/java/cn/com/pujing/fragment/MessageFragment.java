@@ -128,7 +128,7 @@ public class MessageFragment extends BaseFragment<MessageView, MessagePresenter>
 
         messageAdapter.setNewInstance(this.messageBeans);
 
-        if (messageBeans.size == messageBeans.total) {
+        if (this.messageBeans.size() == messageBeans.total) {
             messageAdapter.getLoadMoreModule().loadMoreEnd();
         }else {
             messageAdapter.getLoadMoreModule().loadMoreComplete();

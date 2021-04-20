@@ -41,6 +41,7 @@ import cn.com.pujing.view.FeedbackView;
 import cn.com.pujing.widget.FeedbackDialog;
 import cn.com.pujing.widget.FeedbackPopup;
 import cn.com.pujing.widget.ShowImagesDialog;
+import cn.com.pujing.widget.ShowVideoDialog;
 
 public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener {
 
@@ -62,6 +63,8 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     RadioButton rbPraise;
     @BindView(R.id.rg_feedback_type)
     RadioGroup rgFeedbackType;
+    @BindView(R.id.iv_video)
+    ImageView ivVideo;
 
     private int id = 0;
     private ImageView uploadImageView;
@@ -111,7 +114,11 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
             if (filePath != null && filePath.trim().length() > 0){
                 List<String> strings = new ArrayList<>();
                 strings.add(filePath);
-                new ShowImagesDialog(this,strings,0,1).show();
+                if (filePath.endsWith("mp4")){
+                    new ShowVideoDialog(this,filePath,1).show();
+                }else {
+                    new ShowImagesDialog(this, strings, 0, 1).show();
+                }
             }else {
                 Intent intent = new Intent(Intent.ACTION_PICK, null);
 //            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -170,6 +177,13 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                     filePath = FileUtils.getFilePathByUri(this, uri);
 
                     Glide.with(this).load(filePath).into(uploadImageView);
+
+                    if (filePath.endsWith(".mp4")){
+                        ivVideo.setVisibility(View.VISIBLE);
+                    }else {
+                        ivVideo.setVisibility(View.GONE);
+                    }
+
                 }
 
                 break;

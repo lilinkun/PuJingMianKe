@@ -28,9 +28,17 @@ public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
 
-        ImageView imageView = baseViewHolder.getView(R.id.iv);
+        ImageView imageView = baseViewHolder.getView(R.id.iv_pic_wall);
         Glide.with(getContext())
                 .load(PujingService.PREFIX + PujingService.IMG + s)
                 .into(imageView);
+        if (pictureWallBean != null && pictureWallBean.type != null) {
+            if (pictureWallBean.type.equals("图片")) {
+                baseViewHolder.setVisible(R.id.iv_video, false);
+            } else {
+                baseViewHolder.setVisible(R.id.iv_video, true);
+            }
+        }
+
     }
 }

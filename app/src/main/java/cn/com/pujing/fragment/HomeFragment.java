@@ -222,21 +222,12 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     }
 
     @Override
-    @OnClick({R.id.iv_search,R.id.iv_msg,R.id.tv_more,R.id.iv_photo_wall_1,R.id.iv_photo_wall_2,R.id.iv_photo_wall_3,R.id.iv_photo_wall_4,R.id.iv_photo_wall_5})
+    @OnClick({R.id.tv_more,R.id.iv_photo_wall_1,R.id.iv_photo_wall_2,R.id.iv_photo_wall_3,R.id.iv_photo_wall_4,R.id.iv_photo_wall_5})
     public void onClick(View v) {
         int id = v.getId();
 
         switch (v.getId()){
-            case R.id.iv_search:
 
-                SearchPupWindow searchPupWindow = new SearchPupWindow(getActivity(),this);
-                searchPupWindow.showAsDropDown(banner);
-
-                break;
-
-            case R.id.iv_msg:
-                Toast.makeText(getActivity(), getString(R.string.comming_soon), Toast.LENGTH_SHORT).show();
-                break;
             case R.id.tv_more:
             case R.id.iv_photo_wall_1:
             case R.id.iv_photo_wall_2:

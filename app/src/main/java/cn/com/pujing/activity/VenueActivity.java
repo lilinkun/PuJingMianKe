@@ -56,6 +56,8 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     public void initView() {
         mPresenter.getVenueType();
 
+        mPresenter.getBannerData();
+
         ActivityUtil.addHomeActivity(this);
 
         ImmersionBar.with(this).statusBarColor(R.color.main_color).fitsSystemWindows(true).init();

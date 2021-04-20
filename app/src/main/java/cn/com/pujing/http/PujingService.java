@@ -2,6 +2,7 @@ package cn.com.pujing.http;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -244,6 +245,8 @@ public class PujingService {
     public static String MESSAGELIST = PREFIX + "/content-service/appMessage/myUnread/page";
     //读取消息
     public static String READMESSAGE = PREFIX + "/content-service/appMessage/read/";
+    //推送
+    public static String PUSHMESSAGE = PREFIX + "/content-service/appClient";
 
 
 
@@ -1235,6 +1238,25 @@ public class PujingService {
 
 
         return OkGo.<ResponseData<Object>>get(READMESSAGE + ids)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 推送消息
+     */
+    public static Observable<ResponseData<Object>> sendPushDevice(String pushId){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("pushId", pushId);
+        params.put("clientType", "1");
+        params.put("clientBrand", Build.MODEL);
+        JSONObject jsonObject = new JSONObject(params);
+
+
+        return OkGo.<ResponseData<Object>>post(PUSHMESSAGE)
+                .upJson(jsonObject)
                 .converter(new JsonConvert<ResponseData<Object>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Object>>());

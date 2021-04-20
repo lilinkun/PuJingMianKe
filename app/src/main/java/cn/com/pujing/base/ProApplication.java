@@ -11,6 +11,7 @@ import com.lzy.okgo.model.HttpHeaders;
 
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 public class ProApplication extends Application {
@@ -18,6 +19,8 @@ public class ProApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         init();
     }
 

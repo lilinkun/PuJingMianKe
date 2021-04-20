@@ -119,7 +119,7 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
 
         pictureWallAdapter.setNewInstance(pictureWallBeans);
 
-        if (pagesBean.size == pagesBean.total) {
+        if (pictureWallBeans.size() == pagesBean.total) {
             pictureWallAdapter.getLoadMoreModule().loadMoreEnd();
         }else {
             pictureWallAdapter.getLoadMoreModule().loadMoreComplete();

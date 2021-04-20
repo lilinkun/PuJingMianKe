@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,6 +55,8 @@ public class CommemorationDayActivity extends BaseActivity<CommemorationDayView,
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+
+        rvCommemorationDay.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
         rvCommemorationDay.setLayoutManager(linearLayoutManager);
 

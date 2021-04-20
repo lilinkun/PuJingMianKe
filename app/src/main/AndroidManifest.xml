@@ -117,5 +117,23 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyActivitiesActivity"
             android:screenOrientation="portrait" />
+
+        <receiver android:name=".jpush.PushReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="cn.com.pujing"></category>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".jpush.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

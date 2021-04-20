@@ -84,7 +84,7 @@ public class PictureWallAdapter extends BaseQuickAdapter<PictureWallBean, BaseVi
                         }
                     } else if (pictureWallBean.type.equals("视频")) {
 
-                        new ShowVideoDialog(baseViewHolder.itemView.getContext(), pictureWallBean.photo).show();
+                        new ShowVideoDialog(baseViewHolder.itemView.getContext(), pictureWallBean.photo,0).show();
 
                     }
                 }

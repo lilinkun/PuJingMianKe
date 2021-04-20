@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/iv_pic_wall"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -15,6 +15,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_video_play"
+        app:layout_constraintEnd_toEndOf="@id/iv_pic_wall"
+        app:layout_constraintStart_toStartOf="@id/iv_pic_wall"
+        app:layout_constraintTop_toTopOf="@id/iv_pic_wall"
+        app:layout_constraintBottom_toBottomOf="@id/iv_pic_wall"
+        android:visibility="gone"
+        />
 
 
 
@@ -28,8 +41,8 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/iv"
-        app:layout_constraintEnd_toEndOf="@id/iv"
-        app:layout_constraintStart_toStartOf="@id/iv"
-        app:layout_constraintTop_toTopOf="@id/iv" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_pic_wall"
+        app:layout_constraintEnd_toEndOf="@id/iv_pic_wall"
+        app:layout_constraintStart_toStartOf="@id/iv_pic_wall"
+        app:layout_constraintTop_toTopOf="@id/iv_pic_wall" />
 </androidx.constraintlayout.widget.ConstraintLayout>
