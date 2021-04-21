@@ -167,4 +167,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/my_activity" />
 
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/selector_pressed"
+        android:padding="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/setting"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:drawableRightCompat="@mipmap/ic_next_another"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_commemoration_day" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

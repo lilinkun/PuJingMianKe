@@ -192,7 +192,14 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
 
     @Override
     public void getDataFail(String msg) {
+
+        if (msg.contains("sorry")){
+            msg.substring(5,msg.length());
+            finish();
+        }
+
         UToast.show(this,msg);
+
     }
 
     @Override

@@ -97,7 +97,7 @@ public class PujingService {
     public static String TOKEN = PREFIX + "/upms-service/oauth/token";
     public static String BANNER = PREFIX + "/content-service/banner/getAppBanner/";
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
-    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
+    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getappGetFlagPhoto/5";
     public static String SENDSMS = PREFIX + "/upms-service/oauth/sendSms";
     public static String REGISTER = PREFIX + "/upms-service/customerUser/register";
     public static String MODIFYPWD = PREFIX + "/upms-service/user/restMyPassword";
@@ -150,7 +150,9 @@ public class PujingService {
     //取消点赞
     public static String UNDOLIKE = PREFIX + "/content-service/photoWall/cancellike/";
 
+    //社区日历
     public static String ACTIVITYDATE = PREFIX + "/life-service/activityCalendar/queryActivityDateList";
+    //我的日历
     public static String ACTIVITYDATE_ANOTHER = PREFIX + "/life-service/userNotes/queryActivityDateList";
     public static String QUERYSELECTDAY = PREFIX + "/life-service/activityCalendar/querySelectDay";
     public static String QUERYSELECTDAY_ANOTHER = PREFIX + "/life-service/userNotes/querySelectDay";
@@ -1252,6 +1254,24 @@ public class PujingService {
         params.put("pushId", pushId);
         params.put("clientType", "1");
         params.put("clientBrand", Build.MODEL);
+        JSONObject jsonObject = new JSONObject(params);
+
+
+        return OkGo.<ResponseData<Object>>post(PUSHMESSAGE)
+                .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 修改密码
+     */
+    public static Observable<ResponseData<Object>> modifyPsd(String oldPsd,String newPsd){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("oldPsd", oldPsd);
+        params.put("newPsd", newPsd);
         JSONObject jsonObject = new JSONObject(params);
 
 

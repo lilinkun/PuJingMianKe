@@ -123,9 +123,9 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
         if (resultCode == RESULT_OK){
             if (requestCode == WEB_RESULT){
                 page = 1;
-                if (list != null){
+                /*if (list != null){
                     list.clear();
-                }
+                }*/
                 mPresenter.getHotActivitiy(page,endTime,startTime,status,type,1);
             }
         }

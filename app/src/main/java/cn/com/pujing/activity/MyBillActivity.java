@@ -23,6 +23,7 @@ import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.MyBillBean;
 import cn.com.pujing.presenter.MyBillPresenter;
 import cn.com.pujing.util.PuJingUtils;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.MyBillView;
 
 /**
@@ -95,6 +96,13 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
     @Override
     public void getDataFail(String msg) {
 
+        if (msg.contains("sorry")){
+            msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
 
@@ -115,7 +123,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
 
             tvArrearage.setText("￥" + PuJingUtils.removeAmtLastZero(billsBeans.get(1).arrearage));
 
-            tvArrearageTip.setText("未出账单金额");
+            tvArrearageTip.setText("待付账单金额");
 
             tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(billsBeans.get(1).totalAmount));
 
@@ -136,7 +144,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
                 tvLastMonth.setTextColor(getResources().getColor(R.color.gray_999));
                 tvLastMonth.setBackground(getResources().getDrawable(R.drawable.shape_health_frame));
 
-                changePage(0);
+                changePage(1);
 
                 break;
 
@@ -148,7 +156,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
                 tvCurrentMonth.setTextColor(getResources().getColor(R.color.gray_999));
                 tvCurrentMonth.setBackground(getResources().getDrawable(R.drawable.shape_health_frame));
 
-                changePage(1);
+                changePage(0);
 
                 break;
 

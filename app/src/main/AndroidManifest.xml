@@ -117,6 +117,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyActivitiesActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.ModifyPsdActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".jpush.PushReceiver"
             android:enabled="true"
@@ -135,5 +139,10 @@
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="8a202cf85e94216f5b152739ae337de6" >
+        </meta-data>
     </application>
 </manifest>

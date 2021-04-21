@@ -21,7 +21,7 @@ public class HistoryBillsBean implements Serializable {
         public double totalAmount;
         public String payStatus_label;
         public String roomNumber;
-        public int arrearage;
+        public double arrearage;
 
     }
 

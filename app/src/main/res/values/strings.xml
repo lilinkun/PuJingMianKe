@@ -21,10 +21,19 @@
     <string name="agreement">阅读并接受《用户协议》及《隐私权保护声明》</string>
     <string name="register_success">注册成功</string>
 
+    <string name="account">账号</string>
+
+    <string name="over">完成</string>
+
     <string name="modify_pwd">忘记密码</string>
     <string name="new_pwd">新密码</string>
+    <string name="old_pwd">原密码</string>
     <string name="sure_new_pwd">确认密码</string>
     <string name="submit">提交</string>
+
+    <string name="old_pwd_tip">填写原密码</string>
+    <string name="new_pwd_tip">填写新密码</string>
+    <string name="sure_new_pwd_tip">再次填写确认</string>
 
     <string name="home">首页</string>
     <string name="restaurant">餐饮</string>
@@ -52,6 +61,9 @@
     <string name="my_album">我的收藏</string>
     <string name="my_activity">我的活动</string>
     <string name="my_commemoration_day">我的纪念日</string>
+    <string name="my_change_psd">修改密码</string>
+
+    <string name="setting">设置</string>
 
     <string name="more">更多</string>
 

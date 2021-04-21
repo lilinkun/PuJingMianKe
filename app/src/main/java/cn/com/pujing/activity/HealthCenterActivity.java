@@ -158,6 +158,13 @@ public class HealthCenterActivity extends BaseActivity<HealthCenterView, HealthC
 
     @Override
     public void getDataFail(String msg) {
+
+        if (msg.contains("sorry")){
+            msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }
+
     }
 
     @Override

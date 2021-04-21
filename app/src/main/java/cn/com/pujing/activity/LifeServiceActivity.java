@@ -100,7 +100,13 @@ public class LifeServiceActivity extends BaseActivity<LifeServiceView, LifeServi
 
     @Override
     public void getDataFail(String msg) {
-        UToast.show(this,msg);
+        if (msg.contains("sorry")){
+            msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
     @Override
