@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import cn.com.pujing.http.LzyResponse;
+import cn.com.pujing.entity.ResponseData;
 import cn.com.pujing.http.SimpleResponse;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -90,9 +90,13 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseClass(Response response, Class<?> rawType) throws Exception {
-        if (rawType == null) return null;
+        if (rawType == null) {
+            return null;
+        }
         ResponseBody body = response.body();
-        if (body == null) return null;
+        if (body == null) {
+            return null;
+        }
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         if (rawType == String.class) {
@@ -112,9 +116,13 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseType(Response response, Type type) throws Exception {
-        if (type == null) return null;
+        if (type == null) {
+            return null;
+        }
         ResponseBody body = response.body();
-        if (body == null) return null;
+        if (body == null) {
+            return null;
+        }
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         // 泛型格式如下： new JsonCallback<任意JavaBean>(this)
@@ -124,14 +132,18 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseParameterizedType(Response response, ParameterizedType type) throws Exception {
-        if (type == null) return null;
+        if (type == null) {
+            return null;
+        }
         ResponseBody body = response.body();
-        if (body == null) return null;
+        if (body == null) {
+            return null;
+        }
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         Type rawType = type.getRawType();                     // 泛型的实际类型
         Type typeArgument = type.getActualTypeArguments()[0]; // 泛型的参数
-        if (rawType != LzyResponse.class) {
+        if (rawType != ResponseData.class) {
             // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
 
             if (response.code() == 401){
@@ -150,9 +162,9 @@ public class JsonConvert<T> implements Converter<T> {
                 return (T) simpleResponse.toLzyResponse();
             } else {
                 // 泛型格式如下： new JsonCallback<LzyResponse<内层JavaBean>>(this)
-                LzyResponse lzyResponse = Convert.fromJson(jsonReader, type);
+                ResponseData lzyResponse = Convert.fromJson(jsonReader, type);
                 response.close();
-                int code = lzyResponse.code;
+                int code = lzyResponse.getCode();
                 //这里的0是以下意思
                 //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
                 if (code == 0) {
@@ -163,10 +175,10 @@ public class JsonConvert<T> implements Converter<T> {
                 } else if (code == 105) {
                     throw new IllegalStateException("用户收取信息已过期");
                 } else if (code == -9){
-                    throw new IllegalAccessException("sorry"+lzyResponse.msg);
+                    throw new IllegalAccessException("sorry"+lzyResponse.getMsg());
                 }else {
                     //直接将服务端的错误信息抛出，onError中可以获取
-                    throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.msg);
+                    throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.getMsg());
                 }
             }
         }

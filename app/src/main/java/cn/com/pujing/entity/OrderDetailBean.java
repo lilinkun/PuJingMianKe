@@ -10,6 +10,8 @@ import java.io.Serializable;
 public class OrderDetailBean implements Serializable {
     public String orderNunber;
     public String createTime;
+    //状态(1.待确认，2.已确认，3.已收款，4.已取消)
+    public int orderStatus;
     public String orderStatus_label;
     public double money;
     public String basicServiceItemsName;
@@ -17,5 +19,8 @@ public class OrderDetailBean implements Serializable {
     public String orderingDate;
     public String customerVoucherId;
     public String customerVoucherName;
+    //支付状态：1待支付2支付成功
+    public int payStatus;
+    public String payStatus_label;
     public String themePic;
 }

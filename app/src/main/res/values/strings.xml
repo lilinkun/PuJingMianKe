@@ -203,6 +203,7 @@
     <string name="rest_num_tip">请输入人数</string>
 
     <string name="order_status">订单状态</string>
+    <string name="pay_status">支付状态</string>
 
     <string name="choosed">已选</string>
     <string name="item">项</string>
@@ -224,5 +225,14 @@
 
     <string name="history_bill">历史账单</string>
     <string name="my_message">消息</string>
+
+    <string name="go_choose">去选择</string>
+
+    <string name="service_reserve">服务预约</string>
+    <string name="service_reserve_tip">预约须知</string>
+    <string name="service_reserves_tip">预约须知：</string>
+    <string name="venue_reserve">场馆预约</string>
+
+    <string name="sure_submit">确认提交</string>
 
 </resources>

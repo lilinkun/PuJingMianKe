@@ -28,6 +28,7 @@ import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.CommunityCalendarPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.CommunityCalendarView;
 
 /**
@@ -171,6 +172,13 @@ public class CommunityCalendarActivity extends BaseActivity<CommunityCalendarVie
     @Override
     public void getDataFail(String msg) {
 
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
     @Override

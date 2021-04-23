@@ -1,6 +1,7 @@
 package cn.com.pujing.presenter;
 
 import cn.com.pujing.base.BasePresenter;
+import cn.com.pujing.entity.ActivityBean;
 import cn.com.pujing.entity.OrderDetailBean;
 import cn.com.pujing.entity.VenueDetailBean;
 import cn.com.pujing.http.PujingService;
@@ -40,6 +41,28 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailView> {
     }
 
     /**
+     * 活动查询
+     */
+    public void queryActivityOrder(String orderNumber){
+        PujingService.queryActivityOrder(orderNumber)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<ActivityBean>() {
+
+                    @Override
+                    public void _onNext(ActivityBean activityBean) {
+                        getView().queryActivitySuccess(activityBean);
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().queryFail(errorMessage);
+                    }
+
+                });
+    }
+
+    /**
      * 预约服务订单查询
      */
     public void searchVenueDetail(String orderNumber){
@@ -56,6 +79,50 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailView> {
                     @Override
                     public void _onError(String errorMessage) {
                         getView().queryFail(errorMessage);
+                    }
+
+                });
+    }
+
+    /**
+     * 取消场馆订单
+     */
+    public void exitVenueOrder(String id,String status){
+        PujingService.exitVenueOrder(id,status)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+
+                    @Override
+                    public void _onNext(Object venueDetailBean) {
+                        getView().exitVenueOrder();
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().exitVenueOrderFail(errorMessage);
+                    }
+
+                });
+    }
+
+    /**
+     * 取消服务订单
+     */
+    public void exitServiceOrder(String id){
+        PujingService.cancelReserveServiceOrder(id)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxResultHelper.handleResult())
+                .subscribe(new RxObserver<Object>() {
+
+                    @Override
+                    public void _onNext(Object o) {
+                        getView().exitServiceOrder();
+                    }
+
+                    @Override
+                    public void _onError(String errorMessage) {
+                        getView().exitServiceOrderFail(errorMessage);
                     }
 
                 });

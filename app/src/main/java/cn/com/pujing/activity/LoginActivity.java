@@ -41,6 +41,13 @@ public class LoginActivity extends BaseActivity {
     public void initView() {
         ImmersionBar.with(this).statusBarDarkFont(true).init();
         showFragment(LOGIN);
+
+        if (getIntent()!= null){
+            if (getIntent().getStringExtra("name") != null){
+                loginFragment.setName(getIntent().getStringExtra("name"));
+            }
+        }
+
     }
 
     @Override

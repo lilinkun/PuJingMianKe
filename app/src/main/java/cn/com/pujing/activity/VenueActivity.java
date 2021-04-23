@@ -123,7 +123,7 @@ public class VenueActivity extends BaseActivity<VenueView, VenuePresenter> imple
     @Override
     public void getVenueFail(String msg) {
         if (msg.contains("sorry")){
-            msg.substring(5,msg.length());
+            msg = msg.substring(5,msg.length());
             UToast.show(this,msg);
             finish();
         }else {

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffffff"
             android:textSize="18sp"
-            android:text="服务预约"
+            android:text="@string/service_reserve"
             android:layout_centerInParent="true"
             />
 
@@ -42,7 +42,6 @@
         android:id="@+id/tv_service_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="入户清洁"
         android:textColor="#ff000000"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
@@ -81,7 +80,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="服务内容"
+        android:text="@string/service_content"
         android:textColor="#ff000000"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -147,7 +146,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="预约须知"
+        android:text="@string/service_reserve_tip"
         android:textColor="#ff000000"
         android:textSize="16sp"
         android:layout_marginTop="25dp"

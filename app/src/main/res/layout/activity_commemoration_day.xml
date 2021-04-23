@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/gray_line"
+        android:layout_above="@+id/tv_add_commemoration_day"
         >
 
     <RelativeLayout

@@ -1,7 +1,6 @@
 package cn.com.pujing.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -24,10 +23,6 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import butterknife.BindView;
 import butterknife.OnClick;

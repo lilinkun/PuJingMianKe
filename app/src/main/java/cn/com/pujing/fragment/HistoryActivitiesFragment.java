@@ -124,7 +124,9 @@ public class HistoryActivitiesFragment extends BaseFragment<HistoryActivitiesVie
 
     @Override
     public void getDataFail(String msg) {
-        UToast.show(getActivity(),msg);
+        if (!msg.contains("sorry")){
+            UToast.show(getActivity(), msg);
+        }
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }

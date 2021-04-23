@@ -215,7 +215,7 @@ public class RestBanquetsReserveActivity extends BaseActivity<RestBanquetsReserv
                 long min = 0;
                 if (type == 2) {
                     min = calendar.getTime().getTime();
-                }else if(type == 1){
+                }else if(type == 3){
                     min = System.currentTimeMillis();
                 }
 

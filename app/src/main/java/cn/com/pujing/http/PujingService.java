@@ -1,29 +1,23 @@
 package cn.com.pujing.http;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okrx2.adapter.ObservableBody;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.com.pujing.entity.ActivityBean;
 import cn.com.pujing.entity.ActivityTypeBean;
-import cn.com.pujing.entity.AddRestBean;
 import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.BanquetBean;
 import cn.com.pujing.entity.BillsBean;
-import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.ChangeDataBean;
 import cn.com.pujing.entity.CollectBean;
 import cn.com.pujing.entity.CommemorationDayBean;
@@ -53,7 +47,6 @@ import cn.com.pujing.entity.RestBanquetsBean;
 import cn.com.pujing.entity.RestDetailBean;
 import cn.com.pujing.entity.RestMealBean;
 import cn.com.pujing.entity.RestMealTypeBean;
-import cn.com.pujing.entity.RestOrderBean;
 import cn.com.pujing.entity.RestTypeBean;
 import cn.com.pujing.entity.RightsAndInterestsBean;
 import cn.com.pujing.entity.RightsVoucherVoBean;
@@ -61,12 +54,12 @@ import cn.com.pujing.entity.RoutineRecordBean;
 import cn.com.pujing.entity.ServiceBean;
 import cn.com.pujing.entity.ServicePutawayManageTimeBean;
 import cn.com.pujing.entity.SetMealBean;
+import cn.com.pujing.entity.UpdateBean;
 import cn.com.pujing.entity.VenueBean;
 import cn.com.pujing.entity.VenueDetailBean;
 import cn.com.pujing.entity.VipBean;
 import cn.com.pujing.http.convert.JsonConvert;
 import cn.com.pujing.util.Constants;
-import cn.com.pujing.util.Methods;
 import io.reactivex.Observable;
 
 /**
@@ -76,8 +69,8 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
+    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //                public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -97,7 +90,7 @@ public class PujingService {
     public static String TOKEN = PREFIX + "/upms-service/oauth/token";
     public static String BANNER = PREFIX + "/content-service/banner/getAppBanner/";
     public static String NOTIFY = PREFIX + "/content-service/notify/page";
-    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getappGetFlagPhoto/5";
+    public static String GETPHOTO = PREFIX + "/content-service/photoWall/getPhoto/5";
     public static String SENDSMS = PREFIX + "/upms-service/oauth/sendSms";
     public static String REGISTER = PREFIX + "/upms-service/customerUser/register";
     public static String MODIFYPWD = PREFIX + "/upms-service/user/restMyPassword";
@@ -203,8 +196,10 @@ public class PujingService {
     public static String RESERVEDEVICE = PREFIX + "/life-service/serviceVenueOrder/queryReserveTime";
     //通过id查询预约场馆
     public static String SERVICEVENUEORDER = PREFIX + "/life-service/serviceVenueOrder/";
-    //服务 1 建管 2
-    public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetPage/";
+    //服务 1
+    public static String SERVICE = PREFIX + "/life-service/serviceBasicService/APPGetResidentPage/";
+    //建管 2
+    public static String CENTER = PREFIX + "/life-service/serviceBasicService/APPGetHealthPage/";
     //服务详情
     public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetById";
     //服务时间
@@ -213,6 +208,10 @@ public class PujingService {
     public static String SERVICERESERVE = PREFIX + "/life-service/serviceOrderManage";
     //服务预约订单查询
     public static String SERVICERESERVEID = PREFIX + "/life-service/serviceOrderManage/";
+    //取消服务预约订单
+    public static String CANCELSERVICERESERVE = PREFIX + "/life-service/serviceOrderManage/cancel/";
+    //活动订单查询
+    public static String ACTIVITYORDER = PREFIX + "/life-service/activityOrder/";
     //我的卡包
     public static String MYCARD = PREFIX + "/life-service/serviceCustomerVoucher/getMyVoucherList";
     //失效券
@@ -249,6 +248,14 @@ public class PujingService {
     public static String READMESSAGE = PREFIX + "/content-service/appMessage/read/";
     //推送
     public static String PUSHMESSAGE = PREFIX + "/content-service/appClient";
+    //修改密码
+    public static String MODIFYPSD = PREFIX + "/upms-service/user/changePassword";
+
+    //更新apk https://www.pgyer.com/apiv2/app/check?_api_key=d767e80d0afa4ad06a9765bb97334f35&appKey=8a202cf85e94216f5b152739ae337de6&buildVersion=1.0&buildBuildVersion=1.0
+    public static String UPDATEURL = "https://www.pgyer.com/apiv2/app/check";
+
+    //场馆取消订单
+    public static String EXITVENUEORDER = PREFIX + "/life-service/serviceVenueOrder/modifyOrderStatus";
 
 
 
@@ -900,14 +907,47 @@ public class PujingService {
     }
 
     /**
+     * 取消预约服务订单
+     */
+    public static Observable<ResponseData<Object>> cancelReserveServiceOrder(String orderNumber){
+
+
+        return OkGo.<ResponseData<Object>>put(CANCELSERVICERESERVE + orderNumber)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 活动订单查询
+     */
+    public static Observable<ResponseData<ActivityBean>> queryActivityOrder(String orderNumber){
+
+        return OkGo.<ResponseData<ActivityBean>>get(ACTIVITYORDER + orderNumber)
+                .converter(new JsonConvert<ResponseData<ActivityBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<ActivityBean>>());
+    }
+
+    /**
      * 服务
      */
     public static Observable<ResponseData<List<ServiceBean>>> getService(int id){
 
-        return OkGo.<ResponseData<List<ServiceBean>>>get(SERVICE+id)
-                .converter(new JsonConvert<ResponseData<List<ServiceBean>>>() {
-                })
-                .adapt(new ObservableBody<ResponseData<List<ServiceBean>>>());
+        if (id == 1){
+
+            return OkGo.<ResponseData<List<ServiceBean>>>get(SERVICE+id)
+                    .converter(new JsonConvert<ResponseData<List<ServiceBean>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<List<ServiceBean>>>());
+        }else {
+
+            return OkGo.<ResponseData<List<ServiceBean>>>get(CENTER+id)
+                    .converter(new JsonConvert<ResponseData<List<ServiceBean>>>() {
+                    })
+                    .adapt(new ObservableBody<ResponseData<List<ServiceBean>>>());
+        }
+
     }
 
     /**
@@ -1270,13 +1310,40 @@ public class PujingService {
     public static Observable<ResponseData<Object>> modifyPsd(String oldPsd,String newPsd){
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("oldPsd", oldPsd);
-        params.put("newPsd", newPsd);
+        params.put("originPassword", oldPsd);
+        params.put("newPassword", newPsd);
         JSONObject jsonObject = new JSONObject(params);
 
 
-        return OkGo.<ResponseData<Object>>post(PUSHMESSAGE)
+        return OkGo.<ResponseData<Object>>post(MODIFYPSD)
                 .upJson(jsonObject)
+                .converter(new JsonConvert<ResponseData<Object>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<Object>>());
+    }
+
+    /**
+     * 更新apk
+     */
+    public static Observable<ResponseData<UpdateBean>> updateApk(){
+
+        return OkGo.<ResponseData<UpdateBean>>get(UPDATEURL)
+                .params("_api_key", "d767e80d0afa4ad06a9765bb97334f35")
+                .params("appKey", "8a202cf85e94216f5b152739ae337de6")
+                .converter(new JsonConvert<ResponseData<UpdateBean>>() {
+                })
+                .adapt(new ObservableBody<ResponseData<UpdateBean>>());
+    }
+
+    /**
+     * 取消场馆预约
+     * status 3 已取消
+     */
+    public static Observable<ResponseData<Object>> exitVenueOrder(String id,String status){
+
+        return OkGo.<ResponseData<Object>>get(EXITVENUEORDER)
+                .params("id", id)
+                .params("status", status)
                 .converter(new JsonConvert<ResponseData<Object>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<Object>>());

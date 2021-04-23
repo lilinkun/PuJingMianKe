@@ -132,8 +132,14 @@ public class PictureWallActivity extends BaseActivity<PictureWallView, PictureWa
 
     @Override
     public void getDataFail(String msg) {
-
-        UToast.show(this,msg);
+        
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
 
         if (swipeLayout != null && swipeLayout.isRefreshing()){
             swipeLayout.setRefreshing(false);

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_line"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_line"
+        android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -56,7 +61,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/margin8"
             android:paddingRight="@dimen/margin8"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             >
 
             <TextView
@@ -105,9 +110,69 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/margin8"
             android:paddingRight="@dimen/margin8"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_status"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                android:layout_alignParentEnd="true"
+                />
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin8"
+            android:paddingRight="@dimen/margin8"
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_status"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_pay_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp"
+                android:layout_alignParentEnd="true"
+                />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="@dimen/margin8"
+            android:paddingRight="@dimen/margin8"
+            android:layout_marginTop="5dp"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,36 +190,6 @@
                 android:textColor="@color/text_gray"
                 android:textSize="14sp"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                />
-
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:paddingLeft="@dimen/margin8"
-            android:paddingRight="@dimen/margin8"
-            android:layout_marginTop="25dp"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/order_status"
-                android:textColor="@color/text_gray"
-                android:textSize="14sp"
-                />
-
-
-            <TextView
-                android:id="@+id/tv_order_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_gray"
-                android:textSize="14sp"
                 android:layout_alignParentEnd="true"
                 />
 
@@ -275,14 +310,17 @@
 
             <TextView
                 android:id="@+id/tv_reserve_name"
-                android:layout_width="wrap_content"
+                android:layout_width="10dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_black"
                 android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:layout_toEndOf="@+id/iv_reserve_head"
                 android:layout_marginStart="20dp"
-                />
+                android:layout_toEndOf="@+id/iv_reserve_head"
+                android:layout_toStartOf="@+id/tv_reserve_price"
+                android:textColor="@color/text_black"
+                android:maxLines="2"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:ellipsize="end"
+                android:textSize="16sp" />
 
 
             <TextView
@@ -378,5 +416,20 @@
 
     </LinearLayout>
 
+    </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_exit_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/dp_10"
+        android:layout_margin="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_add_rest"
+        android:layout_alignParentBottom="true"
+        android:text="取消订单"
+        android:gravity="center"
+        />
+</RelativeLayout>

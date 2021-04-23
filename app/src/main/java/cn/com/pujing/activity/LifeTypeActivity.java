@@ -273,7 +273,13 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
     @Override
     public void getLifeTypeDataFail(String msg) {
-        UToast.show(this,msg);
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
     @Override

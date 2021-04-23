@@ -25,9 +25,9 @@
         android:id="@+id/tv_choose_tip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:text="去选择"
+        android:text="@string/go_choose"
         android:textColor="#ff000000"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="16sp"
         />
 

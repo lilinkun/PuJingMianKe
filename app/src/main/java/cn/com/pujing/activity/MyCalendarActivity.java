@@ -1,16 +1,8 @@
 package cn.com.pujing.activity;
 
 import android.Manifest;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.net.Uri;
-import android.provider.CalendarContract;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -325,7 +316,13 @@ public class MyCalendarActivity extends BaseActivity<CommunityCalendarView, Comm
 
     @Override
     public void getDataFail(String msg) {
-        UToast.show(this,msg);
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
     @Override

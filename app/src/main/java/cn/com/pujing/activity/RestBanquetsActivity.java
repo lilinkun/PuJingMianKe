@@ -194,7 +194,7 @@ public class RestBanquetsActivity extends BaseActivity<RestBanquetsView, RestBan
     public void getDataFail(String msg) {
 
         if (msg.contains("sorry")){
-            msg.substring(5,msg.length());
+            msg = msg.substring(5,msg.length());
             finish();
         }
 

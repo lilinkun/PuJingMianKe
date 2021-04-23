@@ -59,6 +59,12 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
 
     }
 
+    public void setName(String name){
+        if (etUsername != null){
+            etUsername.setText(name);
+        }
+    }
+
     @Override
     protected LoginPresenter createPresenter() {
         return new LoginPresenter();

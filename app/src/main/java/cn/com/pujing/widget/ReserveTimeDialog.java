@@ -49,7 +49,7 @@ public class ReserveTimeDialog extends AlertDialog implements NumberPicker.Forma
         minHour = Integer.valueOf(hour[0]);
         maxHour = Integer.valueOf(minute[0]);
         minMinute = Integer.valueOf(hour[1]);
-        maxMinute = 60;
+        maxMinute = 59;
         minMinute1 = 0;
         maxMinute1 = Integer.valueOf(minute[1]);
 

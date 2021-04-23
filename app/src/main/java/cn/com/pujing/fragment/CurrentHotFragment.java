@@ -169,6 +169,12 @@ public class CurrentHotFragment extends BaseFragment<CurrentHotView, CurrentHotP
 
     @Override
     public void getHotActivitiyFail(String msg) {
-        UToast.show(getActivity(),msg);
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(getActivity(),msg);
+            getActivity().finish();
+        }else {
+            UToast.show(getActivity(), msg);
+        }
     }
 }

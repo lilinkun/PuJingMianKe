@@ -219,7 +219,13 @@ public class VenueReserveActivity extends BaseActivity<VenueReserveView, VenueRe
 
     @Override
     public void getDeviceFail(String msg) {
-        UToast.show(this,msg);
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 
     @Override

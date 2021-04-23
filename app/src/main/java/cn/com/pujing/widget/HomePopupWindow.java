@@ -37,6 +37,7 @@ import cn.com.pujing.activity.HealthCenterActivity;
 import cn.com.pujing.activity.LifeServiceActivity;
 import cn.com.pujing.activity.MainActivity;
 import cn.com.pujing.activity.PhotoWallActivity;
+import cn.com.pujing.activity.PictureWallActivity;
 import cn.com.pujing.activity.VenueActivity;
 import cn.com.pujing.activity.WebviewActivity;
 import cn.com.pujing.adapter.GridAdapter;
@@ -132,7 +133,7 @@ public class HomePopupWindow extends PopupWindow {
                 }else if ("场馆预约".equals(gridItem.title)) {
                     context.startActivity(new Intent(context, VenueActivity.class));
                 } else if (context.getString(R.string.photo_wall).equals(gridItem.title)) {
-                    context.startActivity(new Intent(context, PhotoWallActivity.class));
+                    context.startActivity(new Intent(context, PictureWallActivity.class));
                 }else if (context.getString(R.string.feedback).equals(gridItem.title)) {
                     context.startActivity(new Intent(context, FeedbackActivity.class));
                 }else if (context.getString(R.string.question_investigation).equals(gridItem.title)) {

@@ -1,5 +1,7 @@
 package cn.com.pujing.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -73,7 +75,7 @@ public class ModifyPsdActivity extends BaseActivity<ModifyPsdView, ModifyPsdPres
                 }else if (!etNewPwd.getText().toString().equals(etSureNewPwd.getText().toString())){
                     UToast.show(this,"两次输入新密码不同");
                 }else {
-
+                    mPresenter.modifyPsd(etOldPwd.getText().toString(),etNewPwd.getText().toString());
                 }
 
 
@@ -88,11 +90,18 @@ public class ModifyPsdActivity extends BaseActivity<ModifyPsdView, ModifyPsdPres
 
     @Override
     public void modifyPsdSuccess(Object o) {
+        UToast.show(this,"修改成功");
+        Methods.saveKeyValue(Constants.AVATAR, "", this);
+        Methods.saveKeyValue(Constants.AUTHORIZATION, "", this);
+        Intent intent1 = new Intent(this, LoginActivity.class);
+        intent1.putExtra("name",tvAccount.getText().toString());
+        startActivity(intent1);
+        ActivityUtil.finishAll();
 
     }
 
     @Override
     public void getDataFail(String msg) {
-
+        UToast.show(this,msg);
     }
 }

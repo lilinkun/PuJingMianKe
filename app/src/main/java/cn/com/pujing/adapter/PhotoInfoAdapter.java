@@ -29,15 +29,21 @@ public class PhotoInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_pic_wall);
-        Glide.with(getContext())
-                .load(PujingService.PREFIX + PujingService.IMG + s)
-                .into(imageView);
         if (pictureWallBean != null && pictureWallBean.type != null) {
             if (pictureWallBean.type.equals("图片")) {
                 baseViewHolder.setVisible(R.id.iv_video, false);
-            } else {
+                Glide.with(getContext())
+                        .load(PujingService.PREFIX + PujingService.IMG + s)
+                        .into(imageView);
+            } else if (pictureWallBean.type.equals("视频")) {
                 baseViewHolder.setVisible(R.id.iv_video, true);
             }
+        } else {
+
+            Glide.with(getContext())
+                    .load(PujingService.PREFIX + PujingService.IMG + s)
+                    .error(R.color.gray_line)
+                    .into(imageView);
         }
 
     }
