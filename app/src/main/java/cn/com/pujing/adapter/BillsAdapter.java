@@ -3,6 +3,7 @@ package cn.com.pujing.adapter;
 import android.widget.BaseAdapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,14 +20,14 @@ import cn.com.pujing.util.PuJingUtils;
  * date : 2021/4/12 10:36
  * description :
  */
-public class BillsAdapter extends BaseQuickAdapter<MyBillBean.MyBill, BaseViewHolder> {
+public class BillsAdapter extends BaseQuickAdapter<MyBillBean, BaseViewHolder> implements LoadMoreModule {
 
-    public BillsAdapter(int layoutResId, @Nullable List<MyBillBean.MyBill> data) {
+    public BillsAdapter(int layoutResId, @Nullable List<MyBillBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, MyBillBean.MyBill myBill) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, MyBillBean myBill) {
 
         baseViewHolder.setText(R.id.tv_create_time,myBill.createTime);
         baseViewHolder.setText(R.id.tv_bills_name,myBill.orderName);

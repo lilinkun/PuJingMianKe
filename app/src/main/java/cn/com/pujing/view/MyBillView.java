@@ -5,6 +5,7 @@ import java.util.List;
 import cn.com.pujing.entity.BillsBean;
 import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.MyBillBean;
+import cn.com.pujing.entity.PagesBean;
 
 /**
  * author : liguo
@@ -12,7 +13,7 @@ import cn.com.pujing.entity.MyBillBean;
  * description :
  */
 public interface MyBillView {
-    public void getMyBillsSuccess(MyBillBean billsItemBean);
+    public void getMyBillsSuccess(PagesBean<MyBillBean> billsItemBean);
     public void getMyCurrentBillsSuccess(List<BillsBean> billsBeans);
     public void getDataFail(String msg);
 }

@@ -17,6 +17,7 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.presenter.RegisterPresenter;
 import cn.com.pujing.util.Constants;
 import cn.com.pujing.util.Methods;
+import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.RegisterView;
 import cn.com.pujing.widget.RegeisterPopup;
@@ -84,7 +85,9 @@ public class RegisterFragment extends BaseFragment<RegisterView, RegisterPresent
                 UToast.show(getActivity(),R.string.name_null_tip);
             }else if (phone.isEmpty()){
                 UToast.show(getActivity(),R.string.phone_null_tip);
-            }else if (captcha.isEmpty()){
+            }else if(!PuJingUtils.isPhoneNumber(phone)){
+                UToast.show(getActivity(),R.string.phone_tip);
+            } else if (captcha.isEmpty()){
                 UToast.show(getActivity(),R.string.vcode_null_tip);
             }else if(!pwd.equals(etsurePwd)){
                 UToast.show(getActivity(),R.string.psd_no_identical);

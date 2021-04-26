@@ -201,7 +201,9 @@ public class PujingService {
     //建管 2
     public static String CENTER = PREFIX + "/life-service/serviceBasicService/APPGetHealthPage/";
     //服务详情
-    public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetById";
+    public static String SERVICEDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetResidentById";
+    //健管中心详情
+    public static String CENTERDETAIL = PREFIX + "/life-service/serviceBasicService/APPGetHealthById";
     //服务时间
     public static String SERVICETIME = PREFIX + "/life-service/serviceBasicService/APPGetTimeList";
     //服务预约
@@ -953,9 +955,17 @@ public class PujingService {
     /**
      * 服务个数
      */
-    public static Observable<ResponseData<LifeTypeBean>> getLifeType(int id,String date){
+    public static Observable<ResponseData<LifeTypeBean>> getLifeType(int id,String date,int category){
 
-        return OkGo.<ResponseData<LifeTypeBean>>get(SERVICEDETAIL)
+        String url = "";
+
+        if (category == 2){
+            url = CENTERDETAIL;
+        }else {
+            url = SERVICEDETAIL;
+        }
+
+        return OkGo.<ResponseData<LifeTypeBean>>get(url)
                 .params("id",id+"")
                 .params("date",date)
                 .converter(new JsonConvert<ResponseData<LifeTypeBean>>() {
@@ -1045,12 +1055,13 @@ public class PujingService {
     /**
      * 我的账单详情
      */
-    public static Observable<ResponseData<MyBillBean>> queryBills(String billId){
+    public static Observable<ResponseData<PagesBean<MyBillBean>>> queryBills(String billId,int page){
 
-        return OkGo.<ResponseData<MyBillBean>>get(QUERYBILLS + billId)
-                .converter(new JsonConvert<ResponseData<MyBillBean>>() {
+        return OkGo.<ResponseData<PagesBean<MyBillBean>>>get(QUERYBILLS + billId)
+                .params("page",page+"")
+                .converter(new JsonConvert<ResponseData<PagesBean<MyBillBean>>>() {
                 })
-                .adapt(new ObservableBody<ResponseData<MyBillBean>>());
+                .adapt(new ObservableBody<ResponseData<PagesBean<MyBillBean>>>());
     }
 
 

@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import cn.com.pujing.activity.LifeTypeActivity;
 import cn.com.pujing.activity.ShowPhotoActivity;
@@ -365,7 +366,7 @@ public class PuJingUtils {
 
                 break;
 
-            case 5: //跳健管中心详情
+            case 6: //跳健管中心详情
 
 
                 Intent intent1 = new Intent();
@@ -377,7 +378,7 @@ public class PuJingUtils {
 
                 break;
 
-            case 6://跳服务
+            case 5://跳服务
 
                 Intent intent6 = new Intent();
                 intent6.setClass(context, LifeTypeActivity.class);
@@ -401,6 +402,14 @@ public class PuJingUtils {
 
         }
     }
+
+    public static boolean isPhoneNumber(String input) {// 判断手机号码是否规则
+        String regex = "(1[0-9][0-9]|15[0-9]|18[0-9])\\d{8}";
+        Pattern p = Pattern.compile(regex);
+        return p.matches(regex, input);//如果不是号码，则返回false，是号码则返回true
+
+    }
+
 
 
 }

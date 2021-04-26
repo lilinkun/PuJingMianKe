@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
 
@@ -21,6 +22,7 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.BillsBean;
 import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.MyBillBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.presenter.MyBillPresenter;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.util.UToast;
@@ -47,7 +49,10 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
     RecyclerView rvBills;
 
     List<BillsBean> billsBeans;
+    List<MyBillBean> myBillBeans;
     private BillsAdapter billsAdapter;
+    private int page = 1;
+    private int currendId = 0;
 
     @Override
     public int getLayoutId() {
@@ -69,6 +74,15 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
         rvBills.setLayoutManager(linearLayoutManager);
         rvBills.setAdapter(billsAdapter);
 
+        billsAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                page++;
+
+                mPresenter.getMyBills(billsBeans.get(currendId).id+"",page);
+            }
+        });
+
     }
 
 
@@ -78,8 +92,26 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
     }
 
     @Override
-    public void getMyBillsSuccess(MyBillBean billsItemBean) {
-        billsAdapter.setNewInstance(billsItemBean.records);
+    public void getMyBillsSuccess(PagesBean<MyBillBean> beanPagesBean) {
+
+        if (myBillBeans == null){
+            myBillBeans = beanPagesBean.records;
+        }else {
+            if (page > 1){
+                myBillBeans.addAll(beanPagesBean.records);
+            }else {
+                myBillBeans = beanPagesBean.records;
+            }
+        }
+
+        billsAdapter.setNewInstance(myBillBeans);
+
+        if (myBillBeans.size() == beanPagesBean.total) {
+            billsAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            billsAdapter.getLoadMoreModule().loadMoreComplete();
+        }
+
     }
 
     @Override
@@ -107,6 +139,8 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
 
 
     public void changePage(int currendId){
+        this.currendId = currendId;
+        page = 1;
         if (currendId == 0) {
             if (billsBeans.get(0).arrearage == 0) {
                 tvArrearage.setText("本月已结清");
@@ -118,7 +152,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
             tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(billsBeans.get(0).totalAmount));
             tvTotalTip.setText("当期账单金额 ");
 
-            mPresenter.getMyBills(billsBeans.get(0).id+"");
+            mPresenter.getMyBills(billsBeans.get(currendId).id+"",page);
         }else {
 
             tvArrearage.setText("￥" + PuJingUtils.removeAmtLastZero(billsBeans.get(1).arrearage));
@@ -128,7 +162,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
             tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(billsBeans.get(1).totalAmount));
 
             tvTotalTip.setText("未出账单金额 ");
-            mPresenter.getMyBills(billsBeans.get(1).id+"");
+            mPresenter.getMyBills(billsBeans.get(currendId).id+"",page);
         }
 
     }

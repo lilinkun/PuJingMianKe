@@ -3,6 +3,7 @@ package cn.com.pujing.activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -30,11 +31,13 @@ import cn.com.pujing.base.BaseFragment;
 import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.entity.BannerBean;
 import cn.com.pujing.entity.TabEntity;
+import cn.com.pujing.entity.UpdateBean;
 import cn.com.pujing.fragment.HomeFragment;
 import cn.com.pujing.fragment.MessageFragment;
 import cn.com.pujing.fragment.MineFragment;
 import cn.com.pujing.fragment.RestaurantFragment;
 import cn.com.pujing.presenter.MainPresenter;
+import cn.com.pujing.service.UpdateService;
 import cn.com.pujing.util.ActivityUtil;
 import cn.com.pujing.util.PuJingUtils;
 import cn.com.pujing.view.MainView;
@@ -101,6 +104,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
                 PuJingUtils.bannerClick(this,bannerBean);
             }
         }
+
+        mPresenter.checkUpdate();
+
     }
 
     private void bindTab() {
@@ -194,6 +200,43 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
 
     @Override
     public void sendPushDeviceFail(String msg) {
+
+    }
+
+    @Override
+    public void getUpdateDataSuccess(UpdateBean updateBean) {
+        if (updateBean.buildVersion > Double.valueOf(PuJingUtils.getVersion(this))){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this).setMessage("请升级更新app").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    /*mApkUrl = bean1.getInstall_url();
+                    deleteApkFile();
+                    downloadApkFile(dialog);*/
+
+                    UpdateService.startAction(MainActivity.this,updateBean.downloadURL,updateBean.buildName);
+
+                }
+            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+//            builder.create().setCanceledOnTouchOutside(false);
+            //  builder.setCancelable(false);
+            /*builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    finish();
+                }
+            });*/
+            builder.show();
+        }
+    }
+
+    @Override
+    public void getDataFail(String msg) {
 
     }
 }

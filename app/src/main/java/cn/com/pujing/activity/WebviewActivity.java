@@ -51,11 +51,19 @@ public class WebviewActivity extends BaseActivity {
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.addJavascriptInterface(new AndroidJavascriptInterface(this), "Android");
         webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+                view.setBackground(getResources().getDrawable(R.drawable.loading));
+            }
+
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 view.setVisibility(View.GONE);
-                UToast.show(WebviewActivity.this,R.string.net_error_tip);
+                UToast.show(WebviewActivity.this,R.string.banner_error_tip);
+                finish();
             }
         });
         webView.loadUrl(url);

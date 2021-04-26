@@ -8,6 +8,7 @@ import cn.com.pujing.entity.BillsItemBean;
 import cn.com.pujing.entity.MyBillBean;
 import cn.com.pujing.entity.MyInfoBean;
 import cn.com.pujing.entity.OrderItemBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.http.rxjavahelper.RxObserver;
 import cn.com.pujing.http.rxjavahelper.RxResultHelper;
@@ -47,13 +48,13 @@ public class MyBillPresenter extends BasePresenter<MyBillView> {
     /**
      * 获取账单详情
      */
-    public void getMyBills(String billId){
-        PujingService.queryBills(billId)
+    public void getMyBills(String billId,int page){
+        PujingService.queryBills(billId,page)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxResultHelper.handleResult())
-                .subscribe(new RxObserver<MyBillBean>() {
+                .subscribe(new RxObserver<PagesBean<MyBillBean>>() {
                     @Override
-                    public void _onNext(MyBillBean orderItemBean) {
+                    public void _onNext(PagesBean<MyBillBean> orderItemBean) {
                         getView().getMyBillsSuccess(orderItemBean);
                     }
 

@@ -76,7 +76,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             case R.id.rl_current_edition:
 
 
-//                mPresenter.checkUpdate();
+                mPresenter.checkUpdate();
 
 
                 break;
@@ -109,13 +109,15 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             });
             builder.create().setCanceledOnTouchOutside(false);
             //  builder.setCancelable(false);
-            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            /*builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     finish();
                 }
-            });
+            });*/
             builder.show();
+        }else {
+            UToast.show(this,"此版本是最新版本");
         }
     }
 

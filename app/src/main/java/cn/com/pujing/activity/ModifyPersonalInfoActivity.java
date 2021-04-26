@@ -62,6 +62,7 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
 
         if (modifytype == 1){
             tvModifyPersonalinfoTitle.setText("修改昵称");
+            etModify.setText(myInfoBean.getNikeName());
             MAX_NUM = 20;
         }else if (modifytype == 2){
             tvModifyPersonalinfoTitle.setText("编辑个人签名");

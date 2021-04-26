@@ -8,14 +8,6 @@ import java.util.List;
  * description :我的账单
  */
 public class MyBillBean {
-    public int current;
-    public int pages;
-    public int size;
-    public int total;
-    public List<MyBillBean.MyBill> records;
-
-
-    public class MyBill{
 
         /**
          * 账单id
@@ -61,8 +53,6 @@ public class MyBillBean {
          * 创建时间
          */
         public String createTime;
-
-    }
 
 
 }

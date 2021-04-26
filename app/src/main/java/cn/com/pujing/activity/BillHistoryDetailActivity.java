@@ -1,18 +1,24 @@
 package cn.com.pujing.activity;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.pujing.R;
 import cn.com.pujing.adapter.BillsAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.HistoryBillsBean;
 import cn.com.pujing.entity.MyBillBean;
+import cn.com.pujing.entity.PagesBean;
 import cn.com.pujing.http.PujingService;
 import cn.com.pujing.presenter.BillHistoryDetailPresenter;
 import cn.com.pujing.util.PuJingUtils;
@@ -34,6 +40,8 @@ public class BillHistoryDetailActivity extends BaseActivity<BillHistoryDetailVie
     RecyclerView rvHistoryBills;
 
     private BillsAdapter billsAdapter;
+    private int page = 1;
+    private List<MyBillBean> myBillBeans;
 
     @Override
     public int getLayoutId() {
@@ -49,7 +57,7 @@ public class BillHistoryDetailActivity extends BaseActivity<BillHistoryDetailVie
 
         tvBillHistoryName.setText(billList.billMonth + "月账单");
 
-        mPresenter.getMyBills(billList.id+"");
+        mPresenter.getMyBills(billList.id+"",page);
 
 
         billsAdapter = new BillsAdapter(R.layout.adapter_bills,null);
@@ -62,6 +70,16 @@ public class BillHistoryDetailActivity extends BaseActivity<BillHistoryDetailVie
 
         tv_price.setText("￥" + PuJingUtils.removeAmtLastZero(billList.totalAmount));
 
+
+        billsAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                page++;
+
+                mPresenter.getMyBills(billList.id+"",page);
+            }
+        });
+
     }
 
     @Override
@@ -70,15 +88,36 @@ public class BillHistoryDetailActivity extends BaseActivity<BillHistoryDetailVie
     }
 
     @Override
-    public void getMyBillsSuccess(MyBillBean billsItemBean) {
+    public void getMyBillsSuccess(PagesBean<MyBillBean> billsItemBean) {
 
-        billsAdapter.setNewInstance(billsItemBean.records);
+        if (myBillBeans == null){
+            myBillBeans = billsItemBean.records;
+        }else {
+            if (page > 1){
+                myBillBeans.addAll(billsItemBean.records);
+            }else {
+                myBillBeans = billsItemBean.records;
+            }
+        }
 
+        billsAdapter.setNewInstance(myBillBeans);
 
+        if (myBillBeans.size() == billsItemBean.total) {
+            billsAdapter.getLoadMoreModule().loadMoreEnd();
+        }else {
+            billsAdapter.getLoadMoreModule().loadMoreComplete();
+        }
     }
 
     @Override
     public void getDataFail(String msg) {
         UToast.show(this,msg);
+    }
+
+    @OnClick({R.id.iv_history_bill_back})
+    public void onClick(View view){
+        if (view.getId() == R.id.iv_history_bill_back){
+            finish();
+        }
     }
 }

@@ -106,7 +106,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
 
         tvReserveDate.setText(cDay);
 
-        mPresenter.getLifeType(id,cDay);
+        mPresenter.getLifeType(id,cDay,category);
 
         serviceTypeAdapter = new ServiceTypeAdapter(R.layout.adapter_service_type,null);
 
@@ -193,7 +193,7 @@ public class LifeTypeActivity extends BaseActivity<LifeTypeView, LifeTypePresent
                             public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
                                 tvReserveTime.setText("");
                                 tvReserveDate.setText(year + "-" + String.format("%02d-%02d",(month+1),dayOfMonth));
-                                mPresenter.getLifeType(id,tvReserveDate.getText().toString());
+                                mPresenter.getLifeType(id,tvReserveDate.getText().toString(),category);
                                 /*if (lifeTypeBeans != null ) {
                                     if (lifeTypeBeans.serviceItemsList != null && lifeTypeBeans.serviceItemsList.size() >= pos) {
                                         mPresenter.getLifeTime(id + "", lifeTypeBeans.serviceItemsList.get(pos).id + "", tvReserveDate.getText().toString());

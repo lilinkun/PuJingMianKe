@@ -1,6 +1,7 @@
 package cn.com.pujing.view;
 
 import cn.com.pujing.entity.MyBillBean;
+import cn.com.pujing.entity.PagesBean;
 
 /**
  * author : liguo
@@ -9,7 +10,7 @@ import cn.com.pujing.entity.MyBillBean;
  */
 public interface BillHistoryDetailView {
 
-    public void getMyBillsSuccess(MyBillBean billsItemBean);
+    public void getMyBillsSuccess(PagesBean<MyBillBean> billsItemBean);
 
     public void getDataFail(String msg);
 
