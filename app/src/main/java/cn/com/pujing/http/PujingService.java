@@ -69,11 +69,11 @@ import io.reactivex.Observable;
  */
 public class PujingService {
 
-//    public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+      public static final String PREFIX = "http://121.37.234.112:80"; //测试
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
-//                public static final String PREFIX = "http://172.18.9.235"; // 君
+//    public static final String PREFIX = "http://172.18.9.235"; // 君
 //    public static final String PREFIX = "http://172.18.9.207"; // 文
 //    public static final String PREFIX = "http://172.18.9.168:8120"; // 鹏
 //    public static final String PREFIX = "http://172.18.19.131"; // 金
@@ -291,7 +291,7 @@ public class PujingService {
      * 首页Banner
      */
     public static Observable<ResponseData<List<BannerBean>>> getBannerData(int type) {
-        return OkGo.<ResponseData<List<BannerBean>>>get(BANNER + type)
+            return OkGo.<ResponseData<List<BannerBean>>>get(BANNER + type)
                 .converter(new JsonConvert<ResponseData<List<BannerBean>>>() {
                 })
                 .adapt(new ObservableBody<ResponseData<List<BannerBean>>>());

@@ -49,7 +49,7 @@ public class OrderTpeBean implements Serializable {
         List<OrderTpeBean> orderTpeBeans = new ArrayList<>();
 
         String[] orderStrs = {"全部","即将开始","正在报名","进行中"};
-        int[] orderId = {0,2,5,6};
+        int[] orderId = {0,5,2,6};
 
         for (int i = 0;i<orderStrs.length;i++) {
             OrderTpeBean orderTpeBean = new OrderTpeBean(orderId[i], orderStrs[i]);

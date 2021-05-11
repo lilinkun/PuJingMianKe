@@ -58,14 +58,14 @@ public class PuJingUtils {
 
             startDate = sdf.parse(startTime);
             endDate = sdf.parse(endTime);
-
-            if (endDate.after(startDate)) { //startDate是否在endTime之后，为true 表示  startTime>endTime
+            //startDate是否在endTime之后，为true 表示  startTime>endTime
+            if (endDate.after(startDate)) {
                 return true;
             } else {
                 return false;
             }
             /*
-            if (startDate.getTimee()>endDate.getEndTime())ho { //判断时间戳
+            if (startDate.getTimee()>endDate.getEndTime()){ //判断时间戳
                 return true;
             } else {
                return false;
@@ -341,6 +341,11 @@ public class PuJingUtils {
 
         switch (bannerBean.getType()){
             case 1:
+                Intent intent5 = new Intent(context, WebviewActivity.class);
+                intent5.putExtra(Constants.URL, PujingService.NOTICE);
+                context.startActivity(intent5);
+
+                break;
             case 2:
             case 4:
                 Intent intent = new Intent(context, WebviewActivity.class);

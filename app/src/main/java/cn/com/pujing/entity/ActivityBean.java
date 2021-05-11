@@ -14,7 +14,7 @@ public class ActivityBean implements Serializable {
     public String orderNumber;
     public String joinStatus;
     public String joinStatus_label;
-    public String orderStatus;
+    public int orderStatus;
     public String orderStatus_label;
     public String payStatus;
     public String payStatus_label;

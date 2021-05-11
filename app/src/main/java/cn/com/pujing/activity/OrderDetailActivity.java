@@ -39,6 +39,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
     TextView tvOrderStatus;
     @BindView(R.id.tv_total_price)
     TextView tvTotalPrice;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
     @BindView(R.id.tv_reserve_name)
     TextView tvReserveName;
     @BindView(R.id.tv_reserve_price)
@@ -59,6 +61,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
     TextView tvExitOrder;
     @BindView(R.id.tv_pay_status)
     TextView tvPayStatus;
+    @BindView(R.id.rl_receivable_money)
+    RelativeLayout rlReceivableMoney;
 
     private int type = 0;
 
@@ -98,8 +102,9 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
         tvOrderTime.setText(orderDetailBean.createTime);
         tvOrderStatus.setText(orderDetailBean.orderStatus_label);
         tvOrderNumber.setText(orderDetailBean.orderNunber);
-        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(orderDetailBean.money));
+        tvTotalPrice.setText("￥" + PuJingUtils.removeAmtLastZero(orderDetailBean.realityMoney));
         tvReservePrice.setText("￥" + PuJingUtils.removeAmtLastZero(orderDetailBean.money));
+        tvPrice.setText("￥" + PuJingUtils.removeAmtLastZero(orderDetailBean.receivableMoney));
         tvReserveName.setText(orderDetailBean.basicServiceItemsName);
         tvReserveDate.setText(orderDetailBean.orderingDate);
         tvReserveTime.setText(orderDetailBean.orderingTime);
@@ -107,6 +112,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
 
         if (orderDetailBean.orderingDate == null || orderDetailBean.orderingDate.toString().length() == 0){
             llOrderDetailDate.setVisibility(View.GONE);
+        }
+
+        if (orderDetailBean.payStatus == 1){
+            tvTotalPrice.setVisibility(View.GONE);
+        }else {
+            tvTotalPrice.setVisibility(View.VISIBLE);
         }
 
         if (orderDetailBean.customerVoucherId != null && orderDetailBean.customerVoucherId.toString().length() > 0){
@@ -136,6 +147,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
 
         ivReserveHead.setImageResource(R.drawable.ic_no_pic);
 
+        rlReceivableMoney.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -161,6 +174,13 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
 
         Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + venueDetailBean.topic)
                 .apply(PuJingUtils.setGlideCircle(10)).error(R.drawable.ic_no_pic).into(ivReserveHead);
+
+        if (venueDetailBean.status == 1){
+            tvExitOrder.setVisibility(View.VISIBLE);
+        }else {
+            tvExitOrder.setVisibility(View.GONE);
+        }
+        rlReceivableMoney.setVisibility(View.GONE);
     }
 
     @Override

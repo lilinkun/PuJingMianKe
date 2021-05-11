@@ -13,7 +13,12 @@ public class OrderDetailBean implements Serializable {
     //状态(1.待确认，2.已确认，3.已收款，4.已取消)
     public int orderStatus;
     public String orderStatus_label;
+    //订单金额
     public double money;
+    //实付金额
+    public double realityMoney;
+    //应收金额
+    public double receivableMoney;
     public String basicServiceItemsName;
     public String orderingTime;
     public String orderingDate;

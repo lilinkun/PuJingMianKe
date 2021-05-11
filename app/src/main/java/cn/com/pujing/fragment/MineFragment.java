@@ -82,7 +82,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                         .load(avatar)
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                         .error(R.mipmap.ic_login_head)
-                        .placeholder(R.mipmap.ic_login_head)
+                        .placeholder(R.drawable.loading)
                         .into(headImageView);
             }
         }
@@ -164,7 +164,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
         if (myInfoBean.getNikeName() != null) {
             tvName.setText(myInfoBean.getNikeName());
         }else {
-            tvName.setText("璞境会员" + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
+            tvName.setText(getText(R.string.pujing_vip) + myInfoBean.getPhone().substring(myInfoBean.getPhone().length() - 4,myInfoBean.getPhone().length()));
         }
 
         if (myInfoBean != null){
@@ -176,7 +176,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                     .load(myInfoBean.getAvatar())
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                     .error(R.mipmap.ic_login_head)
-                    .placeholder(R.mipmap.ic_login_head)
+                    .placeholder(R.drawable.loading)
                     .into(headImageView);
             Methods.saveKeyValue(Constants.AVATAR, myInfoBean.getAvatar(), getContext());
         }

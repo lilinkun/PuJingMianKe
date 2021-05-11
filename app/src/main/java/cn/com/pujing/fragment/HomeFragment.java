@@ -276,7 +276,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         if (banner != null) {
             banner.setVisibility(View.INVISIBLE);
         }
-        if (msg.contains("无效用户") || msg.contains("令牌失效")){
+        if (msg.contains("无效用户") || msg.contains("令牌失效") || msg.contains("无效令牌")){
             mLoginOut++;
             if (mLoginOut == 1) {
                 Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());
@@ -339,7 +339,7 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
 
     @Override
     public void getDataError(String message) {
-        if (message.contains("无效用户")|| message.contains("令牌失效")){
+        if (message.contains("无效用户")|| message.contains("令牌失效") || message.contains("无效令牌")){
             mLoginOut++;
             if (mLoginOut == 1) {
                 Methods.saveKeyValue(Constants.AUTHORIZATION, "", getActivity());

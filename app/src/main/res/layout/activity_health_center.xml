@@ -60,8 +60,7 @@
     <com.youth.banner.Banner
         android:id="@+id/banner_life_service"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_height="200dp"
         />
 
 

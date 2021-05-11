@@ -35,6 +35,8 @@ public class RestBanquetsBean implements Serializable {
     public String createTime; //下单时间
 
     public String orderStatus_label;
+    //订单状态:1.待确认,2.已确认,3.已出餐,4.已结单-待付款,5.已完成,6.已取消
+    public int orderStatus;
 
     /**
      * 订单金额

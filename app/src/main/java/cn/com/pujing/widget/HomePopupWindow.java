@@ -31,6 +31,7 @@ import java.util.List;
 
 import butterknife.internal.Utils;
 import cn.com.pujing.R;
+import cn.com.pujing.activity.ActivitiesActivity;
 import cn.com.pujing.activity.CommunityCalendarActivity;
 import cn.com.pujing.activity.FeedbackActivity;
 import cn.com.pujing.activity.HealthCenterActivity;
@@ -123,8 +124,7 @@ public class HomePopupWindow extends PopupWindow {
                     Intent intent = new Intent(context, LifeServiceActivity.class);
                     context.startActivity(intent);
                 } else if (context.getString(R.string.exercise).equals(gridItem.title)) {
-                    MainActivity mainActivity = (MainActivity) context;
-                    mainActivity.setCurPos(2);
+                    context.startActivity(new Intent(context, ActivitiesActivity.class));
                 } else if (context.getString(R.string.community_calendar).equals(gridItem.title)) {
                     context.startActivity(new Intent(context, CommunityCalendarActivity.class));
                 } else if (context.getString(R.string.restaurant).equals(gridItem.title)) {

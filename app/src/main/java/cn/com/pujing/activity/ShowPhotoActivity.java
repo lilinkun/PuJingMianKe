@@ -152,7 +152,13 @@ public class ShowPhotoActivity extends BaseActivity<ShowPhotoView, ShowPhotoPres
     }
 
     @Override
-    public void getDataError(String message) {
-        UToast.show(this, message);
+    public void getDataError(String msg) {
+        if (msg.contains("sorry")){
+            msg = msg.substring(5,msg.length());
+            UToast.show(this,msg);
+            finish();
+        }else {
+            UToast.show(this, msg);
+        }
     }
 }

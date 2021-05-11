@@ -80,6 +80,8 @@ public class UploadFile {
                 //本地文件的绝对路径
                 String srcPath = filePath;
 
+                String path = data.prefixurl + data.key;
+
                 //若存在初始化分块上传的 UploadId，则赋值对应的 uploadId 值用于续传；否则，赋值 null
                 String uploadId = null;
                 // 上传文件
@@ -105,9 +107,11 @@ public class UploadFile {
                                     lisener.onUploadData(jsonObject,"");
                                 }else {
                                     HashMap<String, String> params = new HashMap<>();
-                                    params.put(Constants.AVATAR, result.accessUrl);
+                                    params.put(Constants.AVATAR, path);
+//                                    params.put(Constants.AVATAR, result.accessUrl);
                                     JSONObject jsonObject = new JSONObject(params);
-                                    lisener.onUploadData(jsonObject,result.accessUrl);
+                                    lisener.onUploadData(jsonObject,path);
+//                                    lisener.onUploadData(jsonObject,result.accessUrl);
                                 }
                             }
                         });

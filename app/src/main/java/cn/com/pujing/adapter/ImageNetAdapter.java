@@ -35,6 +35,12 @@ public class ImageNetAdapter extends BannerAdapter<BannerBean, ImageHolder> {
         }else if (type == 1) {
             imageView = (ImageView) BannerUtils.getView(parent, R.layout.banner_image1);
         }
+
+        /*ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+        layoutParams.width = 1000 ;
+        layoutParams.height = 800 ;
+        imageView.setLayoutParams(layoutParams);*/
+
         //通过裁剪实现圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             BannerUtils.setBannerRound(imageView, 15);

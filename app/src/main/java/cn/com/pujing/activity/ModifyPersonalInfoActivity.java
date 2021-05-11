@@ -66,6 +66,7 @@ public class ModifyPersonalInfoActivity extends BaseActivity<ModifyPersonalInfoV
             MAX_NUM = 20;
         }else if (modifytype == 2){
             tvModifyPersonalinfoTitle.setText("编辑个人签名");
+            etModify.setText(myInfoBean.getSignature());
             MAX_NUM = 50;
         }else if (modifytype == 3){
             tvModifyPersonalinfoTitle.setText("选择出生日期");

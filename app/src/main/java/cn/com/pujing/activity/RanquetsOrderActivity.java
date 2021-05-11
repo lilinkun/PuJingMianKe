@@ -138,6 +138,10 @@ public class RanquetsOrderActivity extends BaseActivity<RanquetsOrderView, Ranqu
         if(restOrderBean.getReservationType() == 1){
             tvExitOrder.setVisibility(View.GONE);
         }
+
+        if(restOrderBean.orderStatus == 4 || restOrderBean.orderStatus == 5 || restOrderBean.orderStatus == 6){
+            llOrderRestBottom.setVisibility(View.GONE);
+        }
     }
 
     @Override

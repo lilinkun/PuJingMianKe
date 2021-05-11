@@ -47,7 +47,6 @@
 
             </LinearLayout>
 
-
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
@@ -92,20 +91,22 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner_another"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="@dimen/dp_10"
-                app:layout_constraintBottom_toBottomOf="@id/iv_top_line"
-                app:layout_constraintEnd_toStartOf="@+id/tv_more_notice"
+                app:layout_constraintBottom_toBottomOf="@id/tv_more_notice"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_top_line" />
+                app:layout_constraintTop_toTopOf="@id/tv_more_notice" />
 
             <TextView
                 android:id="@+id/tv_more_notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/more"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_14"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_top_line"
                 app:layout_constraintBottom_toBottomOf="@id/iv_top_line"

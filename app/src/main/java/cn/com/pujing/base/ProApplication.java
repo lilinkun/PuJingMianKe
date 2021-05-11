@@ -10,6 +10,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 
 import cn.com.pujing.util.Constants;
+import cn.com.pujing.util.HttpInterceptor;
 import cn.com.pujing.util.Methods;
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
@@ -30,7 +31,7 @@ public class ProApplication extends Application {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        HttpInterceptor loggingInterceptor = new HttpInterceptor("OkGo",this);
         loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
         loggingInterceptor.setColorLevel(java.util.logging.Level.INFO);
         builder.addInterceptor(loggingInterceptor);
