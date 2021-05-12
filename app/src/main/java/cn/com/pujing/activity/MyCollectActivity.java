@@ -126,7 +126,7 @@ public class MyCollectActivity extends BaseActivity<MyCollectView, MyCollectPres
             }
         }
 
-        myCollectAdapter.setNewInstance(pagesBean.records);
+        myCollectAdapter.setNewInstance(collectBeans);
 
         if (collectBeans.size() == pagesBean.total) {
             myCollectAdapter.getLoadMoreModule().loadMoreEnd();
