@@ -76,9 +76,9 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         tvDetails.setText(myFeedbackBean.content);
 
         if (myFeedbackBean.acceptanceStatus == 1) {
-            tvReplyTime.setText(myFeedbackBean.updateTime);
+            tvReplyTime.setText(myFeedbackBean.replierTime);
             tvReplyContent.setText(myFeedbackBean.replyContent);
-            tvReplyName.setText(myFeedbackBean.accountName);
+            tvReplyName.setText(myFeedbackBean.replierUserName);
             llMyfeedbackReply.setVisibility(View.VISIBLE);
         }
 
