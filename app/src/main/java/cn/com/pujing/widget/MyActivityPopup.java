@@ -104,7 +104,7 @@ public class MyActivityPopup extends PopupWindow {
             }
         });
 
-        GridLayoutManager gridLayoutManager1 = new GridLayoutManager(context,4);
+        MaxCountLayoutManager gridLayoutManager1 = new MaxCountLayoutManager(context,4);
 
         GridActivityAdapter gridOrderAdapter1 = new GridActivityAdapter(R.layout.adapter_grid_order, OrderTpeBean.activityBeans(activityTypeBeans),-1);
 

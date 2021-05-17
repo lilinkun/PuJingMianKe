@@ -40,7 +40,7 @@ public class OrderListDetailAdapter extends BaseQuickAdapter<RestBanquetsBean.Or
 
         ImageView imageView = baseViewHolder.getView(R.id.iv_reserve_head);
 
-        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + orderFoodList.getCoverPic()).into(imageView);
+        Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + orderFoodList.getCoverPic()).placeholder(R.drawable.ic_no_pic).into(imageView);
 
 
     }

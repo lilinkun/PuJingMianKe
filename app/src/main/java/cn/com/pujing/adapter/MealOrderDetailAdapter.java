@@ -46,9 +46,9 @@ public class MealOrderDetailAdapter extends BaseQuickAdapter<RoutineRecordBean.C
 
         if (cycleMealVoList.coverPic != null){
             if (cycleMealVoList.coverPic.contains(",")){
-                Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + cycleMealVoList.coverPic.split(",")).error(R.color.gray_line).into(ivMealPic);
+                Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + cycleMealVoList.coverPic.split(",")).error(R.drawable.ic_no_pic).into(ivMealPic);
             }else {
-                Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + cycleMealVoList.coverPic).error(R.color.gray_line).into(ivMealPic);
+                Glide.with(context).load(PujingService.PREFIX + PujingService.IMG + cycleMealVoList.coverPic).error(R.drawable.ic_no_pic).into(ivMealPic);
             }
         }
 
