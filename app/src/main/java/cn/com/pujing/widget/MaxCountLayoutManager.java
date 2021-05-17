@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 /**
  * author : liguo
  * date : 2021/5/17 16:23
- * description :
+ * description : 设置recyclerview高度的最高值
  */
 public class MaxCountLayoutManager extends GridLayoutManager {
     private int maxCount = 4;
