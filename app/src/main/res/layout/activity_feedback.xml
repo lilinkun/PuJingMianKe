@@ -173,7 +173,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_input_text"
-        android:gravity="left"
+        android:gravity="start"
         android:hint="尊敬的客户您好！我们很乐意分享你的感受，欢迎提出意见和建议，我们会认真对待您的反馈，感谢您的关注和支持，将参考您的建议来改善我们的服务。"
         android:padding="10dp"
         android:textSize="14sp"
@@ -206,6 +206,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_length_limit" />
 
+
+
     <ImageView
         android:id="@+id/iv_upload"
         android:layout_width="120dp"
@@ -214,6 +216,7 @@
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_upload"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_upload_prompt" />
 
@@ -245,10 +248,23 @@
         android:paddingEnd="@dimen/dp_10"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/iv_upload"
         app:layout_constraintStart_toStartOf="@+id/iv_upload"
         app:layout_constraintEnd_toEndOf="@+id/iv_upload"
         />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_feedback_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_upload_prompt"
+        />
+
 
     <TextView
         android:id="@+id/tv_submit"

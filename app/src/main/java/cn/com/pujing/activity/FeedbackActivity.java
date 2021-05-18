@@ -2,6 +2,7 @@ package cn.com.pujing.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
@@ -30,6 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.adapter.FeedBackAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.AttachmentBean;
 import cn.com.pujing.entity.FeedbackBean;
@@ -43,7 +47,7 @@ import cn.com.pujing.widget.FeedbackPopup;
 import cn.com.pujing.widget.ShowImagesDialog;
 import cn.com.pujing.widget.ShowVideoDialog;
 
-public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener {
+public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener, FeedBackAdapter.FeedbackOnclickListener {
 
     @BindView(R.id.et_content)
     EditText etContent;
@@ -65,8 +69,10 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     RadioGroup rgFeedbackType;
     @BindView(R.id.iv_video)
     ImageView ivVideo;
+    @BindView(R.id.rv_feedback_pic)
+    RecyclerView rvFeedbackPic;
 
-    private int id = 0;
+    private String id;
     private ImageView uploadImageView;
     private int checkedId;
     private int MAX_NUM = 500;
@@ -74,6 +80,8 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
     List<FeedbackBean> feedbackBeans;
     String content;
     private String type = "1";
+    private ArrayList<String> picStrs = new ArrayList<>();
+    private FeedBackAdapter feedBackAdapter;
 
     @Override
     public int getLayoutId() {
@@ -92,6 +100,16 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
         etContent.addTextChangedListener(watcher);
 
         mPresenter.giveFeedback();
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+
+        picStrs.add("1");
+
+        feedBackAdapter = new FeedBackAdapter(R.layout.adapter_feedback,picStrs,this);
+
+        rvFeedbackPic.setLayoutManager(gridLayoutManager);
+
+        rvFeedbackPic.setAdapter(feedBackAdapter);
 
     }
 
@@ -142,15 +160,24 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
             loading(true);
 
-            if (filePath != null && filePath.trim().length() > 0){
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                UploadFile.UpLoadFile(FeedbackActivity.this,filePath,"feedback",FeedbackActivity.this);
+            if (picStrs != null && picStrs.size() > 0 && !picStrs.get(0).equals("1")){
+                int picLength = 0;
+                if (picStrs.size() > 1){
+                    picLength = picStrs.size() - 1;
+                }else {
+                    picLength = picStrs.size();
+                }
+                for (int i = 0;i < picLength; i++) {
+                    String picPath = picStrs.get(i);
+                    new Thread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    UploadFile.UpLoadFile(FeedbackActivity.this, picPath, "feedback", FeedbackActivity.this);
+                                }
                             }
-                        }
-                ).start();
+                    ).start();
+                }
             }else {
                 submitData();
             }
@@ -176,13 +203,17 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                     Uri uri = data.getData();
                     filePath = FileUtils.getFilePathByUri(this, uri);
 
-                    Glide.with(this).load(filePath).into(uploadImageView);
-
+//                    Glide.with(this).load(filePath).into(uploadImageView);
+                    picStrs.set(picStrs.size()-1,filePath);
                     if (filePath.endsWith(".mp4")){
-                        ivVideo.setVisibility(View.VISIBLE);
+
                     }else {
-                        ivVideo.setVisibility(View.GONE);
+                        if (picStrs.size() < 9) {
+                            picStrs.add("1");
+                        }
                     }
+
+                    feedBackAdapter.setList(picStrs);
 
                 }
 
@@ -205,7 +236,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
      */
     private void submitData(){
 
-        mPresenter.saveFeedBack(content,String.valueOf(this.id),String.valueOf(findViewById(rgFeedbackType.getCheckedRadioButtonId()).getTag()));
+        mPresenter.saveFeedBack(content,id,String.valueOf(findViewById(rgFeedbackType.getCheckedRadioButtonId()).getTag()));
     }
 
     @Override
@@ -267,8 +298,21 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
     @Override
     public void saveFeedFile(AttachmentBean attachmentBean) {
-        this.id = attachmentBean.id;
-        submitData();
+        if (id == null || id.equals("")) {
+            id = attachmentBean.id + "";
+        }else {
+            id = id + "," + attachmentBean.id;
+        }
+
+        if (picStrs.size() == 1) {
+            if (id.split(",").length == picStrs.size()) {
+                submitData();
+            }
+        }else {
+            if (id.split(",").length == picStrs.size()-1) {
+                submitData();
+            }
+        }
     }
 
 
@@ -288,5 +332,42 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                     }
                 }
         );
+    }
+
+    @Override
+    public void exitItem(int position) {
+        picStrs.remove(position);
+        if (picStrs.size() == 0){
+            picStrs.add("1");
+        }
+        feedBackAdapter.setList(picStrs);
+    }
+
+    @Override
+    public void feedbackUpload() {
+
+        if (picStrs.size() == 1) {
+            Intent intent = new Intent(Intent.ACTION_PICK, null);
+//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/* video/*");
+            startActivityForResult(intent, 110);
+        }else {
+            Intent intent = new Intent(Intent.ACTION_PICK, null);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, 110);
+        }
+    }
+
+    @Override
+    public void feedbackPic(int position) {
+        if (picStrs.get(position).endsWith("mp4")){
+            new ShowVideoDialog(this,picStrs.get(position),1).show();
+        }else {
+            ArrayList<String> strings = picStrs;
+            if (strings.size() != 9) {
+                strings.remove(strings.size() - 1);
+            }
+            new ShowImagesDialog(this, strings, position, 1).show();
+        }
     }
 }

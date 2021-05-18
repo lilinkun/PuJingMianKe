@@ -5,14 +5,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.pujing.R;
+import cn.com.pujing.adapter.FeedBackDetailAdapter;
 import cn.com.pujing.base.BaseActivity;
 import cn.com.pujing.entity.MyFeedbackBean;
 import cn.com.pujing.http.PujingService;
@@ -46,6 +55,11 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
     LinearLayout llMyfeedbackReply;
     @BindView(R.id.iv_feedback)
     ImageView ivFeedback;
+    @BindView(R.id.rv_feedback_pic)
+    RecyclerView rvFeedbackPic;
+
+    private FeedBackDetailAdapter feedBackDetailAdapter;
+    private List<String> strings = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -60,6 +74,22 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
         int id = getIntent().getIntExtra("id",0);
 
         mPresenter.getFeedbakDetail(id);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+
+        feedBackDetailAdapter = new FeedBackDetailAdapter(R.layout.adapter_feedback_detail,null);
+
+        rvFeedbackPic.setLayoutManager(gridLayoutManager);
+
+        rvFeedbackPic.setAdapter(feedBackDetailAdapter);
+
+        /*feedBackDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                new ShowImagesDialog(MyFeedbackDetailActivity.this,strings,position,0).show();
+            }
+        });*/
+
 
     }
 
@@ -82,8 +112,16 @@ public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView,
             llMyfeedbackReply.setVisibility(View.VISIBLE);
         }
 
-        Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + myFeedbackBean.photo)
-                .placeholder(R.drawable.loading).error(R.drawable.ic_no_pic).into(ivFeedback);
+        if (myFeedbackBean.photo.contains(",")){
+            strings = Arrays.asList(myFeedbackBean.photo.split(","));
+        }else {
+            strings.add(myFeedbackBean.photo);
+        }
+
+        feedBackDetailAdapter.setNewInstance(strings);
+
+        /*Glide.with(this).load(PujingService.PREFIX + PujingService.IMG + myFeedbackBean.photo)
+                .placeholder(R.drawable.loading).error(R.drawable.ic_no_pic).into(ivFeedback);*/
 
         /*ArrayList<String> strings = new ArrayList<>();
         strings.add(myFeedbackBean.photo);

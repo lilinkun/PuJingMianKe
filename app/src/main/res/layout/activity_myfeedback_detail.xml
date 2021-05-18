@@ -215,8 +215,15 @@
             android:id="@+id/iv_feedback"
             android:layout_width="105dp"
             android:layout_height="105dp"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/dp_10"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_feedback_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
     </LinearLayout>
