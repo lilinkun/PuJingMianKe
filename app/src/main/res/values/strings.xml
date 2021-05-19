@@ -185,6 +185,7 @@
     <string name="banquets_reserve">宴会预订下单</string>
     <string name="order_meal_reserve">零点餐订单</string>
     <string name="reserve_tip">预订须知</string>
+    <string name="description_tip">描述</string>
     <string name="reserve_tip_value">必须提前两天预订，如需取消预订，请提前一天通过APP操作或联系客服。</string>
 
     <string name="rightnow_order">现点</string>

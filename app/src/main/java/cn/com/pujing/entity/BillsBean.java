@@ -23,11 +23,11 @@ public class BillsBean implements Serializable {
      */
     public String billTime;
     /**
-     * 结算状态
+     * 操作人
      */
     public int operatorUser;
     /**
-     * 	操作人
+     * 	结算状态 1的时候已出账 2是已结清
      */
     public int payStatus;
     /**

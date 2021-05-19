@@ -3,6 +3,7 @@ package cn.com.pujing.activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,12 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
     TextView tvGoodsNum;
     @BindView(R.id.tv_notice)
     TextView tvNotice;
+    @BindView(R.id.tv_description)
+    TextView tvDescription;
+    @BindView(R.id.ll_notice)
+    LinearLayout llNotice;
+    @BindView(R.id.ll_description)
+    LinearLayout llDescription;
 
 
     private RestSortDetailBean restSortDetailBean;
@@ -118,6 +125,14 @@ public class SetMealDetailActivity extends BaseActivity<SetMealDetailView, SetMe
         this.restMealBean = restMealBean;
         tvMealName.setText(restMealBean.mealName);
         tvNotice.setText(restMealBean.notice);
+        tvDescription.setText(restMealBean.description);
+
+        if (restMealBean.notice == null || restMealBean.notice.equals("")){
+            llNotice.setVisibility(View.GONE);
+        }
+        if (restMealBean.description == null || restMealBean.description.equals("")){
+            llDescription.setVisibility(View.GONE);
+        }
 
         ArrayList<String> strings = new ArrayList<>();
         if(restMealBean.coverPic!=null ) {

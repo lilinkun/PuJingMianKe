@@ -26,6 +26,11 @@ public class RestMealBean {
     public String mealName;
 
     /**
+     * 描述
+     */
+    public String description;
+
+    /**
      * 图片
      */
     public String coverPic;

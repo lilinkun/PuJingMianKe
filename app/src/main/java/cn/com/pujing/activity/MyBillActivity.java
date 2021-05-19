@@ -142,7 +142,7 @@ public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> im
         this.currendId = currendId;
         page = 1;
         if (currendId == 0) {
-            if (billsBeans.get(0).arrearage == 0) {
+            if (billsBeans.get(0).payStatus == 2) {
                 tvArrearage.setText("本月已结清");
                 tvArrearageTip.setText("本月无需再还");
             } else {
