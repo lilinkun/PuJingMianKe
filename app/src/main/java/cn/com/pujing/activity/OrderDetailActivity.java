@@ -155,13 +155,14 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDeta
     public void queryVenueSuccess(VenueDetailBean venueDetailBean) {
         this.venueDetailBean = venueDetailBean;
         tvOrderTime.setText(venueDetailBean.orderTime);
-        if (venueDetailBean.status == 1){
+        /*if (venueDetailBean.status == 1){
             tvOrderStatus.setText("待确认");
         }else if (venueDetailBean.status == 2){
             tvOrderStatus.setText("已确认");
         }else if (venueDetailBean.status == 3){
             tvOrderStatus.setText("已取消");
-        }
+        }*/
+        tvOrderStatus.setText(venueDetailBean.status_label);
         tvOrderNumber.setText(venueDetailBean.orderNum);
         tvTotalPrice.setText("￥" + 0);
         tvReservePrice.setText("￥" + 0);

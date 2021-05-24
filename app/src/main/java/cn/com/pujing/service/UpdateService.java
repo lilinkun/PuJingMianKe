@@ -121,6 +121,7 @@ public class UpdateService extends Service {
         private void installAPK(Context context, String path) {
             File file = new File(path);
             if (file.exists()) {
+
                 openFile(file, context);
             } else {
                 UToast.showShort(getApplicationContext(), "下载失败!");

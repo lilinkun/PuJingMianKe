@@ -162,10 +162,21 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
 
             if (picStrs != null && picStrs.size() > 0 && !picStrs.get(0).equals("1")){
                 int picLength = 0;
-                if (picStrs.size() > 1){
-                    picLength = picStrs.size() - 1;
-                }else {
-                    picLength = picStrs.size();
+
+                if (picStrs.size() == 9){
+                    if (picStrs.get(8).equals("1")){
+                        picLength = picStrs.size() - 1;
+                    }else {
+                        picLength = 9;
+                    }
+                }else
+                {
+                    if (picStrs.size() > 1 && picStrs.size() < 9) {
+                        picLength = picStrs.size() - 1;
+                    } else {
+
+                        picLength = picStrs.size();
+                    }
                 }
                 for (int i = 0;i < picLength; i++) {
                     String picPath = picStrs.get(i);
@@ -309,8 +320,20 @@ public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresent
                 submitData();
             }
         }else {
-            if (id.split(",").length == picStrs.size()-1) {
-                submitData();
+            if (picStrs.size() == 9){
+                if(picStrs.get(8).equals("1")){
+                    if (id.split(",").length == picStrs.size()-1) {
+                        submitData();
+                    }
+                }else {
+                    if (id.split(",").length == picStrs.size()) {
+                        submitData();
+                    }
+                }
+            }else {
+                if (id.split(",").length == picStrs.size()-1) {
+                    submitData();
+                }
             }
         }
     }

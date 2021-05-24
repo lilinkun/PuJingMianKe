@@ -30,11 +30,24 @@ public class RestRoutineChildAdapter extends BaseQuickAdapter<SetMealBean.FoodDe
     protected void convert(@NotNull BaseViewHolder baseViewHolder, SetMealBean.FoodDetailVoList foodDetailVoList) {
 
         if (baseViewHolder.getAdapterPosition() > 0){
-            if (data.get(baseViewHolder.getAdapterPosition() - 1).getCategoryName().equals(foodDetailVoList.getCategoryName())){
-                baseViewHolder.setVisible(R.id.tv_child_restroutine_type,false);
+            if(data.get(baseViewHolder.getAdapterPosition() - 1).getCategoryName() != null && foodDetailVoList.getCategoryName() != null) {
+                if (data.get(baseViewHolder.getAdapterPosition() - 1).getCategoryName().equals(foodDetailVoList.getCategoryName())) {
+                    baseViewHolder.setVisible(R.id.tv_child_restroutine_type, false);
+                } else {
+                    baseViewHolder.setVisible(R.id.tv_child_restroutine_type, true);
+                }
             }else {
-
-                baseViewHolder.setVisible(R.id.tv_child_restroutine_type,true);
+                if (foodDetailVoList.getCategoryName() == null) {
+                    baseViewHolder.setVisible(R.id.tv_child_restroutine_type, false);
+                }else {
+                    baseViewHolder.setVisible(R.id.tv_child_restroutine_type, true);
+                }
+            }
+        }else {
+            if (foodDetailVoList.getCategoryName() == null) {
+                baseViewHolder.setVisible(R.id.tv_child_restroutine_type, false);
+            }else {
+                baseViewHolder.setVisible(R.id.tv_child_restroutine_type, true);
             }
         }
 

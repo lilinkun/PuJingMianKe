@@ -1,8 +1,10 @@
 package cn.com.pujing.activity;
 
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,6 +18,7 @@ import cn.com.pujing.base.BasePresenter;
 import cn.com.pujing.fragment.ForgetPwdFragment;
 import cn.com.pujing.fragment.LoginFragment;
 import cn.com.pujing.fragment.RegisterFragment;
+import cn.com.pujing.util.PermissUtil;
 
 /**
  * 登录界面
@@ -47,6 +50,8 @@ public class LoginActivity extends BaseActivity {
                 loginFragment.setName(getIntent().getStringExtra("name"));
             }
         }
+
+        PermissUtil.checkPermissions(this,PermissUtil.appNeedPermissions);
 
     }
 
@@ -136,4 +141,14 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissUtil.PERMISSON_REQUESTCODE){
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED){
+                finish();
+            }
+        }
+    }
 }

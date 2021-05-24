@@ -39,6 +39,10 @@ public class VenueDetailBean implements Serializable {
      */
     public int status;
     /**
+     * 状态值
+     */
+    public String status_label;
+    /**
      * 主题图片
      */
     public String topic;
