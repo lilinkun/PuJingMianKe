@@ -25,6 +25,8 @@ public class SetMealBean implements Serializable {
         private String categoryName; //菜品分类名称
         private String foodCategoryName;  //名称
         private String categoryType; //菜品类别
+        private int number;//数量
+        private String calculateUnit;//单位
         public String getCategoryType() {
             return categoryType;
         }
@@ -43,6 +45,22 @@ public class SetMealBean implements Serializable {
 
         public String getFoodCategoryName() {
             return foodCategoryName;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        public String getCalculateUnit() {
+            return calculateUnit;
+        }
+
+        public void setCalculateUnit(String calculateUnit) {
+            this.calculateUnit = calculateUnit;
         }
 
         public void setFoodCategoryName(String foodCategoryName) {

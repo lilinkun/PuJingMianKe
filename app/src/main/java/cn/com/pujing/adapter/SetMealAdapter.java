@@ -39,7 +39,11 @@ public class SetMealAdapter extends BaseMultiItemQuickAdapter<RestSortDetailBean
         }else {
 
             baseViewHolder.setText(R.id.tv_setmeal_detail_name,restSortDetailBean.getName());
-            baseViewHolder.setText(R.id.tv_setmeal_detail_number, "(" + restSortDetailBean.getGoodsNum() + restSortDetailBean.getCalculateUnit() + ")");
+            if(restSortDetailBean.getCalculateUnit() == null) {
+                baseViewHolder.setText(R.id.tv_setmeal_detail_number, "(" + restSortDetailBean.getGoodsNum() + ")");
+            }else {
+                baseViewHolder.setText(R.id.tv_setmeal_detail_number, "(" + restSortDetailBean.getGoodsNum() + restSortDetailBean.getCalculateUnit() + ")");
+            }
         }
     }
 }

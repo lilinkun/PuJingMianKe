@@ -53,6 +53,10 @@ public class RestRoutineChildAdapter extends BaseQuickAdapter<SetMealBean.FoodDe
 
         baseViewHolder.setText(R.id.tv_child_restroutine_type,foodDetailVoList.getCategoryName());
 
-        baseViewHolder.setText(R.id.tv_child_restroutine_content,foodDetailVoList.getFoodCategoryName());
+        if (foodDetailVoList.getCalculateUnit() == null) {
+            baseViewHolder.setText(R.id.tv_child_restroutine_content, foodDetailVoList.getFoodCategoryName() + "(" + foodDetailVoList.getNumber() + ")");
+        }else {
+            baseViewHolder.setText(R.id.tv_child_restroutine_content, foodDetailVoList.getFoodCategoryName() + "(" + foodDetailVoList.getNumber() + foodDetailVoList.getCalculateUnit() + ")");
+        }
     }
 }
