@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_day_top"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <View
+        android:id="@+id/view_day_line"
+        android:layout_width="4dp"
+        android:layout_height="21dp"
+        android:background="@drawable/bg_line_rest"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll_day_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        >
+
+        <TextView
+            android:id="@+id/tv_week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_date_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_circle"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:background="@drawable/bg_circle_rest"
+        android:layout_toRightOf="@+id/ll_day_name"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        />
+
+
+</RelativeLayout>
