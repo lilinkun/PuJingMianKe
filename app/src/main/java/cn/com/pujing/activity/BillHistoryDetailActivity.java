@@ -28,7 +28,7 @@ import cn.com.pujing.view.BillHistoryDetailView;
 /**
  * author : liguo
  * date : 2021/4/12 18:40
- * description :
+ * description : 历史账单
  */
 public class BillHistoryDetailActivity extends BaseActivity<BillHistoryDetailView, BillHistoryDetailPresenter> implements BillHistoryDetailView{
 

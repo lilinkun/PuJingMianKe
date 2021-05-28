@@ -47,6 +47,10 @@ import cn.com.pujing.widget.FeedbackPopup;
 import cn.com.pujing.widget.ShowImagesDialog;
 import cn.com.pujing.widget.ShowVideoDialog;
 
+/**
+ * author : liguo
+ * description :意见反馈
+ */
 public class FeedbackActivity extends BaseActivity<FeedbackView, FeedbackPresenter> implements FeedbackView, View.OnClickListener, FeedbackPopup.FeedbackTypeClickListener, UploadFile.UploadListener, FeedBackAdapter.FeedbackOnclickListener {
 
     @BindView(R.id.et_content)

@@ -41,8 +41,8 @@ import cn.com.pujing.util.Urls;
 import cn.com.pujing.widget.ShowImagesDialog;
 
 /**
- * 照片墙
  * @author liguo
+ * 照片墙
  */
 public class PhotoWallActivity extends BaseActivity implements View.OnClickListener {
     private NodeSectionAdapter nodeSectionAdapter;

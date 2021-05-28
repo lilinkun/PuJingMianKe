@@ -27,7 +27,7 @@ import cn.com.pujing.view.OrderDetailView;
 /**
  * author : liguo
  * date : 2021/4/9 15:54
- * description :
+ * description :订单详情
  */
 public class OrderDetailActivity extends BaseActivity<OrderDetailView, OrderDetailPresenter> implements OrderDetailView{
 

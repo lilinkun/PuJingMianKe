@@ -35,7 +35,8 @@ import cn.com.pujing.view.MyOrderView;
 import cn.com.pujing.widget.MyOrderPopup;
 
 /**
- * 我的订单
+ * author : liguo
+ * description :我的订单
  */
 public class MyOrderActivity extends BaseActivity<MyOrderView, MyOrderPresenter> implements MyOrderView, MyOrderPopup.MyOrderClickListener {
 

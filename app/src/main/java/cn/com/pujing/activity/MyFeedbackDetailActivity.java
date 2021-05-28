@@ -33,7 +33,7 @@ import cn.com.pujing.widget.ShowImagesDialog;
 /**
  * author : liguo
  * date : 2021/4/15 18:42
- * description :
+ * description :我的反馈详情
  */
 public class MyFeedbackDetailActivity extends BaseActivity<MyFeedbackDetailView, MyFeedbackDetailPresenter> implements MyFeedbackDetailView{
 

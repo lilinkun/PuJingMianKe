@@ -10,7 +10,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.20"
+        versionName "1.191"
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
@@ -90,6 +90,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.readystatesoftware.chuck:library:1.0.4'
 
+    /**
+     * 仿饿了吗列表
+     */
     implementation 'com.kunminx.linkage:linkage-recyclerview:1.9.2'
 
     /*ButterKnife*/

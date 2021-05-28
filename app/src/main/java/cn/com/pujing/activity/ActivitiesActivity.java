@@ -27,6 +27,10 @@ import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.ActivitiesView;
 import cn.com.pujing.widget.MyActivityPopup;
 
+/**
+ * author:liguo
+ * 活动activity
+ */
 public class ActivitiesActivity extends BaseActivity<ActivitiesView, ActivitiesPresenter> implements ActivitiesView,MyActivityPopup.MyOrderClickListener {
 
     @BindView(R.id.stl_list_activities)

@@ -29,7 +29,8 @@ import cn.com.pujing.util.UToast;
 import cn.com.pujing.view.MyBillView;
 
 /**
- * 我的账单
+ * author : liguo
+ * description :我的账单
  */
 public class MyBillActivity extends BaseActivity<MyBillView, MyBillPresenter> implements MyBillView {
 

@@ -27,7 +27,7 @@ import cn.com.pujing.widget.CommemorationDayDialog;
 /**
  * author : liguo
  * date : 2021/4/13 9:30
- * description :
+ * description : 纪念日
  */
 public class CommemorationDayActivity extends BaseActivity<CommemorationDayView, CommemorationDayPresenter> implements CommemorationDayView, CommemorationDayDialog.OnDialogCDListener, CommemorationDayAdapter.SetDayListener {
 

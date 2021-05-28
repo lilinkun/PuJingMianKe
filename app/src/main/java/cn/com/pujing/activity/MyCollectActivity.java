@@ -36,7 +36,7 @@ import cn.com.pujing.widget.MyOrderPopup;
 /**
  * author : liguo
  * date : 2021/4/16 10:51
- * description :
+ * description :我的收藏
  */
 public class MyCollectActivity extends BaseActivity<MyCollectView, MyCollectPresenter> implements MyCollectView, MyOrderPopup.MyOrderClickListener {
 

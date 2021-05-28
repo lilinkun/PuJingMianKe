@@ -32,7 +32,7 @@ import cn.com.pujing.view.MyActivitiesView;
 /**
  * author : liguo
  * date : 2021/4/19 14:02
- * description :
+ * description :我的活动
  */
 public class MyActivitiesActivity extends BaseActivity<MyActivitiesView, MyActivitiesPresenter> implements MyActivitiesView{
 

@@ -27,7 +27,7 @@ import cn.com.pujing.view.MyFeedBackView;
 /**
  * author : liguo
  * date : 2021/4/15 13:51
- * description :
+ * description :我的反馈
  */
 public class MyFeedBackActivity extends BaseActivity<MyFeedBackView, MyFeedBackPresenter> implements MyFeedBackView{
 

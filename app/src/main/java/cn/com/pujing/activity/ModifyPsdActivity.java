@@ -22,7 +22,7 @@ import cn.com.pujing.view.ModifyPsdView;
 /**
  * author : liguo
  * date : 2021/4/21 11:34
- * description :
+ * description : 修改密码
  */
 public class ModifyPsdActivity extends BaseActivity<ModifyPsdView, ModifyPsdPresenter> implements ModifyPsdView{
 

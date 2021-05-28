@@ -28,6 +28,7 @@ import cn.com.pujing.entity.RoutineRecordBean;
 public class MealOrderAdapter extends BaseQuickAdapter<RoutineRecordBean.CycleMeals, BaseViewHolder> {
 
     private Context context;
+    private String[] weekDaysName = {  "星期一", "星期二", "星期三", "星期四", "星期五","星期六", "星期日" };
 
     public MealOrderAdapter(int layoutResId, @Nullable List<RoutineRecordBean.CycleMeals> data,Context context) {
         super(layoutResId, data);
@@ -38,7 +39,11 @@ public class MealOrderAdapter extends BaseQuickAdapter<RoutineRecordBean.CycleMe
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, RoutineRecordBean.CycleMeals routineRecordBean) {
 
-        baseViewHolder.setText(R.id.tv_order_date,routineRecordBean.time);
+        if (baseViewHolder.getAdapterPosition() < 7) {
+            baseViewHolder.setText(R.id.tv_order_date, routineRecordBean.time + "  " + weekDaysName[baseViewHolder.getAdapterPosition()]);
+        }else {
+            baseViewHolder.setText(R.id.tv_order_date, routineRecordBean.time);
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
 

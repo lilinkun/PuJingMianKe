@@ -70,7 +70,7 @@ import io.reactivex.Observable;
 public class PujingService {
 
 //      public static final String PREFIX = "http://121.37.234.112:80"; //测试
-    public static final String PREFIX = "http://81.69.128.107:80"; //生产
+//    public static final String PREFIX = "http://81.69.128.107:80"; //生产
 //    public static final String PREFIX = "http://42.49.141.68:2080"; //测试
 //    public static final String PREFIX = "http://172.18.9.94"; //曜
 //    public static final String PREFIX = "http://172.18.9.235"; // 君
@@ -80,7 +80,7 @@ public class PujingService {
 //      public static final String PREFIX = "http://172.18.9.214"; // 勇
 //    public static final String PREFIX = "http://172.18.19.219:8340"; // 周涛
 //    public static final String PREFIX = "http://172.18.19.240"; // 鸿
-//    public static final String PREFIX = "http://172.18.7.21";
+    public static final String PREFIX = "http://172.18.7.21";
 //    public static final String PREFIX = "http://172.18.19.240:8080"; // 华
     public static String GETPUBLICKEY = PREFIX + "/upms-service/rsa/getPublicKey";
 
